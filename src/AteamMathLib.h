@@ -54,7 +54,7 @@ namespace MathLib
      * @param n Natural number
      * @return Nth root of x
      */
-    double nroot (double x, double n);
+    double nroot (double x, unsigned int n);
 
 
     // TODO
