@@ -20,13 +20,16 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h $(GTEST_DIR)/include/gtest/intern
 
 test : $(TESTS)
 
+downloadgtest :
+	git clone https://github.com/google/googletest/
+
 clean :
 	rm -f $(TESTS) gtest.a gtest_main.a *.o
 
 # Setting sources
 GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 
-gtest-all.o : $(GTEST_SRCS_)
+gtest-all.o : $(GTEST_DIR) $(GTEST_SRCS_)
 	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
 		$(GTEST_DIR)/src/gtest-all.cc
 
@@ -48,3 +51,6 @@ tdd_tests.o : $(SRC_DIR)/tdd_tests.cpp $(SRC_DIR)/AteamMathLib.h $(GTEST_HEADERS
 
 tdd_tests : AteamMathLib.o tdd_tests.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
+
+$(GTEST_HEADERS) :
+	$(error Please run "make downloadgtest" first!)
