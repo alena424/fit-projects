@@ -14,8 +14,7 @@ CXXFLAGS += -g -Wall -Wextra -pthread
 TESTS = tdd_tests
 
 # Google test headers
-GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
-								$(GTEST_DIR)/include/gtest/internal/*.h
+GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h $(GTEST_DIR)/include/gtest/internal/*.h
 
 # Build targets
 
