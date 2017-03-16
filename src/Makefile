@@ -43,7 +43,7 @@ gtest.a : gtest-all.o
 gtest_main.a : gtest-all.o gtest_main.o
 	$(AR) $(ARFLAGS) $@ $^
 
-AteamMathLib.o : $(SRC_DIR)/AteamMathLib.h $(GTEST_HEADERS)
+AteamMathLib.o : $(SRC_DIR)/AteamMathLib.h $(SRC_DIR)/AteamMathLib.cpp $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/AteamMathLib.cpp
 
 tdd_tests.o : $(SRC_DIR)/tdd_tests.cpp $(SRC_DIR)/AteamMathLib.h $(GTEST_HEADERS)
@@ -53,4 +53,4 @@ tdd_tests : AteamMathLib.o tdd_tests.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
 $(GTEST_HEADERS) :
-	$(error Please run "make downloadgtest" first!)
+	$(error GoogleTest not found. Please run "make downloadgtest" first)
