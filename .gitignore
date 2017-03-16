@@ -30,4 +30,4 @@
 
 # Gtest
 src/googletest/
-src/tdd_test
+src/tdd_tests
