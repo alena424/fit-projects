@@ -19,15 +19,15 @@
 namespace MathLib
 {
 
-  unsigned long long int AteamMathLib::factorial (unsigned short int x) {
+  unsigned long long int AteamMathLib::factorial (short int x) {
     // IMPLEMENTATION
   }
 
-  double AteamMathLib::power (double x, unsigned int n) {
+  double AteamMathLib::power (double x, int n) {
     // IMPLEMENTATION 
   }
 
-  double AteamMathLib::nroot (double x, unsigned int n) {
+  double AteamMathLib::nroot (double x, int n) {
     // IMLEMENTATION 
   }
 

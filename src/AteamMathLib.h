@@ -30,7 +30,7 @@ namespace MathLib
       * @param x Integer in <0, 21>
       * @return Integer of maximum value 5.1090942e+19
       */
-    unsigned long long int factorial (unsigned short int x);
+    static unsigned long long int factorial (short int x);
 
 
     /**
@@ -42,7 +42,7 @@ namespace MathLib
      * @param n Natural number
      * @return x^n
      */
-    double power (double x, unsigned int n);
+    static double power (double x, int n);
 
 
     /**
@@ -54,7 +54,7 @@ namespace MathLib
      * @param n Natural number
      * @return Nth root of x
      */
-    double nroot (double x, double n);
+    static double nroot (double x, int n);
 
 
     // TODO

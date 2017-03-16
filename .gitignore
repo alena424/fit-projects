@@ -27,3 +27,7 @@
 *.exe
 *.out
 *.app
+
+# Gtest
+src/googletest/
+src/tdd_tests
