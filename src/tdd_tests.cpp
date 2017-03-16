@@ -16,34 +16,145 @@
 #include "AteamMathLib.h"
 #include "googletest/googletest/include/gtest/gtest.h"
 
+using namespace MathLib;
+
 TEST(Factorial, TestCase1) 
 {
-  EXPECT_EQ(1, 1);
+  unsigned long long int fac = AteamMathLib::factorial(0);
+  EXPECT_EQ(fac, 1);
 }
 
 TEST(Factorial, TestCase2)
 {
-  EXPECT_EQ(1, 1);
+  unsigned long long int fac;
+  fac = AteamMathLib::factorial(1);
+  EXPECT_EQ(fac, 1);
+  fac = AteamMathLib::factorial(2);
+  EXPECT_EQ(fac, 2);
+  fac = AteamMathLib::factorial(3);
+  EXPECT_EQ(fac, 6);
 }
+
+TEST(Factorial, TestCase3)
+{
+  unsigned long long int fac;
+  EXPECT_ANY_THROW(fac = AteamMathLib::factorial(-1));
+}
+
+TEST(Factorial, TestCase4)
+{
+  unsigned long long int fac;
+  EXPECT_ANY_THROW(fac = AteamMathLib::factorial(22));
+  EXPECT_ANY_THROW(fac = AteamMathLib::factorial(42));
+}
+
+TEST(Factorial, TestCase5)
+{
+  unsigned long long int fac;
+  fac = AteamMathLib::factorial(20);
+  EXPECT_EQ(fac, 2432902008176640000);
+  fac = AteamMathLib::factorial(15);
+  EXPECT_EQ(fac, 1307674368000);
+  fac = AteamMathLib::factorial(10);
+  EXPECT_EQ(fac, 3628800);
+}
+
+TEST(Factorial, TestCase6)
+{
+  unsigned long long int fac;
+  EXPECT_ANY_THROW(fac = AteamMathLib::factorial(-1));
+  EXPECT_ANY_THROW(fac = AteamMathLib::factorial(-10));
+  EXPECT_ANY_THROW(fac = AteamMathLib::factorial(-10000));
+}
+
 
 TEST(Power, TestCase1)
 {
-  EXPECT_EQ(1, 1);
+  double pow;
+  pow = AteamMathLib::power(0, 1);
+  EXPECT_EQ(pow, 0);
+  pow = AteamMathLib::power(0, 5);
+  EXPECT_EQ(pow, 0);
+  pow = AteamMathLib::power(0, 10000);
+  EXPECT_EQ(pow, 0);
 }
 
 TEST(Power, TestCase2)
 {
-  EXPECT_EQ(1, 1);
+  double pow;
+  pow = AteamMathLib::power(1, 0);
+  EXPECT_EQ(pow, 1);
+  pow = AteamMathLib::power(1, 2);
+  EXPECT_EQ(pow, 1);
+  pow = AteamMathLib::power(1, 42);
+  EXPECT_EQ(pow, 1);
+}
+
+TEST(Power, TestCase3)
+{
+  double pow;
+  EXPECT_ANY_THROW(pow = AteamMathLib::power(1, -1));
+  EXPECT_ANY_THROW(pow = AteamMathLib::power(1, -4));
+}
+
+TEST(Power, TestCase4)
+{
+  double pow;
+  EXPECT_NO_THROW(pow = AteamMathLib::power(-1, 1));
+  EXPECT_EQ(pow, -1);
+  EXPECT_NO_THROW(pow = AteamMathLib::power(-1, 2));
+  EXPECT_EQ(pow, 1);
+  EXPECT_NO_THROW(pow = AteamMathLib::power(-2, 2));
+  EXPECT_EQ(pow, 4);
+  EXPECT_NO_THROW(pow = AteamMathLib::power(-2, 3));
+  EXPECT_EQ(pow, -8);
+}
+
+TEST(Power, TestCase5)
+{
+  double pow;
+  pow = AteamMathLib::power(0.252525, 2);
+  EXPECT_EQ(pow, 0.06376887562);
+  pow = AteamMathLib::power(-3.14, 5);
+  EXPECT_EQ(pow, -305.244776182);
+}
+
+TEST(Power, TestCase6)
+{
+  double pow;
+  pow = AteamMathLib::power(20, 7);
+  EXPECT_EQ(pow, 1280000000);
+  pow = AteamMathLib::power(20, 9);
+  EXPECT_EQ(pow, 512000000000);
 }
 
 TEST(Nroot, TestCase1)
 {
-  EXPECT_EQ(1, 1);
+  double root;
+  root = AteamMathLib::nroot(4, 2);
+  EXPECT_EQ(root, 2);
+  root = AteamMathLib::nroot(10000, 2);
+  EXPECT_EQ(root, 100);
 }
 
 TEST(Nroot, TestCase2)
 {
-  EXPECT_EQ(1, 1);
+  double root;
+  root = AteamMathLib::nroot(0, 2);
+  EXPECT_EQ(root, 0);
+  root = AteamMathLib::nroot(0, 1000);
+  EXPECT_EQ(root, 0);
+  root = AteamMathLib::nroot(0, 2424242);
+  EXPECT_EQ(root, 0);
+}
+
+TEST(Nroot, TestCase3)
+{
+  double root;
+  root = AteamMathLib::nroot(-42, 1);
+  EXPECT_EQ(root, -42);
+  root = AteamMathLib::nroot(99.424242, 1);
+  EXPECT_EQ(root, 99.424242);
 }
 
 int main (int argc, char **argv)
