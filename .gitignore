@@ -36,7 +36,7 @@ src/tdd_tests
 /.qmake.cache
 /.qmake.stash
 #*.pro.user
-#*.pro.user.*
+*.pro.user.*
 *.qbs.user
 *.qbs.user.*
 *.moc
