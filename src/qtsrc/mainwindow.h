@@ -19,7 +19,7 @@ public:
 
 private slots:
     void on_pushButton_clicked();
-
+    void on_eqv_clicked();
     void on_plus_clicked();
 
 private:

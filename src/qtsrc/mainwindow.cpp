@@ -19,11 +19,17 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->minus, SIGNAL(clicked()), this, SLOT(on_plus_clicked()));
     connect(ui->times, SIGNAL(clicked()), this, SLOT(on_plus_clicked()));
     connect(ui->div, SIGNAL(clicked()), this, SLOT(on_plus_clicked()));
+    //connect(ui->eqv, SIGNAL(clicked()), this, SLOT(on_eqv_clicked()));
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_eqv_clicked()
+{
+    ui->plainTextEdit->appendPlainText("42");
 }
 
 void MainWindow::on_pushButton_clicked()
