@@ -52,7 +52,33 @@ namespace MathLib
   }
 
   double AteamMathLib::nroot (double x, int n) {
-    // IMLEMENTATION 
+    	double result = 1;
+	double lastNumber = 1;
+	int i = 1;
+	
+	// check input values and special outputs
+	if ( n <= 0 ) {
+		throw new std::runtime_error("Invalid value n.");
+	}
+	else if ( x == 0 ) {
+		return 0;
+	}
+	else if ( n == 1 ) {
+		return x;
+	}
+	else if ( x < 0 ) {
+		throw new std::runtime_error("Invalid value x.");	
+	}
+
+	// own calculation
+	while ( lastNumber > 0.0000001 or lastNumber < -0.0000001 )
+	{
+		lastNumber = (x / power(result, n - 1) - result ) / n;
+		result += lastNumber;
+		i++;
+	}
+	
+	return result;
   }
 
 }
