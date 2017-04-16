@@ -36,7 +36,19 @@ namespace MathLib
   }
 
   double AteamMathLib::power (double x, int n) {
-    // IMPLEMENTATION 
+    	double result = 1;
+	
+	// check the range of the exponent n
+	if ( n < 0 ) {
+		throw new std::runtime_error("Out of range.");
+	}
+
+	// own calculation
+	for ( int i = 1; i <= n; i++ ) {
+		result *= x;
+	}
+
+	return result;
   }
 
   double AteamMathLib::nroot (double x, int n) {
