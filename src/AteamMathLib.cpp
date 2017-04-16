@@ -20,7 +20,19 @@ namespace MathLib
 {
 
   unsigned long long int AteamMathLib::factorial (short int x) {
-    // IMPLEMENTATION
+  	unsigned long long int result = 1;
+
+	// check the range of the input number
+	if ( x < 0 or x > 21 ) {
+		throw new std::runtime_error("Out of range.");
+	}
+
+	// own calculation
+	for ( short int i = x; i > 0; i-- ) {
+		result *= i;
+	}
+	
+	return result;
   }
 
   double AteamMathLib::power (double x, int n) {
