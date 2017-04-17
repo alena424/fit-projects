@@ -93,3 +93,16 @@ void MainWindow::on_operation_clicked()
     }
     isChange = 0;
 }
+
+void MainWindow::on_dot_clicked()
+{
+    QString string = ui->tapped_nums->toPlainText();
+    ui->tapped_nums->clear();
+    if ( !string.contains(".") ) {
+        ui->tapped_nums->insertPlainText(string + ".");
+        isChange = 1;
+    }
+    else {
+        ui->tapped_nums->insertPlainText(string);
+    }
+}

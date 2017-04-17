@@ -48,6 +48,13 @@ private slots:
      */
     void on_operation_clicked();
 
+    /**
+     * @brief Button with dot clicked
+     *
+     * Function to control button with dot.
+     */
+    void on_dot_clicked();
+
 
 private:
     Ui::MainWindow *ui;

@@ -40,7 +40,7 @@
      <string>1</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="dot">
     <property name="geometry">
      <rect>
       <x>70</x>
