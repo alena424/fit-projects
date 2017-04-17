@@ -55,6 +55,13 @@ private slots:
      */
     void on_dot_clicked();
 
+    /**
+     * @brief Button with C clicked
+     *
+     * Function to control the display clear button.
+     */
+    void on_clear_clicked();
+
 
 private:
     Ui::MainWindow *ui;

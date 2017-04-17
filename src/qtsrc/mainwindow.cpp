@@ -106,3 +106,11 @@ void MainWindow::on_dot_clicked()
         ui->tapped_nums->insertPlainText(string);
     }
 }
+
+void MainWindow::on_clear_clicked()
+{
+    ui->display->clear();
+    ui->tapped_nums->clear();
+    ui->tapped_nums->insertPlainText("0");
+    isChange = 0;
+}
