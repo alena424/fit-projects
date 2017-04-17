@@ -379,7 +379,7 @@ margin: 0px;</string>
      <string>+</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_16">
+   <widget class="QPushButton" name="mod">
     <property name="geometry">
      <rect>
       <x>210</x>
@@ -421,7 +421,7 @@ margin: 0px;</string>
      <string>x!</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_20">
+   <widget class="QPushButton" name="power">
     <property name="geometry">
      <rect>
       <x>210</x>
@@ -442,7 +442,7 @@ margin: 0px;</string>
      <string>x</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_21">
+   <widget class="QPushButton" name="sqrt">
     <property name="geometry">
      <rect>
       <x>280</x>

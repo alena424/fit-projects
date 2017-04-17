@@ -33,6 +33,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->minus, SIGNAL(clicked()), this, SLOT(on_operation_clicked()));
     connect(ui->times, SIGNAL(clicked()), this, SLOT(on_operation_clicked()));
     connect(ui->div, SIGNAL(clicked()), this, SLOT(on_operation_clicked()));
+    connect(ui->factorial, SIGNAL(clicked()), this, SLOT(on_operation_clicked()));
+    connect(ui->power, SIGNAL(clicked()), this, SLOT(on_operation_clicked()));
+    connect(ui->sqrt, SIGNAL(clicked()), this, SLOT(on_operation_clicked()));
+    connect(ui->mod, SIGNAL(clicked()), this, SLOT(on_operation_clicked()));
 }
 
 MainWindow::~MainWindow()
@@ -73,6 +77,15 @@ void MainWindow::on_operation_clicked()
         QStringList displayList = displayString.split(" ");
         QString firstOperand = displayList[0];
         QString oldOperation = displayList[1];
+        if ( newOperation == "x!" ) {
+            newOperation = "!";
+        } else if ( newOperation == "x" ) {
+            newOperation = "^";
+        } else if ( newOperation == "√x" ) {
+            newOperation = "yroot";
+        } else if ( newOperation == "Mod" ) {
+            newOperation = "mod";
+        }
 
         // TODO Call functions from math library
         float result;
@@ -84,6 +97,14 @@ void MainWindow::on_operation_clicked()
             result = firstOperand.toFloat() * secondOperand.toFloat();
         } else if ( oldOperation == "÷" ) {
             result = firstOperand.toFloat() / secondOperand.toFloat();
+        } else if ( oldOperation == "!" ) {
+            result = firstOperand.toFloat() + secondOperand.toFloat();
+        } else if ( oldOperation == "^" ) {
+            result = firstOperand.toFloat() + secondOperand.toFloat();
+        } else if ( oldOperation == "yroot" ) {
+            result = firstOperand.toFloat() + secondOperand.toFloat();
+        } else if ( oldOperation == "mod" ) {
+           result = firstOperand.toInt() % secondOperand.toInt();
         }
 
         ui->display->clear();
