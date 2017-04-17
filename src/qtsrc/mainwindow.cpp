@@ -1,3 +1,15 @@
+/**
+  * @file  mainwindow.cpp
+  * @brief Definitions of functions for the GUI.
+  *
+  * File containing definitions of functions for GUI, their implementation etc.
+  *
+  * @author Daniel Uhricek (xuhric00)
+  * @author Peter Uhrin (xuhrin02)
+  * @author Alena Tesarova (xtesar36)
+  * @author Jan Sorm (xsormj00)
+  */
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -6,20 +18,21 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(ui->tlac2, SIGNAL(clicked()), this, SLOT(on_pushButton_clicked()));
-    connect(ui->tlac3, SIGNAL(clicked()), this, SLOT(on_pushButton_clicked()));
-    connect(ui->tlac4, SIGNAL(clicked()), this, SLOT(on_pushButton_clicked()));
-    connect(ui->tlac5, SIGNAL(clicked()), this, SLOT(on_pushButton_clicked()));
-    connect(ui->tlac6, SIGNAL(clicked()), this, SLOT(on_pushButton_clicked()));
-    connect(ui->tlac7, SIGNAL(clicked()), this, SLOT(on_pushButton_clicked()));
-    connect(ui->tlac8, SIGNAL(clicked()), this, SLOT(on_pushButton_clicked()));
-    connect(ui->tlac9, SIGNAL(clicked()), this, SLOT(on_pushButton_clicked()));
-    connect(ui->tlac0, SIGNAL(clicked()), this, SLOT(on_pushButton_clicked()));
+    connect(ui->number1, SIGNAL(clicked()), this, SLOT(on_numberButton_clicked()));
+    connect(ui->number2, SIGNAL(clicked()), this, SLOT(on_numberButton_clicked()));
+    connect(ui->number3, SIGNAL(clicked()), this, SLOT(on_numberButton_clicked()));
+    connect(ui->number4, SIGNAL(clicked()), this, SLOT(on_numberButton_clicked()));
+    connect(ui->number5, SIGNAL(clicked()), this, SLOT(on_numberButton_clicked()));
+    connect(ui->number6, SIGNAL(clicked()), this, SLOT(on_numberButton_clicked()));
+    connect(ui->number7, SIGNAL(clicked()), this, SLOT(on_numberButton_clicked()));
+    connect(ui->number8, SIGNAL(clicked()), this, SLOT(on_numberButton_clicked()));
+    connect(ui->number9, SIGNAL(clicked()), this, SLOT(on_numberButton_clicked()));
+    connect(ui->number0, SIGNAL(clicked()), this, SLOT(on_numberButton_clicked()));
 
-    connect(ui->minus, SIGNAL(clicked()), this, SLOT(on_plus_clicked()));
-    connect(ui->times, SIGNAL(clicked()), this, SLOT(on_plus_clicked()));
-    connect(ui->div, SIGNAL(clicked()), this, SLOT(on_plus_clicked()));
-    //connect(ui->eqv, SIGNAL(clicked()), this, SLOT(on_eqv_clicked()));
+    connect(ui->plus, SIGNAL(clicked()), this, SLOT(on_operation_clicked()));
+    connect(ui->minus, SIGNAL(clicked()), this, SLOT(on_operation_clicked()));
+    connect(ui->times, SIGNAL(clicked()), this, SLOT(on_operation_clicked()));
+    connect(ui->div, SIGNAL(clicked()), this, SLOT(on_operation_clicked()));
 }
 
 MainWindow::~MainWindow()
@@ -32,64 +45,51 @@ void MainWindow::on_eqv_clicked()
     ui->plainTextEdit->appendPlainText("42");
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_numberButton_clicked()
 {
-    QTextDocument *text = ui->plainTextEdit->document();
-    int numberOfLines = ui->plainTextEdit->blockCount();
-    QString lines[numberOfLines];
-    for (int i = 0; i < numberOfLines; i++) {
-        QTextBlock line = text->findBlockByLineNumber(i);
-        lines[i] = line.text();
+    QString tapp_num = ui->tapped_nums->toPlainText();
+
+    if (((QPushButton *)sender())->text() == "0" and tapp_num == "0") {
+        return;
     }
 
-    ui->plainTextEdit->clear();
-    if (lines[0] != "0") {
-        ui->plainTextEdit->appendPlainText(lines[0]+((QPushButton *)sender())->text());
+    ui->tapped_nums->clear();
+    if (isChange) {
+        ui->tapped_nums->append(tapp_num+((QPushButton *)sender())->text());
     }
     else {
-        ui->plainTextEdit->appendPlainText(((QPushButton *)sender())->text());
-    }
-
-    for (int i = 1; i < numberOfLines; i++) {
-        ui->plainTextEdit->appendPlainText(lines[i]);
+        ui->tapped_nums->append(((QPushButton *)sender())->text());
+        isChange = 1;
     }
 }
 
-void MainWindow::on_plus_clicked()
+void MainWindow::on_operation_clicked()
 {
-    QTextDocument *text = ui->plainTextEdit->document();
-    int numberOfLines = ui->plainTextEdit->blockCount();
-    QString lines[numberOfLines];
-    for (int i = 0; i < numberOfLines; i++) {
-        QTextBlock line = text->findBlockByLineNumber(i);
-        lines[i] = line.text();
-    }
+    QString secondOperand = ui->tapped_nums->toPlainText();
+    QString newOperation = ((QPushButton *)sender())->text();
 
-    ui->plainTextEdit->clear();
-    if (numberOfLines == 3) {
-        QString symbol = lines[1];
-        int result;
-        if (symbol == "+") {
-            result = lines[2].toInt() + lines[0].toInt();
-        } else if (symbol == "-") {
-            result = lines[2].toInt() - lines[0].toInt();
-        } else if (symbol == "×") {
-            result = lines[2].toInt() * lines[0].toInt();
-        } else if (symbol == "÷") {
-            result = lines[2].toInt() / lines[0].toInt();
+    QString displayString = ui->display->toPlainText();
+    if ( displayString != "" ) {
+        QStringList displayList = displayString.split(" ");
+        QString firstOperand = displayList[0];
+        QString oldOperation = displayList[1];
+
+        // TODO Call functions from math library
+        float result;
+        if ( oldOperation == "+" ) {
+            result = firstOperand.toFloat() + secondOperand.toFloat();
+        } else if ( oldOperation == "−" ) {
+            result = firstOperand.toFloat() - secondOperand.toFloat();
+        } else if ( oldOperation == "×" ) {
+            result = firstOperand.toFloat() * secondOperand.toFloat();
+        } else if ( oldOperation == "÷" ) {
+            result = firstOperand.toFloat() / secondOperand.toFloat();
         }
-        ui->plainTextEdit->insertPlainText("0\n"+((QPushButton *)sender())->text()+"\n"+QString::number(result));
+
+        ui->display->clear();
+        ui->display->append( QString::number(result) + " " + newOperation );
     } else {
-        ui->plainTextEdit->insertPlainText("0\n"+((QPushButton *)sender())->text()+"\n"+lines[0]);
+        ui->display->append(secondOperand + " " + newOperation);
     }
-
-/*    QTextDocument *text = ui->plainTextEdit->document();
-    QTextBlock firstLine = text->findBlockByLineNumber(0);
-    QString str = firstLine.text();
-    ui->plainTextEdit->clear();
-    ui->plainTextEdit->insertPlainText("0\n"+((QPushButton *)sender())->text()+"\n"+str);*/
-    //int vysledek = ui->lineEdit_2->text().toInt() + ui->lineEdit->text().toInt();
-
-      //  ui->lineEdit->setText(QString::number(vysledek));
-        //ui->lineEdit_2->setText("0");
+    isChange = 0;
 }

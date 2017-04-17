@@ -1,3 +1,17 @@
+/**
+  * @file  mainwindow.h
+  * @brief Declarations of functions for the GUI.
+  *
+  * Header file for the GUI for project CalculaTron.
+  * Contains the prototypes for the GUI functions,
+  * constants, global variables and macros.
+  *
+  * @author Daniel Uhricek (xuhric00)
+  * @author Peter Uhrin (xuhrin02)
+  * @author Alena Tesarova (xtesar36)
+  * @author Jan Sorm (xsormj00)
+  */
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -16,11 +30,24 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    /** a global variable to indicate whether the initial number has been changed */
+    int isChange = 0;
 
 private slots:
-    void on_pushButton_clicked();
-    void on_eqv_clicked();
-    void on_plus_clicked();
+    /**
+     * @brief NumberButton clicked
+     *
+     * Function to control all buttons with numbers.
+     */
+    void on_numberButton_clicked();
+
+    /**
+     * @brief Button with operation clicked
+     *
+     * Function to control all buttons with operations.
+     */
+    void on_operation_clicked();
+
 
 private:
     Ui::MainWindow *ui;
