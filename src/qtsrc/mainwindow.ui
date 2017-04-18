@@ -292,7 +292,7 @@
      <string>÷</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="eqv">
+   <widget class="QPushButton" name="equal">
     <property name="geometry">
      <rect>
       <x>210</x>

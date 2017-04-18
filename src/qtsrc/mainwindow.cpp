@@ -37,6 +37,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->power, SIGNAL(clicked()), this, SLOT(on_operation_clicked()));
     connect(ui->sqrt, SIGNAL(clicked()), this, SLOT(on_operation_clicked()));
     connect(ui->mod, SIGNAL(clicked()), this, SLOT(on_operation_clicked()));
+
+    connect(ui->equal, SIGNAL(clicked()), this, SLOT(on_operation_clicked()));
 }
 
 MainWindow::~MainWindow()
@@ -108,7 +110,12 @@ void MainWindow::on_operation_clicked()
         }
 
         ui->display->clear();
-        ui->display->append( QString::number(result) + " " + newOperation );
+        if ( newOperation == "=" ) {
+            ui->tapped_nums->clear();
+            ui->tapped_nums->append( QString::number(result) );
+        } else {
+            ui->display->append( QString::number(result) + " " + newOperation );
+        }
     } else {
         ui->display->append(secondOperand + " " + newOperation);
     }
