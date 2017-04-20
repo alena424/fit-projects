@@ -81,5 +81,26 @@ namespace MathLib
 	return result;
   }
 
+  
+  double AteamMathLib::addition (double x, double y) {
+	return x + y;
+  }
+
+  double AteamMathLib::subtraction (double x, double y) {
+  	return x - y;
+  }
+
+  double AteamMathLib::multiplication (double x, double y) {
+	return x * y;
+  }
+
+  double AteamMathLib::division (double x, double y) {
+
+	if ( y == 0 ) {
+		throw new std::runtime_error("Invalid value");
+	}
+	return x / y;
+  }
+
 }
 

@@ -57,6 +57,53 @@ namespace MathLib
     static double nroot (double x, int n);
 
 
+    /**
+     * @brief  Addition
+     *
+     * Function for adding numbers
+     *
+     * @param x Double precision number
+     * @param y Double presicion number
+     * @return Sum of two numbers
+     */
+     static double addition (double x, double y);
+
+
+    /**
+     * @brief Subtraction
+     *
+     * Function for subtracting numbers
+     *
+     * @param x Double precision number
+     * @param y Double precision number
+     * @return Difference of two numbers
+     */
+     static double subtraction (double x, double y);
+
+
+    /**
+     * @brief Multiplication
+     *
+     * Function for multiplicating numbers
+     *
+     * @param x Double precision number
+     * @param y Double presicion number
+     * @return Product of two numbers
+     */
+     static double multiplication (double x, double y);
+
+    
+    /**
+     * @brief Division
+     *
+     * Function for dividing numbers
+     *
+     * @param x Double precision number
+     * @param x Double precision number except 0
+     * @return Quotient of two numbers
+     */
+     static double division (double x, double y);
+
     // TODO
     // ONE MORE FUNCTION
     
