@@ -379,7 +379,7 @@ margin: 0px;</string>
      <string>+</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="mod">
+   <widget class="QPushButton" name="log">
     <property name="geometry">
      <rect>
       <x>210</x>
@@ -397,7 +397,7 @@ margin: 0px;</string>
      <string notr="true">background-color: #00B64F;</string>
     </property>
     <property name="text">
-     <string>Mod</string>
+     <string>log x</string>
     </property>
    </widget>
    <widget class="QPushButton" name="factorial">

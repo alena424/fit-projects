@@ -35,23 +35,30 @@ public:
 
 private slots:
     /**
-     * @brief NumberButton clicked
+     * @brief Button with number was clicked
      *
      * Function to control all buttons with numbers.
+     * If someone clicks on the button with number,
+     * number on the button appears on the "tapped nums".
      */
-    void on_numberButton_clicked();
+    void clickOnNumberButton();
 
     /**
-     * @brief Button with operation clicked
+     * @brief Button with operation was clicked
      *
      * Function to control all buttons with operations.
+     * If someone clicks on the button with operation,
+     * so we find out what operation is going on.
+     * And accordingly we call the function from the math library
+     * and print the text on the display.
      */
-    void on_operation_clicked();
+    void clickOnOperationButton();
 
     /**
      * @brief Button with dot clicked
      *
      * Function to control button with dot.
+     * It prints a decimal point if no dot is not printed yet.
      */
     void on_dot_clicked();
 
@@ -59,6 +66,7 @@ private slots:
      * @brief Button with C clicked
      *
      * Function to control the display clear button.
+     * It deletes everything on the display and prints zero.
      */
     void on_clear_clicked();
 
