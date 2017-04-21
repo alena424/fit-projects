@@ -18,6 +18,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    this->setFixedSize( this->geometry().width(), this->geometry().height() );
+
+    // connections for buttons with numbers
     connect(ui->number1, SIGNAL(clicked()), this, SLOT(clickOnNumberButton()));
     connect(ui->number2, SIGNAL(clicked()), this, SLOT(clickOnNumberButton()));
     connect(ui->number3, SIGNAL(clicked()), this, SLOT(clickOnNumberButton()));
@@ -29,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->number9, SIGNAL(clicked()), this, SLOT(clickOnNumberButton()));
     connect(ui->number0, SIGNAL(clicked()), this, SLOT(clickOnNumberButton()));
 
+    // connections for buttons with operations
     connect(ui->plus, SIGNAL(clicked()), this, SLOT(clickOnOperationButton()));
     connect(ui->minus, SIGNAL(clicked()), this, SLOT(clickOnOperationButton()));
     connect(ui->times, SIGNAL(clicked()), this, SLOT(clickOnOperationButton()));

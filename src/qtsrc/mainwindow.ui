@@ -16,7 +16,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>CalculaTron</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QPushButton" name="number1">
