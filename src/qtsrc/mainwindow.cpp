@@ -103,14 +103,10 @@ void MainWindow::clickOnOperationButton()
             result = firstOperand.toDouble() * secondOperand.toDouble();
         } else if ( oldOperation == "÷" ) {
             result = firstOperand.toDouble() / secondOperand.toDouble();
-        } else if ( oldOperation == "!" ) {
-            result = firstOperand.toDouble() + secondOperand.toDouble();
         } else if ( oldOperation == "^" ) {
             result = firstOperand.toDouble() + secondOperand.toDouble();
         } else if ( oldOperation == "yroot" ) {
             result = firstOperand.toDouble() + secondOperand.toDouble();
-        } else if ( oldOperation == "log" ) {
-           result = firstOperand.toInt() % secondOperand.toInt();
         }
 
         // we write a calculated result
