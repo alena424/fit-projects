@@ -173,7 +173,7 @@ TEST(Nroot, TestCase4)
 TEST(Nroot, TestCase5)
 {
   double root;
-  EXPECT_ANY_THROW(root = AteamMathLib::nroot(-124123, 1));
+  EXPECT_ANY_THROW(root = AteamMathLib::nroot(-124123, 2));
 }
 
 

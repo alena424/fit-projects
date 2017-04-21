@@ -99,10 +99,21 @@ namespace MathLib
      * Function for dividing numbers
      *
      * @param x Double precision number
-     * @param x Double precision number except 0
+     * @param y Double precision number except 0
      * @return Quotient of two numbers
      */
      static double division (double x, double y);
+
+    
+    /**
+     * @brief The logarithm of x to base e
+     *
+     * Function for logarithming numbers
+     *
+     * @param x Double precision positive number
+     * @return The logarithm of positive real number x with respect to base e
+     */
+     static double logarithm (double x);
 
     // TODO
     // ONE MORE FUNCTION

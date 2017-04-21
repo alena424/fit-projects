@@ -54,6 +54,7 @@ namespace MathLib
   double AteamMathLib::nroot (double x, int n) {
     	double result = 1;
 	double lastNumber = 1;
+	double epsilon = 0.00000000001;
 	int i = 1;
 	
 	// check input values and special outputs
@@ -66,12 +67,12 @@ namespace MathLib
 	else if ( n == 1 ) {
 		return x;
 	}
-	else if ( x < 0 ) {
+	else if ( x < 0 and n % 2 == 0 ) {
 		throw new std::runtime_error("Invalid value x.");	
 	}
 
 	// own calculation
-	while ( lastNumber > 0.0000001 or lastNumber < -0.0000001 )
+	while ( lastNumber > epsilon or lastNumber < -epsilon )
 	{
 		lastNumber = (x / power(result, n - 1) - result ) / n;
 		result += lastNumber;
@@ -100,6 +101,41 @@ namespace MathLib
 		throw new std::runtime_error("Invalid value");
 	}
 	return x / y;
+  }
+
+  double AteamMathLib::logarithm ( double x ) {
+  	
+	double result, lastNumber;
+	double epsilon = 0.00000000001;
+
+	// check value of x
+	if ( x <= 0 ) {
+		throw new std::runtime_error("Invalid value");
+	}
+
+	// own calculation
+	int i = 2;
+	if ( x >= 1 ) {
+		lastNumber = ( x - 1 ) / x;
+		result = lastNumber;
+		while ( lastNumber > epsilon or lastNumber < -epsilon )
+		{
+			lastNumber *=  ( x - 1 ) * ( i - 1 ) / ( x * i );
+			result += lastNumber;
+			i++;
+		}
+	} else {
+		x = 1 - x;
+		lastNumber = -x;
+		result = lastNumber;
+		while ( lastNumber > epsilon or lastNumber < -epsilon ) {
+			lastNumber *= ( i - 1 ) * x / i;
+			result += lastNumber;
+			i++;
+		}
+	}
+	
+	return result;
   }
 
 }
