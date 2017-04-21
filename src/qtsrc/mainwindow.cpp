@@ -69,21 +69,21 @@ void MainWindow::on_operation_clicked()
 {
     QString secondOperand = ui->tapped_nums->toPlainText();
     QString newOperation = ((QPushButton *)sender())->text();
+    if ( newOperation == "x!" ) {
+        newOperation = "!";
+    } else if ( newOperation == "x" ) {
+        newOperation = "^";
+    } else if ( newOperation == "√x" ) {
+        newOperation = "yroot";
+    } else if ( newOperation == "Mod" ) {
+        newOperation = "mod";
+    }
 
     QString displayString = ui->display->toPlainText();
     if ( displayString != "" ) {
         QStringList displayList = displayString.split(" ");
         QString firstOperand = displayList[0];
         QString oldOperation = displayList[1];
-        if ( newOperation == "x!" ) {
-            newOperation = "!";
-        } else if ( newOperation == "x" ) {
-            newOperation = "^";
-        } else if ( newOperation == "√x" ) {
-            newOperation = "yroot";
-        } else if ( newOperation == "Mod" ) {
-            newOperation = "mod";
-        }
 
         // TODO Call functions from math library
         float result;
@@ -112,7 +112,7 @@ void MainWindow::on_operation_clicked()
         } else {
             ui->display->append( QString::number(result) + " " + newOperation );
         }
-    } else {
+    } else if ( newOperation != "=" ) {
         ui->display->append(secondOperand + " " + newOperation);
     }
     isChange = 0;
