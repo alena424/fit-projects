@@ -169,3 +169,9 @@ void MainWindow::on_clear_clicked()
     ui->tapped_nums->insertPlainText("0");
     isChange = 0;
 }
+
+void MainWindow::on_actionShow_help_triggered()
+{
+    QString appPath = QFileInfo(".").absolutePath();
+    QDesktopServices::openUrl( QUrl( "file:///" + appPath + "/CalculaTron/Dokumentace.pdf" ) );
+}

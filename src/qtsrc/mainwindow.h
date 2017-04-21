@@ -17,6 +17,7 @@
 
 #include <QMainWindow>
 #include <QTextBlock>
+#include <QDesktopServices>
 
 
 namespace Ui {
@@ -70,6 +71,12 @@ private slots:
      */
     void on_clear_clicked();
 
+    /**
+     * @brief Show pdf documentation
+     *
+     * Function opens the pdf documentation.
+     */
+    void on_actionShow_help_triggered();
 
 private:
     Ui::MainWindow *ui;
