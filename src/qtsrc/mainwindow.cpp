@@ -46,10 +46,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_eqv_clicked()
-{
-    ui->plainTextEdit->appendPlainText("42");
-}
 
 void MainWindow::on_numberButton_clicked()
 {
