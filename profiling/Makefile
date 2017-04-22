@@ -8,10 +8,12 @@
 #											      #
 ###############################################################################################
 
+CXXFLAGS= -g -Wall -Wextra
+
 all: deviation
 
 deviation: deviation.cpp ../src/AteamMathLib.cpp ../src/AteamMathLib.h
-	g++ -o $@ $^
+	g++ $(CXXFLAGS) -o $@ $^
 
 clean: 
-	rm -rf *.o deviation	
+	rm -rf *.o deviation callgrind.*	

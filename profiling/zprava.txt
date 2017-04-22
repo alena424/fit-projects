@@ -1,0 +1,54 @@
+PROFILING - zpráva
+
+datum: 21.04.2017
+autoři projektu: Alena Tesařová, Daniel Uhříček, Peter Uhrín, Jan Šorm
+vypracovala: Alena Tesařová
+
+Program pro profiling, generace výsledků
+Pro důkladnou analýzu průběhu program jsme použili nástroj Callgrind, který je součástí nástroje valgrind. Callgrind si zaznamenává průběh program do výstupního souboru callgrind.out.<pid procesu>. Samotné otevření souboru nám moc neřekne, proto jsme používali program KCachegrind pro grafické zobrazení uložených dat.
+
+SPUŠTĚNÍ CALLGRINDU:
+valgrind --tool==callgrind .-deviation soubor_s_cisly.txt
+
+SPOUŠTĚNÍ KCACHEGRINDU:
+kcachegrind callgrind.out.pidprocesu
+
+Grafy výsledků jsou uloženy v této složce Calculatron/profiling/
+pro soubor s 10 čísly: vystup10.png
+pro soubor s 100 čísly: vystup100.png
+pro soubor s 1000 čísly: vystup1000.png
+
+Výstup s 1000 čísly (graf vystup1000.png)
+Funkce deviation(funkce pro výpočet odchylky) volána 1x
+Funkce deviation výstup (podrobně):
+____________________________________________________________
+IR 	IR PER CALL	COUNT	CALLEE
+____________________________________________________________
+32.87		47	1000	power(double, int)
+20.98		15	2000	addition(double, double)
+10.50		15	1001	substraction(double, double)
+0.57		809	1	nroot(double, int)
+0.05		38	2	division(double, double)
+0.01		15	1	multiplication(double, double)	
+____________________________________________________________
+	
+Výsledky
+Z programu kcachegrind vidíme, že se funkce addition volá 2000x a bere 21% z celkové časové složitosti funkce, sama o sobe je funkce jednoduchá, voláním se vykoná 15 instrukcí. Nejnáročnější funkce (vzhledem k funkci deviation) je funkce por výpočet mocniny (power), volá se pro každé číslo a funkce je druhá nejnáročnější na instrukce. Nejnáročnější na intrukce je funkce nroot, která vykoná 809 instrukcí a zároveň je nejméně stabilní (zaměříme v optimalizaci).  
+
+Z výstupů programu kcachegrind na grafu vystup1000.png vidíme pouze nejnáročnější 3 funkce power, substraction a addition.
+
+Optimalizace
+Algoritmus je stabilní pro málo čísel. V případě narůstání hodnot, je třeba optimalizovat.
+Zbytečně se čísla sčítají na 2x (ve dvou cyklech). Zrychlením by bylo v sčítání provádět pouze v jednom cyklu, zároveň s počítáním celkového výsledku (samotná realizace viz níže). Co se týká funkce power -- vždy voláme funkci s argumenty power(cislo, 2), tedy se číslo vynásobí samo se sebou. Optimalizací by bylo nahrazení mocniny za násobení takto: cislo * cislo, jelikož funkce na násobení vykoná 3x méně instrukcí než funkce na počítání mocniny.
+
+Řešení
+Řešením by byla realizace již existujících algoritmů pro optimalizaci odchylky. Já bych vybrala algoritmus od Welforda, online variance (viz https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance). Algoritmus je postaven na jednom cyklu, ve kterém vykonává 3x sčítání, 2x odčítání, 1x dělení a 1x násobení. Ušetříme tedy volání funkce odmocniny (809 instrukcí), funkce mocniny (47 instrukcí x 1000) za cenu volání navíc 1000x funkce dělení, 1000x funkce sčítání a navíc 1000x funkce odčítání, což jsou navíc jednoduché, rychlejší a stabilnější funkce.
+
+Shrnutí
+Neefektivní implemetaci je potřeba optimalizovat pro vstup hodně čísel (n > 100). Otimalizací by byla realizace algoritmu online variance, kde se provede více jednodušší, rychlejších a stabilnějších funkcí.
+
+
+
+
+
+

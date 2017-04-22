@@ -20,89 +20,44 @@
 using namespace std;
 
 /**
- * @brief Standard deviation
- * @param file File to read numbers from
+ * @brief Standard deviation using this pattern dev = srt(  1 / N-1 * SUM (from 1 to N) (x - mean)^2  )
+ * @param file nums Array with numbers of double
+ * @param num_size size of array
  * @pre more numbers in file than 1
 */
-
-/**
- * Poznamky k dokumentaci:
-
-- cim je vetsi, tim jsou cisla mene podobna, cim je mensi, tim jsou cisla podobna vice
-- znaci se pismenem sigma
-- rozlisujeme vyberovou smerodatnou odchylku a smerodatnou odchylku
-	* vyberova - por skutecny odhad odchylky na empiricky zjistene rade cisel
-- vychazi z vypoctu aritmetickeho prumeru
-vzorec1:
-s = srt(  1 / N-1 * SUMA (od 1 do N) (x - prumer)^2  )
-
-vzorec2:
-*/
-
-double deviation( deque<double>nums )
+double deviation( double nums[], int nums_size )
 {
     long double sum = 0;
-    //vector<long double> nums ( arrayn, arrayn + sizeof(arrayn) / sizeof(long double) );
-    for ( int i = 0; i < nums.size(); i++ )
+
+    for ( int i = 0; i < nums_size; i++ )
     {
         //aritmeticky prumer
         sum = MathLib::AteamMathLib::addition(sum, nums[i] );
     }
-    double average = sum/nums.size();
+    double average = MathLib::AteamMathLib::division(sum,nums_size);
 
     //suma podle vzorce
     double sum_nums = 0;
-    for ( int j = 0; j < nums.size(); j++ )
+
+    for ( int j = 0; j < nums_size; j++ )
     {
         // sumnums += ( x - average)^2
         sum_nums =  MathLib::AteamMathLib::addition( ( MathLib::AteamMathLib::power( MathLib::AteamMathLib::subtraction( nums[j], average ), 2) ), sum_nums);
     }
     // total = 1 / N - 1 * sumnums
-    double total = MathLib::AteamMathLib::multiplication( sum_nums, MathLib::AteamMathLib::division( 1, MathLib::AteamMathLib::subtraction( nums.size(), 1 ) ));
+    double total = MathLib::AteamMathLib::multiplication( sum_nums, MathLib::AteamMathLib::division( 1, MathLib::AteamMathLib::subtraction( nums_size, 1 ) ));
 
     return MathLib::AteamMathLib::nroot(total, 2);
 }
 
 
-double getNumsFromFile( char *soubor )
-{
-    ifstream file;
-    istream *in;
-
-    // open file for reading, ios:in
-    file.open( soubor, ifstream::in );
-    if ( !file.is_open() )
-    {
-        throw new std::runtime_error("Can not open file");
-        return 0;
-    }
-    // read double from file
-    double c;
-    // to save values from array
-    deque<double>nums ;
-
-    while(  file >> c )
-    {
-        nums.push_back(c);
-    }
-    file.close();
-    double dev = deviation(nums);
-    return dev;
-
-    /*verify that the nums were stored correctly:
-    for (int i = 0; i < nums.size(); ++i) {
-        cout << nums[i] << std::endl;
-    	}*/
-
-
-}
-
-
-
+/**
+ * @brief main function - to read numbers from file
+*/
 int main( int argc, char *argv[])
 {
     ifstream file;
-    istream *in;
+
 
     if ( argc != 2 )
     {
@@ -119,12 +74,19 @@ int main( int argc, char *argv[])
             return 0;
         }
     }
-
-
+    double num;
+    double array[100000]; //a static array to save numbers
+    int j = 0; //for indexing
+    while ( file >> num ){
+        array[j] = num;
+        //printf("%f ", array[ j ] );
+        j++;
+    }
+	
     // open file for reading, ios:in
 
     // read double from file
-    double c;
+    /*double c;
     // to save values from array
     deque<double>nums ;
 
@@ -133,7 +95,9 @@ int main( int argc, char *argv[])
         nums.push_back(c);
     }
     file.close();
-    double dev = deviation(nums);
+    int nums_size = nums.size();
+    */
+    double dev = deviation( array, j);
     cout << dev << endl;
     return 0;
 }
