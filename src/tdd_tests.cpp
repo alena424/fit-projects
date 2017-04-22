@@ -18,6 +18,12 @@
 
 using namespace MathLib;
 
+double eps = 0.00000000001;
+
+double Absolute(double x) {
+  return (x < 0.0) ? -x : x;
+}
+
 TEST(Factorial, TestCase1) 
 {
   unsigned long long int fac = AteamMathLib::factorial(0);
@@ -72,22 +78,22 @@ TEST(Power, TestCase1)
 {
   double pow;
   pow = AteamMathLib::power(0, 1);
-  EXPECT_EQ(pow, 0);
+  EXPECT_TRUE(Absolute(pow - 0) < eps);
   pow = AteamMathLib::power(0, 5);
-  EXPECT_EQ(pow, 0);
+  EXPECT_TRUE(Absolute(pow - 0)  < eps);
   pow = AteamMathLib::power(0, 10000);
-  EXPECT_EQ(pow, 0);
+  EXPECT_TRUE(Absolute(pow - 0)  < eps);
 }
 
 TEST(Power, TestCase2)
 {
   double pow;
   pow = AteamMathLib::power(1, 0);
-  EXPECT_EQ(pow, 1);
+  EXPECT_TRUE(Absolute(pow - 1) < eps);
   pow = AteamMathLib::power(1, 2);
-  EXPECT_EQ(pow, 1);
+  EXPECT_TRUE(Absolute(pow - 1) < eps);
   pow = AteamMathLib::power(1, 42);
-  EXPECT_EQ(pow, 1);
+  EXPECT_TRUE(Absolute(pow - 1) < eps);
 }
 
 TEST(Power, TestCase3)
@@ -101,60 +107,86 @@ TEST(Power, TestCase4)
 {
   double pow;
   EXPECT_NO_THROW(pow = AteamMathLib::power(-1, 1));
-  EXPECT_EQ(pow, -1);
+  EXPECT_TRUE(Absolute(pow - (-1)) < eps);
   EXPECT_NO_THROW(pow = AteamMathLib::power(-1, 2));
-  EXPECT_EQ(pow, 1);
+  EXPECT_TRUE(Absolute(pow - 1) < eps);
   EXPECT_NO_THROW(pow = AteamMathLib::power(-2, 2));
-  EXPECT_EQ(pow, 4);
+  EXPECT_TRUE(Absolute(pow - 4) < eps);
   EXPECT_NO_THROW(pow = AteamMathLib::power(-2, 3));
-  EXPECT_EQ(pow, -8);
+  EXPECT_TRUE(Absolute(pow - (-8)) < eps);
 }
 
 TEST(Power, TestCase5)
 {
   double pow;
   pow = AteamMathLib::power(0.252525, 2);
-  EXPECT_EQ(pow, 0.06376887562);
+  EXPECT_TRUE(Absolute(pow - 0.06376887562) < eps);
   pow = AteamMathLib::power(-3.14, 5);
-  EXPECT_EQ(pow, -305.244776182);
+  EXPECT_TRUE(Absolute(pow - 305.2447761824) < eps);
 }
 
 TEST(Power, TestCase6)
 {
   double pow;
   pow = AteamMathLib::power(20, 7);
-  EXPECT_EQ(pow, 1280000000);
+  EXPECT_TRUE(Absolute(pow - 1280000000) < eps);
   pow = AteamMathLib::power(20, 9);
-  EXPECT_EQ(pow, 512000000000);
+  EXPECT_TRUE(Absolute(pow - 512000000000) < eps);
 }
 
 TEST(Nroot, TestCase1)
 {
   double root;
   root = AteamMathLib::nroot(4, 2);
-  EXPECT_EQ(root, 2);
+  EXPECT_TRUE(Absolute(root - 2) < eps);
   root = AteamMathLib::nroot(10000, 2);
-  EXPECT_EQ(root, 100);
+  EXPECT_TRUE(Absolute(root - 100) < eps);
 }
 
 TEST(Nroot, TestCase2)
 {
   double root;
   root = AteamMathLib::nroot(0, 2);
-  EXPECT_EQ(root, 0);
+  EXPECT_TRUE(Absolute(root - 0) < eps);
   root = AteamMathLib::nroot(0, 1000);
-  EXPECT_EQ(root, 0);
+  EXPECT_TRUE(Absolute(root - 0) < eps);
   root = AteamMathLib::nroot(0, 2424242);
-  EXPECT_EQ(root, 0);
+  EXPECT_TRUE(Absolute(root - 0) < eps);
 }
 
 TEST(Nroot, TestCase3)
 {
   double root;
   root = AteamMathLib::nroot(-42, 1);
-  EXPECT_EQ(root, -42);
+  EXPECT_TRUE(Absolute(root - (-42)) < eps);
   root = AteamMathLib::nroot(99.424242, 1);
-  EXPECT_EQ(root, 99.424242);
+  EXPECT_TRUE(Absolute(root - 99.424242) < eps);
+}
+
+TEST(Nroot, TestCase4)
+{
+  double root;
+  EXPECT_ANY_THROW(root = AteamMathLib::nroot(20, -1));
+  EXPECT_ANY_THROW(root = AteamMathLib::nroot(1241231.213123, -3));
+}
+
+TEST(Nroot, TestCase5)
+{
+  double root;
+  EXPECT_ANY_THROW(root = AteamMathLib::nroot(-124123, 2));
+}
+
+
+TEST(Nroot, TestCase6)
+{
+  double root;
+  EXPECT_ANY_THROW(root = AteamMathLib::nroot(0, -1));
+}
+
+TEST(Nroot, TestCase7)
+{
+  double root;
+  EXPECT_ANY_THROW(root = AteamMathLib::nroot(-1, 4938282));
 }
 
 int main (int argc, char **argv)
