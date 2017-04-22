@@ -34,7 +34,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #DEFA70;</string>
+     <string notr="true">background-color: #32b5c1;</string>
     </property>
     <property name="text">
      <string>1</string>
@@ -55,7 +55,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #DEFA70;</string>
+     <string notr="true">background-color: #32b5c1</string>
     </property>
     <property name="text">
      <string>.</string>
@@ -76,7 +76,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #DEFA70;</string>
+     <string notr="true">background-color: #32b5c1;</string>
     </property>
     <property name="text">
      <string>C</string>
@@ -97,7 +97,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #DEFA70;</string>
+     <string notr="true">background-color: #32b5c1</string>
     </property>
     <property name="text">
      <string>0</string>
@@ -118,7 +118,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #DEFA70;</string>
+     <string notr="true">background-color: #32b5c1</string>
     </property>
     <property name="text">
      <string>2</string>
@@ -139,7 +139,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #DEFA70;</string>
+     <string notr="true">background-color: #32b5c1</string>
     </property>
     <property name="text">
      <string>3</string>
@@ -160,7 +160,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #DEFA70;</string>
+     <string notr="true">background-color: #32b5c1</string>
     </property>
     <property name="text">
      <string>4</string>
@@ -181,7 +181,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #DEFA70;</string>
+     <string notr="true">background-color: #32b5c1;</string>
     </property>
     <property name="text">
      <string>5</string>
@@ -202,7 +202,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #DEFA70;</string>
+     <string notr="true">background-color: #32b5c1</string>
     </property>
     <property name="text">
      <string>6</string>
@@ -223,7 +223,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #DEFA70;</string>
+     <string notr="true">background-color: #32b5c1;</string>
     </property>
     <property name="text">
      <string>7</string>
@@ -244,7 +244,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #DEFA70;</string>
+     <string notr="true">background-color: #32b5c1;</string>
     </property>
     <property name="text">
      <string>8</string>
@@ -265,7 +265,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #DEFA70;</string>
+     <string notr="true">background-color: #32b5c1;</string>
     </property>
     <property name="text">
      <string>9</string>
@@ -286,7 +286,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #00B64F;</string>
+     <string notr="true">background-color: #00828e;</string>
     </property>
     <property name="text">
      <string>÷</string>
@@ -307,7 +307,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #7CE700;</string>
+     <string notr="true">background-color: #00828e;</string>
     </property>
     <property name="text">
      <string>=</string>
@@ -328,7 +328,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #00B64F;</string>
+     <string notr="true">background-color: #00828e;</string>
     </property>
     <property name="text">
      <string>×</string>
@@ -350,7 +350,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #00B64F;
+     <string notr="true">background-color: #00828e;
 margin: 0px;</string>
     </property>
     <property name="text">
@@ -372,7 +372,7 @@ margin: 0px;</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #00B64F;
+     <string notr="true">background-color: #00828e;
 margin: 0px;</string>
     </property>
     <property name="text">
@@ -394,7 +394,7 @@ margin: 0px;</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #00B64F;</string>
+     <string notr="true">background-color: #00828e;</string>
     </property>
     <property name="text">
      <string>log x</string>
@@ -415,7 +415,7 @@ margin: 0px;</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #00B64F;</string>
+     <string notr="true">background-color: #00828e;</string>
     </property>
     <property name="text">
      <string>x!</string>
@@ -436,7 +436,7 @@ margin: 0px;</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #00B64F;</string>
+     <string notr="true">background-color: #00828e;</string>
     </property>
     <property name="text">
      <string>x</string>
@@ -457,7 +457,7 @@ margin: 0px;</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #00B64F;</string>
+     <string notr="true">background-color: #00828e;</string>
     </property>
     <property name="text">
      <string>√x</string>
@@ -499,7 +499,7 @@ margin: 0px;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #A9F16C;
+     <string notr="true">background-color: #fff;
 padding:10px;
 font: 28pt &quot;MS Shell Dlg 2&quot;;
 border: 0px</string>
@@ -513,6 +513,9 @@ p, li { white-space: pre-wrap; }
     </property>
    </widget>
    <widget class="QTextEdit" name="display">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -522,7 +525,7 @@ p, li { white-space: pre-wrap; }
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #A9F16C;
+     <string notr="true">background-color: #fff;
 padding:10px;
 border: 0px</string>
     </property>
@@ -534,7 +537,7 @@ border: 0px</string>
      <x>0</x>
      <y>0</y>
      <width>351</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuHelp">
