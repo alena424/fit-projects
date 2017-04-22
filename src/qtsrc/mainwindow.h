@@ -18,6 +18,8 @@
 #include <QMainWindow>
 #include <QTextBlock>
 #include <QDesktopServices>
+#include <QFileInfo>
+#include <QMessageBox>
 
 
 namespace Ui {

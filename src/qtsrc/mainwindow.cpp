@@ -169,5 +169,10 @@ void MainWindow::on_clear_clicked()
 void MainWindow::on_actionShow_help_triggered()
 {
     QString appPath = QFileInfo(".").absolutePath();
-    QDesktopServices::openUrl( QUrl( "file:///" + appPath + "/CalculaTron/Dokumentace.pdf" ) );
+    int lastSlash = appPath.lastIndexOf("/");
+    appPath.chop( appPath.length() - lastSlash - 1 );
+    QString path = "file:///" + appPath + "Dokumentace.pdf";
+    if ( ! QDesktopServices::openUrl( QUrl( path ) ) ) {
+        QMessageBox::warning(this, "Warning", "Documentation not found.\nPath: " + path, "Ok" );
+    }
 }
