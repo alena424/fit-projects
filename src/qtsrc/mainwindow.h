@@ -78,7 +78,7 @@ private slots:
      *
      * Function opens the pdf documentation.
      */
-    void on_actionShow_help_triggered();
+    void on_help_clicked();
 
 private:
     Ui::MainWindow *ui;

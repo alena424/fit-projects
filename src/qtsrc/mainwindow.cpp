@@ -166,7 +166,7 @@ void MainWindow::on_clear_clicked()
     isChange = 0;
 }
 
-void MainWindow::on_actionShow_help_triggered()
+void MainWindow::on_help_clicked()
 {
     QString appPath = QFileInfo(".").absolutePath();
     int lastSlash = appPath.lastIndexOf("/");
