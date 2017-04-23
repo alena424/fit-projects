@@ -12,6 +12,7 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "../ATeamMathLib.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -72,7 +73,7 @@ void MainWindow::clickOnNumberButton()
 
 void MainWindow::clickOnOperationButton()
 {
-    double result;
+    double result, epsilon = 0.00000000001;
     QString secondOperand = ui->tapped_nums->toPlainText();
     QString newOperation = ((QPushButton *)sender())->text();
     // first we will change the signification of some operations
@@ -94,51 +95,91 @@ void MainWindow::clickOnOperationButton()
         QString oldOperation = displayList[1];
 
         // we calculate the result in dependece on the operation
-        // TODO Call functions from math library
         if ( oldOperation == "+" ) {
-            result = firstOperand.toDouble() + secondOperand.toDouble();
+            result = MathLib::AteamMathLib::addition( firstOperand.toDouble(), secondOperand.toDouble() );
         } else if ( oldOperation == "−" ) {
-            result = firstOperand.toDouble() - secondOperand.toDouble();
+            result = MathLib::AteamMathLib::subtraction( firstOperand.toDouble(), secondOperand.toDouble() );
         } else if ( oldOperation == "×" ) {
-            result = firstOperand.toDouble() * secondOperand.toDouble();
+            result = MathLib::AteamMathLib::multiplication( firstOperand.toDouble(), secondOperand.toDouble() );
         } else if ( oldOperation == "÷" ) {
-            result = firstOperand.toDouble() / secondOperand.toDouble();
+            try {
+                result = MathLib::AteamMathLib::division( firstOperand.toDouble(), secondOperand.toDouble() );
+            } catch ( const std::out_of_range& exception ) {
+                errorMessage( exception.what() );
+                return;
+            }
         } else if ( oldOperation == "^" ) {
-            result = firstOperand.toDouble() + secondOperand.toDouble();
+            try {
+                result = MathLib::AteamMathLib::power( firstOperand.toDouble(), secondOperand.toDouble() );
+            } catch ( const std::out_of_range& exception ) {
+                errorMessage( exception.what() );
+                return;
+            }
         } else if ( oldOperation == "yroot" ) {
-            result = firstOperand.toDouble() + secondOperand.toDouble();
+            if ( secondOperand.toDouble() - secondOperand.toInt() > epsilon ) {
+                errorMessage( "The second operand is not an integer." );
+                return;
+            }
+            try {
+                result = MathLib::AteamMathLib::nroot( firstOperand.toDouble(), secondOperand.toInt() );
+            } catch ( const std::out_of_range& exception ) {
+                errorMessage( exception.what() );
+                return;
+            }
         }
 
         // we write a calculated result
         ui->display->clear();
         if ( newOperation == "=" ) {
             ui->tapped_nums->clear();
-            ui->tapped_nums->append( QString::number( result ) );
+            ui->tapped_nums->append( QString::number( result, 'g', 11 ) );
         } else if ( newOperation == "!" ) {
             // factorial is unary operation, we can calculate result right now
             ui->tapped_nums->clear();
-            result = result - 1;
-            ui->tapped_nums->append( QString::number( result ) );
+            try {
+                result = MathLib::AteamMathLib::factorial( result );
+            } catch ( const std::out_of_range& exception ) {
+                errorMessage( exception.what() );
+                return;
+            }
+            ui->tapped_nums->append( QString::number( result, 'g', 11 ) );
         } else if ( newOperation == "log" ) {
             // natural logarithm is unary operation, we can calculate result right now
             ui->tapped_nums->clear();
-            result = result - 1;
-            ui->tapped_nums->append( QString::number( result ) );
+            try {
+                result = MathLib::AteamMathLib::logarithm( result );
+            } catch ( const std::out_of_range& exception ) {
+                errorMessage( exception.what() );
+                return;
+            }
+            ui->tapped_nums->append( QString::number( result, 'g', 11 ) );
         } else {
-            ui->display->append( QString::number( result ) + " " + newOperation );
+            ui->display->append( QString::number( result, 'g', 11 ) + " " + newOperation );
         }
     } else if ( newOperation == "!" ) {
         // factorial is unary operation, we can calculate result right now
-        // TODO Call function from math library
         ui->tapped_nums->clear();
-        result = secondOperand.toDouble()-1;
-        ui->tapped_nums->append( QString::number( result ) );
+        if ( secondOperand.toDouble() - secondOperand.toInt() > epsilon  ) {
+            errorMessage( "The number is not an integer." );
+            return;
+        }
+        try {
+            result = MathLib::AteamMathLib::factorial( secondOperand.toShort() );
+        } catch ( const std::out_of_range& exception ) {
+            errorMessage( exception.what() );
+            return;
+        }
+        ui->tapped_nums->append( QString::number( result, 'g', 11 ) );
     } else if ( newOperation == "log" ) {
         // natural logarithm is unary operation, we can calculate result right now
-        // TODO Call function from math library
         ui->tapped_nums->clear();
-        result = secondOperand.toDouble()-1;
-        ui->tapped_nums->append( QString::number( result ) );
+        try {
+            result = MathLib::AteamMathLib::logarithm( secondOperand.toDouble() );;
+        } catch ( const std::out_of_range& exception ) {
+            errorMessage( exception.what() );
+            return;
+        }
+        ui->tapped_nums->append( QString::number( result, 'g', 11 ) );
     } else if ( newOperation != "=" ) {
         ui->display->append(secondOperand + " " + newOperation);
     }
@@ -171,8 +212,14 @@ void MainWindow::on_help_clicked()
     QString appPath = QFileInfo(".").absolutePath();
     int lastSlash = appPath.lastIndexOf("/");
     appPath.chop( appPath.length() - lastSlash - 1 );
-    QString path = "file:///" + appPath + "Dokumentace.pdf";
+    QString path = "file:///" + appPath + "dokumentace.pdf";
     if ( ! QDesktopServices::openUrl( QUrl( path ) ) ) {
-        QMessageBox::warning(this, "Warning", "Documentation not found.\nPath: " + path, "Ok" );
+        QMessageBox::warning( this, "Warning", "Documentation not found.\nPath: " + path, "OK" );
     }
+}
+
+void MainWindow::errorMessage( QString message )
+{
+    QMessageBox::warning( this, "Error", message, "OK" );
+    on_clear_clicked();
 }

@@ -80,6 +80,16 @@ private slots:
      */
     void on_help_clicked();
 
+    /**
+     * @brief Show error message
+     *
+     * Function open dialog window with error message and
+     * it calls function on_clear_clicked.
+     *
+     * @param message String with error message
+     */
+    void errorMessage( QString message );
+
 private:
     Ui::MainWindow *ui;
 };

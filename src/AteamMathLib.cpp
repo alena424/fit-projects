@@ -24,7 +24,7 @@ namespace MathLib
 
 	// check the range of the input number
 	if ( x < 0 or x > 21 ) {
-		throw new std::runtime_error("Out of range.");
+                throw std::out_of_range( "The number is not an integer in <0, 21>." );
 	}
 
 	// own calculation
@@ -40,7 +40,7 @@ namespace MathLib
 	
 	// check the range of the exponent n
 	if ( n < 0 ) {
-		throw new std::runtime_error("Out of range.");
+                throw std::out_of_range( "The exponent is a negative number." );
 	}
 
 	// own calculation
@@ -59,7 +59,7 @@ namespace MathLib
 	
 	// check input values and special outputs
 	if ( n <= 0 ) {
-		throw new std::runtime_error("Invalid value n.");
+                throw std::out_of_range( "The second operator is a negative number." );
 	}
 	else if ( x == 0 ) {
 		return 0;
@@ -68,7 +68,7 @@ namespace MathLib
 		return x;
 	}
 	else if ( x < 0 and n % 2 == 0 ) {
-		throw new std::runtime_error("Invalid value x.");	
+                throw new std::out_of_range( "There is a negative number below the even root." );
 	}
 
 	// own calculation
@@ -97,10 +97,10 @@ namespace MathLib
 
   double AteamMathLib::division (double x, double y) {
 
-	if ( y == 0 ) {
-		throw new std::runtime_error("Invalid value");
-	}
-	return x / y;
+        if ( y == 0 ) {
+                throw std::out_of_range( "You divide by zero." );
+        }
+        return x / y;
   }
 
   double AteamMathLib::logarithm ( double x ) {
@@ -110,7 +110,7 @@ namespace MathLib
 
 	// check value of x
 	if ( x <= 0 ) {
-		throw new std::runtime_error("Invalid value");
+                throw std::out_of_range( "The number is a negative number." );
 	}
 
 	// own calculation
