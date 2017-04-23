@@ -24,8 +24,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp ../ATeamMathLib.cpp
+        mainwindow.cpp ../AteamMathLib.cpp
 
-HEADERS  += mainwindow.h ../ATeamMathLib.h
+HEADERS  += mainwindow.h ../AteamMathLib.h
 
 FORMS    += mainwindow.ui
