@@ -23,8 +23,8 @@ namespace MathLib
   	unsigned long long int result = 1;
 
 	// check the range of the input number
-	if ( x < 0 or x > 21 ) {
-                throw std::out_of_range( "The number is not an integer in <0, 21>." );
+	if ( x < 0 or x > 20 ) {
+                throw std::out_of_range( "The number is not an integer in <0, 20>." );
 	}
 
 	// own calculation

@@ -25,10 +25,10 @@ namespace MathLib
       * @brief Factorial
       *
       * Recursive function returning factorial
-      * of x for x in <0, 21>
+      * of x for x in <0, 20>
       *
-      * @param x Integer in <0, 21>
-      * @return Integer of maximum value 5.1090942e+19
+      * @param x Integer in <0, 20>
+      * @return Integer of maximum value 2.4329020082e+18
       */
     static unsigned long long int factorial (short int x);
 
