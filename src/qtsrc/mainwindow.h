@@ -78,7 +78,17 @@ private slots:
      *
      * Function opens the pdf documentation.
      */
-    void on_actionShow_help_triggered();
+    void on_help_clicked();
+
+    /**
+     * @brief Show error message
+     *
+     * Function open dialog window with error message and
+     * it calls function on_clear_clicked.
+     *
+     * @param message String with error message
+     */
+    void errorMessage( QString message );
 
 private:
     Ui::MainWindow *ui;

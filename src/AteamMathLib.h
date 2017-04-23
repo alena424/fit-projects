@@ -60,7 +60,7 @@ namespace MathLib
     /**
      * @brief  Addition
      *
-     * Function for adding numbers
+     * Function for calculating sum of two numbers.
      *
      * @param x Double precision number
      * @param y Double presicion number
@@ -72,7 +72,7 @@ namespace MathLib
     /**
      * @brief Subtraction
      *
-     * Function for subtracting numbers
+     * Function for calculating difference of two numbers.
      *
      * @param x Double precision number
      * @param y Double precision number
@@ -84,7 +84,7 @@ namespace MathLib
     /**
      * @brief Multiplication
      *
-     * Function for multiplicating numbers
+     * Function for calculating product of two numbers.
      *
      * @param x Double precision number
      * @param y Double presicion number
@@ -96,7 +96,7 @@ namespace MathLib
     /**
      * @brief Division
      *
-     * Function for dividing numbers
+     * Function for calculating qoutient of two numbers.
      *
      * @param x Double precision number
      * @param y Double precision number except 0
@@ -108,7 +108,7 @@ namespace MathLib
     /**
      * @brief The logarithm of x to base e
      *
-     * Function for logarithming numbers
+     * Function for calculating natural logarithm of number x.
      *
      * @param x Double precision positive number
      * @return The logarithm of positive real number x with respect to base e
