@@ -12,7 +12,7 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "../ATeamMathLib.h"
+#include "../AteamMathLib.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
