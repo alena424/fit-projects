@@ -110,7 +110,7 @@ namespace MathLib
 
 	// check value of x
 	if ( x <= 0 ) {
-                throw std::out_of_range( "The number is a negative number." );
+                throw std::out_of_range( "The number is not a positive number." );
 	}
 
 	// own calculation
