@@ -212,7 +212,8 @@ void MainWindow::on_help_clicked()
     QString appPath = QFileInfo(".").absolutePath();
     int lastSlash = appPath.lastIndexOf("/");
     appPath.chop( appPath.length() - lastSlash - 1 );
-    QString path = "file:///" + appPath + "dokumentace.pdf";
+    //QString path = "file:///" + "usr/shared/calculatron" + "dokumentace.pdf";
+    QString path = "file:///usr/shared/calculatron/dokumentace.pdf";
     if ( ! QDesktopServices::openUrl( QUrl( path ) ) ) {
         QMessageBox::warning( this, "Warning", "Documentation not found.\nPath: " + path, "OK" );
     }
