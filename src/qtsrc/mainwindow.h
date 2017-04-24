@@ -23,6 +23,10 @@
 
 
 namespace Ui {
+/**
+ * @class MainWindow
+ * @brief Class with functions for GUI
+ */
 class MainWindow;
 }
 
@@ -95,3 +99,5 @@ private:
 };
 
 #endif // MAINWINDOW_H
+
+/*** End of file mainwindow.h ***/

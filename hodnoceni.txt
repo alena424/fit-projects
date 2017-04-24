@@ -1,0 +1,4 @@
+xuhrin02 100 (makefile, instalator)
+xuhric00 100 (testy, mockup, koordinace)
+xtesar36 100 (profiling, dokumentace)
+xsormj00 100 (GUI, matematicka knihovna)
