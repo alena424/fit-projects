@@ -20,6 +20,7 @@ qmake:
 	$(MAKE)
 
 pack:
+	cd .. && \
 	zip -r xsormj00_xtesar36_xuhric00_xuhrin02.zip .
 
 clean:
