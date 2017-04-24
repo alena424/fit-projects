@@ -24,6 +24,34 @@ double Absolute(double x) {
   return (x < 0.0) ? -x : x;
 }
 
+/* Addition tests */
+
+TEST(Addition, TestCase1)
+{
+  double res = AteamMathLib::addition(24.992, 67.8121);
+  EXPECT_EQ(Absolute(res - 92.8041) < eps);
+}
+
+TEST(Addition, TestCase2)
+{
+  double res = AteamMathLib::addition(-2345.8743, 2345.8743);
+  EXPECT_EQ(Absolute(res) < eps);
+}
+
+/* Subtraction tests */
+
+TEST(Subtraction, TestCase1)
+{
+  double res = AteamMathLib::subtraction(256.789, 19992.23);
+  EXPECT_EQ(Absolute(res - (-2089.0853)) < eps);
+}
+
+TEST(Subtraction, TestCase2)
+{
+  double res = AteamMathLib::subtraction(10000024.5, 10000024.5);
+  EXPECT_EQ(Absolute(res) < eps);
+}
+
 /* Factorial tests */
 
 TEST(Factorial, TestCase1) 
