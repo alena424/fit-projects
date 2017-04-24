@@ -22,7 +22,7 @@ qmake:
 pack: doc
 	cd ../.. && mkdir repo && mkdir doc && mkdir install && \
 	cp -r ./CalculaTron/. ./repo/ && \
-	cp -r ./CalculaTron/src/qtsrc/kalkulacka-1.0.deb ./install/ && \
+	cp -r ./CalculaTron/src/qtsrc/*.deb ./install/ && \
 	cp -r ./CalculaTron/src/html/. ./doc/ && \
 	zip -r xsormj00_xtesar36_xuhric00_xuhrin02.zip ./repo/ ./doc/ ./install/ && \
 	rm -rf repo doc install
