@@ -20,12 +20,14 @@ qmake:
 	$(MAKE)
 
 pack: doc
-	cd ../.. && mkdir repo && mkdir doc && mkdir install && \
-	cp -r ./CalculaTron/. ./repo/ && \
-	cp -r ./CalculaTron/src/qtsrc/*.deb ./install/ && \
-	cp -r ./CalculaTron/src/html/. ./doc/ && \
-	zip -r xsormj00_xtesar36_xuhric00_xuhrin02.zip ./repo/ ./doc/ ./install/ && \
-	rm -rf repo doc install
+	cd ../.. && mkdir -p xsormj00_xtesar36_xuhric00_xuhrin02/repo && \
+	mkdir xsormj00_xtesar36_xuhric00_xuhrin02/doc && \
+	mkdir xsormj00_xtesar36_xuhric00_xuhrin02/install && \
+	cp -r ./CalculaTron/. ./xsormj00_xtesar36_xuhric00_xuhrin02/repo/ && \
+	cp -r ./CalculaTron/src/qtsrc/*.deb ./xsormj00_xtesar36_xuhric00_xuhrin02/install/ && \
+	cp -r ./CalculaTron/src/html/. ./xsormj00_xtesar36_xuhric00_xuhrin02/doc/ && \
+	zip -r xsormj00_xtesar36_xuhric00_xuhrin02.zip xsormj00_xtesar36_xuhric00_xuhrin02 && \
+	rm -rf xsormj00_xtesar36_xuhric00_xuhrin02
 
 clean:
 	rm -f qtsrc/Makefile
