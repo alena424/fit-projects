@@ -9,7 +9,7 @@ Compatible with Linux 64bit.
 make install
 `````
 
-## Documentation
+## Basic Documentation
 
 ### Class: AteamMathLib
 
