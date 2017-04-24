@@ -16,6 +16,11 @@
 
 namespace MathLib
 {
+
+  /**
+   * @class AteamMathLib
+   * @brief Class for math functions.
+   */ 
   class AteamMathLib 
   {
   
@@ -115,8 +120,7 @@ namespace MathLib
      */
      static double logarithm (double x);
 
-    // TODO
-    // ONE MORE FUNCTION
-    
   };
 }
+
+/*** End of file mainwindow.h ***/

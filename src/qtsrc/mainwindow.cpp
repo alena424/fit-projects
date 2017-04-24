@@ -223,3 +223,5 @@ void MainWindow::errorMessage( QString message )
     QMessageBox::warning( this, "Error", message, "OK" );
     on_clear_clicked();
 }
+
+/*** End of file mainwindow.cpp ***/

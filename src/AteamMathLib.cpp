@@ -139,4 +139,4 @@ namespace MathLib
   }
 
 }
-
+/*** End of file mainwindow.cpp ***/
