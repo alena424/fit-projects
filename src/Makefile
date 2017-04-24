@@ -1,3 +1,47 @@
+# Name of our program
+TARGET = Kalkulacka
+
+# Shell
+SHELL = /bin/bash
+
+# Flags for instalation
+INSFLAGS = -m 0755
+
+.PHONY: default all qmake pack clean test doc run install
+
+# Build targets
+
+default: all
+
+all: qmake
+
+qmake:
+	cd qtsrc && qmake -makefile && \
+	$(MAKE)
+
+pack:
+	zip -r xsormj00_xtesar36_xuhric00_xuhrin02.zip .
+
+clean:
+	rm -f qtsrc/Makefile
+	rm -f qtsrc/moc_*.cpp
+	rm -f qtsrc/ui_*.h
+	rm -f qtsrc/*.o
+	rm -f qtsrc/*~ core *.core
+	rm -f qtsrc/$(TARGET)
+	rm -f $(TESTS) gtest.a gtest_main.a *.o
+
+test: tdd_tests
+	./$(TESTS);
+
+doc:
+	doxygen Doxyfile
+
+run: qmake
+	./qtsrc/$(TARGET);
+
+###########################################################################
+
 # Path to gtest root
 GTEST_DIR = ./googletest/googletest
 
@@ -22,9 +66,6 @@ test : $(TESTS)
 
 downloadgtest :
 	git clone https://github.com/google/googletest/
-
-clean :
-	rm -f $(TESTS) gtest.a gtest_main.a *.o
 
 # Setting sources
 GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
