@@ -46,6 +46,17 @@ Other great watch libraries to try are:
 * Default Windows calculator
 * Google search calculator
 
+## Environment
+Ubuntu 64bit
+
+## Authors
+
+Máme rádi Alenku
+- xuhric00 Daniel Uhříček
+- xtesar36 Alena Tesařová
+- xsormj00 Jan Šorm
+- xuhrin02 Peter Uhrín
+
 ## License
-Copyright (c) 2017, Daniel Uhricek, Jan Sorm, Peter Uhrin, Alena Tesarova
 Licensed under GNU GPL v3.0
+
