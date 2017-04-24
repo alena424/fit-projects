@@ -18,41 +18,18 @@
 
 using namespace MathLib;
 
+/**
+ * Accuracy
+ */
 double eps = 0.00000000001;
 
+/**
+ * Function for absolute value of double 
+ */
 double Absolute(double x) {
   return (x < 0.0) ? -x : x;
 }
-
-/* Addition tests */
-
-TEST(Addition, TestCase1)
-{
-  double res = AteamMathLib::addition(24.992, 67.8121);
-  EXPECT_EQ(Absolute(res - 92.8041) < eps);
-}
-
-TEST(Addition, TestCase2)
-{
-  double res = AteamMathLib::addition(-2345.8743, 2345.8743);
-  EXPECT_EQ(Absolute(res) < eps);
-}
-
-/* Subtraction tests */
-
-TEST(Subtraction, TestCase1)
-{
-  double res = AteamMathLib::subtraction(256.789, 19992.23);
-  EXPECT_EQ(Absolute(res - (-2089.0853)) < eps);
-}
-
-TEST(Subtraction, TestCase2)
-{
-  double res = AteamMathLib::subtraction(10000024.5, 10000024.5);
-  EXPECT_EQ(Absolute(res) < eps);
-}
-
-/* Factorial tests */
+/* --------- FACTORIAL TESTS ---------- */
 
 TEST(Factorial, TestCase1) 
 {
@@ -100,7 +77,7 @@ TEST(Factorial, TestCase6)
   EXPECT_ANY_THROW(AteamMathLib::factorial(-10000));
 }
 
-/* Power tests */
+/* --------- POWER TESTS ---------- */
 
 TEST(Power, TestCase1)
 {
@@ -159,8 +136,7 @@ TEST(Power, TestCase6)
   EXPECT_TRUE(Absolute(pow - 512000000000) < eps);
 }
 
-/* Natural log tests - this function was already well tested in another project
- * Not part of TDD */
+/* --------- NARUTAL LOG TESTS ---------- */
 
 TEST(Log, TestCase1)
 {
@@ -186,7 +162,7 @@ TEST(Log, TestCase4)
   EXPECT_TRUE(Absolute(log - 0.69314718056) < eps);
 }
 
-/* Nroot tests */
+/* --------- NROOT TESTS ---------- */
 
 TEST(Nroot, TestCase1)
 {
@@ -237,6 +213,101 @@ TEST(Nroot, TestCase7)
 {
   EXPECT_ANY_THROW(AteamMathLib::nroot(-1, 4938282));
 }
+
+/* --------- ADDITION TESTS ---------- */
+
+TEST(Add, TestCase1)
+{
+  double add;
+  add = AteamMathLib::addition(0.5, -0.5);
+  EXPECT_TRUE(Absolute(add - 0) < eps);
+}
+
+TEST(Add, TestCase2)
+{
+  double add;
+  add = AteamMathLib::addition(0.0000001, 0.0000001);
+  EXPECT_TRUE(Absolute(add - 0.0000002) < eps);
+}
+
+TEST(Add, TestCase3)
+{
+  double add;
+  add = AteamMathLib::addition(1000000.001, 2000000.002);
+  EXPECT_TRUE(Absolute(add - 3000000.003) < eps);
+}
+
+/* --------- SUBSTRACTION TESTS ---------- */
+
+TEST(Sub, TestCase1)
+{
+  double sub;
+  sub = AteamMathLib::subtraction(99.99999, 99.99999);
+  EXPECT_TRUE(Absolute(sub - 0) < eps);
+}
+
+TEST(Sub, TestCase2)
+{
+  double sub;
+  sub = AteamMathLib::subtraction(42, 420);
+  EXPECT_TRUE(Absolute(sub - (-378)) < eps);
+}
+
+TEST(Sub, TestCase3)
+{
+  double sub;
+  sub = AteamMathLib::subtraction(0, 0);
+  EXPECT_TRUE(Absolute(sub - 0) < eps);
+}
+
+/* --------- MULTIPLICATION TESTS ---------- */
+
+TEST(Mult, TestCase1)
+{
+  double mult;
+  mult = AteamMathLib::multiplication(99.99999, 0);
+  EXPECT_TRUE(Absolute(mult - 0) < eps);
+
+  mult = AteamMathLib::multiplication(949299129, 0);
+  EXPECT_TRUE(Absolute(mult - 0) < eps);
+}
+
+TEST(Mult, TestCase2)
+{
+  double mult;
+  mult = AteamMathLib::multiplication(-100, -2);
+  EXPECT_TRUE(Absolute(mult - 200) < eps);
+}
+
+TEST(Mult, TestCase3)
+{
+  double mult;
+  mult = AteamMathLib::multiplication(-0.25, 0.01);
+  EXPECT_TRUE(Absolute(mult - (-0.0025)) < eps);
+}
+
+/* --------- DIVISION TESTS ---------- */
+
+TEST(Div, TestCase1)
+{
+  EXPECT_ANY_THROW(AteamMathLib::division(2, 0));
+}
+
+TEST(Div, TestCase2)
+{
+  double div;
+  div = AteamMathLib::division(0, 99999999);
+  EXPECT_TRUE(Absolute(div - 0) < eps);
+}
+
+TEST(Div, TestCase3)
+{
+  double div;
+  div = AteamMathLib::division(1000, 0.001);
+  EXPECT_TRUE(Absolute(div - 1000000) < eps);
+}
+
+/* --------- MAIN FOR RUNNING GTESTS ---------- */
 
 int main (int argc, char **argv)
 {
