@@ -1,0 +1,64 @@
+%%%%%%%%%%%%%%%%%% Alena Tesarova%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left=2cm,text={17cm, 24cm},top=3cm]{geometry}
+\usepackage{times}
+\usepackage[czech]{babel}
+\usepackage[T1]{fontenc}
+
+\author{Alena Tesařová}
+
+
+\begin{document}
+
+\begin{titlepage}
+
+\begin{center}
+\Huge
+\textsc{Fakulta informačních technologií\\
+Vysoké učení technické v~Brně}\\
+\vspace{\stretch{0.382}}
+\LARGE ITY -- 4. projekt\\
+\medskip
+{\Huge Bibliografie}
+\vspace{\stretch{0.618}}
+\end{center}
+{\Large \today \hfill
+Alena Tesařová}
+\end{titlepage}
+
+
+\section{\LaTeX}
+
+\subsection{Úvodní slovo do krásného jazyka}
+\LaTeX je krásný jazyk otvírající bránu do trochu nového světa zpracování textů. Není těžké se s~ním naučit pracovat a je to dobrý pomocník na vytváření matematických vzorců, tabulek, sázení obrázků a skrývá i mnohem víc. Dokonce řada amerických vědců jako například John C. Bowman, Andy Hammerlindl a Tom Prince se zabývají spojováním jazyku C++ s~latexem při tvorbě matematické grafiky. Vytvořili program Asymptote, na kterém už pracují od roku 2004 a od té doby se Asymptote stále vyvíjí. \cite{gstug:matknihovna} \\
+Autorem LaTeXu je Donald E.~Knuth ze Standfordské univerzity. \cite{Rybicka:Latex_pro_zacatecniky}
+
+
+\subsection{Jak psát v~latexu?}
+Psaní v~LaTeXu bychom mohli přirovnat k~psaní HTML stránek. Zdrojové texty si \textbf{nemůžeme} ihned prohlédnout jako například v~MS Wordu, ale nejprve je musíme zkompilovat a vytvořit univerzálnější formát, který si budeme moci vytisknout, poslat a dále zpracovávat. \cite{Hordejcuk:Latex} \\
+Jako v~klasickém programovacím jazyku může LaTeX načítat soubory s~argumenty a být spuštěný z~příkazového řádku, což je jeho další výhodou. \cite{gstug:spousteni}
+
+\subsection{\textsc{Bib}\LaTeX}
+Bibtex je jedna z~možností vytváření citací v~rozsáhlejších dokumentech. Samotný text vytváříme v~souboru .tex, kde se odkazujeme na citace umístěny v~souboru .bib klíčovým slovem \verb|\cite{klic}|.  \cite{Helmut:GuiToLatex} \\
+Tato skutečnost vede k~vyšší škálovatelnosti, znovupoužitelnosti, flexibilitě a efektivní manipulaci s~bibiliografickými citacemi. \cite{Luptak:Bibtex} \\
+Jak se používá? Předpokladem je správně nainstalovaný program bibtex. Je součástí většiny distribucí LaTeXu, takže by neměl být problém s~jeho zprovozněním. Dále je potřeba mít soubor s~BibTeXovou databází ve stejném adresáři, jako zdrojový text LaTeXového dokumentu \cite{Martinek:Latex}. BibTeXovou databázi je třeba vložit do LaTeXového zdrojáku pomocí příkazu \verb|\bibliography| a upřesnit styl sázení bibliografie příkazem \verb|\bibliographystyle|. Existují obecné styly zabudované v~LaTexu, anebo můžeme najít volně stažitelné styly na internetu například ze stránek Ing.~Martinka. 
+
+
+\subsection{Slovo na konec}
+Důležité je si uvědomit, že LaTex není editor ani nástroj pro sazbu barevných časopisů, ale je to sázecí autorský systém vhodný na sázení bakalářských, diplomových či disertačních prací. \cite{FEKT:Latex} \\
+Před psaním práce si stojí za to přečíst práci od Ing. Radka Pyšného viz \cite{Pysny:Bibtex}, který se ve své práci zabýval citacemi a podtrhuje největší chyby při vytváření citací.
+Existuje zároveň několik konferencí pořádaných rok co rok zabývajících se rozvojem a využitím tohoto jazyka pořádaných skupinou \textbf{TeX Users Group}. Není užasné, co všechno se dá pomocí tohoto jazyka vytvořit? \cite{Sojka:Hyphenation}
+
+
+%2 monografie:
+%1. rybicka LaTeX D:\Dokumenty\programovani\Internetove-aplikace\LaTeX
+
+
+\newpage
+% styl od R. Pysneho
+\bibliographystyle{czplain.bst}
+\bibliography{proj4}
+
+
+\end{document}
