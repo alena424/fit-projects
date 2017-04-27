@@ -1,10 +1,5 @@
 <<<<<<< HEAD
-# FIT
 
-@autor Alena Tesarova
-
-školní projekty
-=======
 # CalculaTron
 
 Basic calculator as a school project.
