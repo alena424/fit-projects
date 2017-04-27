@@ -1,14 +1,18 @@
-
 /**
 * @file proj2.c
 * @date 15.4.2017
 * @author Alena Tesarova (xtesar36)
 * @version 1.0
 * @TODO:
-* @brief
-*
+* @brief Program se zabyva spravou deti a dospelych v centru. Na vstupu je zadany pocet procesu child a adult a dale casy pro cekani.
+*		 V centru muzou byt vzdy maximalne 3 deti na 1 dospeleho. Dite ma stavy: started (proces vznikl), waiting (pokud neni splnena podminka, ze by v centru bylo na 1 dospeleho 3 deti),
+*		 enter (vstup do centra), trying to leave (kdyz chce odejit), leave (odesel z centra) a finish (ukoncil se). Dospely ma stavy: started, enter, trying to leave, 
+*		 waiting (pokud by svym odchodem porusil podminku), leave a finish. Cekajici dite muze vstoupi pouze pokud prijde novy dospely a zaroven nesmi zabranit dospelemu odejit.
+*		 Ukoncit se maji vsechny procesy spolecne (finish).
+*		 
 */
 
+/** Zacatek proj2.c ***/
 
 #include "proj2.h"
 
@@ -111,7 +115,10 @@ int inicialize( Tshared *x )
 	
 }
 
-
+/**
+* @brief Mazani sdilenych promennych, odlinkovani semaforu
+* @param x struktura obsahujici potrebna data
+*/
 void clean_memory(Tshared *x)
 {
 	if ( x->file != NULL ) {
@@ -134,6 +141,12 @@ void clean_memory(Tshared *x)
 	shmdt(x->sh);
 }
 
+/**
+* @brief Hlavni proces rodice, akce: started, enter, trying to leave, waiting, leave, finish
+* @param id id procesu
+* @param x structura s daty sdilenych promennych, semaforu a slozky, do ktere zapisujeme
+* @param max_waiting_time maximalni cas, ktery dospeli stravi v centru
+*/
 int adult_go(int id, Tshared *x, int max_waiting_time )
 {
 	//dospeli vznikl a chce vstoupit
@@ -203,6 +216,12 @@ int adult_go(int id, Tshared *x, int max_waiting_time )
 
 }
 
+/**
+* @brief Hlavni proces ditete, akce: started, waiting, enter, trying to leave, leave, finish
+* @param id id procesu
+* @param x structura s daty sdilenych promennych, semaforu a slozky, do ktere zapisujeme
+* @param max_waiting_time maximalni cas, ktery dite stravi v centru
+*/
 int child_go(int id, Tshared *x, int max_waiting_time)
 {
 	//dite vzniklo a chce vstoupit
@@ -281,6 +300,16 @@ int child_go(int id, Tshared *x, int max_waiting_time)
 }
 
 
+/**
+* @brief Funkce na generovani procesu
+* @param total Kolik budeme generovat procesu adult/child
+* @param x structura s daty sdilenych promennych, semaforu a slozky, do ktere zapisujeme
+* @param init znak, podle ktereho urcujeme jestli se jedna o proces adult 'A' anebo child 'C'
+* @param c_fork_max je maximalni hodnota doby (v milisekundach), po ktere je generovan novy proces adult
+* @param a_fork_max je maximální hodnota doby (v milisekundách), po které je generován nový proces child
+* @param c_wait_max je maximální hodnota doby (v milisekundách), po kterou proces adult simuluje cinnost v centru
+* @param a_wait_max je maximální hodnota doby (v milisekundách), po kterou proces child simuluje cinnost v centru
+*/
 int make_proces( Tshared *x, int total, char init, int c_fork_max, int a_fork_max, int c_wait_max, int a_wait_max)
 {
 	
@@ -327,18 +356,20 @@ int make_proces( Tshared *x, int total, char init, int c_fork_max, int a_fork_ma
 	return 0;
 
 }
-
+/**
+* @brief Hlavni funkce por zpracovani argumentu
+*/
 
 int main(int argc, char *argv[])
 {
     
     //get arguments
-    unsigned int number_of_adults = 1; //A
-    unsigned int number_of_children = 4; //C
-    int max_time_for_adult_to_getnew = 0; //AGT; AGT >= 0 && AGT < 5001.
-    int max_time_for_child_to_getnew = 0; //CGT; CGT >= 0 && CGT < 5001.
-    int max_time_for_adult_incenter = 0; //AWT >= 0 && AWT < 5001.
-    int max_time_for_child_incenter = 0; //CWT >= 0 && CWT < 5001.
+    long int number_of_adults = 1; //A
+    long int number_of_children = 4; //C
+    long int max_time_for_adult_to_getnew = 0; //AGT; AGT >= 0 && AGT < 5001.
+    long int max_time_for_child_to_getnew = 0; //CGT; CGT >= 0 && CGT < 5001.
+    long int max_time_for_adult_incenter = 0; //AWT >= 0 && AWT < 5001.
+    long int max_time_for_child_incenter = 0; //CWT >= 0 && CWT < 5001.
     
     Tshared x;
     
@@ -350,22 +381,23 @@ int main(int argc, char *argv[])
     char *zb4;
     char *zb5;
    
+   //ocekavame 7 argumentu
     if (argc != 7){
         fprintf(stderr, NOT_VALID_INPUT);
         exit(1);
     }else{
-        number_of_adults 			= (int) strtol ( argv[1], &zbytek, 10);
-        number_of_children			= (int) strtol ( argv[2], &zb1, 10);
+        number_of_adults 			= strtol ( argv[1], &zbytek, 10);
+        number_of_children			= strtol ( argv[2], &zb1, 10);
         
         if ( number_of_adults <= 0 || number_of_children <= 0  ){
         	fprintf(stderr, "Number of children and number of adults must be greater than zero\n");
         	exit(1);
         }
         
-        max_time_for_adult_to_getnew= (int) strtol ( argv[3], &zb2, 10);
-        max_time_for_child_to_getnew= (int) strtol ( argv[4], &zb3, 10);
-        max_time_for_adult_incenter = (int) strtol ( argv[5], &zb4, 10);
-        max_time_for_child_incenter = (int) strtol ( argv[6], &zb5, 10);
+        max_time_for_adult_to_getnew= strtol ( argv[3], &zb2, 10);
+        max_time_for_child_to_getnew= strtol ( argv[4], &zb3, 10);
+        max_time_for_adult_incenter = strtol ( argv[5], &zb4, 10);
+        max_time_for_child_incenter = strtol ( argv[6], &zb5, 10);
         
         if ( max_time_for_adult_to_getnew < 0 || max_time_for_adult_to_getnew >= 5001 || 
         	 max_time_for_child_to_getnew < 0 || max_time_for_child_to_getnew >= 5001 || 
@@ -394,10 +426,10 @@ int main(int argc, char *argv[])
 	ID_makeA = fork();
 	if (ID_makeA == 0) // child
 	{
-		
+		//budeme generovat procesy adult
 		return make_proces(&x, number_of_adults, 'A', max_time_for_child_to_getnew, max_time_for_adult_to_getnew, max_time_for_child_incenter, max_time_for_adult_incenter );
 	}
-	if ( ID_makeA == -1 ) //
+	if ( ID_makeA == -1 ) //error
 	
 	{
 		perror("Fork failed");
@@ -409,7 +441,7 @@ int main(int argc, char *argv[])
 	ID_makeC = fork();
 	if (ID_makeC == 0) // child
 	{
-		
+		//budeme generovat procesy child
 		return make_proces(&x, number_of_children, 'C', max_time_for_child_to_getnew, max_time_for_adult_to_getnew, max_time_for_child_incenter, max_time_for_adult_incenter);
 	}
 	if ( ID_makeC == -1 ) //
@@ -420,10 +452,9 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 	
-	//hlavni proces pocka az se ukonci deti
-	
+	//hlavni proces pocka az se ukonci deti - synchronizace
 	int status;
-	waitpid( ID_makeA, &status, 0 );
+	waitpid( ID_makeA, &status, 0 ); 
 	waitpid( ID_makeC, &status, 0 );
 	
 	

@@ -2,7 +2,7 @@ CFLAGS= -std=gnu99 -Wall -Wextra -Werror -pedantic -pthread
 
 all: proj2
 
-proj2: proj2.c 
+proj2: proj2.c proj2.h
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean:

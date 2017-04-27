@@ -1,0 +1,22 @@
+1	: C 1 	: started
+2	: C 1 	: waiting : 0 : 0
+3	: C 2 	: started
+4	: C 2 	: waiting : 0 : 0
+5	: A 2 	: started
+6	: A 2 	: enter
+7	: C 2 	: enter
+8	: A 1 	: started
+9	: A 1 	: enter
+10	: C 1 	: enter
+11	: A 2 	: trying to leave
+12	: A 2 	: leave
+13	: C 2 	: trying to leave
+14	: C 2 	: leave
+15	: C 1 	: trying to leave
+16	: C 1 	: leave
+17	: A 1 	: trying to leave
+18	: A 1 	: leave
+19	: A 1	: finished
+20	: C 2	: finished
+21	: C 1	: finished
+22	: A 2	: finished
