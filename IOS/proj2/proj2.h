@@ -29,7 +29,6 @@
 * Semafory: sem_childin, sem_parout, sem_workmem, sem_pom, sem_finished
 * Inicializace ve funkci inicializace()
 * @param file slozka, do ktere budeme zapisovat
-* POZN: semafor sem_pom je zatim nepouzivany
 */
 typedef struct {
 	int	id;
@@ -42,7 +41,6 @@ typedef struct {
 	sem_t	*sem_childin;
 	sem_t	*sem_parout;
 	sem_t	*sem_workmem;
-	sem_t	*sem_pom;
 	sem_t	*sem_finished;
 } shared;
 

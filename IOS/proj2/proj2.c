@@ -71,9 +71,7 @@ int inicialize( Tshared *x )
 		shmdt(x->sh);
 		fclose(x->file);
 		exit(1);
-		shmdt(x->sh);
-		fclose(x->file);
-		exit(1);
+
 	}
 	if ((x->sh->sem_parout = sem_open("/xtesar36_semforpar", O_CREAT | O_EXCL, 0666, 0)) == SEM_FAILED)
 	{
@@ -87,8 +85,11 @@ int inicialize( Tshared *x )
 	if ((x->sh->sem_workmem = sem_open("/xtesar36_semformem", O_CREAT | O_EXCL, 0666, 1)) == SEM_FAILED)	// 1 = open 
 	{
 		perror( "Can not create semaphor /xtesar36_semformem" );
+		
 		sem_close(x->sh->sem_parout);
 		sem_unlink("/xtesar36_semforpar");
+		sem_close(x->sh->sem_childin);
+		sem_unlink("/xtesar36_semforchild");
 		shmdt(x->sh);
 		fclose(x->file);
 		exit(1);
@@ -99,19 +100,16 @@ int inicialize( Tshared *x )
 		perror( "Can not create semaphor /xtesar36_semforfinish" );
 		sem_close(x->sh->sem_workmem);
 		sem_unlink("/xtesar36_semformem");
+		sem_close(x->sh->sem_parout);
+		sem_unlink("/xtesar36_semforpar");
+		sem_close(x->sh->sem_childin);
+		sem_unlink("/xtesar36_semforchild");
+		
 		shmdt(x->sh);
 		fclose(x->file);
 		exit(1);
 	} 
-	if ((x->sh->sem_pom = sem_open("/xtesar36_sempom", O_CREAT | O_EXCL, 0666, 1) ) == SEM_FAILED)
-	{
-		perror( "Can not create semaphor /xtesar36_sempom" );
-		shmdt(x->sh);
-		fclose(x->file);
-		exit(1);
-	}
 	return EXIT_SUCCESS;
-						
 	
 }
 
@@ -130,7 +128,6 @@ void clean_memory(Tshared *x)
 	sem_close(x->sh->sem_workmem);
 	sem_close(x->sh->sem_parout);
 	sem_close(x->sh->sem_childin);
-	sem_close(x->sh->sem_pom);
 
 	sem_unlink("/xtesar36_semforfinish");
 	sem_unlink("/xtesar36_semformem");
@@ -150,12 +147,10 @@ void clean_memory(Tshared *x)
 int adult_go(int id, Tshared *x, int max_waiting_time )
 {
 	//dospeli vznikl a chce vstoupit
-	
 	sem_wait( x->sh->sem_workmem );
 	fprintf( x->file, "%d\t: A %d \t: started\n", x->sh->id++, id );	
 	fprintf( x->file, "%d\t: A %d \t: enter\n", x->sh->id++, id );	
 	x->sh->adultsInCenter++;
-	//sem_post(x->sh->sem_workmem);
 	
 	if ( x->sh->wait_adult ) {
 		sem_trywait( x->sh->sem_parout );
@@ -170,7 +165,8 @@ int adult_go(int id, Tshared *x, int max_waiting_time )
 	}
 	sem_post(x->sh->sem_workmem);
 	
-	int wait = max_waiting_time  ? ( rand() % max_waiting_time ) : ( 0 ) ;
+	//cekani v centru
+	int wait = max_waiting_time  ? ( rand() % max_waiting_time ) : ( 0 ) ;	
 	usleep(wait * 1000);
 	
 	sem_wait( x->sh->sem_workmem );
@@ -187,23 +183,21 @@ int adult_go(int id, Tshared *x, int max_waiting_time )
 		//fprintf( x->file,"%d\t: A %d \t: stopped waiting\n", x->sh->id++, id );
 		sem_wait( x->sh->sem_workmem );
 		x->sh->wait_adult--;
-		//sem_wait( x->sh->sem_parout ); // hned ho zavru
-
 	}
 	
 	fprintf( x->file,"%d\t: A %d \t: leave\n", x->sh->id++, id );
-	
 	x->sh->adultsInCenter--;
 	x->sh->adultsrun--;
 	x->sh->run--;
 	//printf("Children: %d Adults: %d (%d)\n", x->sh->childrenInCenter, x->sh->adultsInCenter, id);
 	if ( x->sh->adultsrun == 0 ){
 		//printf("No running adults, waiting children %d\n", x->sh->wait_child );
-		sem_post( x->sh->sem_childin ); //never should happend
-		//printf("%d uvolnilo sem_childin\n", id);
-		
+		sem_post( x->sh->sem_childin ); 
+		//printf("%d uvolnilo sem_childin\n", id);	
 	}
 	sem_post( x->sh->sem_workmem );
+	
+	//tady se dospeli zastavi
 	if ( x->sh->run == 0 ){
 		sem_post(x->sh->sem_finished);
 	}
@@ -277,16 +271,25 @@ int child_go(int id, Tshared *x, int max_waiting_time)
 	fprintf( x->file,"%d\t: C %d \t: leave\n", x->sh->id++, id );
 	x->sh->childrenInCenter--;
 	x->sh->run--;
+	 /*NOVINKA: kdyz dite odejde, neuvolnuje cekajici deti, ty uvolni pouze rodic
 	 if ( x->sh->wait_child ) {
 	 	//printf("%d uvolnilo sem_childin\n", id);
-		sem_post(x->sh->sem_childin);
-	} //odejde a uvolni misto
-	if ( x->sh->wait_child == 0 && x->sh->wait_adult && ( ( x->sh->adultsInCenter-1 )*3 >= x->sh->childrenInCenter ) ) {
+		//sem_post(x->sh->sem_childin);
+	} odejde a uvolni misto*/
+	if ( x->sh->wait_adult && ( ( x->sh->adultsInCenter-1 )*3 >= x->sh->childrenInCenter ) ) {
 	 	//printf("%d uvolnilo sem_adult\n", id);
 	 	sem_trywait( x->sh->sem_parout );
 		sem_post( x->sh->sem_parout );
 	} //odejde a uvolni misto
+	if ( x->sh->adultsrun == 0 ){
+		//printf("No running adults, waiting children %d\n", x->sh->wait_child );
+		sem_post( x->sh->sem_childin ); 
+		//printf("%d uvolnilo sem_childin\n", id);	
+	}
 	sem_post( x->sh->sem_workmem );
+	
+	
+	//tady se zasehnou vsechny procesy
 	if ( x->sh->run == 0 ){
 		sem_post(x->sh->sem_finished);
 	}
@@ -447,7 +450,7 @@ int main(int argc, char *argv[])
 	if ( ID_makeC == -1 ) //
 	{
 		perror("Fork failed");
-		/* ..musi se osetrit uz probihajici adult..*/
+		/* ..musi se osetrit uz probihajici adult, ale nevim jak: kill(pid, SIGTERM)..*/
 		clean_memory(&x);
 		exit(1);
 	}
@@ -462,4 +465,5 @@ int main(int argc, char *argv[])
 	return EXIT_SUCCESS;
 }
 
+/*** Konec souboru proj2.c ***/
 

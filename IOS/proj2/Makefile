@@ -1,3 +1,11 @@
+#################################################
+#						#
+# @brief IOS, proj2 - process (using pthread)	#
+# @author Alena Tesarova (xtesar36)		#
+# @date 27.4.2015				#
+#						#			
+#################################################
+
 CFLAGS= -std=gnu99 -Wall -Wextra -Werror -pedantic -pthread 
 
 all: proj2
