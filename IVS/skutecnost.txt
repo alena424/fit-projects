@@ -1,0 +1,77 @@
+Skutecnost = porovnání plánu
+````````````````````````````
+V¾dy je na prvním øádku uveden plán a na druhém skuteènost (oddìlené znakem --).
+
+1. Návrh                                                    | v¹ichni           | 17.3. 
+ -- splnìno
+ 
+2. Design                                                   | v¹ichni           | 19.3.
+ -- splnìno
+ 
+3. Základní struktura projektu v Qt Creatoru + GUI          | Jan + Daniel      | 29.3.
+ -- opo¾dìní, 4.4.2017 (realizace Jan, kontrola Daniel)
+ 
+4. Makefile                                                 | Daniel + Peter    | 31.3.
+ -- do¹lo ke zpo¾dìní,  zaèátek realizace 22.4. (realizace Peter, kontrola+konzult. Daniel)
+ 
+5. Návrh testù pro TDD                                      | Daniel + Peter    | 31.3.
+ -- splnìno 
+ 
+6. Implementace matematické knihovny                        | Jan + Alena       | 14.4.
+ -- termín posunut, realizace zaèátek 7.4.2017, konec 22.4.2017  (realizace Jan, kontrola+konzult. Alena)
+ 
+7. Integrace                                                | Peter + Alena     | 16.4.
+ -- realizace 23.4. (v¹ichni)
+ 
+8. Testování                                                | v¹ichni           | 18.4.
+ -- splnìno k datu 23.4.
+ 
+9. Profiling - výpoèty smìrodatné odchylky                  | Alena + Peter     | 20.4.
+ -- realizace 21.4., (realizace Alena, kontrola Daniel)
+
+10. Dokumentace kódu - Doxygen                              | v¹ichni           | 21.4.
+ -- realizace 24.4. (Jan, kontrola Alena)
+11. U¾ivatelská pøíruèka                                    | Alena + Daniel    | 22.4.
+ -- dokonèení 24.4. (po úspì¹né instalaci), realizace Alena (kontrola v¹ichni)
+ 
+12. Mockup                                                 | Daniel             | 24.4.
+
+
+Zvolené komunikaèní kanály
+´´´´´´´´´´´´´´´´´´´´´´´´´´
+Základní workflow a zadávání úloh: Trello (http://trello.com)
+ -- V Trellu jsme si v¹ichni zalo¾ili úkoly. Výhodou bylo upozornìní na telefonu, kdy¾ se blí¾il termín øe¹ení jednotlivých úkolù.
+Vkládali jsme u¾iteèné odkazy (napø. jak na git atd.). Nevýhodou byla nízká aktivita èlenù.
+
+Chatovací platforma pro komunikaci: Slack (https://slack.com)
+ -- Na slacku jsme si zalo¾ili channely: general, implamentation, random, todo a documentation. Nejvíce jsme využívali slack na zaèátku, postupnì aktivita upadala a pøesunula se na facebook.
+
+Stanovená pravidla pro komunikaci
+´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´
+Ka¾dodenní kontrola zvolených komunikaèních kanálù. -- ANO     
+
+
+Pravidelná schùzka týmu: ka¾dé úterý 14:00 - 16:00  -- ANO
+Program: Zhodnocení hotové práce, kontrola èasového plánu, øe¹ení pøípadných problémù.
+
+
+Správa verzí
+´´´´´´´´´´´´
+Systém: Git
+Hosting: Github
+Adresa online repositáøe: https://github.com/danieluhricek/CalculaTron
+-- pou¾ívali jsme
+
+
+Pou¾ité technologie
+´´´´´´´´´´´´´´´´´´´
+Jazyk: C++    --ano
+IDE: Qt Creator      --ano
+Framework pro testování: googletest (https://github.com/google/googletest)  --ano
+Build: make      --ano
+   
+Závìr
+´´´´´
+Podle plánu jsme dodr¾eli návrhy, kdo na èem má hlavnì pracovat, pou¾ívání domluvených prostøedkù, pravidelné schùzky, pou¾ívání githubu a pou¾ité technologie domluvené na zaèátku. Stále jsme byli v kontaktu, v¹ichni byli aktivní. Na druhou stranu jsme nedodr¾eli vìt¹inu na zaèátku stanovených termínù, proto jsme dokonèovali poslední dny. 
+
+     
