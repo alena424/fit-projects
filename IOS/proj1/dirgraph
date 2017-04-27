@@ -1,0 +1,289 @@
+#!/bin/sh
+
+# ======================================================== #
+# @name: dirgraph										   
+# @version: 1.0
+# @athor: Alena Tesarova
+# @mail: xtesar36@stud.fit.vutbr.cz
+# @date: 19.3.2017
+# ======================================================== #
+
+# --- SWITCH --- #
+while getopts i:n o
+do	case "$o" in
+	i) FILE_ERR=$OPTARG;;
+	n) N=1;;
+	*) echo "Error: bad format" >&2
+	exit 1;;
+	esac
+done
+
+OPTIND=`expr $OPTIND - 1`
+shift $OPTIND
+#echo $OPTIND
+#echo $#
+POSIXLY_CORRECT=yes
+
+# --- CHECK INPUT --- #
+if [ $OPTIND -ge 5 ] ; then
+    echo "Too many arguments" >&2
+    exit 1
+fi
+
+
+# --- SETTING DIRECTORY --- #
+#neni prazdna, nastavim DIR, jinak ho necham
+if [ $# -ne 0 ]; then
+	POM="$1"
+	#musime zkontrolovat, jestli existuje
+	cd "$POM" || {
+		echo "Directory does not exist">&2
+		exit 1
+		}
+    DIR=$POM
+else
+    DIR=$PWD
+fi
+
+#nastavime directory a spocitame slozky a soubory
+
+ignore(){
+    while read radek ; do
+    IFS=$'/';
+    hit="0"
+     for part in `echo "$radek" | sed 's/\/$//'`; do
+         if echo "$part" | egrep -E "$FILE_ERR" >/dev/null 2>&1; then
+             hit="1"
+             break
+         fi
+     done
+         if [ "$hit" -eq 0 ] ; then
+             echo "$radek"
+         fi
+     done           
+}
+
+if [  -z "$FILE_ERR" ] ; then
+	DIR_COUNTER=`find . -type d | wc -l `
+    FILE_COUNTER=`find . -type f | wc -l `
+    # Do ALL se ulozi vsechny velikost souboru pro pozdejsi praci
+
+    ALL=`find . -type f | while read line; do cat "$line" | wc -c; done | sort -nr`
+    
+else
+	if [ "$FILE_ERR" == "$PWD" ] ; then
+	echo "Regex cant be equal to root directory" >&2
+	exit 1
+    else
+    DIR_COUNTER=`find . -type d | ignore | wc -l `
+    FILE_COUNTER=`find . -type f | ignore | wc -l `
+    # Do ALL se ulozi vsechny velikost souboru pro pozdejsi praci
+    ALL=`find '.' -type f | ignore | while read line; do cat "$line" | wc -c; done | sort -nr`
+    #ALL=`find '.' -type f | ignore`
+
+	fi
+fi
+
+#echo "toto je v all: $ALL"
+
+# --- HISTOGRAM1 --- #
+
+# Funkce pro vykreslovani hvezdicek
+# @params $POM pocitadlo, nabyva hodnot od 0 do $1
+# @params $1 kolik chceme hvezdicek
+loopstar (){
+	POM=0
+	while [ "$POM" -ne "$1" ] ; do
+		printf "#"
+		POM=`expr $POM + 1`
+	done
+	printf "\n"
+}
+
+
+MAX=`echo "$ALL" | head -1` # nejvetsi velikost
+
+# parametr -t oznacujeme, jestli jsme v terminalu
+# pokud nejsme v terminalu, delka je nastavena na 79
+# pokud neni nastavena normalizace ( promenna $N ), $LENGTH je nastaveno na 0
+# $LENGTH2 je pro druhy histogram
+if [ ! -z "$N" ] ; then
+	if [ -t 1 ] ; then
+		LENGTH=$(tput cols)
+		LENGTH=`expr $LENGTH - 1 - 11`
+        LENGTH2=`expr $LENGTH - 35` #pro druhy histogram
+        if [ "$LENGTH" -lt 0 ] ; then
+            LENGTH=0
+        fi
+        if [ "$LENGTH2" -le 0 ] ; then
+            LENGTH2=-1
+        fi 
+            
+		#echo "delka terminu je $LENGTH"			
+	else
+		#not in terminal
+		LENGTH=`expr 79 - 12`
+        LENGTH2=`expr 79 - 47`
+	fi
+else
+    LENGTH=0
+    LENGTH2=0
+fi   
+
+# Pocitadla pro vytvoreni histogramu
+COUNT1=0
+COUNT2=0
+COUNT3=0
+COUNT4=0
+COUNT5=0
+COUNT6=0
+COUNT7=0
+COUNT8=0
+COUNT9=0
+
+for file in $ALL ; do
+	#echo "$file"	
+	if [ "$file" -ge 1073741824 ] ; then
+			COUNT1=`expr $COUNT1 + 1`
+	fi
+
+	if [ "$file" -lt -1073741824 -a "$file" -ge 104857600 ] ; then
+			COUNT2=`expr $COUNT2 + 1`
+	fi
+
+	if [ "$file" -lt  104857600 -a "$file" -ge 10485760 ] ; then
+			COUNT3=`expr $COUNT3 + 1`
+	fi
+
+	if [ "$file" -lt 10485760  -a "$file" -ge 1048576 ] ; then
+			COUNT4=`expr $COUNT4 + 1`
+	fi
+
+	if [ "$file" -lt 1048576  -a "$file" -ge 102400 ] ; then
+			COUNT5=`expr $COUNT5 + 1`
+	fi
+
+	if [ "$file" -lt 102400 -a "$file" -ge 10240 ] ; then
+			COUNT6=`expr $COUNT6 + 1`
+	fi
+
+	if [ "$file" -lt 10240 -a "$file" -ge 1024 ] ; then
+			COUNT7=`expr $COUNT7 + 1`
+	fi
+
+	if [ "$file" -lt 1024 -a "$file" -ge 100 ] ; then
+			COUNT8=`expr $COUNT8 + 1`
+	fi
+
+	if [ "$file" -lt 100 ] ; then
+			COUNT9=`expr $COUNT9 + 1`
+	fi
+done
+
+# Pomocna funkce pro vypocitani maxima
+countMaxPom(){
+     if [ "$1" -gt "$COUNTMAX" ] ; then
+         COUNTMAX=$1
+     fi
+}
+
+# Pocita maximum --> pro normalizaci
+countMax(){
+	COUNTMAX=0
+	countMaxPom "$COUNT1"
+	countMaxPom "$COUNT2"
+	countMaxPom "$COUNT3"
+	countMaxPom "$COUNT4"
+	countMaxPom "$COUNT5"
+	countMaxPom "$COUNT6"
+	countMaxPom "$COUNT7"
+	countMaxPom "$COUNT8"
+	countMaxPom "$COUNT9"
+}
+
+# Vykresli prvni histogram, pokud je zadan parametr -n, pocitadla se prepocitaji
+histogram(){
+	
+	countMax
+	if [ -n "$N" ] ; then
+	#echo "delka je $LENGTH"
+		if [ "$COUNTMAX" -gt "$LENGTH" ] ; then
+			COUNT9=`expr $COUNT9 \* $LENGTH / $COUNTMAX`
+			COUNT8=`expr $COUNT8 \* $LENGTH / $COUNTMAX`
+			COUNT7=`expr $COUNT7 \* $LENGTH / $COUNTMAX`
+			COUNT6=`expr $COUNT6 \* $LENGTH / $COUNTMAX`
+			COUNT5=`expr $COUNT5 \* $LENGTH / $COUNTMAX`
+			COUNT4=`expr $COUNT4 \* $LENGTH / $COUNTMAX`
+			COUNT3=`expr $COUNT3 \* $LENGTH / $COUNTMAX`
+			COUNT2=`expr $COUNT2 \* $LENGTH / $COUNTMAX`
+			COUNT1=`expr $COUNT1 \* $LENGTH / $COUNTMAX`
+		fi
+	fi
+	printf "  %-8s: " '<100 B' ; loopstar "$COUNT9"
+	printf "  %-8s: " '<1 KiB' ; loopstar "$COUNT8"
+	printf "  %-8s: " '<10 KiB' ; loopstar "$COUNT7"
+	printf "  %-8s: " '<100 KiB' ; loopstar "$COUNT6"
+	printf "  %-8s: " '<1 MiB' ; loopstar "$COUNT5"
+	printf "  %-8s: " '<10 MiB' ; loopstar "$COUNT4"
+	printf "  %-8s: " '<100 MiB' ; loopstar "$COUNT3"
+	printf "  %-8s: " '<1 GiB' ; loopstar "$COUNT2"
+	printf "  %-8s: " '>=1 GiB' ; loopstar "$COUNT1"
+}
+
+if [ -z "$FILE_ERR" ] ; then
+    # Zjistim si max, ktery se mi bude hodit pri normaliza histogramu2
+    MAX_HISTO2=`find . -type f | file -b -f -| sort | uniq -c | sort -r -n | head -n 1 | sed 's/^ *//' | cut -d' ' -f 1`
+    #echo "$MAX_HISTO2"
+else
+    # Zjistim si max, ktery se mi bude hodit pri normaliza histogramu2
+    MAX_HISTO2=`find . -type f | ignore | file -b -f -| sort | uniq -c | sort -r -n | head -n 1 | sed 's/^ *//' | cut -d' ' -f 1`
+    #echo "$MAX_HISTO2"
+fi
+
+
+# Nastavim promennou obsahujich maximalni pocet a delku terminalu, kterou budu zpracovavat v awk
+if [ "$LENGTH2" -ne 0 ] ; then
+    LENGTH2=""$LENGTH2"."$MAX_HISTO2""
+fi
+#echo "--->delka je $LENGTH2"
+
+if [ -z "$FILE_ERR" ] ; then
+    histo2=`find . -type f |file -b -f - | sort | cut -c -40 |uniq -c | sort -r -n | awk -v len=$LENGTH2 'BEGIN{FS=" "; len=split(len,array,"."); }{pocet=$1; $1="";                                                                                   
+																					if (length($0) > 40) \
+																						{printf " %-40s...: ", $0 }                                                                           
+																						else {printf " %-44s: ", $0 }\
+                                                                                    if ( array[1] != 0 && array[2] > array[1])
+                                                                                        {if ( array[1] == -1 )
+                                                                                            {pocet = 0}
+                                                                                        {pocet = pocet * array[1]/array[2] };  }
+                                                                                    for ( i = 1; i<=pocet; i++)
+																						{printf "#"};                                                                                           
+                                                                                        printf "\n" }'`
+                                                                                        
+else
+    histo2=`find . -type f | ignore |file -b -f - | sort | cut -c -40 |uniq -c | sort -r -n | awk -v len=$LENGTH2 'BEGIN{FS=" "; len=split(len,array,"."); }{pocet=$1; $1="";                                                                                   
+																					if (length($0) > 40) \
+																						{printf " %-40s...: ", $0 }                                                                           
+																						else {printf " %-44s: ", $0 }\
+                                                                                    if ( array[1] != 0 && array[2] > array[1])
+                                                                                        {if ( array[1] == -1 )
+                                                                                            {pocet = 0}
+                                                                                        {pocet = pocet * array[1]/array[2] };  }
+                                                                                    for ( i = 1; i<=pocet; i++)
+																						{printf "#"};                                                                                           
+                                                                                        printf "\n" }'`
+    
+fi
+                                                                                    
+                                                                                                                                                                                                                                  
+# --- OUTPUT --- #
+echo "Root directory: $DIR"
+printf "Directories: %s\n" $DIR_COUNTER
+printf "All files: %s\n" $FILE_COUNTER
+echo "File size histogram:"
+histogram
+echo "File type histogram:"
+echo "$histo2"
+
+
+
