@@ -1,0 +1,8 @@
+1,3c1,3
+< 00000000  54 65 73 74 20 ffffffc4 ffffff8d 65  ffffffc5 ffffffa1 74 69 6e 79 20 ffffffc4  |Test ..e..tiny .|
+< 00000010  ffffff9b ffffffc5 ffffffa1 ffffffc4 ffffff8d ffffffc5 ffffff99 ffffffc5  ffffffbe ffffffc3 ffffffbd ffffffc3 ffffffa1 ffffffc3 ffffffad ffffffc3  |................|
+< 00000020  ffffffa9 0a                                             |..              |
+---
+> 00000000  54 65 73 74 20 c4 8d 65  c5 a1 74 69 6e 79 20 c4  |Test ..e..tiny .|
+> 00000010  9b c5 a1 c4 8d c5 99 c5  be c3 bd c3 a1 c3 ad c3  |................|
+> 00000020  a9 0a                                             |..              |

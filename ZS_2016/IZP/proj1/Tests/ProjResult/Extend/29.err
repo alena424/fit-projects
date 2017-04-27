@@ -1,0 +1,51 @@
+1,28c1,21
+< 00010000  68 61 74 20 74 68 69 73  20 69 73 20 61 20 77 6f  |hat this is a wo|
+< 00010010  72 6b 71 75 65 75 65 20  77 6f 72 6b 65 72 20 2a  |rkqueue worker *|
+< 00010020  2f 0a 09 77 6f 72 6b 65  72 2d 3e 74 61 73 6b 2d  |/..worker->task-|
+< 00010030  3e 66 6c 61 67 73 20 7c  3d 20 50 46 5f 57 51 5f  |>flags |= PF_WQ_|
+< 00010040  57 4f 52 4b 45 52 3b 0a  77 6f 6b 65 5f 75 70 3a  |WORKER;.woke_up:|
+< 00010050  0a 09 73 70 69 6e 5f 6c  6f 63 6b 5f 69 72 71 28  |..spin_lock_irq(|
+< 00010060  26 70 6f 6f 6c 2d 3e 6c  6f 63 6b 29 3b 0a 0a 09  |&pool->lock);...|
+< 00010070  2f 2a 20 61 6d 20 49 20  73 75 70 70 6f 73 65 64  |/* am I supposed|
+< 00010080  20 74 6f 20 64 69 65 3f  20 2a 2f 0a 09 69 66 20  | to die? */..if |
+< 00010090  28 75 6e 6c 69 6b 65 6c  79 28 77 6f 72 6b 65 72  |(unlikely(worker|
+< 000100a0  2d 3e 66 6c 61 67 73 20  26 20 57 4f 52 4b 45 52  |->flags & WORKER|
+< 000100b0  5f 44 49 45 29 29 20 7b  0a 09 09 73 70 69 6e 5f  |_DIE)) {...spin_|
+< 000100c0  75 6e 6c 6f 63 6b 5f 69  72 71 28 26 70 6f 6f 6c  |unlock_irq(&pool|
+< 000100d0  2d 3e 6c 6f 63 6b 29 3b  0a 09 09 57 41 52 4e 5f  |->lock);...WARN_|
+< 000100e0  4f 4e 5f 4f 4e 43 45 28  21 6c 69 73 74 5f 65 6d  |ON_ONCE(!list_em|
+< 000100f0  70 74 79 28 26 77 6f 72  6b 65 72 2d 3e 65 6e 74  |pty(&worker->ent|
+< 00010100  72 79 29 29 3b 0a 09 09  77 6f 72 6b 65 72 2d 3e  |ry));...worker->|
+< 00010110  74 61 73 6b 2d 3e 66 6c  61 67 73 20 26 3d 20 7e  |task->flags &= ~|
+< 00010120  50 46 5f 57 51 5f 57 4f  52 4b 45 52 3b 0a 0a 09  |PF_WQ_WORKER;...|
+< 00010130  09 73 65 74 5f 74 61 73  6b 5f 63 6f 6d 6d 28 77  |.set_task_comm(w|
+< 00010140  6f 72 6b 65 72 2d 3e 74  61 73 6b 2c 20 22 6b 77  |orker->task, "kw|
+< 00010150  6f 72 6b 65 72 2f 64 79  69 6e 67 22 29 3b 0a 09  |orker/dying");..|
+< 00010160  09 69 64 61 5f 73 69 6d  70 6c 65 5f 72 65 6d 6f  |.ida_simple_remo|
+< 00010170  76 65 28 26 70 6f 6f 6c  2d 3e 77 6f 72 6b 65 72  |ve(&pool->worker|
+< 00010180  5f 69 64 61 2c 20 77 6f  72 6b 65 72 2d 3e 69 64  |_ida, worker->id|
+< 00010190  29 3b 0a 09 09 77 6f 72  6b 65 72 5f 64 65 74 61  |);...worker_deta|
+< 000101a0  63 68 5f 66 72 6f 6d 5f  70 6f 6f 6c 28 77 6f 72  |ch_from_pool(wor|
+< 000101b0                                                    |                |
+---
+> ------------------------------
+> * Projekt 1 - Práce s textem *
+> ------------------------------
+> 
+>  Syntaxe spuštění:
+>    ./proj1 [-s M] [-n N]
+>    ./proj1 -x
+>    ./proj1 -S N
+>    ./proj1 -r
+> 
+>  Popis:
+>    -s M		Označuje kolik znaků ze vstupu bude přeskočeno.
+>           	M je nezáporné číslo.
+>    -n N		Označuje kolik znaků bude přečteno.
+>           	N je kladné číslo.
+>    -x		Převádí vstup do hexadecimální podoby.
+>    -S N		Tiskne pouze řetězce delší nebo rovny N,
+>           	kde N je větší než 0 a zároveň menší než 200.
+>    -r		Převádí hexadecimální vstup na binární.
+> 
+> ------------------------------

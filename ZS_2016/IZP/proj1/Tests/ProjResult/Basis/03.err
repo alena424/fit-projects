@@ -1,0 +1,5 @@
+1c1
+< 48656c6c6f0a
+\ Chybí znak konce řádku na konci souboru
+---
+> 48656c6c6f0a

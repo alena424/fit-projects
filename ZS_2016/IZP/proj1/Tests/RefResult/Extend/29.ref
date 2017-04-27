@@ -1,0 +1,21 @@
+------------------------------
+* Projekt 1 - Práce s textem *
+------------------------------
+
+ Syntaxe spuštění:
+   ./proj1 [-s M] [-n N]
+   ./proj1 -x
+   ./proj1 -S N
+   ./proj1 -r
+
+ Popis:
+   -s M		Označuje kolik znaků ze vstupu bude přeskočeno.
+          	M je nezáporné číslo.
+   -n N		Označuje kolik znaků bude přečteno.
+          	N je kladné číslo.
+   -x		Převádí vstup do hexadecimální podoby.
+   -S N		Tiskne pouze řetězce delší nebo rovny N,
+          	kde N je větší než 0 a zároveň menší než 200.
+   -r		Převádí hexadecimální vstup na binární.
+
+------------------------------
