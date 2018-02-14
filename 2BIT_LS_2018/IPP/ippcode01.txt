@@ -1,0 +1,33 @@
+  .IPPcode18
+JUMP MAIN
+
+laBEL FOO
+ADD LF@counter LF@counter int@34 
+WRITE LF@counter
+POPFRAME
+RETURN 
+WRITE int@66
+
+LABEL MAIN
+
+DEFVAR GF@counter
+CREATEFRAME
+DEFVAR TF@counter 
+MOVE TF@counter int@45
+PUSHFRAME
+JUMP FOO
+
+
+MOVE GF@counter string@ #tady je komentář v UTF, háčky a čárky 
+#komen iJednoduchá iterace, dokud nebude splněna zadaná podmínka
+LABEL while
+JUMPIFEQ end GF@counter string@aaa
+WRITE string@counter\032obsahuje\032
+WRITE GF@counter
+WRITE string@\010
+CONCAT GF@counter GF@coun&&*aa$ter string@a
+JUMP while
+
+#ADD LF@*a
+  # ahh
+LABEL end

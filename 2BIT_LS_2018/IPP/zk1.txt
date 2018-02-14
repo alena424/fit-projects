@@ -1,0 +1,6 @@
+.IPPcode18
+
+LAbel hhh
+ADD GF@hhh int@12 int@44
+WRITE bool@FALSE
+WRITE GF@h&*hhh
