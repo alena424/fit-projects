@@ -1,5 +1,4 @@
 <?php
-
 setlocale(LC_ALL, 'cs_CZ.UTF-8');
 
 # vyrobim si asociativni pole
@@ -22,7 +21,6 @@ $instruction_map = array(
             "BREAK" => "D", "CREATEFRAME" => "D", "PUSHFRAME" => "D", "POPFRAME" => "D", "RETURN" => "D",
     );
 
-
 ##################################
 # REGEX pro SYNTAKTICKOU ANALYZU #
 ##################################
@@ -42,7 +40,7 @@ $instruction_map = array(
     
     # REGEXY
     # promenna - (\s)+(GF|LF|TF)@(\w|%|\*|&|$|-)+(\s)+
-    # konstanta - (string|int|bool)@([^\\\s]|(\\[0-9]{3}))*
+    # konstanta2 - ((string@([^\\\\\s]|(\\\\[0-9]{3}))*)|(int@((\+|-)?\d+|))|bool@(false|true))
     # komentar - (#.*)*
     # type - (string|int|bool)
     # label - (\w|%|\*|&|$|-)+ (jako nazev promene)
@@ -50,7 +48,7 @@ $instruction_map = array(
 $type_reg = "(string|int|bool)";
 $label_reg = "\D(\w|%|\*|&|\\$|-)+";
 $variable_reg = "(GF|LF|TF)@($label_reg)";
-$constant_reg = $type_reg .'@([^'.'\\\\'. '\s]|(\\\\[0-9]{3}))*';
+$constant_reg = '((string@([^\\\\\s#]|(\\\\[0-9]{3}))*)|(int@((\+|-)?\d+|))|bool@(false|true))*';
 $comment_reg = "(#.*)*";
 $symbol_reg = "(". $constant_reg ."|". $variable_reg .")";
 $order = 1; # pocitadlo
@@ -79,7 +77,6 @@ function proceed_symbol( $symbol ){
         }
         return $type_value_array_help;  
 }
-
 
 # funkce instruction_control( nazev instrukce, cely radek s instrukci a operandy )
 # funkce zkontroluje jednu instrukci a jeji operandy
@@ -218,45 +215,63 @@ function instruction_control ( $name, $row_code ) {
 # MAIN #
 ########
 
-# budeme mit vstupni soubor
-# otevreni $handle = fopen( "file.txt","r" );
-# prochazeni while ($c = fgetc) { $c ... }
-# existuji $argc - pocet parametru
-# $argv[0] - prvni parametr
-
-# VSTUP --source=file nebo --source="file" | --help
-
-#if ( ! $argv[ 1 ] ) {
- #    fwrite( STDERR, "Pokud si prejete zobrazit napovedu, pridejte argument --help");
-  #   exit( 0 );
-#}
-########
-# HELP #
-########
-if ( isset( $argv[ 1 ] ) and $argv[ 1 ] == '--help' ) {
-    echo( 
-"Nestrukturovaný imperativní jazyk IPPcode18 vznikl úpravou jazyka IFJcode17 (jazyk pro mezikód
-překladače jazyka IFJ17, viz [3]), který zahrnuje instrukce tříadresné (typicky se třemi argumenty)
-a zásobníkové (typicky méně parametrů a pracující s hodnotami na datovém zásobníku). Každá instrukce
-se skládá z operačního kódu (klíčové slovo s názvem instrukce), u kterého nezáleží na velikosti
-písmen (tj. case insensitive). Zbytek instrukcí tvoří operandy, u kterých na velikosti písmen záleží
-(tzv. case sensitive). Operandy oddělujeme libovolným nenulovým počtem mezer či tabulátorů. Také
-před operačním kódem a za posledním operandem se může vyskytnout libovolný počet mezer či tabulátorů.
-Odřádkování slouží pro oddělení jednotlivých instrukcí, takže na každém řádku je maximálně
-jedna instrukce a není povoleno jednu instrukci zapisovat na více řádků. Každý operand je tvořen
-proměnnou, konstantou, typem nebo návěštím. V IPPcode18 jsou podporovány jednořádkové komentáře
-začínající mřížkou (#). Kód v jazyce IPPcode18 začíná úvodním řádkem s tečkou následovanou
-jménem jazyka (nezáleží na velikosti písmen): .IPPcode18
-" );
-    exit( 0 );
+$statistics = 0;
+$loc = 0;
+$comments = 0;
+# muze existovat pouze jeden nebo dva parametry a to napoveda anebo statistiky
+if ( count ( $argv ) > 1 ) {
+    ########
+    # HELP #
+    ########
+    if ( isset( $argv[ 1 ] ) and $argv[ 1 ] == '--help' ) {
+        echo( 
+        "Nestrukturovaný imperativní jazyk IPPcode18 vznikl úpravou jazyka IFJcode17 (jazyk pro mezikód
+        překladače jazyka IFJ17, viz [3]), který zahrnuje instrukce tříadresné (typicky se třemi argumenty)
+        a zásobníkové (typicky méně parametrů a pracující s hodnotami na datovém zásobníku). Každá instrukce
+        se skládá z operačního kódu (klíčové slovo s názvem instrukce), u kterého nezáleží na velikosti
+        písmen (tj. case insensitive). Zbytek instrukcí tvoří operandy, u kterých na velikosti písmen záleží
+        (tzv. case sensitive). Operandy oddělujeme libovolným nenulovým počtem mezer či tabulátorů. Také
+        před operačním kódem a za posledním operandem se může vyskytnout libovolný počet mezer či tabulátorů.
+        Odřádkování slouží pro oddělení jednotlivých instrukcí, takže na každém řádku je maximálně
+        jedna instrukce a není povoleno jednu instrukci zapisovat na více řádků. Každý operand je tvořen
+        proměnnou, konstantou, typem nebo návěštím. V IPPcode18 jsou podporovány jednořádkové komentáře
+        začínající mřížkou (#). Kód v jazyce IPPcode18 začíná úvodním řádkem s tečkou následovanou
+        jménem jazyka (nezáleží na velikosti písmen): .IPPcode18
+        " );
+        exit( 0 );
+    }
+    elseif ( preg_match( '/--stats=(\S+)/', $argv[ 1 ], $matches ) and count ($argv) <= 4 ) {
+        #print_r( $matches );
+        $file_stat = fopen( $matches[1], "w+" );
+        if ( $file_stat == FALSE or $file_stat == 0 ) {
+            fwrite(STDERR, "Nepodarilo se vytvorit soubor $matches[1]");
+            exit( 11 );
+        }
+        if ( preg_match( '/(--comments)/', $argv[ 2 ] ) ) {
+            $comments = 1;
+            if ( isset($argv[ 3 ] ) and preg_match( '/(--loc)/', $argv[ 3 ] ) ){
+                $loc = 2;
+            }
+        } elseif ( preg_match( '/(--loc)/', $argv[ 2 ] )  ) {
+            $loc = 1;
+            if ( isset($argv[ 3 ] ) and preg_match( '/(--comments)/', $argv[ 3 ] ) ) {
+                $comments = 2;
+            }
+        } else {
+            fwrite(STDERR, "Spatna kombinace parametru");
+            exit( 10 ); 
+        }
+        # priznak, ze chceme statistiky
+        $statistics = 1;
+       
+    } else {
+        # nepovolena kombinace parametru
+        fwrite(STDERR, "Nepovolena kombinace parametru");
+        exit( 10 );
+    }    
 }
 
-# chceme dostat nas soubor z regexu - interpret.py
-#preg_match( '/(--source=)((\S)+)/', $argv[ 1 ], $matches );
-#print_r( $matches );
-
 $file = fopen( 'php://stdin', "r" );
-# nezopomenout fclose()
 
 if ( $file == FALSE ) {
     fwrite(STDERR, "Nepodarilo se najit soubor");
@@ -274,7 +289,7 @@ xmlwriter_text($xw, 'ippcode18');
 xmlwriter_end_attribute($xw);
 
 # preskocime prazdne radky
-while ( $row = fgets( $file ) and preg_match( '/^(\s)*$/', $row ) ) { echo "radek"; };
+while ( $row = fgets( $file ) and preg_match( '/^(\s)*$/', $row ) ) {  };
 #echo $row;
 if ( $row ) {
      if ( preg_match( '/^(\s)*\.IPPcode18(\s)*(#.*)*$/', $row ) == FALSE ) {
@@ -282,8 +297,9 @@ if ( $row ) {
         exit( 21 );   
       }  
 }
-$komentar = 0;
-$prazdne_radky = 0;
+$number_of_comments = 0;
+$empty_rows = 0;
+$instructions = 0;
 while ( $row = fgets( $file ) ) {
     #echo ( $row );
      # potrebuju vzit prvni nazev instrukce
@@ -291,16 +307,14 @@ while ( $row = fgets( $file ) ) {
     $instr_name = $arr[0];
     $instr_name_upp = strtoupper( $arr[0] );
     $row = str_replace( $instr_name, $instr_name_upp, $row);
-    echo $row;
-     $arr[ 0 ] = strtoupper( $arr[0] );
-   
     
+     $arr[ 0 ] = strtoupper( $arr[0] );
    
     if ( array_key_exists( $arr[ 0 ], $instruction_map ) ) {
         # zkontrolujeme regex
         # o jaky typ se jedna
         if ( instruction_control( $arr[ 0 ], $row ) ) {
-            
+            $instructions++;
         } else {
             fwrite( STDERR, "Operand spatne u instrukce $arr[0]" );
             # 21 - lexikalni nebo syntakticka chyba
@@ -309,10 +323,10 @@ while ( $row = fgets( $file ) ) {
         
     } else if ( preg_match( '/^(\s)*(#.*)+$/', $row ) ) {
         # zkontrolujeme jestli se nejedna o radek s komentarem
-        $komentar++;
+        $number_of_comments++;
     } else if ( preg_match( '/^(\s)*$/', $row ) ){
         # kontrola, jestli se jedna o prazdny radek
-        $prazdne_radky++;
+        $empty_rows++;
     } else {
         # lexikalni chyba
         fwrite( STDERR, "Neznama instrukce $arr[0]" );
@@ -320,8 +334,32 @@ while ( $row = fgets( $file ) ) {
     }
 }
 
-#echo ( "Pocet prazdnych radku: $prazdne_radky \n" );
-#echo ( "Pocet komentaru: $komentar \n" );
+##############
+# STATISTIKY #
+##############
+echo $loc;
+echo $comments;
+if ( $statistics ) {
+    if ( $comments == 1 ) {
+        # chceme komentare
+        fwrite( $file_stat, "Number of comments: $number_of_comments\n" );
+    }
+    elseif (  $loc == 1) {
+        # pocet radku kodu
+         fwrite( $file_stat, "Number of lines with instructions: $instructions\n" );
+    }
+    
+    if ( $comments == 2 ) {
+        # chceme komentare
+        fwrite( $file_stat, "Number of comments: $number_of_comments\n" );
+    }
+    elseif (  $loc == 2 ) {
+        # pocet radku kodu
+         fwrite( $file_stat, "Number of lines with instructions: $instructions\n" );
+    }
+    fclose( $file_stat );
+    
+}
 
 ##############
 # TVORBA XML #
@@ -330,12 +368,5 @@ while ( $row = fgets( $file ) ) {
 xmlwriter_end_document($xw); # konec program
 echo xmlwriter_output_memory($xw);
 fclose( $file );
-
-    
-# FRAME
-# mam vse v temporary frame, zavolam pushframe, vsechno se mi da do local frame
-   
   
-    
-
 ?>
