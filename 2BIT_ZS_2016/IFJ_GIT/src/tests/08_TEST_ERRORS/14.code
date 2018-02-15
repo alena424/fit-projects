@@ -1,0 +1,5 @@
+' Invalid coment
+
+scope
+	input a
+end scope /' Coment at the and 

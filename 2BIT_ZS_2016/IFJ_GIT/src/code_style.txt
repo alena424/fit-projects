@@ -1,0 +1,29 @@
+HLAVICKOVY SOUBOR BUDE ZACINAT:
+
+/**
+* @file name_file.c 
+* Implementation of IFJ17 imperative language compiler	
+*
+* @brief brief description of file
+*
+* @date 20.10.2017
+*
+* @author Alena Tesarova (xtesar36)
+* @author Jan Sorm (xsormj00)
+* @author Daniel Uhricek (xuhric00)
+* @author Peter Uhrin (xuhrin02)
+*
+*/
+
+FUNKCE
+
+/**
+* @brief Function in this format: somethingSomething
+* @param
+* @return
+*/
+
+nameFunction ( params ) {
+
+}
+
