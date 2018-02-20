@@ -1,0 +1,4 @@
+.IPPcode18 # pokus o cteni hodnoty neinicializovane promenne
+
+DEFVAR GF@$$prom
+concat GF@$$prom GF@$$prom GF@$$prom

@@ -1,0 +1,16 @@
+.IPPcode18
+
+# ruzne typy u porovnani LT, GT, EQ
+
+defvar GF@str
+defvar GF@b
+
+move GF@str string@\032
+move GF@b bool@true
+
+DEFVAR GF@vysl
+# musi byt bool, pozor
+move GF@vysl bool@false
+
+LT GF@vysl GF@b GF@str
+

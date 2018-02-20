@@ -1,0 +1,12 @@
+.IPPcode18
+
+# deleni nulou
+defvar GF@vysl
+move GF@vysl int@0
+
+defvar GF@nula
+move  GF@nula int@0
+
+IDIV GF@vysl int@56 GF@nula
+
+

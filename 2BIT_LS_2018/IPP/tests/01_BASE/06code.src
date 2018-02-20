@@ -1,0 +1,7 @@
+.IPPcode18
+
+defvar GF@prom
+move GF@prom int@97
+move GF@znak string@
+int2char GF@znak GF@prom
+write GF@znak

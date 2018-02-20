@@ -1,0 +1,7 @@
+.IPPcode18
+
+# pokus o pristup k nedefinovanym ramci
+
+PUSHFRAME
+
+

@@ -1,0 +1,11 @@
+.IPPcode18
+
+# prazdny zasobnik, chyba 56
+DEFVAR GF@jedna
+move GF@jedna int@1
+pushs GF@jedna
+
+DEFVAR GF@vrat
+pops GF@vrat
+
+pops GF@vrat

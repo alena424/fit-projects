@@ -1,0 +1,23 @@
+.IPPcode18
+
+# nactu promennou
+DEFVAR GF@prom
+READ GF@prom int
+defvar GF@typ
+MOVE GF@typ string@
+write string@Typ:\032
+type GF@typ GF@prom
+write GF@typ
+write string@\010
+
+defvar GF@retezec 
+MOVE GF@retezec string@osmpisme
+defvar GF@kolik 
+MOVE GF@kolik string@Kolik\032obsahuje\032pismen?\010
+write GF@kolik
+defvar GF@pocetpismen 
+MOVE GF@pocetpismen int@0
+strlen GF@pocetpismen GF@retezec
+write GF@pocetpismen
+
+LABEL end

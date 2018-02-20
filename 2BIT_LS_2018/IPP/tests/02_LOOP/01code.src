@@ -1,0 +1,13 @@
+.IPPcode18
+
+# jednoduchy cyklus
+DEFVAR GF@poc
+MOVE GF@poc int@0
+LABEL for
+JUMPIFEQ end GF@poc int@5
+# provede se cyklus 5x
+WRITE GF@poc
+add GF@poc GF@poc int@1
+jump for
+
+LABEL end

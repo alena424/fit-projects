@@ -1,0 +1,9 @@
+.IPPcode18
+
+# redefinice label
+
+LABEL navesti
+
+JUMP navesti
+
+LABEL navesti

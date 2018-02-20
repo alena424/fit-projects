@@ -1,0 +1,21 @@
+.IPPcode18
+
+# konverze u READ
+DEFVAR GF@typeint
+move GF@typeint int@-7
+READ GF@typeint int
+#bez konverze
+WRITE GF@typeint
+
+defvar GF@b4
+move GF@b4 bool@false
+read GF@b4 bool
+WRITE GF@b4
+
+defvar GF@b5
+move GF@b5 bool@false
+read GF@b5 bool
+WRITE GF@b5
+
+
+

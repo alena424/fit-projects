@@ -1,0 +1,7 @@
+.IPPcode18
+
+# pokus o praci s neexistujici promennnou
+
+write LF@promenna
+
+label end

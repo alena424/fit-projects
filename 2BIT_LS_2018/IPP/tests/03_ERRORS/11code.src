@@ -1,0 +1,10 @@
+.IPPcode18
+
+# chybny vstup
+
+DEFVAR GF@str
+MOVE GF@str string@
+
+READ GF@str string
+# do var se ulozi prazdny retezec pri invalidnim vstupu
+write GF@str

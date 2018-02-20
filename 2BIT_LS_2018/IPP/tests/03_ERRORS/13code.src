@@ -1,0 +1,10 @@
+.IPPcode18
+
+# prazdny retezec
+
+DEFVAR GF@znak
+move GF@znak string@bra
+
+SETCHAR GF@znak int@6 string@
+
+

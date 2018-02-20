@@ -1,0 +1,13 @@
+.IPPcode18
+
+# type na neinicializovanou hodnotu
+
+DEFVAR GF@neinit
+DEFVAR GF@typ
+MOVE GF@typ string@rrrr
+
+type GF@typ GF@neinit
+
+# mel by v typ byl prazdny retezec
+WRITE GF@typ
+

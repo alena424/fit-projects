@@ -1,0 +1,10 @@
+.IPPcode18
+
+# indexace mimo dany retezec u str2int
+
+defvar GF@hodnota
+stri2int GF@hodnota string@ret\032bool int@8
+write GF@hodnota
+
+
+

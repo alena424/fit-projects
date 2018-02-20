@@ -1,0 +1,17 @@
+.IPPcode18
+
+# ruzne typy u AND 
+
+defvar GF@str
+defvar GF@b
+
+move GF@str string@\032
+move GF@b string@\032
+
+DEFVAR GF@vysl
+
+move GF@vysl string@false
+
+# spatny typ u AND, ma byt bool
+AND GF@vysl GF@b GF@str
+

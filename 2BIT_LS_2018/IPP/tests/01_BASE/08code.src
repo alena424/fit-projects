@@ -1,0 +1,22 @@
+.IPPcode18
+
+# instrukce and, or, not
+
+defvar LF@ano
+move LF@ano int@1
+
+defvar LF@ne
+move LF@ne int@0
+
+defvar LF@vyslne
+AND LF@vyslne LF@ne LF@ano
+write LF@vyslne
+
+defvar LF@vyslano
+OR LF@vyslano LF@ne LF@ano
+write LF@vyslano
+
+defvar LF@vyslneg
+NOT LF@vyslneg LF@ne
+write LF@vyslneg
+

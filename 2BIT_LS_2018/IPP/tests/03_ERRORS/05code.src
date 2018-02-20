@@ -1,0 +1,14 @@
+.IPPcode18
+
+# nevhodne typy u ADD => 53
+DEFVAR LF@string
+MOVE LF@string string@retezec\056
+
+DEFVAR LF@int
+move LF@int int@-66
+
+DEFVAR LF@vysli
+move LF@vysl int@0
+ADD LF@vysl LF@string LF@int
+
+

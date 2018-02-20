@@ -1,0 +1,10 @@
+.IPPcode18
+
+# spatny int, neni Unicode
+
+DEFVAR GF@znak
+move GF@znak string@
+
+GETCHAR GF@znak string@ret int@-060
+
+
