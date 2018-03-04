@@ -15,6 +15,13 @@ CFLAGS= #-Wall -std=c99 -pedantic -lm
 
 all: client server
 
+plus: clientp serverp
+
+clientp: client.cpp
+	g++ -std=c++11 client.cpp -o client_plus
+serverp: server.cpp
+	g++ -std=c++11 server.cpp -o server_plus
+
 client: client.c
 	$(CC) $(CFLAGS) client.c -o client
 
