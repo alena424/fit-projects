@@ -9,23 +9,16 @@
 # ###############################
 #
 #
+# -static-libstdc++ aby to slo prelozit na eve
+#
+#################################
 
-CC=gcc
-CFLAGS= #-Wall -std=c99 -pedantic -lm
+all: ipk-client ipk-server
 
-all: client server
+ipk-client: ipk-client.cpp
+	g++ -static-libstdc++ -std=c++11 ipk-client.cpp -o ipk-client
+ipk-server: ipk-server.cpp
+	g++ -static-libstdc++ -std=c++11 ipk-server.cpp -o ipk-server 
 
-plus: clientp serverp
-
-clientp: client.cpp
-	g++ -std=c++11 client.cpp -o client_plus
-serverp: server.cpp
-	g++ -std=c++11 server.cpp -o server_plus
-
-client: client.c
-	$(CC) $(CFLAGS) client.c -o client
-
-server: server.c
-	$(CC) $(CFLAGS) server.c -o server
 clean:
-	rm -rf *.o client server
+	rm -rf *.o ipk-client ipk-server
