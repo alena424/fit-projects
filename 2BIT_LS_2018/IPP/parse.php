@@ -45,6 +45,8 @@ $instruction_map = array(
     # type - (string|int|bool)
     # label - (\w|%|\*|&|$|-)+ (jako nazev promene)
     
+# citac komentaru
+$number_of_comments = 0;    
 $type_reg = "(string|int|bool)";
 $label_reg = "\D(\w|%|\*|&|\\$|-|)+";
 $variable_reg = "(GF|LF|TF)@($label_reg)";
@@ -63,7 +65,7 @@ function proceed_symbol( $symbol ){
         $type_value_array_help[ 'var' ] = $symbol;
     } else {
         # rozrezeme konstantu
-        $cut_konstant = preg_split("/@/", $symbol, -1, PREG_SPLIT_NO_EMPTY );
+        $cut_konstant = preg_split("/@/", $symbol, 2, PREG_SPLIT_NO_EMPTY );
         if ( isset( $cut_konstant[ 1 ] ) ) {
             # existuje neco uvnitr
             if ( $cut_konstant[ 0 ] == 'bool' ) {
@@ -84,6 +86,7 @@ function proceed_symbol( $symbol ){
 function instruction_control ( $name, $row_code ) {
    
     global $instruction_map;
+    global $number_of_comments;
     $arg = 1;
     global $order;
     global $xw;
@@ -127,15 +130,15 @@ function instruction_control ( $name, $row_code ) {
                 return FALSE;
             }
             # prvni je promenna
-            $type_value_array[ 'var' ] = $cut_row[ 1 ];
+            array_push( $type_value_array, array( 'var', $cut_row[ 1 ] ) );
             # druhy a treti je symbol -> konstnata nebo promenna?
             $symbol_array = proceed_symbol( $cut_row[ 2 ] ) ;
              foreach ( $symbol_array as $index => $value ) {
-                $type_value_array[ $index ] = $value;
+                array_push( $type_value_array, array ($index, $value ) );
              }
              $symbol_array = proceed_symbol( $cut_row[ 3 ] ) ;
              foreach ( $symbol_array as $index => $value ) {
-                $type_value_array[ $index ] = $value;
+                array_push( $type_value_array, array ($index, $value ) );
              }
             break;
         case "A2":
@@ -144,15 +147,15 @@ function instruction_control ( $name, $row_code ) {
                 return FALSE;
             }
             
-             $type_value_array[ 'label' ] = $cut_row[ 1 ];
+             array_push( $type_value_array, array( 'label' , $cut_row[ 1 ] ) );
              
             $symbol_array = proceed_symbol( $cut_row[ 2 ] ) ;
              foreach ( $symbol_array as $index => $value ) {
-                $type_value_array[ $index ] = $value;
+                array_push( $type_value_array, array ( $index , $value ) );
              }
              $symbol_array = proceed_symbol( $cut_row[ 3 ] ) ;
              foreach ( $symbol_array as $index => $value ) {
-                $type_value_array[ $index ] = $value;
+               array_push( $type_value_array, array ( $index , $value ) );
              }
             break;
         case "B1":
@@ -161,11 +164,11 @@ function instruction_control ( $name, $row_code ) {
                 return FALSE;
             }
             
-             $type_value_array[ 'var' ] = $cut_row[ 1 ];
+             array_push( $type_value_array, array ( 'var', $cut_row[ 1 ] ) );
              # jedna se o konstantu nebo promennou (symbol)?
              $symbol_array = proceed_symbol( $cut_row[ 2 ] ) ;
              foreach ( $symbol_array as $index => $value ) {
-                $type_value_array[ $index ] = $value;
+                array_push( $type_value_array, array ( $index , $value ) );
              }    
             
             break;
@@ -176,8 +179,8 @@ function instruction_control ( $name, $row_code ) {
                 return FALSE;
             }
             
-            $type_value_array[ 'var' ] = $cut_row[ 1 ];
-            $type_value_array[ 'type' ] = $cut_row[ 2 ];
+            array_push( $type_value_array, array ( 'var', $cut_row[ 1 ] ) );
+            array_push( $type_value_array, array ( 'type', $cut_row[ 2 ] ) );
             break;
         case "C1":
             #echo ("$c1_reg $row_code");
@@ -185,7 +188,7 @@ function instruction_control ( $name, $row_code ) {
             if ( $return_val == FALSE ) {
                 return FALSE;
             }
-            $type_value_array[ 'var' ] = $cut_row[ 1 ];
+           array_push( $type_value_array, array ( 'var', $cut_row[ 1 ] ) );
             break;
         case "C2":
           
@@ -196,7 +199,7 @@ function instruction_control ( $name, $row_code ) {
             
             $symbol_array = proceed_symbol( $cut_row[ 1 ] ) ;
              foreach ( $symbol_array as $index => $value ) {
-                $type_value_array[ $index ] = $value;
+                array_push( $type_value_array, array( $index , $value ) );
              }
             
             break;
@@ -206,7 +209,7 @@ function instruction_control ( $name, $row_code ) {
             if ( $return_val == FALSE ) {
                 return FALSE;
             }
-            $type_value_array[ 'label' ] = $cut_row[ 1 ];
+            array_push( $type_value_array, array ( 'label' , $cut_row[ 1 ] ) );
             break;
         case "D":
             $return_val = preg_match( $d_reg, $row_code );
@@ -214,6 +217,12 @@ function instruction_control ( $name, $row_code ) {
         default:
             $return_val = FALSE;
     }
+    # nachazi se na radku radek s komentarem?
+    $comment = preg_match( "/(#.*)+/", $row_code );
+    if (  $comment == TRUE) {
+        $number_of_comments++;
+    }
+    
     if ( $return_val == TRUE ) {
         # pokud proslo a je vse spravne, tvorime xml
         xmlwriter_start_element($xw, 'instruction');
@@ -226,79 +235,93 @@ function instruction_control ( $name, $row_code ) {
         xmlwriter_text($xw, $name);
         xmlwriter_end_attribute($xw);
         
-        foreach ( $type_value_array as $index => $value ) {
+        foreach ( $type_value_array as $value ) {
+            
             xmlwriter_start_element($xw, 'arg' . $arg++);
             xmlwriter_start_attribute($xw, 'type' );
-            xmlwriter_text($xw, $index );
+            xmlwriter_text($xw, $value[0] );
             xmlwriter_end_attribute($xw);
-            xmlwriter_text($xw, $value );
+            xmlwriter_text($xw, $value[1] );
             xmlwriter_end_element($xw);
         }
         
         xmlwriter_end_element($xw);
     }
-
     return $return_val;
 } 
 
 ########
 # MAIN #
 ########
+$shortopts = "";
 
+$longopts  = array(
+    "help",
+    "comments",
+    "stats:",
+    "loc",
+                
+);
 $statistics = 0;
 $loc = 0;
 $comments = 0;
-# muze existovat pouze jeden nebo dva parametry a to napoveda anebo statistiky
-if ( count ( $argv ) > 1 ) {
-    ########
-    # HELP #
-    ########
-    if ( isset( $argv[ 1 ] ) and $argv[ 1 ] == '--help' ) {
-        echo( 
-        "Nestrukturovaný imperativní jazyk IPPcode18 vznikl úpravou jazyka IFJcode17 (jazyk pro mezikód
-        překladače jazyka IFJ17, viz [3]), který zahrnuje instrukce tříadresné (typicky se třemi argumenty)
-        a zásobníkové (typicky méně parametrů a pracující s hodnotami na datovém zásobníku). Každá instrukce
-        se skládá z operačního kódu (klíčové slovo s názvem instrukce), u kterého nezáleží na velikosti
-        písmen (tj. case insensitive). Zbytek instrukcí tvoří operandy, u kterých na velikosti písmen záleží
-        (tzv. case sensitive). Operandy oddělujeme libovolným nenulovým počtem mezer či tabulátorů. Také
-        před operačním kódem a za posledním operandem se může vyskytnout libovolný počet mezer či tabulátorů.
-        Odřádkování slouží pro oddělení jednotlivých instrukcí, takže na každém řádku je maximálně
-        jedna instrukce a není povoleno jednu instrukci zapisovat na více řádků. Každý operand je tvořen
-        proměnnou, konstantou, typem nebo návěštím. V IPPcode18 jsou podporovány jednořádkové komentáře
-        začínající mřížkou (#). Kód v jazyce IPPcode18 začíná úvodním řádkem s tečkou následovanou
-        jménem jazyka (nezáleží na velikosti písmen): .IPPcode18
-        " );
+    
+$options = getopt($shortopts, $longopts);
+
+if ( ! empty ( $options ) ) {
+    if ( isset( $options[ "help" ]  ) and $options[ "help" ] == false ) {
+                echo(
+"VSTUP:
+# tvorba XML:   $argv[0] stdin                  vstupni kod v jazyce IPPcode18
+# statistiky:   $argv[0] stdin --stats=file     soubor, kam se budou statistiky vypisovat
+                [ --loc  |                      parametr vypise do statistik pocet radku s instrukcemi
+                --comments ]                    vypise do statistik pocet radku obsahujici pouze komentar
+# napoveda:     $argv[0] --help                 vypsani teto napovedy
+"   );
         exit( 0 );
     }
-    elseif ( preg_match( '/--stats=(\S+)/', $argv[ 1 ], $matches ) and count ($argv) <= 4 ) {
-        #print_r( $matches );
-        $file_stat = fopen( $matches[1], "w+" );
+    if ( isset( $options[ "stats" ] )  ) {
+        $statistics = 1;
+        $file_stat = fopen( $options[ "stats" ] , "w+" );
         if ( $file_stat == FALSE or $file_stat == 0 ) {
-            fwrite(STDERR, "Nepodarilo se vytvorit soubor $matches[1]");
+            fwrite(STDERR, "Nepodarilo se vytvorit soubor ".$options[ "stats" ]);
             exit( 11 );
         }
-        if ( preg_match( '/(--comments)/', $argv[ 2 ] ) ) {
-            $comments = 1;
-            if ( isset($argv[ 3 ] ) and preg_match( '/(--loc)/', $argv[ 3 ] ) ){
-                $loc = 2;
+        # musime najit v jakem poradi vypisovat
+        if ( isset( $options[ "comments" ] )  and isset( $options[ "loc" ] ) ) {
+            $i = 1; # pocitadlo
+            $com = 0;
+            $loc2 = 0;
+            foreach ($argv as $arg) {
+                # projdu argumenty
+                if ( preg_match( '/(--comments)/', $arg ) ){
+                    $com = $i;
+                }
+                elseif ( preg_match( '/(--loc)/', $arg ) ){
+                    $loc2 = $i;
+                }
+                $i++;
             }
-        } elseif ( preg_match( '/(--loc)/', $argv[ 2 ] )  ) {
-            $loc = 1;
-            if ( isset($argv[ 3 ] ) and preg_match( '/(--comments)/', $argv[ 3 ] ) ) {
+            if ( $com > $loc2 ){
                 $comments = 2;
+                $loc = 1;
+            } else {
+                $loc = 2;
+                $comments = 1;
             }
-        } else {
-            fwrite(STDERR, "Spatna kombinace parametru");
-            exit( 10 ); 
+        } elseif( isset( $options[ "comments" ] )  ){
+            $comments = 1;
         }
-        # priznak, ze chceme statistiky
-        $statistics = 1;
-       
-    } else {
-        # nepovolena kombinace parametru
-        fwrite(STDERR, "Nepovolena kombinace parametru");
-        exit( 10 );
-    }    
+        elseif( isset( $options[ "loc" ] )  ){
+            $loc = 1;
+        }
+    } elseif ( isset( $options[ "comments" ] ) or isset( $options[ "loc" ] ) ){
+        fwrite(STDERR, "Spatna kombinace parametru");
+        exit( 10 ); 
+    }
+} elseif ( count ( $argv ) > 1 ) {
+    fwrite(STDERR, "Spatna kombinace parametru");
+    exit( 10 ); 
 }
 
 $file = fopen( 'php://stdin', "r" );
@@ -310,29 +333,29 @@ if ( $file == FALSE ) {
 $xw = xmlwriter_open_memory();
 xmlwriter_set_indent($xw, 1);
 $res = xmlwriter_set_indent_string($xw, ' ');
-
-
 xmlwriter_start_document($xw, '1.0', 'UTF-8');
 xmlwriter_start_element($xw, 'program');
 xmlwriter_start_attribute($xw, 'language');
-xmlwriter_text($xw, 'ippcode18');
+xmlwriter_text($xw, 'IPPcode18');
 xmlwriter_end_attribute($xw);
 
-# preskocime prazdne radky
+# preskocime prazdne radky - pokud budeme chtit preskakovat prazdne rady, odkomentovat
 while ( $row = fgets( $file ) and preg_match( '/^(\s)*$/', $row ) ) {};
-#echo $row;
+
 if ( $row ) {
-     if ( preg_match( '/^(\s)*\.IPPcode18(\s)*(#.*)*$/', $row ) == FALSE ) {
+     if ( preg_match( '/^(\s)*\.IPPcode18(\s)*(#.*)*$/i', $row ) == FALSE ) {
         fwrite( STDERR, "Kod musi zacinat .IPPcode18\n" );
         exit( 21 );   
       }  
+} else {
+    # nic nezadam na vstupu
+    exit(21);
 }
-$number_of_comments = 0;
+
 $empty_rows = 0;
 $instructions = 0;
 $number_row = 1;
 while ( $row = fgets( $file ) ) {
-    #echo ( $row );
      # potrebuju vzit prvni nazev instrukce
     $number_row++;
     $arr = explode(' ',trim( $row ) );
@@ -340,7 +363,7 @@ while ( $row = fgets( $file ) ) {
     $instr_name_upp = strtoupper( $arr[0] );
     $row = str_replace( $instr_name, $instr_name_upp, $row);
     
-     $arr[ 0 ] = strtoupper( $arr[0] );
+     $arr[ 0 ] = strtoupper( trim( $arr[0] ) );
    
     if ( array_key_exists( $arr[ 0 ], $instruction_map ) ) {
         # zkontrolujeme regex
@@ -352,7 +375,6 @@ while ( $row = fgets( $file ) ) {
             # 21 - lexikalni nebo syntakticka chyba
             exit( 21 ); 
         }
-        
     } else if ( preg_match( '/^(\s)*(#.*)+$/', $row ) ) {
         # zkontrolujeme jestli se nejedna o radek s komentarem
         $number_of_comments++;
@@ -399,4 +421,5 @@ if ( $statistics ) {
 xmlwriter_end_document($xw); # konec program
 echo xmlwriter_output_memory($xw);
 fclose( $file );
+exit(0);
 ?>
