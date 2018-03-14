@@ -24,10 +24,9 @@
 
 using namespace std;
 
-#define BUFSIZE 2024  //nejvetsi soubor
-#define MAX_LOGIN 10
+#define BUFSIZE 1024  //nejvetsi soubor
 #define TIME_STRING 100 // makro pro ukladani casu
-#define KEY 3 //klic k kodovani
+#define OK 3 // velikost prijmane zpravy od server, bud OK nebo OK
 
 class Message
 {
@@ -50,7 +49,7 @@ public:
     }
 
     /**
-    * createMessage - zapozdreni informaci do zpravy
+    * createMessage - adds header and create final message to send to server
     */
     void createMessage()
     {
@@ -65,7 +64,6 @@ public:
         this->message += "Content-Length: " + to_string ( login.length() ) + "\r\n";
         this->message += "ExpectedOutput: " +  option + "\r\n";
         this->message += "Data: " + this->login + "\n";
-
     }
     string getMessage()
     {
@@ -77,15 +75,18 @@ class Response
 {
 public:
 
-    int total_messages = 0; // aspon jedna pokud se pouziva tato trida
-    int number_message = 0;
     string data = "";
     string error_message = "";
 
-    Response( )
-    {
-        this->data = "";
-    }
+    Response( ) {}
+
+    /**
+    * getData - extracts information sent from server and extracts data that we need
+    * @param message - string to extract from
+    * @param toExtract - what to extract
+    * @return extracted string
+    * @example message = "Data: xlogin36" ; toExtract = "Data: " ; return => xlogin36
+    */
     string getData(string message, string toExtract)
     {
         // jedem po radku dokud nenajdeme contentlength
@@ -101,37 +102,17 @@ public:
                 // nasli jsme
                 line.erase( 0, index +toExtract.length() );
                 line.erase(line.find_last_not_of(" \n\r\t") +1); // zbavime se koncovych mezer
-                //cout << "LINE erased:"<< line << endl;
-                //cout << line;
                 return (line);
             }
         }
         return "";
     }
-    void parse( stringstream& message )
-    {
-        // potrebuju ji rozparsovat na map
-        string line;
-        map <string, string> received_loc;
-
-        while ( getline( message, line) )
-        {
-            int index = line.find( ": " ); // hledame informaci, kteru chceme zobracit
-            if ( index != string::npos )
-            {
-                // nasli jsme
-                received_loc[ line.substr(0, index) ] = line.substr(index+2 ); // parsuju zpravu
-            }
-            else
-            {
-                //pokud cteme z dat, bereme cely radek
-                received_loc[ "Data" ] += line;
-            }
-        }
-        //cout << "PARSE: " << received_loc[ "Data" ] << endl;
-    }
 
     //pridame si dalsi data to koncove zpravy
+    /**
+    * returnData - extracts information sent from server and extracts data that we need
+    * @return string to put on stdout
+    */
     string returnData( )
     {
         string newdata = this->data;
@@ -154,11 +135,8 @@ public:
 };
 
 
-
 int main (int argc, const char * argv[])
 {
-
-    bool login; // zda byl zadan login nebo ne
     string regex_login ; // zadany login v argumentecg
     string option ; // jaky vystup nas bude zajimat
 
@@ -174,7 +152,6 @@ int main (int argc, const char * argv[])
         exit(EXIT_FAILURE);
     }
     // kontrola [-n|-f|-l]
-
     if ( strcmp( argv[5], "-n" ) == 0 )
     {
         option = "N";
@@ -199,17 +176,15 @@ int main (int argc, const char * argv[])
     if ( argc == 7 && strlen(argv[6]) < 10)
     {
         regex_login = argv[6];
-        login = "1";
     }
     else
     {
         regex_login = "";
-        login = "0";
     }
 
     // pripojeni
     int client_socket;
-    socklen_t serverlen;
+    //socklen_t serverlen;
     struct hostent *server;
     struct sockaddr_in server_address;
 
@@ -228,9 +203,6 @@ int main (int argc, const char * argv[])
     bcopy((char *)server->h_addr, (char *)&server_address.sin_addr.s_addr, server->h_length);
     server_address.sin_port = htons(port_number); // prevedeni do spravneho tvaru
 
-    // tiskne informace o vzdalenem soketu pak smazat
-    //printf("INFO: Server socket: %s : %d \n", inet_ntoa(server_address.sin_addr), ntohs(server_address.sin_port));
-
     // Vytvoreni soketu, SOCK_STREAM je pro TCP
     if ((client_socket = socket(AF_INET, SOCK_STREAM, 0)) <= 0)
     {
@@ -239,16 +211,9 @@ int main (int argc, const char * argv[])
     }
 
     // posilani zpravy na server, specifikovat, co po nem chceme
-    char buf[BUFSIZE] = "";
-    bzero(buf, BUFSIZE);
-
     Message mess ( option, regex_login );
-    mess.createMessage();
+    mess.createMessage(); // vytvorime zpravu
     string output = mess.getMessage();
-    //cout << output;
-    strcpy(buf, output.c_str() );
-
-    //printf("delka je: %d", strlen(buf));
 
     if (connect(client_socket, (const struct sockaddr *) &server_address, sizeof(server_address)) != 0)
     {
@@ -256,24 +221,45 @@ int main (int argc, const char * argv[])
         exit(EXIT_FAILURE);
     }
 
-    // odeslani zpravy na server
-    int send_resp = send(client_socket, buf, strlen(buf), 0);
-    //cout << send_resp << endl;
-    if (send_resp < 0)
+    // odeslani zpravy na server dokud je server neprijme tzn. dokud nedostaneme odpoved od serveru OK
+    char ok[OK];
+    bool correct = false; // priznak, ze server prijmul data
+    while(true && (!correct) )
     {
-        cerr << "ERROR in sendto";
-        close(client_socket);
-        exit(EXIT_FAILURE);
+        // posilam dokud server neposle OK
+        int send_resp = send(client_socket, output.c_str(), output.length(), 0);
+        if (send_resp < 0)
+        {
+            cerr << "ERROR in send";
+            close(client_socket);
+            exit(EXIT_FAILURE);
+        }
 
+        // cekame na prijmuti OK nebo KO
+        while(true)
+        {
+            int receive_mess_ok = recv(client_socket, ok, OK, 0);
+            if ( receive_mess_ok > 0 )
+            {
+                if ( strcmp(ok, "OK") == 0)
+                {
+                    // muzeme ukoncit
+                    correct = true;
+                }
+                else
+                {
+                    //cout << "Posilam znova" << endl;
+                }
+                break;
+            }
+        }
     }
 
-    // prijeti odpovedi
+    /* prijeti odpovedi */
     int receive_mess = 0;
     Response resp;
-    bool skip = false; // flag na podminku odpovedi
     while(true)
     {
-        //cout << i << endl;
         char message[BUFSIZE] = "";
         memset(message, 0, BUFSIZE);
         receive_mess = recv(client_socket, message, BUFSIZE, 0);
@@ -287,29 +273,15 @@ int main (int argc, const char * argv[])
         {
             break;
         }
-        //printf("\n\n___________________________\n");
-        //printf("REC: %d \n", receive_mess);
-        //cout << "MESS CHAR:" << message << endl;
         resp.data += message;
-
-        // nejaka chyba napr. neexistujici login
-        /*if ( resp.addData( message ) == false && (! skip ) )
-        {
-            cerr << "Unexisting login" << endl;
-            return EXIT_FAILURE;
-        }*/
-        skip = true; // login je spravny
-        //printf("___________________________\n");
-
     }
+
+    // zpracujeme data na vystup
     string return_data = resp.returnData();
-    if ( resp.error_message.length() > 0 ){
-            cerr << resp.error_message << endl;
-            return EXIT_FAILURE;
-    } else {
-        cout << return_data;
-    }
+    cout << return_data ;
 
     close(client_socket);
     return 0;
 }
+
+/*** konec ipk-client.cpp ***/

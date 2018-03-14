@@ -22,13 +22,12 @@
 #include <fcntl.h>
 #include <signal.h>
 
-#define BUFSIZE 1025
-#define LINEMAX 1024
-#define FILESIZE 2024
-#define PARSE_LENGTH 947 //maximlani delka dat, protoze hlavicka nejdelsi muze mit delku 75 - 2 pro jistotu
+#define BUFSIZE 256 // delka max delka prjimanych dat
+#define LINEMAX 1024 // maximlane delka radku v souboru
 
 using namespace std;
 
+int csocket;
 
 class MessageParse
 {
@@ -56,7 +55,6 @@ private:
             count++;
             token = strtok(NULL, ":");
         }
-        printf("%s", token);
         return token;
     }
 
@@ -78,7 +76,8 @@ private:
                 // musime osetrit pripad, kdy nejsou striktni podminky a nezadame zadny prefix, delka je 0
                 if ( strick == false && login.length() == 0)
                 {
-                    this->output_data += line ;
+                    this->output_data += getRecord(line, col);
+                    this->output_data += "\n";
                     break;
                 }
 
@@ -94,6 +93,7 @@ private:
                         {
                             // bereme tento radek
                             this->output_data = getRecord( line, col );
+                            this->output_data += "\n";
                             this->error = false;
                             return;
                         }
@@ -104,7 +104,8 @@ private:
                         if ( hit == login.length() )
                         {
                             // bereme tento radek
-                            this->output_data += line ;
+                            this->output_data += getRecord(line, col);
+                            this->output_data += "\n";
                         }
                     }
                 }
@@ -117,9 +118,9 @@ private:
 
         }
     }
-     /**
-     * method extractFromMess - extract one information specified by extract
-     * @param toExtract - string to get information from, for example Data: - gets all data in out message
+    /**
+    * method extractFromMess - extract one information specified by extract
+    * @param toExtract - string to get information from, for example Data: - gets all data in out message
     */
     string extractFromMess( string toExtract )
     {
@@ -143,7 +144,6 @@ private:
     string addHeader(string data)
     {
         string status = "OK";
-        cout << "stat: " << this->error << endl;
         // pokud se jedna o list, nevypisujeme nic o neexistujicim loginu
         if ( this->error )
         {
@@ -184,12 +184,10 @@ public:
 
         int ret = 0;
         this->error = true; // defaultne chyba
-        cout << "option: " << this->option << endl;
         if ( this->option.compare( "N" ) == 0)
         {
             // 4. sloupec
             search_login(4, true);
-            cout << "stat1: " << this->error << endl;
         }
         if ( this->option.compare( "F" ) == 0)
         {
@@ -198,8 +196,8 @@ public:
         }
         else if ( this->option.compare( "L" ) == 0)
         {
-            // chceme vse => 999
-            search_login( 999, false);
+            // chceme login => 0
+            search_login( 0, false);
             this->error = false; // nikdy neni chyba pokud se jedna o L
 
         }
@@ -208,15 +206,16 @@ public:
     /**
      * method sendData - sending all data (means output_data + header)
     */
-    bool sendData(int csocket)
+    bool sendData()
     {
         string all_data = this->addHeader(this->output_data);
         int all_data_length = all_data.length();
         int once = 1;
         while (once)
         {
-            cout << all_data << endl;
+
             int send_resp = send(csocket, all_data.c_str(), all_data_length, 0);
+
             if (send_resp < 0)
             {
                 cerr << "ERROR in sendto";
@@ -238,7 +237,6 @@ public:
 
 };
 
-int csocket;
 void quit(int signal)
 {
     close(csocket);
@@ -250,7 +248,6 @@ int main (int argc, const char * argv[])
     signal(SIGINT, quit);
     struct sockaddr_in server_socket;
     struct sockaddr_in client_socket;
-    char str[INET6_ADDRSTRLEN];
     int port_number;
 
     /* argumenty kontrola */
@@ -293,41 +290,68 @@ int main (int argc, const char * argv[])
         socklen_t client_socket_len=sizeof(client_socket);
         csocket = accept(welcome_socket, (struct sockaddr*)&client_socket, &client_socket_len);
 
-        // nastaveni neblokujiciho soketu
-        int flags = fcntl(csocket, F_GETFL, 0);
-        int rc = fcntl(csocket, F_SETFL, flags | O_NONBLOCK);
-        if (rc < 0)
-        {
-            cerr << "fcntl() failed" << endl;
-            exit(EXIT_FAILURE);
-        }
-
+        // mame schranku
         if (csocket > 0)
         {
+            // nastaveni neblokujiciho soketu
+            int flags = fcntl(csocket, F_GETFL, 0);
+            int rc = fcntl(csocket, F_SETFL, flags | O_NONBLOCK);
+            if (rc < 0)
+            {
+                cerr << "fcntl() failed" << endl;
+                exit(EXIT_FAILURE);
+            }
+            // zde si budeme ukladat zpravu od klienta
             char buff[BUFSIZE] = "";
             memset(buff, 0, BUFSIZE);
 
-            while (true)
+            while(true)
             {
-                int res = recv(csocket, buff, BUFSIZE,0);
-                if ( res <= 0 )
+                // while pro spravne prijmuti zpravy od klienta
+                while (true)
+                {
+                    int res = recv(csocket, buff, BUFSIZE, 0);
+                    if ( res <= 0 )
+                    {
+
+                        break;
+                    }
+
+                    else if ( res == EAGAIN )
+                    {
+                        cerr << "." << endl;
+                        continue;
+                    }
+                }
+
+                // prijmuta zprava nic neobsahuje, delka je 0
+                // oznamime klientovi, ze jsme nic nedostali zpravou KO
+                // pokud dostaneme zpravu, ktera obsahuje aspon 1 znak, vypisujeme OK klientovi
+                // at vi, ze je vsechno OK
+                if ( strlen(buff) == 0)
                 {
 
+                    int send_no = send(csocket, "KO", 3, 0);
+                    if (send_no < 0)
+                    {
+                        cerr << "ERROR in sendto";
+                        exit(EXIT_FAILURE);
+                    }
+                }
+                else
+                {
+                    // vse je ok, jedeme dal a zpracovavame zpravu
+                    int send_yes = send(csocket, "OK", 3, 0);
+                    if (send_yes < 0)
+                    {
+                        cerr << "ERROR in sendto";
+                        exit(EXIT_FAILURE);
+                    }
+                    //konec posilani, vse je ok
                     break;
                 }
-
-                else if ( res == EAGAIN )
-                {
-                    cerr << "." << endl;
-                    continue;
-                }
             }
-            cout << buff << endl;
-            if ( strlen(buff) == 0)
-            {
-                error_resv = 1; // dame klientovi vedet, ze je neco spatne
-            }
-
+            // otvirani souboru /etc/passwd
             FILE *f;
             f = fopen( "/etc/passwd", "r" );
             if ( f == NULL )
@@ -337,22 +361,20 @@ int main (int argc, const char * argv[])
             }
 
             stringstream os;
+            // prevedeme chr* na stringstream => lepe se zpracovava
             os.str( buff);
             MessageParse mess(os);
-            if ( error_resv )
-            {
-                mess.err_message = "Get no data from client, probably problem in send on client side or recv on server side, please, try again";
-                mess.error = 1;
-            } else {
-                mess.proceedOutput();
-            }
-            mess.sendData( csocket);
+            // zpracujeme vystup
+            mess.proceedOutput();
+            // posilame data
+            mess.sendData();
             fclose(f);
         }
         else
         {
-            printf(".");
+            cout << ".";
         }
         close(csocket);
     }
 }
+/*** konec ipk-server.cpp ***/

@@ -1,0 +1,23 @@
+NÁZEV PROJEKTU
+Varianta 1: Klient-server pro získání informace o uživatelích
+
+SPUŠTĚNÍ
+Kompilace přikazem make.
+
+SERVER
+PŘÍKLAD:
+./ipk-server -p port  
+# port (číslo) číslo portu, na kterém server naslouchá na připojení od klientů.
+
+KLIENT
+PŘÍKLAD
+./ipk-client -h eva.fit.vutbr.cz -p 55555 -n rysavy
+host (IP adresa nebo fully-qualified DNS name) identifikace serveru jakožto koncového bodu komunikace klienta;
+port (číslo) cílové číslo portu;
+-n značí, že bude vráceno plné jméno uživatele včetně případných dalších informací pro uvedený login (User ID Info);
+-f značí, že bude vrácena informace o domácím adresáři uživatele pro uvedený login (Home directory);
+-l značí, že bude vrácen seznam všech uživatelů, tento bude vypsán tak, že každé uživatelské jméno bude na zvláštním řádku; v tomto případě je login nepovinný. Je-li však uveden bude použit jako prefix pro výběr uživatelů.
+login určuje přihlašovací jméno uživatele pro výše uvedené operace.
+
+AUTOR
+Alena Tesařová, xtesar36@stud.fit.vutbr.cz
