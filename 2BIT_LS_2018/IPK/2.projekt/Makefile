@@ -11,7 +11,7 @@
 all: ipk-dhcpstarve
 
 ipk-dhcpstarve: ipk-dhcpstarve.c
-	gcc ipk-dhcpstarve.c  -o ipk-dhcpstarve
+	gcc -Wall ipk-dhcpstarve.c  -o ipk-dhcpstarve
 
 clean:
 	rm -rf *.o ipk-dhcpstarve
