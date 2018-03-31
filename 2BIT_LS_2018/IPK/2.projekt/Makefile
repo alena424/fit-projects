@@ -10,8 +10,14 @@
 
 all: ipk-dhcpstarve
 
-ipk-dhcpstarve: ipk-dhcpstarve.c
-	gcc -Wall ipk-dhcpstarve.c  -o ipk-dhcpstarve
+ipk-dhcpstarve: ipk-dhcpstarve.c headers.h dhcp.o
+	gcc -Wall $^ -o ipk-dhcpstarve
+
+dhcp.o: dhcp.c dhcp.h
+	gcc dhcp.c 
+
+object_files:
+	gcc 
 
 clean:
 	rm -rf *.o ipk-dhcpstarve
