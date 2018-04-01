@@ -3,21 +3,29 @@
 # @date		28.03.2018
 # @author	Alena Tesarova, xtesar36 
 
-Feature: Shopping cart
+# Shopping process 2/3
 
+Feature: Shopping cart
+  
 	# shopping cart empty
-	Scenario: Display shopping cart
+	Scenario: Display shopping cart with no product
 		Given no product in shopping cart
 		When the user clicks on "Shopping cart"
 		Then the user sees that shopping cart is empty
+	
+	# user wants to add item to cart
+	Scenario: Adding Nikon to cart
+		Given description of camera "Nikon D300" is shown
+		When the user types quantity 1
+		And the user clicks on "Add to Cart" button
+		Then Nikon D300 is added to cart
 	
 	# shopping cart with one product
 	Scenario: Display shopping cart
 		Given one available Nikon D300 in shopping cart
 		When the user clicks on "Shopping cart"
 		Then the user sees Nikon D300 in shopping cart
-		But quantity equals one
-		
+		But quantity equals one	
 
 	# update quantity in cart
 	Scenario: Increase quantity in cart
@@ -69,7 +77,11 @@ Feature: Shopping cart
 	Scenario: Apply shipping estimate
 		Given Nikon D300 in shopping cart
 		When the user fills <reqiredData> in estimate shopping
-		And the user applies shipping
+		And the user applies shipping with first offered flat shipping rate
 		Then the user sees that the shipping estimate has been applied
+		|requiredData  |
+		|Country       |
+		|Region/State  |
+		|PostCode      |
 
 ########### end of tests ################
