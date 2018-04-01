@@ -4,9 +4,6 @@
 * @author
 */
 
-#include "headers.h"
-#include "leases.h"
-
 #define VARIABLE_L 312 // length of variable in options in dhcp packet
 #define MAC_ADDRESS_L 6 // length of mac address
 
@@ -46,13 +43,6 @@
 #define TIME_OFFSET 2 //length 4 bytes
 
 
-/* Options */
-// option cookies - to differ beetween BOOTP and a DHCP message
-int magic_cookies[] = { 99, 130, 83, 99 };
-// option codes 128 - 256 are reserved for site-specific options
-// end option is 255 and its length is 1 octet
-
-
 // see RFC 2131, page 8
 
 typedef struct dhcp_packet{
@@ -73,8 +63,9 @@ typedef struct dhcp_packet{
 	uint32_t options[VARIABLE_L];
 } dhcp_packet;
 
-int dhcp_discover( dhcp_packet* dhcp, dhcp_lease *lease  );
-int dhcp_request( dhcp_packet* dhcp, dhcp_lease *lease );
+//int dhcp_discover( dhcp_packet* dhcp, struct dhcp_lease *lease  );
+//int dhcp_request( dhcp_packet* dhcp, struct dhcp_lease *lease );
+int request_lease(int socket_send, int socket_recv, unsigned char * mac, unsigned char *dstmac, int max_tries, unsigned char *interface_mac, int iface_index);
 
 
  /*** end of dhcp.h ***/

@@ -7,17 +7,28 @@
 # IPK - 2. projekt, zadani II.
 #
 # ###############################
+FLAGS = -std=gnu99 #-Wall
 
-all: ipk-dhcpstarve
+all: ipk-dhcpstarve 
+nonmodul: ipk-dhcpstarve-non
 
-ipk-dhcpstarve: ipk-dhcpstarve.c headers.h dhcp.o
-	gcc -Wall $^ -o ipk-dhcpstarve
+ipk-dhcpstarve-non: ipk-dhcpstarve.c
+	gcc $(FLAGS) $< -o $@
 
-dhcp.o: dhcp.c dhcp.h
-	gcc dhcp.c 
+ipk-dhcpstarve: ipk-dhcpstarve.o dhcp.o lease.o udp.o
+	gcc $(FLAGS) $^ -o $@ 
 
-object_files:
-	gcc 
+ipk-dhcpstarve.o: ipk-dhcpstarve.c headers.h  
+	gcc $(FLAGS) -c $< -o $@ 
+
+dhcp.o: dhcp.c dhcp.h lease.h 
+	gcc $(FLAGS) -c $< -o $@
+
+lease.o: lease.c lease.h headers.h
+	gcc $(FLAGS) -c $< -o $@
+
+udp.o: udp.c udp.h
+	gcc $(FLAGS) -c $< -o $@
 
 clean:
 	rm -rf *.o ipk-dhcpstarve

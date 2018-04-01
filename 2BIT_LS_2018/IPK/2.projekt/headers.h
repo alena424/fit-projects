@@ -10,6 +10,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include <assert.h>
 
 #include <arpa/inet.h>
 #include <netpacket/packet.h>
@@ -20,3 +21,4 @@
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <net/if.h>
+
