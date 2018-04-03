@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<program language="IPPcode18">
+ <instruction order="1" opcode="LT">
+  <arg1 type="var">GF@side</arg1>
+  <arg2 type="int">123</arg2>
+  <arg3 type="int">456</arg3>
+ </instruction>
+ <instruction order="2" opcode="GT">
+  <arg1 type="var">TF@moje</arg1>
+  <arg2 type="string">ahoj</arg2>
+  <arg3 type="string">nazdar</arg3>
+ </instruction>
+ <instruction order="3" opcode="EQ">
+  <arg1 type="var">LF@foo</arg1>
+  <arg2 type="bool">true</arg2>
+  <arg3 type="bool">false</arg3>
+ </instruction>
+ <instruction order="4" opcode="AND">
+  <arg1 type="var">GF@side</arg1>
+  <arg2 type="int">123</arg2>
+  <arg3 type="int">456</arg3>
+ </instruction>
+ <instruction order="5" opcode="OR">
+  <arg1 type="var">TF@moje</arg1>
+  <arg2 type="string">ahoj</arg2>
+  <arg3 type="string">necum</arg3>
+ </instruction>
+ <instruction order="6" opcode="NOT">
+  <arg1 type="var">LF@foo</arg1>
+  <arg2 type="bool">true</arg2>
+ </instruction>
+ <instruction order="7" opcode="STRI2INT">
+  <arg1 type="var">GF@abcdefghijklmnop</arg1>
+  <arg2 type="string">Stringsingggggg</arg2>
+  <arg3 type="string">dual</arg3>
+ </instruction>
+ <instruction order="8" opcode="INT2CHAR">
+  <arg1 type="var">LF@var</arg1>
+  <arg2 type="int">123456789</arg2>
+ </instruction>
+ <instruction order="9" opcode="CREATEFRAME"/>
+ <instruction order="10" opcode="POPFRAME"/>
+ <instruction order="11" opcode="RETURN"/>
+ <instruction order="12" opcode="CONCAT">
+  <arg1 type="var">LF@var</arg1>
+  <arg2 type="int">123</arg2>
+  <arg3 type="string">moho</arg3>
+ </instruction>
+ <instruction order="13" opcode="TYPE">
+  <arg1 type="var">LF@variable*-*-%%</arg1>
+  <arg2 type="int">0</arg2>
+ </instruction>
+ <instruction order="14" opcode="LABEL">
+  <arg1 type="label">label</arg1>
+ </instruction>
+ <instruction order="15" opcode="JUMP">
+  <arg1 type="label">while</arg1>
+ </instruction>
+ <instruction order="16" opcode="WRITE">
+  <arg1 type="string">mojekolojenej</arg1>
+ </instruction>
+ <instruction order="17" opcode="DPRINT">
+  <arg1 type="string">ahoj\125vole&lt;&gt;&amp;</arg1>
+ </instruction>
+ <instruction order="18" opcode="BREAK"/>
+ <instruction order="19" opcode="JUMPIFEQ">
+  <arg1 type="label">label</arg1>
+  <arg2 type="int">-00025</arg2>
+  <arg3 type="int">1115</arg3>
+ </instruction>
+ <instruction order="20" opcode="JUMPIFNEQ">
+  <arg1 type="label">foo</arg1>
+  <arg2 type="bool">true</arg2>
+  <arg3 type="bool">false</arg3>
+ </instruction>
+</program>

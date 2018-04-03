@@ -12,18 +12,31 @@ class Tests{
         $this->parse = $parse;
         $this ->interpret = $interpret;
         $this->recursive = $recursive;
-        $this->html_out = "<!DOCTYPE html>\n<html>\n <head>\n<title>TESTS</title>\n </head>\n  <body>\n   <h1>TESTS</h1>\n";
+        $this->html_out = "<!DOCTYPE html>\n<html>\n <head>\n<title>TESTS</title>\n </head>
+        <style>
+        .test{ background:#f9f9f9; width: 1000px; margin-bottom: 20px}
+        .correct{
+            color:#5cb85c;
+          }
+        .error{
+            color:#d9534f;
+           }
+            </style>
+        <body>\n
+        <h1>TESTS</h1>\n";
     }
+    
     
     public function get_tests(){
         $recursive_dir = array();
         # pushneme  adresar do pole nezpracovanych adresaru
         array_push( $recursive_dir, $this->directory );
-        
+        #echo $this->directory ;
         while ( ! empty ( $recursive_dir ) ) {
             # zpracuju aktualni adresar a delam testy
             $this->directory = array_pop( $recursive_dir );
             $dir_files = scandir( $this->directory );
+            #print_r( $dir_files);
             $src = preg_grep( "/^.+\.src/", $dir_files );
             $this->get_tests_src( $src );
             
@@ -40,19 +53,25 @@ class Tests{
     
     # funkce dostane .src soubory v adresari $this->directory
     public function get_tests_src( $src ){
-        
+        $counter = 1;
         foreach ( $src as $entry ) {
-            $xmlfile = tempnam( $this->directory, "xml_parse_" );
-            $outfile = tempnam( $this->directory, "out_int" );
-            $rc_out = tempnam( $this->directory, "rc_out" );
+            $this->html_out .= "<div class='test'>";
+            $this->html_out .= "   <b>". $counter . ". " . $this->directory .'/'.$entry."<b>\n";
+            # temporary slozky
+            $xmlfile_tmp = tempnam( $this->directory, "xml_parse_" );
+            $outfile_tmp = tempnam( $this->directory, "out_int" );
+            $rc_out_tmp = tempnam( $this->directory, "rc_out" );
            
             preg_match( "/^(.+)\.src/", $entry, $matches );
+            $exit_code = 0;
             #echo "\n DIR: ".$this->directory. '/' . $matches[0]  ."\n";
-            $out_xml = exec ( "php ". $this->parse . " < " . $this->directory .'/'.$entry . " > ".  $xmlfile, $output, $exit_code);
-            
+            #echo  ("php ". $this->parse . " < " . $this->directory .'/'.$entry . " > ".  $xmlfile_tmp);
+            $out_xml = exec ( "php ". $this->parse . " < " . $this->directory .'/'.$entry . " > ".  $xmlfile_tmp , $output, $exit_code);
             
             # existuje .rc soubor?
-            $this->_createFile( $rc_out, $exit_code );
+            #echo $entry . " " . $exit_code;
+            #echo "\n";
+            #$this->_createFile( $rc_out_tmp, 0 );
             $rc_name = $this->directory .'/'.$matches[1] .'.rc';
             if ( file_exists( $rc_name ) == FALSE ){
                 #vytvorime
@@ -60,8 +79,12 @@ class Tests{
             }
             # existuje .out soubor?
             $out_name = $this->directory .'/'.$matches[1] .'.out';
+            #echo "DIR: " .$this->directory;
+            #echo "match: " . $matches[1];
+            
             if ( file_exists( $out_name ) == FALSE ){
                 #vytvorime
+                echo $out_name;
                 $this->_createFile( $out_name, '' );
             }
             
@@ -75,45 +98,63 @@ class Tests{
             ########
             # DIFF #
             ########
-            $this->html_out .= "   <h2>".$this->directory .'/'.$entry."</h2>\n";
+            
+            $counter++;
+            ##################
+            # INTERPRET, OUT #
+            ##################
             if ( $exit_code == 0 ) {
-                # bez chyby, pustime interpret
+                # bez chyby, pustime interpret a porovname
                 # musim dat na stdin soubor s stdin
-                $out_xml = exec ( "python3 ". $this->interpret . " < " . $xmlfile . " > ".$outfile , $output, $exit_code);
+                #echo $this->interpret;
+                $out_xml = exec ( "python3 interpret.py "." --source=" . $xmlfile_tmp . " > ". $outfile_tmp . "< $in_name", $output, $exit_code);
+                #var_dump( $output);
         
-            }
-            # porovname vystupy
-            #echo "diff ".  $outfile. " ".$out_name;
-            $differences_out = exec( "diff ".  $outfile. " ".$out_name  );
-            if ( empty ( $differences_out ) ){
-                # out je spravne
-                $this->html_out .= "    <p>Output si correct</p>\n";
-            } else {
-                 $this->html_out .= "    <p>Output si not correct</p>\n";
-                 $this->html_out .= "    Difference diff: ".htmlentities( $differences_out ) ."\n";
-            }
-                
-            # porovname chybovy vystup
-            #echo "diff ".  $rc_out . " ".$rc_name;
-            $differences_rc = exec( "diff ".  $rc_out . " ".$rc_name  );
-            if ( empty ( $differences_rc ) ){
+                # porovname vystupy
+                # tady pak bude out[utfile]
+                $differences_out = exec( "diff -u ".  $outfile_tmp. " ".$out_name  );
+                if ( empty ( $differences_out ) ){
                     # out je spravne
-                $this->html_out .= "    <p>Stderr si correct</p>\n";
+                    $this->html_out .= "    <div class='correct'> Output si correct</div>";
+                } else {
+                     $this->html_out .= "    <div class='error'> Output si not correct</div>\n";
+                     $this->html_out .= "    <div class='diff' >Difference diff: ".$differences_out  ."</div>\n";
+                }
+            } 
+            
+            ##################    
+            # CHYBOVY VYSTUP #
+            ##################
+            
+            #echo "diff ".  $rc_out_tmp . " ".$rc_name;
+            $differences_rc = exec( "diff ".  $rc_out_tmp . " ".$rc_name  );
+            $rc_file = fopen( $rc_name, 'r+b' );
+            $code = fgets( $rc_file );
+            #echo $code;
+            
+            #echo $differences_rc;
+            #echo "\n";
+            if ( $code == $exit_code ){
+                    # out je spravne
+                $this->html_out .= "    <div class='correct'> Stderr si correct<br>Return val is: $exit_code</div>";
             } else {
-                 $this->html_out .= "    <p>Stderr si not correct</p>\n";
-                 $this->html_out .= "    Diff: ".htmlentities( $differences_out ) ."\n";
+                 $this->html_out .= "   <div class='error'> Stderr si not correct <br>";
+                  $this->html_out .=  "Your return value is: $exit_code <br>Correct return value is: $code </div>";
+                 $this->html_out .= "  <div class='diff' >Difference diff: ".htmlentities( $differences_out ) ."</div>\n";
             }
                  
             # odstranime docasne soubory
-            unlink( $xmlfile  );
-            unlink( $outfile  );
-            unlink( $rc_out  );
-            $this->html_out .= "   <br>\n";
+            unlink( $xmlfile_tmp  );
+            unlink( $outfile_tmp  );
+            unlink( $rc_out_tmp  );
+            
+            $this->html_out .= "</div>";
+            #$this->html_out .= "   <br>\n";
         }
     }
     # funkce vytvori slozku a naplni ji obsahem contain
     private function _createFile( $name, $contain ){
-        $handler = fopen( $name, 'w+' );
+        $handler = fopen( $name, 'w+b' );
         fwrite( $handler, $contain );
         fwrite( $handler, PHP_EOL );
         fclose( $handler );
@@ -147,7 +188,7 @@ function main( $argv ) {
     #kontrola parametru
     
     # aktualni adrsar
-    $directory = ".";
+    $directory = "."; 
     #implicitni soubor pro parser
     $parse = "parse.php";
     # implicitni coubor pro interpret
@@ -194,7 +235,7 @@ function main( $argv ) {
     }
     #echo "Directory: $directory\n";
     #echo "Parse: $parse\n";
-    #echo "Interpet: $interpret\n";
+    echo "Interpet: $interpret\n";
     #echo "Recursive: $recursive\n";
     
     $tests = new Tests( $directory, $parse, $interpret, $recursive );

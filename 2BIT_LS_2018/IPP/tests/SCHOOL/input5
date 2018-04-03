@@ -1,0 +1,26 @@
+.ippCode18
+
+## Testovani ADD
+ADD GF@kolo17 int@178 int@27
+#ADD GF@kolo17 int@178
+
+## Testovani SUB
+SUB TF@ono int@-45 int@-25
+SUB GF@label int@-2 int@25
+#SUB int@85 int@15 int@1415
+
+## Testovani MUL, IDIV, LT, GT, EQ, AND, OR, NOT, INT2CHAR, STR2INT - TODO
+
+## Testovani READ
+READ TF@var int
+READ LF@_MOk string
+READ GF@*ddf bool
+#READ GF@%vn 
+
+## Testovani WRITE
+WRITE string@mok\325f
+WRITE int@74
+WRITE LF@myvar
+#WRITE inn@154
+
+

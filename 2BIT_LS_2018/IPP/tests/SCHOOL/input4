@@ -1,0 +1,32 @@
+.IppcodE18
+
+## Testovani instrukce CREATEFRAME
+#CREATEFRAME
+# CREATEFRAME  	
+ #CREATEFRAME m
+#CREATEFRAME 45 	v d
+#CXXXREATEFRAME
+#CREATEFRAMEEE
+
+## Testovani PUSHFRAME, POPFRAME a RETURN
+PUSHFRAME
+POPFRAME
+RETURN
+BREAK
+
+## Testovani DEFVAR
+DEFVAR LF@smrdis
+DEFVAR TF@fuj
+DEFVAR GF@zdar
+
+# Testovani CALL (test jmena navesti)
+CALL navesti
+#CALL while\
+CALL   moj45
+CAlL %-*$&_vds
+
+# Testovani PUSHS
+# Testovani POPS
+POPS GF@fnei
+POPS TF@a124
+POPS LF@false

@@ -1,0 +1,34 @@
+.IPPcode18
+
+LT GF@side int@123 int@456 #12154koment ` esesf v#
+GT TF@moje string@ahoj string@nazdar
+EQ LF@foo bool@true bool@false
+
+AND GF@side int@123 int@456
+OR TF@moje string@ahoj string@necum
+NOT LF@foo bool@true
+
+STRI2INT GF@abcdefghijklmnop string@Stringsingggggg string@dual
+
+
+ 
+INT2CHAR	 LF@var  int@123456789
+
+CREATEFRAME
+#PUSHFRAME
+POPFRAME
+RETURN
+
+CONCAT LF@var int@123 string@moho
+
+TYPE     LF@variable*-*-%% int@0
+
+LABEL   label
+JUMP   while
+
+WRITE string@mojekolojenej
+DPRINT string@ahoj\125vole<>&		 
+BREAK
+
+	JUMPIFEQ label int@-00025 int@1115
+	JUMPIFNEQ foo bool@true bool@false 	

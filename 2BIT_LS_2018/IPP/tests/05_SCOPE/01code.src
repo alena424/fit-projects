@@ -1,0 +1,25 @@
+.ippcode18
+
+# jedna funkce bez chyby
+
+defvar GF@prom2
+
+createframe 
+
+defvar TF@tmpprom
+defvar TF@prom2
+move TF@tmpprom int@1234
+write TF@tmpprom # vypise se 1234
+
+pushframe
+
+# zde budu mit lokalni promenne
+write LF@tmpprom # vypise se 1234
+
+popframe
+
+# uz mam zase tmp
+write TF@tmpprom # 1234
+
+
+

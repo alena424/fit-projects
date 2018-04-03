@@ -1,0 +1,24 @@
+.IppCode18
+
+PUSHFRAME
+POPFRAME
+
+SUB LF@var int@-22652 int@123
+
+#READ TF@ahoj int
+#CREATEFRAME
+#DEFVAR LF@cau
+
+CALL someLAbel
+
+RETURN
+PUSHS int@152
+PUSHS GF@topol
+
+POPS TF@myVAr
+
+ADD GF@kolo17 int@178 int@27
+SUB LF@okno int@-58 int@-15
+MUL TF@foo int@456 int@-5
+IDIV TF@bar int@123 int@999
+

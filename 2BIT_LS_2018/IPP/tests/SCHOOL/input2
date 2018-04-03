@@ -1,0 +1,38 @@
+.IPPcode18
+DEFVAR GF@counter
+
+#MOVE GF@counter string@ # Inicializace prom ě nn é na pr á zdn ý ř et ě zec
+
+#testovani bool@
+MOVE GF@counter45*- bool@true
+MOVE GF@counter45*- bool@true
+MOVE GF@counter45*- bool@false
+#MOVE GF@counter45*- bool@
+#MOVE GF@counter45*- bool@truek
+
+#testovani int@
+MOVE GF@counter45*- int@+252626
+MOVE GF@counter45*- int@-2556
+#MOVE GF@counter45*- int@k45
+#MOVE GF@counter45*- int@2525c5
+#MOVE GF@counter45*- int@!25
+
+#testovani nazvu promenne
+MOVE GF@counter45*- int@25
+MOVE GF@counter45*- int@2
+MOVE GF@-counter string@
+MOVE GF@-counter string@
+#MOVE GF@45counter string@
+MOVE GF@counter string@
+MOVE GF@counter string@
+MOVE GF@counter string@
+
+# Jednoduch á iterace , dokud nebude spln ě na zadan á podm í nka
+LABEL while
+JUMPIFEQ end GF@counter string@aaa
+#WRITE string@counter \032 obsahuje \032
+#WRITE GF@counter
+#WRITE string@ \010
+CONCAT GF@counter GF@counter string@a
+JUMP while
+LABEL end

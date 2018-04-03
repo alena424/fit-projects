@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<program language="IPPcode18">
+ <instruction order="1" opcode="PUSHFRAME"/>
+ <instruction order="2" opcode="POPFRAME"/>
+ <instruction order="3" opcode="RETURN"/>
+ <instruction order="4" opcode="BREAK"/>
+ <instruction order="5" opcode="DEFVAR">
+  <arg1 type="var">LF@smrdis</arg1>
+ </instruction>
+ <instruction order="6" opcode="DEFVAR">
+  <arg1 type="var">TF@fuj</arg1>
+ </instruction>
+ <instruction order="7" opcode="DEFVAR">
+  <arg1 type="var">GF@zdar</arg1>
+ </instruction>
+ <instruction order="8" opcode="CALL">
+  <arg1 type="label">navesti</arg1>
+ </instruction>
+ <instruction order="9" opcode="CALL">
+  <arg1 type="label">moj45</arg1>
+ </instruction>
+ <instruction order="10" opcode="CALL">
+  <arg1 type="label">%-*$&amp;_vds</arg1>
+ </instruction>
+ <instruction order="11" opcode="POPS">
+  <arg1 type="var">GF@fnei</arg1>
+ </instruction>
+ <instruction order="12" opcode="POPS">
+  <arg1 type="var">TF@a124</arg1>
+ </instruction>
+ <instruction order="13" opcode="POPS">
+  <arg1 type="var">LF@false</arg1>
+ </instruction>
+</program>

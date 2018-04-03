@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<program language="IPPcode18">
+ <instruction order="1" opcode="MOVE">
+  <arg1 type="var">GF@promenna</arg1>
+  <arg2 type="bool">false</arg2>
+ </instruction>
+ <instruction order="2" opcode="MOVE">
+  <arg1 type="var">GF@promenna</arg1>
+  <arg2 type="bool">true</arg2>
+ </instruction>
+ <instruction order="3" opcode="MOVE">
+  <arg1 type="var">GF@promenna</arg1>
+  <arg2 type="string">vfd\123ff</arg2>
+ </instruction>
+ <instruction order="4" opcode="MOVE">
+  <arg1 type="var">TF@var</arg1>
+  <arg2 type="string">vsfv</arg2>
+ </instruction>
+ <instruction order="5" opcode="READ">
+  <arg1 type="var">TF@ahoj</arg1>
+  <arg2 type="type">int</arg2>
+ </instruction>
+ <instruction order="6" opcode="CREATEFRAME"/>
+ <instruction order="7" opcode="DEFVAR">
+  <arg1 type="var">LF@cau</arg1>
+ </instruction>
+ <instruction order="8" opcode="CALL">
+  <arg1 type="label">someLAbel</arg1>
+ </instruction>
+ <instruction order="9" opcode="RETURN"/>
+ <instruction order="10" opcode="PUSHS">
+  <arg1 type="int">152</arg1>
+ </instruction>
+ <instruction order="11" opcode="PUSHS">
+  <arg1 type="var">GF@topol</arg1>
+ </instruction>
+ <instruction order="12" opcode="POPS">
+  <arg1 type="var">TF@myVAr</arg1>
+ </instruction>
+ <instruction order="13" opcode="ADD">
+  <arg1 type="var">GF@kolo17</arg1>
+  <arg2 type="int">178</arg2>
+  <arg3 type="int">27</arg3>
+ </instruction>
+</program>

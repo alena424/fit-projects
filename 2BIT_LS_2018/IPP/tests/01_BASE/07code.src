@@ -2,7 +2,7 @@
 
 # ascii znaky
 
-defvar GF@řetězev
+defvar GF@řetězec
 MOVE GF@řetězec string@řetězec\032s\032lomítkem\032\092\032a\010novým\035řádkem
 WRITE GF@řetězec
 

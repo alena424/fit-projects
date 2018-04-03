@@ -2,6 +2,6 @@
 
 # pokus o praci s neexistujici promennnou
 
-write LF@promenna
+write GF@promenna
 
 label end

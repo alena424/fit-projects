@@ -1,0 +1,31 @@
+.IPPcode18 # ipp code 18
+# funkce definuje promennou integer a provadi operace plus, mínus, děleno a násobení
+
+LABEL $scope
+DEFVAR GF@%tmp1
+DEFVAR GF@%tmp2
+DEFVAR GF@%tmp3
+DEFVAR GF@prom
+MOVE GF@prom int@0
+ADD GF@prom GF@prom int@54 
+SUB GF@prom GF@prom int@33 
+MUL  GF@prom GF@prom int@22 
+IDIV GF@prom GF@prom int@2 
+# 231
+
+# proměnná string
+DEFVAR GF@str
+MOVE GF@str string@aaa
+
+# budu chtit pricist char, musime ho napred prevest
+DEFVAR GF@pomocnaint 
+MOVE GF@pomocnaint int@0
+STRI2INT GF@pomocnaint string@aaa int@2
+ADD GF@prom GF@prom GF@pomocnaint
+# 231 + 97 = 328
+
+#Write GF@prom
+
+# proměnná boolean
+DEFVAR GF@b
+MOVE GF@b bool@true

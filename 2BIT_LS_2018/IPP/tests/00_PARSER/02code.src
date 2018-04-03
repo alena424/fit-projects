@@ -1,0 +1,17 @@
+.IPPcode18
+
+DEFVAR GF@counter
+MOVE GF@counter 	string@
+DEFVAR GF@integer
+MOVE GF@integer int@ 
+
+LABEL while
+JUMPIFEQ end GF@counter 	string@aaa
+#WRITE string@counter\032obsahuje\032
+#WRITE GF@counter
+#WRITE string@\010
+
+		CONCAT		 GF@counter GF@counter string@a
+JUMP while
+
+LABEL end

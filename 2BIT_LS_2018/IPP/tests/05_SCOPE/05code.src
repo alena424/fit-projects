@@ -1,0 +1,23 @@
+.ippcode18
+
+# nedefinovany ramec
+
+createframe
+
+defvar GF@a
+defvar TF@b
+defvar TF@c
+
+pushframe
+
+move LF@b int@56
+move GF@a int@1
+add LF@c LF@b GF@a
+write LF@c # vypiseme soucet, coz je 57
+add LF@c TF@c TF@c # nedefinovany ramec
+
+popframe
+move GF@a TF@c # ulozim vysledek
+# vypisu znova
+
+write GF@a

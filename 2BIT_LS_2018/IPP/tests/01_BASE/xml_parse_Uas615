@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<program language="IPPcode18">
+ <instruction order="1" opcode="DEFVAR">
+  <arg1 type="var">GF@_sss</arg1>
+ </instruction>
+ <instruction order="2" opcode="DEFVAR">
+  <arg1 type="var">GF@-s&amp;ss</arg1>
+ </instruction>
+ <instruction order="3" opcode="DEFVAR">
+  <arg1 type="var">GF@***sss</arg1>
+ </instruction>
+ <instruction order="4" opcode="DEFVAR">
+  <arg1 type="var">GF@$$$ss</arg1>
+ </instruction>
+ <instruction order="5" opcode="DEFVAR">
+  <arg1 type="var">GF@&amp;sss</arg1>
+ </instruction>
+ <instruction order="6" opcode="DEFVAR">
+  <arg1 type="var">GF@%ee342</arg1>
+ </instruction>
+ <instruction order="7" opcode="LABEL">
+  <arg1 type="label">end</arg1>
+ </instruction>
+</program>

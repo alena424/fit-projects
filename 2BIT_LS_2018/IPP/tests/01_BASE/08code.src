@@ -2,21 +2,21 @@
 
 # instrukce and, or, not
 
-defvar LF@ano
-move LF@ano int@1
+defvar GF@ano
+move GF@ano bool@true
 
-defvar LF@ne
-move LF@ne int@0
+defvar GF@ne
+move GF@ne bool@false
 
-defvar LF@vyslne
-AND LF@vyslne LF@ne LF@ano
-write LF@vyslne
+defvar GF@vyslne
+AND GF@vyslne GF@ne GF@ano
+write GF@vyslne
 
-defvar LF@vyslano
-OR LF@vyslano LF@ne LF@ano
-write LF@vyslano
+defvar GF@vyslano
+OR GF@vyslano GF@ne GF@ano
+write GF@vyslano
 
-defvar LF@vyslneg
-NOT LF@vyslneg LF@ne
-write LF@vyslneg
+defvar GF@vyslneg
+NOT GF@vyslneg GF@ne
+write GF@vyslneg
 

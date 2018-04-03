@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<program language="IPPcode18">
+ <instruction order="1" opcode="PUSHFRAME"/>
+ <instruction order="2" opcode="POPFRAME"/>
+ <instruction order="3" opcode="SUB">
+  <arg1 type="var">LF@var</arg1>
+  <arg2 type="int">-22652</arg2>
+  <arg3 type="int">123</arg3>
+ </instruction>
+ <instruction order="4" opcode="CALL">
+  <arg1 type="label">someLAbel</arg1>
+ </instruction>
+ <instruction order="5" opcode="RETURN"/>
+ <instruction order="6" opcode="PUSHS">
+  <arg1 type="int">152</arg1>
+ </instruction>
+ <instruction order="7" opcode="PUSHS">
+  <arg1 type="var">GF@topol</arg1>
+ </instruction>
+ <instruction order="8" opcode="POPS">
+  <arg1 type="var">TF@myVAr</arg1>
+ </instruction>
+ <instruction order="9" opcode="ADD">
+  <arg1 type="var">GF@kolo17</arg1>
+  <arg2 type="int">178</arg2>
+  <arg3 type="int">27</arg3>
+ </instruction>
+ <instruction order="10" opcode="SUB">
+  <arg1 type="var">LF@okno</arg1>
+  <arg2 type="int">-58</arg2>
+  <arg3 type="int">-15</arg3>
+ </instruction>
+ <instruction order="11" opcode="MUL">
+  <arg1 type="var">TF@foo</arg1>
+  <arg2 type="int">456</arg2>
+  <arg3 type="int">-5</arg3>
+ </instruction>
+ <instruction order="12" opcode="IDIV">
+  <arg1 type="var">TF@bar</arg1>
+  <arg2 type="int">123</arg2>
+  <arg3 type="int">999</arg3>
+ </instruction>
+</program>

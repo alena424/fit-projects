@@ -26,10 +26,23 @@ class Variable( Operand ):
         
     def define():
         self.inicialized = 1
-
+        
+class Frame:
+     def __init__(self, frame ):
+         self.table = []
+         self.frame = frame
+         self.inicialized = 1
+    
 class Interpret:
     
     def __init__(self, structure ):
+       self.glob_frame = Frame ('global' ) ;
+       self.local_frame = Frame ('local' ) ;
+       self.tmp_frame = Frame ('temporary' ) ;
+       
+       # inicializujeme globalni ramec, dame sem empty array
+       self.glob_frame.table.append( [] )
+       
        self.table_glob = []
        self.table_local = []
        self.table_temp = []
@@ -61,8 +74,32 @@ class Interpret:
             "BREAK" : "getBreak", "CREATEFRAME" : "getCreateFrame" , "PUSHFRAME" : "getPushFrame", "POPFRAME" : "getPopFrame",
             "RETURN" : "getReturn"
         }
-
+    
     def getTableAccorrdingToFrame( self, frame ):
+        # je neco na vrcholu zasobniku
+        if ( frame == 'GF' ):
+             table_name = 'glob_frame';
+        if ( frame == 'TF' ):
+            table_name = 'tmp_frame';
+        elif( frame == 'LF' ):
+            table_name = 'local_frame';
+         
+        frame_obj = getattr(self, table_name )
+        #print( "Frame: " + frame)
+        #print( frame_obj.table )
+        #print( "len: ")
+        #print (len( frame_obj.table ) )
+        if ( len( frame_obj.table ) != 0):
+            #return self.table_name.table[0] #vracim co je navrchu
+            #print ("Vrchol: ")
+            #print (frame_obj.table[len( frame_obj.table ) - 1])
+            return frame_obj.table[len( frame_obj.table ) - 1]
+        else:
+            print ( "Snazime se deklarovat lokalni promennou bez definovani ramce" , file=sys.stderr )
+            exit ( 55 ) # ramec neexistuje
+        
+    
+    def getTableAccorrdingToFrame2version( self, frame ):
         table = self.table_glob   
         if ( frame == 'TF' ):
             table = self.table_temp
@@ -78,12 +115,14 @@ class Interpret:
     
     # pridame item do tabulky podle framu
     def addNewItem( self, name, frame ):
+        # mohu vlozit pouze pokud na vrcholu zasobniku je nejake pole, do ktereho muzu vlozit
         table = self.getTableAccorrdingToFrame(frame)
         table.append( { 'name' : name, 'inicialized' : 0 } ) 
                      
     # hledam item podle jmena a framu
     def searchItem( self, name, frame ):
-        table = self.getTableAccorrdingToFrame(frame)     
+        table = self.getTableAccorrdingToFrame(frame)
+        
         for hash_item in table:
             if hash_item[ 'name' ] == name:
                 return hash_item
@@ -129,7 +168,7 @@ class Interpret:
         
         #nenasli jsme, neni v tabulce
         print ( "Nedefinovana promenna %s" % name, file=sys.stderr )
-        exit ( 52) #semanticka kontrola
+        exit ( 54) #semanticka kontrola
             
     # zjistim, jestli uz je inicilaizovana
     def isInit( self, name, frame ):
@@ -190,10 +229,15 @@ class Interpret:
         if ( self.isInit( var_name, frame ) ):
                 if ( self.getTypeVar( var_name, frame ) != expected_type ):
                      print ( "Ocekavam typ %s u promenne %s" % ( expected_type, var_name), file=sys.stderr )
-                     exit ( 52) #semanticka kontrola
+                     exit ( 53) #semanticka kontrola
         else:
-            print ( "Cteni neinicializovane promenne %s" % ( var_name), file=sys.stderr )
-            exit ( 52) #semanticka kontrola
+            # zjistim, jestli vubecexistuje a podle toho vyhodim hlasku
+            if self.searchItem(var_name, frame):
+                print ( "Cteni neinicializovane promenne %s" % ( var_name), file=sys.stderr )
+                exit ( 56) #semanticka kontrola
+            else:
+                print ( "Cteni nedefinovane promenne %s" % ( var_name), file=sys.stderr )
+                exit ( 54) #semanticka kontrola
     
     # vraci hodnotu promenne, ktera musi existovat, jinak chyba
     # vraci promennou v pripade uspechu
@@ -201,8 +245,14 @@ class Interpret:
         if self.isInit( var_name, frame ):
             return self.searchItem( var_name, frame )
         else:
-            print ( "Cteni neinicializovane promenne %s" % ( var_name), file=sys.stderr )
-            exit ( 52) #semanticka kontrola
+            # zjistim, jestli vubecexistuje a podle toho vyhodim hlasku
+            if self.searchItem(var_name, frame):
+                print ( "Cteni neinicializovane promenne %s" % ( var_name), file=sys.stderr )
+                exit ( 56) #semanticka kontrola
+            else:
+                print ( "Cteni nedefinovane promenne %s" % ( var_name), file=sys.stderr )
+                exit ( 54) #semanticka kontrola
+                
             
     # vrati nam poradi navesti, nazev navesti je unikatni    
     def _orderOfLabel(self, label_name ):
@@ -247,7 +297,7 @@ class Interpret:
         # nedefinovana
         if ( searchvar == 0):
             print ( "Zapis nedefinovane promenne %s pomoci instrukce MOVE" % ( var[ 'name' ]), file=sys.stderr )
-            exit ( 52) #semanticka kontrola
+            exit ( 54) #semanticka kontrola
             
         if ( symb[ 'type' ] == 'var' ):
             variable = self.searchItem( symb[ 'name' ], symb[ 'frame' ] )
@@ -263,23 +313,28 @@ class Interpret:
              
     # pokud vytvorim ramec, mohu pouzivat TF temporary
     def getCreateFrame(self):
-        self.tmpOn = 1;
-        # zahodim obsah docasneho puvodniho ramce
-        self.table_temp = [];
+        self.tmp_frame.table.append([])
+        #print( self.tmp_frame.table )
         
     # uz nebudu moct pouzivat TF, ale muzu pouzivat LF
     def getPushFrame(self):
-         self.tmpOn = 0; # tf bude nedefinovan
-         self.localOn = 1;
-         self.table_local = self.table_temp;
+        if ( len( self.tmp_frame.table ) ):
+            self.local_frame.table.append( self.tmp_frame.table[len( self.tmp_frame.table ) - 1]  )
+            self.tmp_frame.table.pop()
+        else:
+            print ( "Pristup k nedefinovanym ramci", file=sys.stderr )
+            exit ( 55 ) # semanticka kontrola
+            
+
         
     # presun LF do TF, pokud nic v LF => 55 chyba
     def getPopFrame(self):
-        if ( not self.table_local ):
-            print ( "Lokalni tabulka nic neobsahuje", file=sys.stderr )
+        if ( len( self.local_frame.table ) ):
+            self.tmp_frame.table.append( self.local_frame.table[len( self.local_frame.table ) - 1] )
+            self.local_frame.table.pop()
+        else:
+            print ( "Pristup k nedefinovanym ramci", file=sys.stderr )
             exit ( 55 ) # semanticka kontrola
-        
-        self.table_temp = self.table_local;
         
     # definuje promennou
     # 1. pozor, kdy muzu definovat LF a TF, kontrola
@@ -329,7 +384,7 @@ class Interpret:
             
         elif ( source[ 'type' ] != expected_type ):
             print ( "Ocekavam typ %s" % expected_type, file=sys.stderr )
-            exit ( 52) #semanticka kontrola
+            exit ( 53) #semanticka kontrola
 
             
     # 1.source1 a source2 musi byt typu expected_type
@@ -372,13 +427,13 @@ class Interpret:
             return (val1 == val2)
         
         elif( operation == 'and' ):
-            print ( "Val1 %s AND val2 %s" % (val1, val2))
+            #print ( "Val1 %s AND val2 %s" % (val1, val2))
             return (val1 and val2)
         elif( operation == 'or' ):
-            print ( "Val1 %s OR val2 %s" % (val1, val2))
+            #print ( "Val1 %s OR val2 %s" % (val1, val2))
             return (val1 or val2)
         elif( operation == 'not' ):
-            print ( "Val1 %s NOT val2 %s" % (val1, val2))
+            #print ( "Val1 %s NOT val2 %s" % (val1, val2))
             return (not val1 )
                             
     def _getArithmetic( self, desc, source1, source2, expected_type, operation  ):
@@ -446,7 +501,8 @@ class Interpret:
     # var - kdyztak prepisu
     # symb - typ int, musi byt validni ordinalni hodnota znaku v unicode (viz chr) => 58
     def getInt2char(self, var, symb):
-        val = self.getVal( symb );
+        self._controlType( symb, 'int' )
+        val = int ( self.getVal( symb ) );
         if ( val is not None ):
             try:
                 ordinal_val = chr( val )
@@ -460,7 +516,7 @@ class Interpret:
        
         else:
             print ( "Prace s neinicializovanou promennou %s" % ( symb[ 'name' ]), file=sys.stderr )
-            exit ( 52 )
+            exit ( 56 )
             
         
     # symb2 - pozice, index od 0, musi byt int
@@ -468,18 +524,21 @@ class Interpret:
     # ve var je string
     # indexace mimo => 58 viz ord, pozice nesmi byt zaporna, nesmi byt vetsi nez pocet znaku v symb1
     def getStri2int(self, var, symb1, symb2):
-        _controlType( symb1, 'string' )
-        _controlType( symb2, 'int' )
+        self._controlType( symb1, 'string' )
+        self._controlType( symb2, 'int' )
         
-        val1 = self.getVal( symb1 )    
-        val2 = self.getVal( symb2 )
-    
-        try:
-            ordinal_val = ord( val1[ val2 ] )
-        except TypeError:
-            print ( "Pokus o prevedeni nevalidni unicode hodnoty %s na Int" % ( val1[ val2 ] ), file=sys.stderr )
-            exit ( 58 )
+        val1 = str ( self.getVal( symb1 ) )   #string 
+        val2 = int( self.getVal( symb2 ) ) # int
         
+        if ( len(val1) > val2 and val2 >= 0 ):
+            try:
+                ordinal_val = ord( val1[ val2 ] )
+            except TypeError:
+                print ( "Pokus o prevedeni nevalidni unicode hodnoty %s na Int" % ( val1[ val2 ] ), file=sys.stderr )
+                exit ( 58 )
+        else:
+            print ( "Indexace mimo pole retezec %s, index %s" % ( val1, val2, ), file=sys.stderr )
+            exit ( 58) 
         # povedlo se, prepisu hodnotu a typ promenne
         # musim ji najit napred v tabulce
         # priradim ji nove hodnoty a jdu dal
@@ -515,15 +574,15 @@ class Interpret:
             self._checkVarIfInit( symb[ 'name' ], symb[ 'frame' ] )
         #print(symb)
         val = self.getVal(symb)
-        print( val )
+        print( val, end='' )
     
     # symb1, symb2 jsou retezce
     # ve var bude string
     def getConcat(self, desc, source1, source2):
         self._controlTypeTwoValues( source1, source2, 'string' )
-        val1 = getVal(source1)
-        val2 = getVal(source2)
-        ret_val = val1 . val2
+        val1 = self.getVal(source1)
+        val2 = self.getVal(source2)
+        ret_val = val1 + val2
         variable = self.searchItem( desc[ 'name' ], desc[ 'frame' ] )
         # priradim ji nove hodnoty a jdu dal
         self.initItemElseExit( desc['name'], ret_val, 'string', desc[ 'frame' ] )
@@ -534,20 +593,30 @@ class Interpret:
     def getStrlen(self, var, symb):
         self._controlType( var, 'int' )
         self._controlType( symb, 'string' )
-        val = getVal( symb )
+        val = self.getVal( symb )
         length = len( val )
         self.initItemElseExit( var[ 'name' ], length, 'int', var[ 'frame' ] )
     
+    # funkce na konvertovani spravneho typu  
+    def _getConvertVal(self, symb):
+        # musim porovnavat spravne typy
+        val = self.getVal(symb)
+        typ = self.getType(symb)
+        if (typ == 'int'):
+            return int(val)
+        if (typ == 'string'):
+            return str(val)
+        
     # symb2 - int (pozice)
     # sym1 - string
     # ve var bude string
     # indexace mimo => 58 viz ord, pozice nesmi byt zaporna, nesmi byt vetsi nez pocet znaku v symb1
     def getGetchar(self, desc, symb1, symb2):
-        _controlType( symb1, 'string' )
-        _controlType( symb2, 'int' )
+        self._controlType( symb1, 'string' )
+        self._controlType( symb2, 'int' )
         
-        val1 = self.getVal( symb1 )    
-        val2 = self.getVal( symb2 )
+        val1 = self._getConvertVal( symb1 )    
+        val2 = self._getConvertVal( symb2 )
     
         if ( len( val1 ) > val2 and val2 >= 0):
             ordinal_val = val1[ val2 ]
@@ -564,17 +633,21 @@ class Interpret:
     # ve var musi byt na zacatku string => modifukuju pozici symb1 znakem symb2
     # indexace mimo => 58 viz ord, pozice nesmi byt zaporna, nesmi byt vetsi nez pocet znaku v symb1
     def getSetchar(self, desc, symb1, symb2):
-        _controlType( symb1, 'int' )
-        _controlType( symb2, 'string' )
-        _controlType( desc, 'string' )
+        self._controlType( symb1, 'int' )
+        self._controlType( symb2, 'string' )
+        self._controlType( desc, 'string' )
         
-        val1 = self.getVal( symb1 )    
-        val2 = self.getVal( symb2 )
+        val1 = self._getConvertVal( symb1 )    
+        val2 = self._getConvertVal( symb2 )
         var = self.getVal( desc )
         
         # bereme prvni znak
-        val2 = val2[0]
-    
+        print("val2: " + val2)
+        if ( val2 ):
+            val2 = val2[0]
+        #else:
+            #todo
+                
         if ( len( var ) > val1 and val1 >= 0):
             var[ val1 ] = val2;
         else:
@@ -587,22 +660,30 @@ class Interpret:
         
     # zde pouze kontrola, aby symb v pripade var byla definovana, ale nemusi byt inicializovana
     def getTypeI(self, var, symb):
+        #print(symb)
         if ( symb[ 'type' ] == 'var' ):
-            if self.searchItem( symb[ 'name' ], symb[ 'frame' ] ):
+            if ( self.searchItem( symb[ 'name' ], symb[ 'frame' ] ) == 0):
                 print ( "Prace s nedefinovanou promennou %s" % ( symb[ 'name' ]), file=sys.stderr )
-                exit ( 52)
+                exit ( 54) #54 pokus o cteni neexistujici promenne
         typ = self.getType(symb)
+        if ( typ is None ):
+            # neni inicializovana, jedna se o prazdny string
+            typ = 'string'
+            
+            
         # zapisi retezec znacici tento typ symbolu
         self.initItemElseExit( var[ 'name' ], typ, 'string', var[ 'frame' ] )
-                
+            
     # pridam label do expected label, pokud neni v labels
     # symb1 a symb2 musi byt stejneho typu
     def getJumpIfEq(self, label, symb1, symb2):
         #if ( label[ 'text' ] not in self.labels ):
             #self.expectedLabel.append( label[ 'text' ] )  
         self._sameType(symb1, symb2)
-        val1 = self.getVal(symb1)
-        val2 = self.getVal(symb2)
+        
+        val1 = self._getConvertVal(symb1)
+        val2 = self._getConvertVal(symb2)
+        
         if ( val1 == val2 ):
             self.getJump( label )
     
@@ -610,8 +691,8 @@ class Interpret:
         #if ( label[ 'text' ] not in self.labels ):
             #self.expectedLabel.append( label[ 'text' ] )
         self._sameType(symb1, symb2)
-        val1 = self.getVal(symb1)
-        val2 = self.getVal(symb2)
+        val1 = self._getConvertVal(symb1)
+        val2 = self._getConvertVal(symb2)
         if ( val1 != val2 ):
             self.getJump( label )
     
@@ -648,6 +729,9 @@ class Interpret:
             #self.printStructure( 'GF' );
             self.processedInstruction = self.processedInstruction +1
             instructionInfo = self.structure[ self.processedInstruction ]
+        
+        # todo pridat linebreaky
+        print()
      
 class SyntaxParse:
     
@@ -741,6 +825,12 @@ class SyntaxParse:
                             print ( "Spatny typ operandu u instrukce %s, operand %s" % ( instruction_name, instruction_arg[ arg ][ 'text' ]  ), file=sys.stderr )
                             #print >> sys.stderr, "Spatny format operandu u instrukce "
                             exit ( 32)
+                        # tady by se hodilo prevedeni stringu na normalni string :)
+                        if ( instruction_arg[ arg ][ 'type' ] == 'string' ):
+                            # prevedeme
+                            def replace(m): return chr(int(m.group(1)))
+                            instruction_arg[ arg ][ 'text' ] = re.sub( '\\\\([0-9]{3})', replace, instruction_arg[ arg ][ 'text' ]  )
+                            
                     else:
                         print ( "Neznamy typ u instrukce %s, typ %s" % ( instruction_name, instruction_arg[ arg ][ 'type' ]  ), file=sys.stderr )                     
                         exit ( 32) 
@@ -848,5 +938,5 @@ class Main:
            
 main = Main()
 
-    
+exit(0)    
     

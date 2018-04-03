@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<program language="IPPcode18">
+ <instruction order="1" opcode="DEFVAR">
+  <arg1 type="var">GF@counter</arg1>
+ </instruction>
+ <instruction order="2" opcode="MOVE">
+  <arg1 type="var">GF@counter45*-</arg1>
+  <arg2 type="bool">true</arg2>
+ </instruction>
+ <instruction order="3" opcode="MOVE">
+  <arg1 type="var">GF@counter45*-</arg1>
+  <arg2 type="bool">true</arg2>
+ </instruction>
+ <instruction order="4" opcode="MOVE">
+  <arg1 type="var">GF@counter45*-</arg1>
+  <arg2 type="bool">false</arg2>
+ </instruction>
+ <instruction order="5" opcode="MOVE">
+  <arg1 type="var">GF@counter45*-</arg1>
+  <arg2 type="int">+252626</arg2>
+ </instruction>
+ <instruction order="6" opcode="MOVE">
+  <arg1 type="var">GF@counter45*-</arg1>
+  <arg2 type="int">-2556</arg2>
+ </instruction>
+ <instruction order="7" opcode="MOVE">
+  <arg1 type="var">GF@counter45*-</arg1>
+  <arg2 type="int">25</arg2>
+ </instruction>
+ <instruction order="8" opcode="MOVE">
+  <arg1 type="var">GF@counter45*-</arg1>
+  <arg2 type="int">2</arg2>
+ </instruction>
+ <instruction order="9" opcode="MOVE">
+  <arg1 type="var">GF@-counter</arg1>
+  <arg2 type="string"></arg2>
+ </instruction>
+ <instruction order="10" opcode="MOVE">
+  <arg1 type="var">GF@-counter</arg1>
+  <arg2 type="string"></arg2>
+ </instruction>
+ <instruction order="11" opcode="MOVE">
+  <arg1 type="var">GF@counter</arg1>
+  <arg2 type="string"></arg2>
+ </instruction>
+ <instruction order="12" opcode="MOVE">
+  <arg1 type="var">GF@counter</arg1>
+  <arg2 type="string"></arg2>
+ </instruction>
+ <instruction order="13" opcode="MOVE">
+  <arg1 type="var">GF@counter</arg1>
+  <arg2 type="string"></arg2>
+ </instruction>
+ <instruction order="14" opcode="LABEL">
+  <arg1 type="label">while</arg1>
+ </instruction>
+ <instruction order="15" opcode="JUMPIFEQ">
+  <arg1 type="label">end</arg1>
+  <arg2 type="var">GF@counter</arg2>
+  <arg3 type="string">aaa</arg3>
+ </instruction>
+ <instruction order="16" opcode="CONCAT">
+  <arg1 type="var">GF@counter</arg1>
+  <arg2 type="var">GF@counter</arg2>
+  <arg3 type="string">a</arg3>
+ </instruction>
+ <instruction order="17" opcode="JUMP">
+  <arg1 type="label">while</arg1>
+ </instruction>
+ <instruction order="18" opcode="LABEL">
+  <arg1 type="label">end</arg1>
+ </instruction>
+</program>

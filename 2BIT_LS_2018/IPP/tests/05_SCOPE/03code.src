@@ -1,0 +1,11 @@
+.ippcode18
+
+# definovani promenne v ramci, ktery uz neni
+
+createframe
+defvar TF@a
+defvar TF@b
+
+pushframe
+
+defvar TF@c

@@ -1,0 +1,21 @@
+.IppCode18
+MOVE GF@promenna bool@false
+MOVE GF@promenna bool@true
+MOVE GF@promenna string@vfd\123ff
+MOVE TF@var string@vsfv
+
+READ TF@ahoj int
+CREATEFRAME
+DEFVAR LF@cau
+
+CALL someLAbel
+
+RETURN
+PUSHS int@152
+PUSHS GF@topol
+
+POPS TF@myVAr
+
+ADD GF@kolo17 int@178 int@27
+#ADD GF@kolo17 int@178
+

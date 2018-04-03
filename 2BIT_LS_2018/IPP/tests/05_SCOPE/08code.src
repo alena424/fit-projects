@@ -1,0 +1,52 @@
+.ippcode18
+
+# chyba v lehkem zanoreni 
+
+createframe # TF: [[]]
+
+defvar GF@a
+defvar TF@b
+defvar TF@c
+
+move GF@a string@aaaa
+move TF@b bool@true
+move TF@c string@bbb
+
+pushframe # TF = [] LF = [ b,c]
+
+# lokalni kontext
+move LF@b int@56
+move GF@a int@1
+add LF@c LF@b GF@a
+write LF@c # vypiseme soucet, coz je 57
+
+createframe # TF = [[]] , LF = [[b,c]]
+# muzu vytvaret znova TF i LF
+defvar TF@d
+defvar TF@e
+defvar LF@f
+move LF@f int@5
+defvar LF@g
+
+# TF = [[d,e] ]
+# LF = [ [f, g, b,c ] ]
+pushframe # tf = [] lf = [ [d,e][f,g,b,c] ]
+move LF@d int@2
+move LF@e int@4
+write LF@d # vypise 2
+
+# budu chtit pouzit lokalni f promennou
+write LF@f # chyba !
+
+popframe #tf = [d,e], lf =[ [f,g,b,c]]
+write TF@e # vypiseme 4
+move LF@g string@dloooooohystring
+
+popframe # TF = [[f,g,b,c], [d,e]] LF = [[]]
+move TF@g int@5
+move TF@b int@4
+move TF@c int@9090
+write TF@f # vypiseme 5
+# vypisu znova
+
+write GF@a

@@ -13,9 +13,9 @@ Feature: Check out
 		When the user clicks on "Checkout"
 		Then the user gets to page with title "Checkout"
 	
-	#	register
+	# register
 	Scenario: To register
-		Given Register account page
+	Given Register account page
 		When the user fills <requiredData> with <realData>
 		And the user agreeds to Privacy Policy
 		And the user clicks on Continue

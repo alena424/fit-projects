@@ -1,0 +1,12 @@
+.ippcode18
+
+#testovani stringu
+MOVE GF@var string@string@retezec\032s\032lomitkem\032\092\032a\010novym\035radkem
+MOVE GF@var string@mojefsdk
+MOVE GF@var bool@true
+MOVE GF@var string@145\142
+#MOVE GF@var string@mok\10
+#MOVE GF@var string@ahoj\2222
+#MOVE GF@var string@ahoj\3p3
+
+MOVE GF@var string@ahoj\125
