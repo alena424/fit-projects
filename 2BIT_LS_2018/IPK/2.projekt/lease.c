@@ -19,7 +19,7 @@ void inicialized_lease( LeaseList *lease ){
     lease->first = NULL; // points to null
 }
 
-int new_lease( LeaseList *lease ){
+int new_lease( LeaseList *lease, unsigned char* mac ){
     // allocate new lease
 
     LeaseElem *new_lease = malloc( sizeof( LeaseElem ));
@@ -29,6 +29,7 @@ int new_lease( LeaseList *lease ){
     }
     new_lease->xid = rand() ; // random number
     new_lease->next = NULL;
+    //memcpy( new_lease->hmac, mac, sizeof(mac));
     if ( lease->first == NULL ){
         // first element
         printf("First elemetns");

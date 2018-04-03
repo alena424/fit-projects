@@ -21,6 +21,6 @@ typedef struct leaselist{
 } LeaseList;
 
 void inicialized_lease( LeaseList *lease );
-int new_lease( LeaseList *lease );
+int new_lease( LeaseList *lease, unsigned char *mac );
 void print_lease( LeaseList *lease  );
 void free_leases( LeaseList *lease  );
