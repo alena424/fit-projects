@@ -36,14 +36,14 @@ void dhcp_make_discover(struct dhcp_packet* dhcp, const unsigned char *mac)
     dhcp->hlen = HLEN_ETHER;
     dhcp->xid = rand();
 
-    dhcp->flags |= BROADCAST ;//htons(BROADCAST);
+    dhcp->flags |= htons(BROADCAST); //broadcast flag
     memcpy(&dhcp->chaddr, mac, sizeof(mac));
     memcpy(dhcp->options, magic_cookies, sizeof(magic_cookies));
 
     size_t len = sizeof(MSG_DISCOVER);
     int i = 4;
     dhcp->options[i++] = DHCP_MESSAGE_TYPE;
-    dhcp->options[i++] = '\x01';
+    dhcp->options[i++] = 1; //1 bit
     dhcp->options[i] = MSG_DISCOVER;
     dhcp->options[i + len] = 0xff;
 }

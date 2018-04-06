@@ -34,7 +34,7 @@ unsigned char * generate_mac_addr()
     for( int i = 0; i < MAC_ADDRESS_L; i ++)
     {
         // number cant be above 15 in hexadecimal, 255 in descimal
-        unsigned int rand_number = rand() % 255;
+        unsigned int rand_number = rand() % 255 + 1;
         new_mac_addr[i] = rand_number;
     }
     printf("New Random Mac : %.2x:%.2x:%.2x:%.2x:%.2x:%.2x\n" , new_mac_addr[0], new_mac_addr[1], new_mac_addr[2], new_mac_addr[3], new_mac_addr[4], new_mac_addr[5] );
@@ -147,7 +147,6 @@ int main ( int argc, char *argv[] )
     //index je v ifr.ifr_ifindex
     printf("Index of interface: %d\n", ifr.ifr_ifindex);
 
-
     // mac adresa v ifr.ifr_hwaddr.sa_data (unsigned char *)
     unsigned char destmac[] = {0xff, 0xff, 0xff, 0xff,0xff, 0xff};
     int interface_index = ifr.ifr_ifindex;
@@ -155,7 +154,7 @@ int main ( int argc, char *argv[] )
     //printf("Index is: %d\n", interface_index );
 
     int poc = 5;
-    while(poc)
+    while(1)
     {
         poc--;
 
