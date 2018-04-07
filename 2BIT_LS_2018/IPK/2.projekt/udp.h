@@ -5,26 +5,14 @@
  *
  */
 
-size_t init_udp_packet(unsigned char* buffer,
-		size_t bufflen,
+size_t init_packet(unsigned char* buffer,
 		const void* data,
 		size_t datalen,
-		const unsigned char* srcmac,
-		unsigned int srchost,
-		unsigned short srcport,
-		unsigned char* dstmac,
-		unsigned int dsthost,
-		unsigned short dstport);
+		const unsigned char* srcmac
+);
 
-unsigned short udp_csum(const void* buff,
-		size_t len,
-		in_addr_t src_addr,
-		in_addr_t dest_addr);
+/** end of udp.h */
 
-int init_ip_header(struct iphdr* ip,
-		size_t len,
-		unsigned short proto,
-		uint32_t srchost,
-		uint32_t dsthost);
+
 
 

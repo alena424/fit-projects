@@ -62,10 +62,9 @@ void  generate_mac_addr()
     for( int i = 0; i < MAC_ADDRESS_L; i ++)
     {
         // number cant be above 15 in hexadecimal, 255 in descimal
-        unsigned int rand_number = rand() % 255 + 1;
+        unsigned int rand_number = ( rand() % 255 ) + 1;
         mac[i] = rand_number;
     }
-
 }
 
 int main ( int argc, char *argv[] )
@@ -128,16 +127,18 @@ int main ( int argc, char *argv[] )
 
     int interface_index = ifr.ifr_ifindex;
 
-    int poc = 5;
-    while(poc)
+    //int poc = 5;
+    while(1)
     {
-        poc--;
+        //poc--;
         // generate mac address
         generate_mac_addr();
         // request lease
-        request_lease(socket_send, mac, interface_index );
+        send_discover(socket_send, mac, interface_index );
     }
     close_socket();
     return 0;
 
 }
+
+/** end of ipk-dhcpstarve.c */

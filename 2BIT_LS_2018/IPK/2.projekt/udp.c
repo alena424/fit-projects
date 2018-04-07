@@ -1,5 +1,6 @@
 /**
  * IPK 2. project
+ * udp.c - fills udp packet
  * @date 28.03.2018
  * @author Alena Tesarova
  *
@@ -25,11 +26,13 @@
 
 #include "udp.h"
 
+unsigned char dstmac[] = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
+
 /**
 * ip_csum - gets check sum for IP protocol
-* @param buf the IP header content
-* @param hdr_len the IP header length
-* Source: http://minirighi.sourceforge.net/html/ip_8c.html#a2
+* @param    buf the IP header content
+* @param    hdr_len the IP header length
+* @Source   http://minirighi.sourceforge.net/html/ip_8c.html#a2
 */
 uint16_t ip_csum( void* buf, size_t hdr_len)
 {
@@ -51,11 +54,11 @@ uint16_t ip_csum( void* buf, size_t hdr_len)
 
 /**
  * udp_csum calculate check sum of UDP
- * buff 	    the UDP packet
- * len 	The     UDP packet length
- * src_addr     the IP source address (in network format)
- * dest_addr    the IP destination address (in network format)
- * Source: http://minirighi.sourceforge.net/html/udp_8c.html#a0
+ * @param buff 	        the UDP packet
+ * @param len 	The     UDP packet length
+ * @param src_addr      the IP source address (in network format)
+ * @param dest_addr     the IP destination address (in network format)
+ * @Source              http://minirighi.sourceforge.net/html/udp_8c.html#a0
  */
 unsigned short udp_csum(const void* buff,
 		size_t len,
@@ -67,7 +70,7 @@ unsigned short udp_csum(const void* buff,
          uint32_t sum;
          size_t length=len;
 
-        // Calculate the sum                                            //
+        // Calculate the sum
          sum = 0;
          while (len > 1)
          {
@@ -78,10 +81,10 @@ unsigned short udp_csum(const void* buff,
          }
 
          if ( len & 1 )
-                 // Add the padding if the packet lenght is odd          //
+                 // Add the padding if the packet lenght is odd
                  sum += *((uint8_t *)buf);
 
-         // Add the pseudo-header                                        //
+         // Add the pseudo-header
          sum += *(ip_src++);
          sum += *ip_src;
 
@@ -91,58 +94,49 @@ unsigned short udp_csum(const void* buff,
          sum += htons(IPPROTO_UDP);
          sum += htons(length);
 
-         // Add the carries                                              //
+         // Add the carries
          while (sum >> 16)
                  sum = (sum & 0xFFFF) + (sum >> 16);
 
-         // Return the one's complement of sum                           //
+         // Return the one's complement of sum
          return ( (uint16_t)(~sum)  );
 }
 
  /**
-* init_udp_packet
+* init_udp_packet - funkction fills udp packet
 * @param output contains of UDP packet
 * @param dhcp data in dhcp structure
-* @param srcmac source mac address (mac address we generated)
-* @param dstmac destination address ( address of server or broadcast address )
-* @param srcport source port (for server: 67, for client: 68)
-* @param dscport destination port
-* @param srchost ip source
-* @param dsthost ip destination
+* @param srcmac source mac address (interface mac)
 */
 
-size_t init_udp_packet(unsigned char* buffer,
-		size_t bufflen,
+size_t init_packet(unsigned char* output,
 		const void* data,
 		size_t datalen,
-		const unsigned char* srcmac,
-		unsigned int srchost,
-		unsigned short srcport,
-		unsigned char* dstmac,
-		unsigned int dsthost,
-		unsigned short dstport)
+		const unsigned char* srcmac )
 {
 	size_t packet_len;
 	unsigned short udplen;
-	int udppadded = 0;
 
 	/* header and data pointers */
-	struct ethhdr* eth = (struct ethhdr*) buffer;
-	struct iphdr* ip = (struct iphdr*)(buffer + sizeof(struct ethhdr));
-	struct udphdr* udp = (struct udphdr*)(buffer + sizeof(struct ethhdr) +
-			sizeof(struct iphdr));
+	struct ethhdr* eth = (struct ethhdr*) output;
+
+	struct iphdr* ip = (struct iphdr*)(output + sizeof(struct ethhdr));
+	struct udphdr* udp = (struct udphdr*)(output + sizeof(struct ethhdr) + sizeof(struct iphdr));
 	unsigned char* udpdata = (unsigned char*) udp + sizeof(struct udphdr);
 
-	packet_len = sizeof(struct ethhdr) + sizeof(struct iphdr) +
-		sizeof(struct udphdr) + datalen;
+	packet_len = sizeof(struct ethhdr) + sizeof(struct iphdr) + sizeof(struct udphdr) + datalen;
 	// UDP packet and data length
 	udplen = sizeof(struct udphdr) + datalen;
 
-	memset(buffer, 0, packet_len);
+	memset(output, 0, packet_len);
 	memcpy(udpdata, data, datalen);
 
 	udplen = sizeof(struct udphdr) + datalen;
 
+    unsigned int srchost = 0;
+    unsigned int dsthost =  0xffffffff;
+    unsigned short dstport = htons(67);
+    unsigned short srcport = htons(68);
 	udp->source = srcport;
 	udp->dest = dstport;
 	udp->len = htons(udplen);
@@ -161,9 +155,12 @@ size_t init_udp_packet(unsigned char* buffer,
 	ip->saddr = srchost;
 	ip->daddr = dsthost;
 	ip->check = ip_csum((unsigned short*) ip, sizeof(struct iphdr) >> 1); // set to 0
+
     memcpy(&eth->h_source, srcmac, sizeof(eth->h_source));
 	memcpy(&eth->h_dest, dstmac, sizeof(eth->h_dest));
+
 	eth->h_proto = htons(ETH_P_IP);
 	return packet_len;
 }
+/** end of udp.c */
 

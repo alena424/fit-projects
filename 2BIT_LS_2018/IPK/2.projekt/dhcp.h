@@ -64,7 +64,7 @@ typedef struct dhcp_packet
     uint8_t options[VARIABLE_L];
 } dhcp_packet;
 
-int request_lease(int sock_send, const unsigned char* mac, int interface_index );
+int  send_discover(int sock_send, const unsigned char* mac, int interface_index );
 
 
 
