@@ -20,7 +20,7 @@
 
 /* Broadcast flag */
 // first broadcast bit is set to one
-#define BROADCAST       0x0800
+#define BROADCAST       0x8000
 
 /* DHCP message type, page 24 RFC 1533
   Code   Len  Type
@@ -64,17 +64,7 @@ typedef struct dhcp_packet
     uint8_t options[VARIABLE_L];
 } dhcp_packet;
 
-//int dhcp_discover( dhcp_packet* dhcp, struct dhcp_lease *lease  );
-//int dhcp_request( dhcp_packet* dhcp, struct dhcp_lease *lease );
-//int request_lease(int socket_send, int socket_recv, unsigned char * mac, unsigned char *dstmac, int max_tries, int iface_index);
-
-int request_lease(int sock_send,
-                  int sock_recv,
-                  const unsigned char* mac,
-                  //unsigned char* dstmac,
-                  //long timeout,
-                  int retries,
-                  int interface_index );
+int request_lease(int sock_send, const unsigned char* mac, int interface_index );
 
 
 

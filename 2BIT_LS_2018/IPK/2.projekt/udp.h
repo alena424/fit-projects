@@ -16,12 +16,10 @@ size_t init_udp_packet(unsigned char* buffer,
 		unsigned int dsthost,
 		unsigned short dstport);
 
-
-unsigned short udp_csum(unsigned short* data,
-		int words,
-		unsigned int srchost,
-		unsigned int dsthost,
-		unsigned short udplen);
+unsigned short udp_csum(const void* buff,
+		size_t len,
+		in_addr_t src_addr,
+		in_addr_t dest_addr);
 
 int init_ip_header(struct iphdr* ip,
 		size_t len,
