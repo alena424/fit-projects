@@ -5,7 +5,7 @@ laBEL FOO
 ADD LF@counter LF@counter int@34 
 WRITE LF@counter
 POPFRAME
-RETURN 
+#RETURN 
 WRITE int@66
 
 LABEL MAIN
@@ -15,7 +15,7 @@ CREATEFRAME
 DEFVAR TF@counter 
 MOVE TF@counter int@45
 PUSHFRAME
-JUMP FOO
+#JUMP FOO
 
 
 MOVE GF@counter string@ #tady je komentář v UTF, háčky a čárky 

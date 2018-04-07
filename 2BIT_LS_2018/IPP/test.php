@@ -10,7 +10,7 @@ class Tests{
     public function __construct( $directory, $parse, $interpret, $recursive ){
         $this->directory = realpath( $directory );
         $this->parse = $parse;
-        $this ->interpret = $interpret;
+        $this->interpret = $interpret;
         $this->recursive = $recursive;
         $this->html_out = "<!DOCTYPE html>\n<html>\n <head>\n<title>TESTS</title>\n </head>
         <style>
@@ -84,7 +84,7 @@ class Tests{
             
             if ( file_exists( $out_name ) == FALSE ){
                 #vytvorime
-                echo $out_name;
+                //echo $out_name;
                 $this->_createFile( $out_name, '' );
             }
             
@@ -106,8 +106,8 @@ class Tests{
             if ( $exit_code == 0 ) {
                 # bez chyby, pustime interpret a porovname
                 # musim dat na stdin soubor s stdin
-                #echo $this->interpret;
-                $out_xml = exec ( "python3 interpret.py "." --source=" . $xmlfile_tmp . " > ". $outfile_tmp . "< $in_name", $output, $exit_code);
+                $interpret = $this->interpret;
+                $out_xml = exec ( "python3 ". $interpret. " --source=" . $xmlfile_tmp . " > ". $outfile_tmp . "< $in_name", $output, $exit_code);
                 #var_dump( $output);
         
                 # porovname vystupy
@@ -126,22 +126,22 @@ class Tests{
             # CHYBOVY VYSTUP #
             ##################
             
-            #echo "diff ".  $rc_out_tmp . " ".$rc_name;
             $differences_rc = exec( "diff ".  $rc_out_tmp . " ".$rc_name  );
             $rc_file = fopen( $rc_name, 'r+b' );
             $code = fgets( $rc_file );
-            #echo $code;
-            
-            #echo $differences_rc;
-            #echo "\n";
+          
             if ( $code == $exit_code ){
                     # out je spravne
                 $this->html_out .= "    <div class='correct'> Stderr si correct<br>Return val is: $exit_code</div>";
             } else {
                  $this->html_out .= "   <div class='error'> Stderr si not correct <br>";
-                  $this->html_out .=  "Your return value is: $exit_code <br>Correct return value is: $code </div>";
+                 $this->html_out .=  "Your return value is: $exit_code <br>Correct return value is: $code </div>";
                  $this->html_out .= "  <div class='diff' >Difference diff: ".htmlentities( $differences_out ) ."</div>\n";
             }
+                
+            
+            
+            
                  
             # odstranime docasne soubory
             unlink( $xmlfile_tmp  );
@@ -156,7 +156,7 @@ class Tests{
     private function _createFile( $name, $contain ){
         $handler = fopen( $name, 'w+b' );
         fwrite( $handler, $contain );
-        fwrite( $handler, PHP_EOL );
+        //fwrite( $handler, PHP_EOL );
         fclose( $handler );
     }
     public function getHtml(){
@@ -167,7 +167,12 @@ class Tests{
 
 class Help{
     public function __construct(){
-        echo "NAPOVEDA TODO";
+        echo "php test.php
+                --help               : vypise napovedu
+                --directory=path     : testy hleda v zadanem adresari (implicitne aktualni adresar)
+                --recursive          : testy bude hledat nejen v zadanem adresari, ale i podadresarich
+                --parse-script=file  : soubor se scriptem v PHP 5.6 pro analyzu zdrojoveho kodu (implicitne parse.php)
+                --int-scipt=file     : soubor se scriptem v Python 3.6 pro interpret XML reprezentace kodu v IPPcode18 (implicitne interpret.py)\n";
     }   
 }
 
@@ -192,7 +197,7 @@ function main( $argv ) {
     #implicitni soubor pro parser
     $parse = "parse.php";
     # implicitni coubor pro interpret
-    $interpret = "interpet.py";
+    $interpret = "interpret.py";
     # implicitni neni rekurzivne
     $recursive = 0;
     if ( ! empty ( $options ) ) {
@@ -235,7 +240,7 @@ function main( $argv ) {
     }
     #echo "Directory: $directory\n";
     #echo "Parse: $parse\n";
-    echo "Interpet: $interpret\n";
+    #echo "Interpet: $interpret\n";
     #echo "Recursive: $recursive\n";
     
     $tests = new Tests( $directory, $parse, $interpret, $recursive );

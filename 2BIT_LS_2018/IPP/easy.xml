@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<program language="IPPcode18">
+ <instruction order="1" opcode="JUMP">
+  <arg1 type="label">MAIN</arg1>
+ </instruction>
+ <instruction order="2" opcode="LABEL">
+  <arg1 type="label">FOO</arg1>
+ </instruction>
+ <instruction order="3" opcode="ADD">
+  <arg1 type="var">LF@counter</arg1>
+  <arg2 type="var">LF@counter</arg2>
+  <arg3 type="int">34</arg3>
+ </instruction>
+ <instruction order="4" opcode="WRITE">
+  <arg1 type="var">LF@counter</arg1>
+ </instruction>
+ <instruction order="5" opcode="POPFRAME"/>
+ <instruction order="6" opcode="WRITE">
+  <arg1 type="int">66</arg1>
+ </instruction>
+ <instruction order="7" opcode="LABEL">
+  <arg1 type="label">MAIN</arg1>
+ </instruction>
+ <instruction order="8" opcode="DEFVAR">
+  <arg1 type="var">GF@counter</arg1>
+ </instruction>
+ <instruction order="9" opcode="CREATEFRAME"/>
+ <instruction order="10" opcode="DEFVAR">
+  <arg1 type="var">TF@counter</arg1>
+ </instruction>
+ <instruction order="11" opcode="MOVE">
+  <arg1 type="var">TF@counter</arg1>
+  <arg2 type="int">45</arg2>
+ </instruction>
+ <instruction order="12" opcode="PUSHFRAME"/>
+ <instruction order="13" opcode="MOVE">
+  <arg1 type="var">GF@counter</arg1>
+  <arg2 type="string"></arg2>
+ </instruction>
+ <instruction order="14" opcode="LABEL">
+  <arg1 type="label">while</arg1>
+ </instruction>
+ <instruction order="15" opcode="JUMPIFEQ">
+  <arg1 type="label">end</arg1>
+  <arg2 type="var">GF@counter</arg2>
+  <arg3 type="string">aaa</arg3>
+ </instruction>
+ <instruction order="16" opcode="WRITE">
+  <arg1 type="string">counter\032obsahuje\032</arg1>
+ </instruction>
+ <instruction order="17" opcode="WRITE">
+  <arg1 type="var">GF@counter</arg1>
+ </instruction>
+ <instruction order="18" opcode="WRITE">
+  <arg1 type="string">\010</arg1>
+ </instruction>
+ <instruction order="19" opcode="CONCAT">
+  <arg1 type="var">GF@counter</arg1>
+  <arg2 type="var">GF@coun&amp;&amp;*aa$ter</arg2>
+  <arg3 type="string">a</arg3>
+ </instruction>
+ <instruction order="20" opcode="JUMP">
+  <arg1 type="label">while</arg1>
+ </instruction>
+ <instruction order="21" opcode="LABEL">
+  <arg1 type="label">end</arg1>
+ </instruction>
+</program>

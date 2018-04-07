@@ -9,23 +9,6 @@ import re
 import os.path
 #xml data
 import xml.etree.ElementTree as ET
-
-class Operand:
-    def __init__(self, type_arg, contain):
-        self.type_arg = type_arg
-        self.contain = contain
-
-# promenna bude dedit z operandu
-class Variable( Operand ):
-    inicialized = 0
-    
-    def __init__(self, contain):
-        self.type_arg = 'var'
-        self.contain = contain
-     
-        
-    def define():
-        self.inicialized = 1
         
 class Frame:
      def __init__(self, frame ):
@@ -85,14 +68,7 @@ class Interpret:
             table_name = 'local_frame';
          
         frame_obj = getattr(self, table_name )
-        #print( "Frame: " + frame)
-        #print( frame_obj.table )
-        #print( "len: ")
-        #print (len( frame_obj.table ) )
         if ( len( frame_obj.table ) != 0):
-            #return self.table_name.table[0] #vracim co je navrchu
-            #print ("Vrchol: ")
-            #print (frame_obj.table[len( frame_obj.table ) - 1])
             return frame_obj.table[len( frame_obj.table ) - 1]
         else:
             print ( "Snazime se deklarovat lokalni promennou bez definovani ramce" , file=sys.stderr )
@@ -148,11 +124,6 @@ class Interpret:
     
     def initItemElseExit( self, name, value, typevar, frame ):
         table = self.getTableAccorrdingToFrame(frame)
-        #print(name)
-        #print(value)
-        #print(typevar)
-        #print(frame)
-        #print (table);
         for hash_item in table:
             if name in hash_item[ 'name' ] == name:
                 hash_item[ 'inicialized' ] = 1
@@ -274,7 +245,6 @@ class Interpret:
     #############
     # INSTRUKCE #
     #############
-    
     # kontrola, ze label existuje, musim to kontrolovat az bude konec prochazeni, ulozim si proto ocekavane labely
     def getJump(self, label):
         orderLabel = self._orderOfLabelElseExit( label[ 'text' ] );
@@ -324,9 +294,7 @@ class Interpret:
         else:
             print ( "Pristup k nedefinovanym ramci", file=sys.stderr )
             exit ( 55 ) # semanticka kontrola
-            
-
-        
+    
     # presun LF do TF, pokud nic v LF => 55 chyba
     def getPopFrame(self):
         if ( len( self.local_frame.table ) ):
@@ -352,8 +320,13 @@ class Interpret:
     # vyjmu pozici ze zasobniku volani
     # uklid lokalnich ramcu zajistuji jine instrukce
     def getReturn(self):
-        order = self.callStack.pop();
-        self.processedInstruction = order;
+        if ( len ( self.callStack ) ):
+            order = self.callStack.pop();
+            self.processedInstruction = order;
+        else:
+            print ( "Chybejici hodnota v zasobniku volani" , file=sys.stderr )
+            exit ( 56) # chybejici hodnota
+      
     
     # pokud prom => musi byt definiovana a inicializovana
     def getPushs(self,symb):
@@ -544,8 +517,6 @@ class Interpret:
         # priradim ji nove hodnoty a jdu dal
         self.initItemElseExit( var[ 'name' ], ordinal_val, 'int', var[ 'frame' ] )
    
-
-       
     # var musi existovat, nemusi byt inicializovana  
     # cte typ, funkci input
     # provede se konverze na specifikovany typ, retezec true se prevadi na bool@true jinak bool@false
@@ -574,7 +545,7 @@ class Interpret:
             self._checkVarIfInit( symb[ 'name' ], symb[ 'frame' ] )
         #print(symb)
         val = self.getVal(symb)
-        print( val, end='' )
+        print( val )
     
     # symb1, symb2 jsou retezce
     # ve var bude string
@@ -642,11 +613,12 @@ class Interpret:
         var = self.getVal( desc )
         
         # bereme prvni znak
-        print("val2: " + val2)
+        #print("val2: " + val2)
         if ( val2 ):
             val2 = val2[0]
-        #else:
-            #todo
+        else:
+            print ( "Neexistuje prvni znak na pozici 2" ,file=sys.stderr )
+            exit ( 58) 
                 
         if ( len( var ) > val1 and val1 >= 0):
             var[ val1 ] = val2;
@@ -669,8 +641,7 @@ class Interpret:
         if ( typ is None ):
             # neni inicializovana, jedna se o prazdny string
             typ = 'string'
-            
-            
+              
         # zapisi retezec znacici tento typ symbolu
         self.initItemElseExit( var[ 'name' ], typ, 'string', var[ 'frame' ] )
             
@@ -700,8 +671,6 @@ class Interpret:
     def getDprint(self, symb):
         if ( symb[ 'type' ] == 'var' ):
             self._checkVarIfInit( symb[ 'name' ], symb[ 'frame' ] )
-        
-    #def getBreak(self):
     
     def findAllLabels(self):
         instructionInfo = self.structure[ self.processedInstruction ]
@@ -711,7 +680,8 @@ class Interpret:
                 getattr(self, self.callInstruction[ instructionInfo[ 'instruction_name' ] ] )( *instructionInfo[ 'arg' ] )
             
             self.processedInstruction = self.processedInstruction + 1
-            instructionInfo = self.structure[ self.processedInstruction ]
+            if ( self.processedInstruction in self.structure):    
+                instructionInfo = self.structure[ self.processedInstruction ]
          
         # musime zase na zacatek    
         self.processedInstruction = 1;
@@ -721,17 +691,20 @@ class Interpret:
         instructionInfo = self.structure[ self.processedInstruction ]
         while ( instructionInfo[ 'instruction_name' ] != 'END' ):
             # zavolam danou funkci k dane instrukci s parametry instrukce
-            #print( self.callInstruction[ instructionInfo[ 'instruction_name' ] ] )
-            #print( *instructionInfo[ 'arg' ] )
             if ( instructionInfo[ 'instruction_name' ] != 'LABEL' ):
                 getattr(self, self.callInstruction[ instructionInfo[ 'instruction_name' ] ] )( *instructionInfo[ 'arg' ] )
+                #print(self.processedInstruction)
             
-            #self.printStructure( 'GF' );
             self.processedInstruction = self.processedInstruction +1
-            instructionInfo = self.structure[ self.processedInstruction ]
+           
+
+            if ( self.processedInstruction in self.structure):    
+                instructionInfo = self.structure[ self.processedInstruction ]
+            
+                
         
         # todo pridat linebreaky
-        print()
+        #print()
      
 class SyntaxParse:
     
@@ -804,14 +777,10 @@ class SyntaxParse:
         else:
            print ( "Spatny nazev instrukce  %s" % instruction_name, file=sys.stderr )
            exit ( 32)
-        
-        #print (type_instruction)
-        #print (instruction_name)   
+          
         structure = self.dictionaryInstruction[ type_instruction ]
-        #print (structure)
         if ( len( instruction_arg ) == structure[ 'number' ] ):
             for arg in range( structure[ 'number' ]  ):
-                #print (arg)
                 index = "arg" + str(arg);
                 if ( instruction_arg[ arg ][ 'text' ] is None ):
                     # aby regex nehodil chybu
@@ -843,7 +812,6 @@ class SyntaxParse:
             print ( "Spatny pocet operandu u instrukce %s" % instruction_name, file=sys.stderr )
             exit ( 32)
         
-        #print ("match %s" % instruction_name)
         return True
             
     # funkce zkontroluje syntax a v pripade uspechu vraci strukturu xml v poli slovniku, ktera vypada asi takto:
@@ -852,9 +820,13 @@ class SyntaxParse:
     # {'instruction_name': 'ADD', 'arg': [{'text': 'LF@counter', 'type': 'var'}, {'text': 'LF@counter', 'type': 'var'}, {'text': '34', 'type': 'int'}], 'order': '3'}, ]
     # klice: instruction_name => string, arg => @array, order => int
     def checkParseSyntax(self):
-        
-        tree = ET.parse( self.xml)
-        root = tree.getroot()
+        try:
+            tree = ET.parse( self.xml)
+            root = tree.getroot()
+        except:
+            print ( "Chybna struktura xml" , file=sys.stderr )
+            exit ( 31)
+            
         sums = 0
         instruction_arg = []
         instruction = {}
@@ -868,7 +840,6 @@ class SyntaxParse:
                 exit ( 31)
             for child2 in child:
                 # ulozim struktutu a zkontroluju syntax
-                #print(child2.tag, child2.attrib, child2.text)
                 sums = sums +1
                 if ('type' in child2.attrib ):
                     # pokud se jedna o promennou, chceme si navic ukladat zvlast promennou a zvlast ramec
@@ -883,8 +854,6 @@ class SyntaxParse:
                      exit ( 31)
             # ulozime do struktury, kterou budeme vracet
             instruction[ instruction_order ] = { 'instruction_name' : instruction_name, 'arg' : instruction_arg } 
-            #print (instruction_name)
-            #print (instruction_arg);
             if ( self._checkFormatOfOneInstruction( instruction_name, instruction_arg ) == False ):
                  print ( "Syntakticka chyba u instrukce %s" % instruction_name, file=sys.stderr )
                  exit ( 32)
@@ -892,16 +861,7 @@ class SyntaxParse:
             
         # konec zpracovani oznacime retezcem END, zarazka
         instruction[ instruction_order+1 ] = { 'instruction_name' : 'END', 'arg' : [] }
-        #print (int(instruction_order)+1)
         return instruction
-            
-            
-
-# pozn:
-# CREATEFRAME - zahodi docesne ramce
-# po PUSHFRAME -> vse, co bylo v TF bude v LF, lokalni se pouzivaji ve funkci
-# po POPFRAME -> mam v TF to, co bylo v LF
-
 
 class Main:
     def __init__(self):
@@ -915,7 +875,7 @@ class Main:
             exit( 10 )
         
         if (sys.argv[ 1 ] == '--help') :
-            print( "NAPOVEDA" )
+            print( "POUZITI:\npython3 interpret.py --source=zdroj_xml\n" )
             exit(0)
         #print (sys.argv[1])
         split = re.match(  r"(--source=)(.+)", sys.argv[1] )
@@ -925,15 +885,11 @@ class Main:
         
         syntax = SyntaxParse( split.group(2) )
         structTree = syntax.checkParseSyntax()
-        #print("Syntax OK")
+        #print (structTree)
         # mame strukturu, musime provest semantickou kontrolu
-        #print(structTree)
         interpret = Interpret( structTree )
-        #print( structTree[ '1' ] )
         interpret.findAllLabels();
-        #print ( interpret.labels )
         interpret.proceed()
-        #print("Interpret OK")
         
            
 main = Main()
