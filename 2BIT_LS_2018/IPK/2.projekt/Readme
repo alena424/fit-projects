@@ -1,0 +1,18 @@
+Varianta 2: DHCP starvation útok
+---------------------------------
+
+SPUŠTĚNÍ
+Kompilace přikazem make.
+
+sudo ./ipk-dhcpstarve -i interface
+
+interface (řetězec) jméno rozhraní dle OS, na které útočník vygeneruje patřičný provoz s kompromitačními účinky na DHCP server
+
+Aplikace posílá nekonečné množství zpráv DHCPDISCOVER na DHCP server. Po pár sekundách (záleží na nastavení serveru), dojdou serveru IP adresy, které by mohl přidělit.
+
+UKONČENÍ
+Aplikaci ukončete stisknutím CTRL + C
+
+
+AUTOR
+Alena Tesařová, xtesar36@stud.fit.vutbr.cz
