@@ -1,17 +1,19 @@
 <?php
 
+# hlavni trida pro provedeni testu
 class Tests{
-    private $directory;
-    private $parse;
-    private $interpret;
-    private $recursive;
-    private $html_out;
+    private $directory; # adresar ve kterem prohledavame testy
+    private $parse; # nazev parseru
+    private $interpret; # nazev interpretu
+    private $recursive; # rekurzivne
+    private $html_out; # vysledna HTML stranka
     
     public function __construct( $directory, $parse, $interpret, $recursive ){
-        $this->directory = realpath( $directory );
+        $this->directory = realpath( $directory ); # vzdy pracujeme s realnou cestou
         $this->parse = $parse;
         $this->interpret = $interpret;
         $this->recursive = $recursive;
+        # pridame hlavicku HTML
         $this->html_out = "<!DOCTYPE html>\n<html>\n <head>\n<title>TESTS</title>\n </head>
         <style>
         .test{ background:#f9f9f9; width: 1000px; margin-bottom: 20px}
@@ -26,17 +28,17 @@ class Tests{
         <h1>TESTS</h1>\n";
     }
     
-    
+    # metoda, ktera projde adresar, najde vsechny .src soubory v adresari
+    # ulozi se je do pole (recursive_dir : array)
+    # a vola metodu get_tests_src
     public function get_tests(){
         $recursive_dir = array();
         # pushneme  adresar do pole nezpracovanych adresaru
         array_push( $recursive_dir, $this->directory );
-        #echo $this->directory ;
         while ( ! empty ( $recursive_dir ) ) {
             # zpracuju aktualni adresar a delam testy
             $this->directory = array_pop( $recursive_dir );
             $dir_files = scandir( $this->directory );
-            #print_r( $dir_files);
             $src = preg_grep( "/^.+\.src/", $dir_files );
             $this->get_tests_src( $src );
             
@@ -51,9 +53,9 @@ class Tests{
         }  
     }
     
-    # funkce dostane .src soubory v adresari $this->directory
+    # funkce vykona testy pro .src soubory a vystup vypise do HTML
     public function get_tests_src( $src ){
-        $counter = 1;
+        $counter = 1; # pocitac testu v jednom adresari
         foreach ( $src as $entry ) {
             $this->html_out .= "<div class='test'>";
             $this->html_out .= "   <b>". $counter . ". " . $this->directory .'/'.$entry."<b>\n";
@@ -64,14 +66,9 @@ class Tests{
            
             preg_match( "/^(.+)\.src/", $entry, $matches );
             $exit_code = 0;
-            #echo "\n DIR: ".$this->directory. '/' . $matches[0]  ."\n";
-            #echo  ("php ". $this->parse . " < " . $this->directory .'/'.$entry . " > ".  $xmlfile_tmp);
             $out_xml = exec ( "php ". $this->parse . " < " . $this->directory .'/'.$entry . " > ".  $xmlfile_tmp , $output, $exit_code);
             
             # existuje .rc soubor?
-            #echo $entry . " " . $exit_code;
-            #echo "\n";
-            #$this->_createFile( $rc_out_tmp, 0 );
             $rc_name = $this->directory .'/'.$matches[1] .'.rc';
             if ( file_exists( $rc_name ) == FALSE ){
                 #vytvorime
@@ -79,12 +76,9 @@ class Tests{
             }
             # existuje .out soubor?
             $out_name = $this->directory .'/'.$matches[1] .'.out';
-            #echo "DIR: " .$this->directory;
-            #echo "match: " . $matches[1];
             
             if ( file_exists( $out_name ) == FALSE ){
                 #vytvorime
-                //echo $out_name;
                 $this->_createFile( $out_name, '' );
             }
             
@@ -108,7 +102,6 @@ class Tests{
                 # musim dat na stdin soubor s stdin
                 $interpret = $this->interpret;
                 $out_xml = exec ( "python3 ". $interpret. " --source=" . $xmlfile_tmp . " > ". $outfile_tmp . "< $in_name", $output, $exit_code);
-                #var_dump( $output);
         
                 # porovname vystupy
                 # tady pak bude out[utfile]
@@ -137,11 +130,7 @@ class Tests{
                  $this->html_out .= "   <div class='error'> Stderr si not correct <br>";
                  $this->html_out .=  "Your return value is: $exit_code <br>Correct return value is: $code </div>";
                  $this->html_out .= "  <div class='diff' >Difference diff: ".htmlentities( $differences_out ) ."</div>\n";
-            }
-                
-            
-            
-            
+            }            
                  
             # odstranime docasne soubory
             unlink( $xmlfile_tmp  );
@@ -149,14 +138,12 @@ class Tests{
             unlink( $rc_out_tmp  );
             
             $this->html_out .= "</div>";
-            #$this->html_out .= "   <br>\n";
         }
     }
     # funkce vytvori slozku a naplni ji obsahem contain
     private function _createFile( $name, $contain ){
         $handler = fopen( $name, 'w+b' );
         fwrite( $handler, $contain );
-        //fwrite( $handler, PHP_EOL );
         fclose( $handler );
     }
     public function getHtml(){
@@ -205,9 +192,14 @@ function main( $argv ) {
             $help = new Help();
             exit( 0 );
         }
-        if ( isset( $options[ "directory" ] ) and is_dir( $options[ "directory" ] ) ) {
-          
-            $directory = $options[ "directory" ] ;
+        if ( isset( $options[ "directory" ] ) ) {
+            if ( file_exists( $options[ "directory" ] ) ){
+                #echo( $options[ "directory" ]);
+                 $directory = $options[ "directory" ] ;
+            } else {
+                fwrite(STDERR, "Zadany adresar neni adresarem: ".$options[ 'directory' ] );
+                exit(11);
+            }
         }
         
         if ( isset( $options[ "recursive" ] ) ) {
@@ -238,10 +230,6 @@ function main( $argv ) {
             }
         }
     }
-    #echo "Directory: $directory\n";
-    #echo "Parse: $parse\n";
-    #echo "Interpet: $interpret\n";
-    #echo "Recursive: $recursive\n";
     
     $tests = new Tests( $directory, $parse, $interpret, $recursive );
     

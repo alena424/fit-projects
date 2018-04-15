@@ -681,13 +681,18 @@ class Interpret:
     def getDprint(self, symb):
         if ( symb[ 'type' ] == 'var' ):
             self._checkVarIfInit( symb[ 'name' ], symb[ 'frame' ] )
-        #val = self.getVal(symb)       
-        #print ( "%s" % ( val), file=sys.stderr )
+        val = self.getVal(symb)       
+        print ( "%s" % ( val), file=sys.stderr )
         
-    #def getBreak(self):
-          ...
-        #print >> sys.stderr, 'LF frame:'
-        #print >> sys.stderr, self.local_frame       
+    def getBreak(self):
+        print ( "Number of instruction: %s" % self.processedInstruction )
+        print ( "GF frame:" , file=sys.stderr )
+        print ( "%s" % self.glob_frame.table , file=sys.stderr )
+        print ( "LF frame:" , file=sys.stderr )
+        print ( "%s" % self.local_frame.table , file=sys.stderr )
+        print ( "TF frame:" , file=sys.stderr )
+        print ( "%s" % self.tmp_frame.table , file=sys.stderr )
+    
     
     def findAllLabels(self):
         instructionInfo = self.structure[ self.processedInstruction ]
