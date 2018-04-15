@@ -24,16 +24,7 @@ class Interpret:
        self.tmp_frame = Frame ('temporary' ) ;
        
        # inicializujeme globalni ramec, dame sem empty array
-       self.glob_frame.table.append( [] )
-       
-       self.table_glob = []
-       self.table_local = []
-       self.table_temp = []
-       
-       # kontexty
-       self.globOn = 1;
-       self.localOn = 0; # defaultne vypnuty lokalni kontext
-       self.tmpOn = 0; # defaultne vypnuty temporary kontext
+       self.glob_frame.table = ([[]])
       
        self.expectedLabel = []
        self.labels = []
@@ -75,25 +66,11 @@ class Interpret:
             exit ( 55 ) # ramec neexistuje
         
     
-    def getTableAccorrdingToFrame2version( self, frame ):
-        table = self.table_glob   
-        if ( frame == 'TF' ):
-            table = self.table_temp
-            if ( self.tmpOn != 1):
-                print ( "Snazime se deklarovat docasnou promennou bez vytvoreni ramce"  , file=sys.stderr )
-                exit ( 55 ) # ramec neexistuje
-        elif( frame == 'LF' ):
-            table = self.table_local
-            if ( self.localOn != 1 ) :
-                print ( "Snazime se deklarovat lokalni promennou bez definovani ramce" , file=sys.stderr )
-                exit ( 55 ) # ramec neexistuje               
-        return table
-    
     # pridame item do tabulky podle framu
     def addNewItem( self, name, frame ):
         # mohu vlozit pouze pokud na vrcholu zasobniku je nejake pole, do ktereho muzu vlozit
-        table = self.getTableAccorrdingToFrame(frame)
-        table.append( { 'name' : name, 'inicialized' : 0 } ) 
+        table = self.getTableAccorrdingToFrame(frame)      
+        table.append( { 'name' : name, 'inicialized' : 0 } )  
                      
     # hledam item podle jmena a framu
     def searchItem( self, name, frame ):
@@ -116,7 +93,10 @@ class Interpret:
                     if ( value == 'true' or value == True ):
                         value = True
                     else:
-                        value = False 
+                        value = False
+                elif( typevar == 'int' ):
+                     value = int(value)
+                     
                 hash_item[ 'value' ] = value
                 hash_item[ 'type' ] = typevar
                 return hash_item # jak najdeme, muzeme skoncit
@@ -256,7 +236,7 @@ class Interpret:
             print ( "Pokud o redefinici navesti %s" % label[ 'text' ], file=sys.stderr )
             exit ( 52)
         self.labels.append( { "text" : label[ 'text' ], "order" : self.processedInstruction } );
-        #print ( self.labels );
+       
     
     # 1. pokud ctu promennou, musi existovat
     # 2. pokud zapisuji do promenne, muzu menit jeji typ
@@ -270,8 +250,10 @@ class Interpret:
             exit ( 54) #semanticka kontrola
             
         if ( symb[ 'type' ] == 'var' ):
-            variable = self.searchItem( symb[ 'name' ], symb[ 'frame' ] )
+            variable = self._checkVarIfInit( symb[ 'name' ], symb[ 'frame' ] )
+            
             # zjistim si typ a hodnoty z tabulky promennych
+           
             typ = variable[ 'type' ]
             val = variable[ 'value' ]
         else:
@@ -279,18 +261,22 @@ class Interpret:
             val = symb[ 'text' ]
             
         # definovana je, ulozim si informace
+        
         self.initItemElseExit( var[ 'name' ], val, typ, var[ 'frame' ])
-             
+       
     # pokud vytvorim ramec, mohu pouzivat TF temporary
     def getCreateFrame(self):
-        self.tmp_frame.table.append([])
-        #print( self.tmp_frame.table )
+        self.tmp_frame.table = ([[]])
+      
         
     # uz nebudu moct pouzivat TF, ale muzu pouzivat LF
     def getPushFrame(self):
         if ( len( self.tmp_frame.table ) ):
             self.local_frame.table.append( self.tmp_frame.table[len( self.tmp_frame.table ) - 1]  )
+            # TF bude pro provedeni nedefinovan
             self.tmp_frame.table.pop()
+            
+           
         else:
             print ( "Pristup k nedefinovanym ramci", file=sys.stderr )
             exit ( 55 ) # semanticka kontrola
@@ -298,8 +284,8 @@ class Interpret:
     # presun LF do TF, pokud nic v LF => 55 chyba
     def getPopFrame(self):
         if ( len( self.local_frame.table ) ):
-            self.tmp_frame.table.append( self.local_frame.table[len( self.local_frame.table ) - 1] )
-            self.local_frame.table.pop()
+            #self.tmp_frame.table = [ self.local_frame.table[len( self.local_frame.table ) - 1] ]
+            self.tmp_frame.table = [ self.local_frame.table.pop() ]
         else:
             print ( "Pristup k nedefinovanym ramci", file=sys.stderr )
             exit ( 55 ) # semanticka kontrola
@@ -329,10 +315,12 @@ class Interpret:
       
     
     # pokud prom => musi byt definiovana a inicializovana
+    # staci mi si ukladat typ a hodnotu
     def getPushs(self,symb):
-        value = self.getVal( symb );
+        value = self.getVal( symb )
+        typevar = self.getType( symb )
         if ( value is not None ):
-             self.dataStack.append( symb );
+             self.dataStack.append( { 'type' : typevar, 'value' :  value } );
         else:
             print ( "Promenna %s, kterou chceme vlozit na zasobnik, neni inicializovana" % ( symb[ 'text' ] ), file=sys.stderr )
             exit ( 56) # chybejici hodnota
@@ -343,12 +331,32 @@ class Interpret:
             print ( "Datovy zasobnik je prazdny", file=sys.stderr )
             exit ( 56)
         
-        value = self.dataStack.pop();
+        value = self.dataStack.pop();    
         # zmenim typ a jmeno o promenne var na typ a hodnotu z value
         # do var dam value
-        self.getMove(var, value);
-
+        self.initItemElseExit( var[ 'name' ], value[ 'value' ], value[ 'type' ], var[ 'frame' ] )
      
+
+     # funkce na konvertovani spravneho typu  
+    def _getConvertVal(self, symb):
+        # musim porovnavat spravne typy
+        val = self.getVal(symb)
+        typ = self.getType(symb)
+        return self._getConvertConst( val, typ )
+          
+     # funkce na konvertovani spravneho typu  
+    def _getConvertConst(self, val, typ):
+        # musim porovnavat spravne typy  
+        if (typ == 'int'):
+            return int(val)
+        if (typ == 'string'):
+            return str(val)
+        if typ == 'bool':
+            if ( val == 'true' or val == True ):
+               return( True )
+            else:
+               return ( False ) 
+    
     # 1.source musi byt typu expected_type
     def _controlType(self, source, expected_type):
         # pokud se jedna o promennou, musim zjistit, jestli existuje a je inicializovana a pokud ano zkontrolovat jeji typ
@@ -365,18 +373,13 @@ class Interpret:
         # pokud se jedna o promennou, musim zjistit, jestli existuje a je inicializovana a pokud ano zkontrolovat jeji typ
         self._controlType( source1, expected_type )
         self._controlType( source2, expected_type )
+      
     
     # dostaneme vysledek operace
-    def _operation( self, source1, source2, operation ):
-        if ( source1[ 'type' ] == 'var' ):
-            val1 = self.getValueVar( source1[ 'name' ], source1[ 'frame' ] )
-        else:
-            val1 = source1[ 'text' ]
-        
-        if ( source2[ 'type' ] == 'var' ):
-            val2 = self.getValueVar( source2[ 'name' ], source2[ 'frame' ] )
-        else:
-            val2 = source2[ 'text' ]
+    def _operation( self, source1, source2, operation, typ ):
+                      
+        val1 = self._getConvertVal( source1 )
+        val2 = self._getConvertVal( source2 )
         
         if ( operation == 'plus' ):
             return int(val1) + int(val2)
@@ -393,41 +396,38 @@ class Interpret:
                 exit ( 57) # deleni nulou
                 
         elif( operation == 'lt' ):
-            return (val1 < val2)
-        elif( operation == 'gt' ):
-            return (val1 > val2)
+            return ( val1 < val2 )
+        elif( operation == 'gt' ):          
+            return ( val1 > val2 )
         elif( operation == 'eq' ):
-            return (val1 == val2)
+            return ( val1 == val2)
         
         elif( operation == 'and' ):
-            #print ( "Val1 %s AND val2 %s" % (val1, val2))
             return (val1 and val2)
         elif( operation == 'or' ):
-            #print ( "Val1 %s OR val2 %s" % (val1, val2))
             return (val1 or val2)
         elif( operation == 'not' ):
-            #print ( "Val1 %s NOT val2 %s" % (val1, val2))
             return (not val1 )
-                            
-    def _getArithmetic( self, desc, source1, source2, expected_type, operation  ):
+                                     
+    def _getArithmetic( self, desc, source1, source2, expected_type, expected_result, operation  ):
         self._controlTypeTwoValues(source1, source2, expected_type )
-        vysl = self._operation( source1, source2, operation )
-        self.initItemElseExit( desc[ 'name' ], vysl, expected_type, desc[ 'frame' ] )
+        vysl = self._operation( source1, source2, operation, expected_type  )
+        self.initItemElseExit( desc[ 'name' ], vysl, expected_result, desc[ 'frame' ] )
 
         
     # 2. vysledek do desc a kdyztak to prepisu
     def getAdd(self, desc, source1, source2):
-       self._getArithmetic( desc, source1, source2, 'int', 'plus' )
+       self._getArithmetic( desc, source1, source2, 'int', 'int', 'plus' )
              
     def getSub(self, desc, source1, source2):
-        self._getArithmetic( desc, source1, source2, 'int','minus' )
+        self._getArithmetic( desc, source1, source2, 'int', 'int','minus' )
         
     def getMul(self, desc, source1, source2):
-        self._getArithmetic( desc, source1, source2, 'int','mul' )
+        self._getArithmetic( desc, source1, source2, 'int', 'int','mul' )
     
     # pozor na deleni nulou => 57    
     def getIdiv(self, desc, source1, source2):
-        self._getArithmetic( desc, source1, source2, 'int','idiv' )
+        self._getArithmetic( desc, source1, source2, 'int', 'int','idiv' )
         
     # vraci typ a kontroluje zda jsou typy stejne
     def _sameType(self, source1, source2):
@@ -436,11 +436,16 @@ class Interpret:
         else:
             type1 = source1[ 'type' ]
             
+        
+            
         if ( source2[ 'type' ] == 'var' ):
             type2 = self.getTypeVar( source2[ 'name' ], source2[ 'frame' ] )
         else:
             type2 = source2[ 'type' ]
-        
+            
+        #print("Source1: " + type1 + "Source2: "+ type2)
+        #print(source1)
+        #print(source2)
         if ( type1 == type2  ):
             return type1
         else:
@@ -452,24 +457,27 @@ class Interpret:
     # false < true
     # muzeme pouzit AND,OR< NOT
     def getLT(self, desc, source1, source2):
-        self._getArithmetic( desc, source1, source2, self.getType(source1 ), 'lt' ) 
+        self._getArithmetic( desc, source1, source2, self.getType(source1 ), 'bool', 'lt' ) 
         
     def getGT(self, desc, source1, source2):
-        self._getArithmetic( desc, source1, source2, self.getType(source1), 'gt' )
+        #print(desc)
+        #print(source1)
+        #print(source2)
+        self._getArithmetic( desc, source1, source2, self.getType(source1), 'bool', 'gt' )
         
     def getEQ(self, desc, source1, source2):
-        self._getArithmetic( desc, source1, source2, self.getType(source1), 'eq' )
+        self._getArithmetic( desc, source1, source2, self.getType(source1), 'bool', 'eq' )
         
     # kontrola zda se jedna o bool    
     def getAnd(self, desc, source1, source2):
-        self._getArithmetic( desc, source1, source2, 'bool', 'and' )
+        self._getArithmetic( desc, source1, source2, 'bool','bool', 'and' )
         
     def getOr(self, desc, source1, source2):
-        self._getArithmetic( desc, source1, source2, 'bool', 'or' )
+        self._getArithmetic( desc, source1, source2, 'bool', 'bool','or' )
        
         
     def getNot(self, desc, source1 ):
-        self._getArithmetic( desc, source1, source1, 'bool', 'not' )
+        self._getArithmetic( desc, source1, source1, 'bool', 'bool','not' )
             
     # var - kdyztak prepisu
     # symb - typ int, musi byt validni ordinalni hodnota znaku v unicode (viz chr) => 58
@@ -545,6 +553,14 @@ class Interpret:
             self._checkVarIfInit( symb[ 'name' ], symb[ 'frame' ] )
         #print(symb)
         val = self.getVal(symb)
+        typ = self.getType(symb)
+        # pozor na typ bool, True se vypise jako true a False jako false
+        if typ == 'bool':
+               if ( val == True ):
+                    val = 'true'
+               elif ( val == False ):
+                    val = 'false'
+                    
         print( val )
     
     # symb1, symb2 jsou retezce
@@ -562,22 +578,14 @@ class Interpret:
     # ve var bude int
     # symb je string
     def getStrlen(self, var, symb):
-        self._controlType( var, 'int' )
+        #self._controlType( var, 'int' )
         self._controlType( symb, 'string' )
         val = self.getVal( symb )
         length = len( val )
+        #print(var['name'])
         self.initItemElseExit( var[ 'name' ], length, 'int', var[ 'frame' ] )
     
-    # funkce na konvertovani spravneho typu  
-    def _getConvertVal(self, symb):
-        # musim porovnavat spravne typy
-        val = self.getVal(symb)
-        typ = self.getType(symb)
-        if (typ == 'int'):
-            return int(val)
-        if (typ == 'string'):
-            return str(val)
-        
+     
     # symb2 - int (pozice)
     # sym1 - string
     # ve var bude string
@@ -621,7 +629,8 @@ class Interpret:
             exit ( 58) 
                 
         if ( len( var ) > val1 and val1 >= 0):
-            var[ val1 ] = val2;
+            #var[ val1 ] = val2;
+            var = var[:val1] + val2 + var[val1+1:]
         else:
             print ( "Indexace mimo pole retezec %s, index %s, hodnota %s" % ( var, val1, val2 ), file=sys.stderr )
             exit ( 58) 
@@ -637,10 +646,11 @@ class Interpret:
             if ( self.searchItem( symb[ 'name' ], symb[ 'frame' ] ) == 0):
                 print ( "Prace s nedefinovanou promennou %s" % ( symb[ 'name' ]), file=sys.stderr )
                 exit ( 54) #54 pokus o cteni neexistujici promenne
+              
         typ = self.getType(symb)
         if ( typ is None ):
             # neni inicializovana, jedna se o prazdny string
-            typ = 'string'
+            typ = ''
               
         # zapisi retezec znacici tento typ symbolu
         self.initItemElseExit( var[ 'name' ], typ, 'string', var[ 'frame' ] )
@@ -671,6 +681,13 @@ class Interpret:
     def getDprint(self, symb):
         if ( symb[ 'type' ] == 'var' ):
             self._checkVarIfInit( symb[ 'name' ], symb[ 'frame' ] )
+        #val = self.getVal(symb)       
+        #print ( "%s" % ( val), file=sys.stderr )
+        
+    #def getBreak(self):
+          ...
+        #print >> sys.stderr, 'LF frame:'
+        #print >> sys.stderr, self.local_frame       
     
     def findAllLabels(self):
         instructionInfo = self.structure[ self.processedInstruction ]
@@ -692,8 +709,9 @@ class Interpret:
         while ( instructionInfo[ 'instruction_name' ] != 'END' ):
             # zavolam danou funkci k dane instrukci s parametry instrukce
             if ( instructionInfo[ 'instruction_name' ] != 'LABEL' ):
-                getattr(self, self.callInstruction[ instructionInfo[ 'instruction_name' ] ] )( *instructionInfo[ 'arg' ] )
-                #print(self.processedInstruction)
+                #print(instructionInfo[ 'instruction_name' ])
+                #print( instructionInfo[ 'arg' ] )
+                getattr(self, self.callInstruction[ instructionInfo[ 'instruction_name' ] ] )( *instructionInfo[ 'arg' ] )   
             
             self.processedInstruction = self.processedInstruction +1
            
@@ -791,8 +809,7 @@ class SyntaxParse:
                     if ( instruction_arg[ arg ][ 'type' ] in self.dictionaryType ):
 
                         if ( re.match(  self.dictionaryType[ instruction_arg[ arg ][ 'type' ]  ], instruction_arg[ arg ][ 'text' ] ) is None):
-                            print ( "Spatny typ operandu u instrukce %s, operand %s" % ( instruction_name, instruction_arg[ arg ][ 'text' ]  ), file=sys.stderr )
-                            #print >> sys.stderr, "Spatny format operandu u instrukce "
+                            print ( "Spatny typ operandu u instrukce %s, operand %s" % ( instruction_name, instruction_arg[ arg ][ 'text' ]  ), file=sys.stderr )                   
                             exit ( 32)
                         # tady by se hodilo prevedeni stringu na normalni string :)
                         if ( instruction_arg[ arg ][ 'type' ] == 'string' ):
@@ -815,10 +832,9 @@ class SyntaxParse:
         return True
             
     # funkce zkontroluje syntax a v pripade uspechu vraci strukturu xml v poli slovniku, ktera vypada asi takto:
-    # [ {'instruction_name': 'JUMP', 'arg': [{'text': 'MAIN', 'type': 'label'}], 'order': '1'},
-    # {'instruction_name': 'LABEL', 'arg': [{'text': 'FOO', 'type': 'label'}], 'order': '2'},
-    # {'instruction_name': 'ADD', 'arg': [{'text': 'LF@counter', 'type': 'var'}, {'text': 'LF@counter', 'type': 'var'}, {'text': '34', 'type': 'int'}], 'order': '3'}, ]
-    # klice: instruction_name => string, arg => @array, order => int
+    # {1: {'arg': [{'type': 'label', 'text': 'MAIN'}], 'instruction_name': 'JUMP'},
+    # 2: {'arg': [{'type': 'label', 'text': 'FOO'}], 'instruction_name': 'LABEL'},
+    # 3: {'arg': [], 'instruction_name': 'END'} }
     def checkParseSyntax(self):
         try:
             tree = ET.parse( self.xml)
@@ -847,7 +863,8 @@ class SyntaxParse:
                          var = re.match(  '^(GF|LF|TF)@(.*)$', child2.text)
                          if (var is not None):
                              instruction_arg.append( { 'type' : child2.attrib[ 'type' ], 'text' : child2.text, 'name' : var.group(2), 'frame' : var.group(1) } )
-                    else:        
+                    else:
+                        # nejedna se o promennnou, ale kontantu
                         instruction_arg.append( { 'type' : child2.attrib[ 'type' ], 'text' : child2.text } )
                 else:
                      print ( "Chybi argument type u instrukce %s" % instruction_name, file=sys.stderr )
@@ -879,8 +896,10 @@ class Main:
             exit(0)
         #print (sys.argv[1])
         split = re.match(  r"(--source=)(.+)", sys.argv[1] )
+        #print( "source: %s" % sys.argv[1] );
         if (split is None):
-            print >> sys.stderr, "Pouzijte argument --help pro vypsani napovedy"
+            print ( "Pouzijte argument --help pro vypsani napovedy" , file=sys.stderr )
+            #print >> sys.stderr, "Pouzijte argument --help pro vypsani napovedy"
             exit( 10 )
         
         syntax = SyntaxParse( split.group(2) )
