@@ -1,0 +1,257 @@
+\hypertarget{quadExample_8c}{\section{examples/quad\-Example.c File Reference}
+\label{quadExample_8c}\index{examples/quad\-Example.\-c@{examples/quad\-Example.\-c}}
+}
+
+
+This file contains implementation of simple quad example.  
+
+
+{\ttfamily \#include $<$assert.\-h$>$}\\*
+{\ttfamily \#include $<$math.\-h$>$}\\*
+{\ttfamily \#include $<$examples/quad\-Example.\-h$>$}\\*
+{\ttfamily \#include $<$student/linear\-Algebra.\-h$>$}\\*
+{\ttfamily \#include $<$student/camera.\-h$>$}\\*
+{\ttfamily \#include $<$student/mouse\-Camera.\-h$>$}\\*
+{\ttfamily \#include $<$student/program.\-h$>$}\\*
+{\ttfamily \#include $<$opengl/opengl.\-h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structQuadExampleVariables}{Quad\-Example\-Variables}
+\begin{DoxyCompactList}\small\item\em \mbox{[}E\-X\-T\-E\-R\-N\-S\mbox{]} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{quadExample_8c_ae9e7b1446d0269014f3f3d33df3f0da0}{quad\-Example\-\_\-on\-Init} (int32\-\_\-t width, int32\-\_\-t height)
+\begin{DoxyCompactList}\small\item\em \mbox{[}F\-R\-A\-G\-M\-E\-N\-T\-S\-H\-A\-D\-E\-R\mbox{]} \end{DoxyCompactList}\item 
+void \hyperlink{quadExample_8c_a19bc4ebaa15f60078724033bde27d8b9}{quad\-Example\-\_\-on\-Exit} ()
+\begin{DoxyCompactList}\small\item\em This function is called at end of application. \end{DoxyCompactList}\item 
+void \hyperlink{quadExample_8c_a357ede357c44b3a5a41681591a1108c8}{quad\-Example\-\_\-on\-Draw} ()
+\begin{DoxyCompactList}\small\item\em This function is called every frame and is responsible for drawing. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structMat4}{Mat4} \hyperlink{quadExample_8c_a1f344d924f733a22d7659db612a0efe8}{projection\-Matrix}
+\begin{DoxyCompactList}\small\item\em This variable contains projection matrix of orbit camera. \end{DoxyCompactList}\item 
+\hyperlink{structMat4}{Mat4} \hyperlink{quadExample_8c_ae64ebe4c77936fc93d161b97bd8e96df}{view\-Matrix}
+\begin{DoxyCompactList}\small\item\em This variable contains view matrix. \end{DoxyCompactList}\item 
+struct \hyperlink{structQuadExampleVariables}{Quad\-Example\-Variables} \hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quad\-Example}
+\item 
+char const $\ast$ \hyperlink{quadExample_8c_a237a7e498550119b6ce620c687d56f2e}{quad\-Example\-Vertex\-Shader\-Source}
+\begin{DoxyCompactList}\small\item\em \mbox{[}G\-L\-O\-B\-A\-L\-S\mbox{]} \end{DoxyCompactList}\item 
+char const $\ast$ \hyperlink{quadExample_8c_a0ac50d89d2665b7f77595f36071c8ffc}{quad\-Example\-Fragment\-Shader\-Source}
+\begin{DoxyCompactList}\small\item\em \mbox{[}V\-E\-R\-T\-E\-X\-S\-H\-A\-D\-E\-R\mbox{]} \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file contains implementation of simple quad example. \begin{DoxyAuthor}{Author}
+Tomáš Milet, \href{mailto:imilet@fit.vutbr.cz}{\tt imilet@fit.\-vutbr.\-cz} 
+\end{DoxyAuthor}
+
+
+\subsection{Function Documentation}
+\hypertarget{quadExample_8c_a357ede357c44b3a5a41681591a1108c8}{\index{quad\-Example.\-c@{quad\-Example.\-c}!quad\-Example\-\_\-on\-Draw@{quad\-Example\-\_\-on\-Draw}}
+\index{quad\-Example\-\_\-on\-Draw@{quad\-Example\-\_\-on\-Draw}!quadExample.c@{quad\-Example.\-c}}
+\subsubsection[{quad\-Example\-\_\-on\-Draw}]{\setlength{\rightskip}{0pt plus 5cm}void quad\-Example\-\_\-on\-Draw (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{quadExample_8c_a357ede357c44b3a5a41681591a1108c8}
+
+
+This function is called every frame and is responsible for drawing. 
+
+\mbox{[}C\-L\-E\-A\-R\mbox{]}
+
+\mbox{[}C\-L\-E\-A\-R\mbox{]}
+
+\mbox{[}U\-S\-E\-P\-R\-O\-G\-R\-A\-M\mbox{]}
+
+\mbox{[}U\-S\-E\-P\-R\-O\-G\-R\-A\-M\mbox{]}
+
+\mbox{[}B\-I\-N\-D\-V\-A\-O\mbox{]}
+
+\mbox{[}B\-I\-N\-D\-V\-A\-O\mbox{]}
+
+\mbox{[}U\-P\-L\-O\-A\-D\-M\-A\-T\-R\-I\-C\-E\-S\mbox{]}
+
+\mbox{[}U\-P\-L\-O\-A\-D\-M\-A\-T\-R\-I\-C\-E\-S\mbox{]}
+
+\mbox{[}D\-R\-A\-W\mbox{]}
+
+\mbox{[}D\-R\-A\-W\mbox{]}
+
+\mbox{[}U\-N\-B\-I\-N\-D\-V\-A\-O\mbox{]}
+
+\mbox{[}U\-N\-B\-I\-N\-D\-V\-A\-O\mbox{]} \hypertarget{quadExample_8c_a19bc4ebaa15f60078724033bde27d8b9}{\index{quad\-Example.\-c@{quad\-Example.\-c}!quad\-Example\-\_\-on\-Exit@{quad\-Example\-\_\-on\-Exit}}
+\index{quad\-Example\-\_\-on\-Exit@{quad\-Example\-\_\-on\-Exit}!quadExample.c@{quad\-Example.\-c}}
+\subsubsection[{quad\-Example\-\_\-on\-Exit}]{\setlength{\rightskip}{0pt plus 5cm}void quad\-Example\-\_\-on\-Exit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{quadExample_8c_a19bc4ebaa15f60078724033bde27d8b9}
+
+
+This function is called at end of application. 
+
+\mbox{[}F\-R\-E\-E\mbox{]}
+
+\mbox{[}F\-R\-E\-E\mbox{]} \hypertarget{quadExample_8c_ae9e7b1446d0269014f3f3d33df3f0da0}{\index{quad\-Example.\-c@{quad\-Example.\-c}!quad\-Example\-\_\-on\-Init@{quad\-Example\-\_\-on\-Init}}
+\index{quad\-Example\-\_\-on\-Init@{quad\-Example\-\_\-on\-Init}!quadExample.c@{quad\-Example.\-c}}
+\subsubsection[{quad\-Example\-\_\-on\-Init}]{\setlength{\rightskip}{0pt plus 5cm}void quad\-Example\-\_\-on\-Init (
+\begin{DoxyParamCaption}
+\item[{int32\-\_\-t}]{width, }
+\item[{int32\-\_\-t}]{height}
+\end{DoxyParamCaption}
+)}}\label{quadExample_8c_ae9e7b1446d0269014f3f3d33df3f0da0}
+
+
+\mbox{[}F\-R\-A\-G\-M\-E\-N\-T\-S\-H\-A\-D\-E\-R\mbox{]} 
+
+This function is called at start of application. It contains initialization at C\-P\-U side. \mbox{[}I\-N\-I\-T\-I\-A\-L\-I\-Z\-A\-T\-I\-O\-N\mbox{]}
+
+\mbox{[}I\-N\-I\-T\-I\-A\-L\-I\-Z\-A\-T\-I\-O\-N\mbox{]}
+
+\mbox{[}C\-R\-E\-A\-T\-E\-S\-H\-A\-D\-E\-R\mbox{]}
+
+\mbox{[}C\-R\-E\-A\-T\-E\-S\-H\-A\-D\-E\-R\mbox{]}
+
+\mbox{[}U\-N\-I\-F\-O\-R\-M\-L\-O\-C\-A\-T\-I\-O\-N\mbox{]}
+
+\mbox{[}U\-N\-I\-F\-O\-R\-M\-L\-O\-C\-A\-T\-I\-O\-N\mbox{]}
+
+\mbox{[}V\-E\-R\-T\-E\-X\-D\-A\-T\-A\mbox{]}
+
+\mbox{[}V\-E\-R\-T\-E\-X\-D\-A\-T\-A\mbox{]}
+
+\mbox{[}G\-E\-N\-B\-U\-F\-F\-E\-R\-S\mbox{]}
+
+\mbox{[}G\-E\-N\-B\-U\-F\-F\-E\-R\-S\mbox{]}
+
+\mbox{[}B\-I\-N\-D\-B\-U\-F\-F\-E\-R\mbox{]}
+
+\mbox{[}B\-I\-N\-D\-B\-U\-F\-F\-E\-R\mbox{]}
+
+\mbox{[}B\-U\-F\-F\-E\-R\-D\-A\-T\-A\mbox{]}
+
+\mbox{[}B\-U\-F\-F\-E\-R\-D\-A\-T\-A\mbox{]}
+
+\mbox{[}E\-B\-O\mbox{]}
+
+\mbox{[}E\-B\-O\mbox{]}
+
+\mbox{[}A\-T\-T\-R\-I\-B\-L\-O\-C\-A\-T\-I\-O\-N\mbox{]}
+
+\mbox{[}A\-T\-T\-R\-I\-B\-L\-O\-C\-A\-T\-I\-O\-N\mbox{]}
+
+\mbox{[}G\-E\-N\-A\-R\-R\-A\-Y\-S\mbox{]}
+
+\mbox{[}G\-E\-N\-A\-R\-R\-A\-Y\-S\mbox{]}
+
+\mbox{[}B\-I\-N\-D\-A\-R\-R\-A\-Y\-S\mbox{]}
+
+\mbox{[}B\-I\-N\-D\-A\-R\-R\-A\-Y\-S\mbox{]}
+
+\mbox{[}B\-I\-N\-D\-E\-B\-O\mbox{]}
+
+\mbox{[}B\-I\-N\-D\-E\-B\-O\mbox{]}
+
+\mbox{[}B\-I\-N\-D\-V\-B\-O\mbox{]}
+
+\mbox{[}B\-I\-N\-D\-V\-B\-O\mbox{]}
+
+\mbox{[}A\-T\-T\-R\-I\-B\-P\-O\-I\-N\-T\-E\-R\mbox{]}
+
+\mbox{[}A\-T\-T\-R\-I\-B\-P\-O\-I\-N\-T\-E\-R\mbox{]}
+
+\mbox{[}E\-N\-A\-B\-L\-E\-A\-T\-T\-R\-I\-B\mbox{]}
+
+\mbox{[}E\-N\-A\-B\-L\-E\-A\-T\-T\-R\-I\-B\mbox{]}
+
+\mbox{[}U\-N\-B\-I\-N\-D\-A\-R\-R\-A\-Y\-S\mbox{]}
+
+\mbox{[}U\-N\-B\-I\-N\-D\-A\-R\-R\-A\-Y\-S\mbox{]} 
+
+\subsection{Variable Documentation}
+\hypertarget{quadExample_8c_a1f344d924f733a22d7659db612a0efe8}{\index{quad\-Example.\-c@{quad\-Example.\-c}!projection\-Matrix@{projection\-Matrix}}
+\index{projection\-Matrix@{projection\-Matrix}!quadExample.c@{quad\-Example.\-c}}
+\subsubsection[{projection\-Matrix}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Mat4} projection\-Matrix}}\label{quadExample_8c_a1f344d924f733a22d7659db612a0efe8}
+
+
+This variable contains projection matrix of orbit camera. 
+
+\mbox{[}E\-X\-T\-E\-R\-N\-S\mbox{]} This variable contains projection matrix.
+
+This variable contains projection matrix. \hypertarget{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{\index{quad\-Example.\-c@{quad\-Example.\-c}!quad\-Example@{quad\-Example}}
+\index{quad\-Example@{quad\-Example}!quadExample.c@{quad\-Example.\-c}}
+\subsubsection[{quad\-Example}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf Quad\-Example\-Variables} quad\-Example}}\label{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}
+instance of all global variables for triangle example. \begin{Desc}
+\item[Examples\-: ]\par
+\hyperlink{quadExample-example}{quad\-Example}.\end{Desc}
+\hypertarget{quadExample_8c_a0ac50d89d2665b7f77595f36071c8ffc}{\index{quad\-Example.\-c@{quad\-Example.\-c}!quad\-Example\-Fragment\-Shader\-Source@{quad\-Example\-Fragment\-Shader\-Source}}
+\index{quad\-Example\-Fragment\-Shader\-Source@{quad\-Example\-Fragment\-Shader\-Source}!quadExample.c@{quad\-Example.\-c}}
+\subsubsection[{quad\-Example\-Fragment\-Shader\-Source}]{\setlength{\rightskip}{0pt plus 5cm}char const$\ast$ quad\-Example\-Fragment\-Shader\-Source}}\label{quadExample_8c_a0ac50d89d2665b7f77595f36071c8ffc}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+= 
+\textcolor{stringliteral}{"#version 330                      \(\backslash\)n"} 
+
+\textcolor{stringliteral}{"in vec3 vColor;                   \(\backslash\)n"} 
+
+\textcolor{stringliteral}{"layout(location=0)out vec4 fColor;\(\backslash\)n"} 
+
+\textcolor{stringliteral}{"void main()\{                      \(\backslash\)n"}
+
+\textcolor{stringliteral}{"  fColor = vec4(vColor,1.f);      \(\backslash\)n"}
+
+\textcolor{stringliteral}{"\}                                 \(\backslash\)n"}
+\end{DoxyCode}
+
+
+\mbox{[}V\-E\-R\-T\-E\-X\-S\-H\-A\-D\-E\-R\mbox{]} 
+
+\mbox{[}F\-R\-A\-G\-M\-E\-N\-T\-S\-H\-A\-D\-E\-R\mbox{]} \begin{Desc}
+\item[Examples\-: ]\par
+\hyperlink{quadExample-example}{quad\-Example}.\end{Desc}
+\hypertarget{quadExample_8c_a237a7e498550119b6ce620c687d56f2e}{\index{quad\-Example.\-c@{quad\-Example.\-c}!quad\-Example\-Vertex\-Shader\-Source@{quad\-Example\-Vertex\-Shader\-Source}}
+\index{quad\-Example\-Vertex\-Shader\-Source@{quad\-Example\-Vertex\-Shader\-Source}!quadExample.c@{quad\-Example.\-c}}
+\subsubsection[{quad\-Example\-Vertex\-Shader\-Source}]{\setlength{\rightskip}{0pt plus 5cm}char const$\ast$ quad\-Example\-Vertex\-Shader\-Source}}\label{quadExample_8c_a237a7e498550119b6ce620c687d56f2e}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+= 
+
+\textcolor{stringliteral}{"#version 330                                                   \(\backslash\)n"} 
+
+\textcolor{stringliteral}{"uniform mat4 projectionMatrix;                                 \(\backslash\)n"} 
+\textcolor{stringliteral}{"uniform mat4 viewMatrix;                                       \(\backslash\)n"} 
+
+\textcolor{stringliteral}{"layout(location=0)in vec3 position;                            \(\backslash\)n"} 
+
+\textcolor{stringliteral}{"out vec3 vColor;                                               \(\backslash\)n"} 
+
+\textcolor{stringliteral}{"void main()\{                                                   \(\backslash\)n"} 
+
+\textcolor{stringliteral}{"  gl\_Position = projectionMatrix*viewMatrix*vec4(position,1.f);\(\backslash\)n"} 
+
+\textcolor{stringliteral}{"  if(gl\_VertexID == 0)vColor = vec3(1.f,0.f,0.f);              \(\backslash\)n"} 
+\textcolor{stringliteral}{"  if(gl\_VertexID == 1)vColor = vec3(0.f,1.f,0.f);              \(\backslash\)n"}
+\textcolor{stringliteral}{"  if(gl\_VertexID == 2)vColor = vec3(0.f,0.f,1.f);              \(\backslash\)n"}
+\textcolor{stringliteral}{"  if(gl\_VertexID == 3)vColor = vec3(0.f,1.f,1.f);              \(\backslash\)n"}
+
+\textcolor{stringliteral}{"\}                                                              \(\backslash\)n"}
+\end{DoxyCode}
+
+
+\mbox{[}G\-L\-O\-B\-A\-L\-S\mbox{]} 
+
+\mbox{[}V\-E\-R\-T\-E\-X\-S\-H\-A\-D\-E\-R\mbox{]} \begin{Desc}
+\item[Examples\-: ]\par
+\hyperlink{quadExample-example}{quad\-Example}.\end{Desc}
+\hypertarget{quadExample_8c_ae64ebe4c77936fc93d161b97bd8e96df}{\index{quad\-Example.\-c@{quad\-Example.\-c}!view\-Matrix@{view\-Matrix}}
+\index{view\-Matrix@{view\-Matrix}!quadExample.c@{quad\-Example.\-c}}
+\subsubsection[{view\-Matrix}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Mat4} view\-Matrix}}\label{quadExample_8c_ae64ebe4c77936fc93d161b97bd8e96df}
+
+
+This variable contains view matrix. 
+
+This variable contains view matrix. 

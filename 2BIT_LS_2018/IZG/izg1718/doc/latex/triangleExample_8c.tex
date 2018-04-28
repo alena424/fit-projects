@@ -1,0 +1,221 @@
+\hypertarget{triangleExample_8c}{\section{examples/triangle\-Example.c File Reference}
+\label{triangleExample_8c}\index{examples/triangle\-Example.\-c@{examples/triangle\-Example.\-c}}
+}
+
+
+This file contains implementation of simple triangle example.  
+
+
+{\ttfamily \#include $<$assert.\-h$>$}\\*
+{\ttfamily \#include $<$math.\-h$>$}\\*
+{\ttfamily \#include $<$examples/triangle\-Example.\-h$>$}\\*
+{\ttfamily \#include $<$student/buffer.\-h$>$}\\*
+{\ttfamily \#include $<$student/camera.\-h$>$}\\*
+{\ttfamily \#include $<$student/gpu.\-h$>$}\\*
+{\ttfamily \#include $<$student/linear\-Algebra.\-h$>$}\\*
+{\ttfamily \#include $<$student/mouse\-Camera.\-h$>$}\\*
+{\ttfamily \#include $<$student/student\-\_\-pipeline.\-h$>$}\\*
+{\ttfamily \#include $<$student/student\-\_\-shader.\-h$>$}\\*
+{\ttfamily \#include $<$student/swap\-Buffers.\-h$>$}\\*
+{\ttfamily \#include $<$student/uniforms.\-h$>$}\\*
+{\ttfamily \#include $<$student/vertex\-Puller.\-h$>$}\\*
+{\ttfamily \#include $<$student/globals.\-h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structTriangleExampleVariables}{Triangle\-Example\-Variables}
+\begin{DoxyCompactList}\small\item\em \mbox{[}E\-X\-T\-E\-R\-N\-S\mbox{]} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{triangleExample_8c_ae87aa91cb96803929e3d70f2ee66794c}{triangle\-Example\-\_\-vertex\-Shader} (\hyperlink{structGPUVertexShaderOutput}{G\-P\-U\-Vertex\-Shader\-Output} $\ast$const output, \hyperlink{structGPUVertexShaderInput}{G\-P\-U\-Vertex\-Shader\-Input} const $\ast$const input, \hyperlink{fwd_8h_a06964ec111fe28721d8618b6d0d993bf}{G\-P\-U} const gpu)
+\begin{DoxyCompactList}\small\item\em \mbox{[}G\-L\-O\-B\-A\-L\-S\mbox{]} \end{DoxyCompactList}\item 
+void \hyperlink{triangleExample_8c_a098ba4902bcb365ea8faaa20be1994f4}{triangle\-Example\-\_\-fragment\-Shader} (\hyperlink{structGPUFragmentShaderOutput}{G\-P\-U\-Fragment\-Shader\-Output} $\ast$const output, \hyperlink{structGPUFragmentShaderInput}{G\-P\-U\-Fragment\-Shader\-Input} const $\ast$const input, \hyperlink{fwd_8h_a06964ec111fe28721d8618b6d0d993bf}{G\-P\-U} const gpu)
+\begin{DoxyCompactList}\small\item\em This function represents fragment shader for triangle example. \end{DoxyCompactList}\item 
+void \hyperlink{triangleExample_8c_a73184b4ab6bb513ad9a9a4c36e92646b}{triangle\-Example\-\_\-on\-Init} (int32\-\_\-t width, int32\-\_\-t height)
+\begin{DoxyCompactList}\small\item\em This function is called at start of application. It contains initialization at C\-P\-U side. \end{DoxyCompactList}\item 
+void \hyperlink{triangleExample_8c_a35b10f59fe16423447777ba6bbba3b66}{triangle\-Example\-\_\-on\-Exit} ()
+\begin{DoxyCompactList}\small\item\em This function is called at end of application. \end{DoxyCompactList}\item 
+void \hyperlink{triangleExample_8c_adad04513776893b55b58aa0e8a84b8df}{triangle\-Example\-\_\-on\-Draw} (S\-D\-L\-\_\-\-Surface $\ast$surface)
+\begin{DoxyCompactList}\small\item\em This function is called every frame and is responsible for drawing. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{triangleExample_8c_a235d77635ad30ec86f81d2caabbdc1b5}{struct \hyperlink{structTriangleExampleVariables}{Triangle\-Example\-Variables} \hyperlink{triangleExample_8c_a235d77635ad30ec86f81d2caabbdc1b5}{triangle\-Example}}\label{triangleExample_8c_a235d77635ad30ec86f81d2caabbdc1b5}
+
+\begin{DoxyCompactList}\small\item\em instance of all global variables for triangle example. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file contains implementation of simple triangle example. \begin{DoxyAuthor}{Author}
+Tomáš Milet, \href{mailto:imilet@fit.vutbr.cz}{\tt imilet@fit.\-vutbr.\-cz} 
+\end{DoxyAuthor}
+
+
+\subsection{Function Documentation}
+\hypertarget{triangleExample_8c_a098ba4902bcb365ea8faaa20be1994f4}{\index{triangle\-Example.\-c@{triangle\-Example.\-c}!triangle\-Example\-\_\-fragment\-Shader@{triangle\-Example\-\_\-fragment\-Shader}}
+\index{triangle\-Example\-\_\-fragment\-Shader@{triangle\-Example\-\_\-fragment\-Shader}!triangleExample.c@{triangle\-Example.\-c}}
+\subsubsection[{triangle\-Example\-\_\-fragment\-Shader}]{\setlength{\rightskip}{0pt plus 5cm}void triangle\-Example\-\_\-fragment\-Shader (
+\begin{DoxyParamCaption}
+\item[{{\bf G\-P\-U\-Fragment\-Shader\-Output} $\ast$const}]{output, }
+\item[{{\bf G\-P\-U\-Fragment\-Shader\-Input} const $\ast$const}]{input, }
+\item[{{\bf G\-P\-U} const}]{gpu}
+\end{DoxyParamCaption}
+)}}\label{triangleExample_8c_a098ba4902bcb365ea8faaa20be1994f4}
+
+
+This function represents fragment shader for triangle example. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & output fragment \\
+\hline
+{\em input} & input fragment \\
+\hline
+{\em gpu} & G\-P\-U handle \\
+\hline
+\end{DoxyParams}
+\mbox{[}F\-S\-\_\-\-A\-T\-T\-R\-I\-B\-U\-T\-E\mbox{]}
+
+\mbox{[}F\-S\-\_\-\-A\-T\-T\-R\-I\-B\-U\-T\-E\mbox{]}
+
+\mbox{[}F\-S\-\_\-\-C\-O\-L\-O\-R\mbox{]}
+
+\mbox{[}F\-S\-\_\-\-C\-O\-L\-O\-R\mbox{]} \begin{Desc}
+\item[Examples\-: ]\par
+\hyperlink{TriangleExample-example}{Triangle\-Example}.\end{Desc}
+\hypertarget{triangleExample_8c_adad04513776893b55b58aa0e8a84b8df}{\index{triangle\-Example.\-c@{triangle\-Example.\-c}!triangle\-Example\-\_\-on\-Draw@{triangle\-Example\-\_\-on\-Draw}}
+\index{triangle\-Example\-\_\-on\-Draw@{triangle\-Example\-\_\-on\-Draw}!triangleExample.c@{triangle\-Example.\-c}}
+\subsubsection[{triangle\-Example\-\_\-on\-Draw}]{\setlength{\rightskip}{0pt plus 5cm}void triangle\-Example\-\_\-on\-Draw (
+\begin{DoxyParamCaption}
+\item[{S\-D\-L\-\_\-\-Surface $\ast$}]{surface}
+\end{DoxyParamCaption}
+)}}\label{triangleExample_8c_adad04513776893b55b58aa0e8a84b8df}
+
+
+This function is called every frame and is responsible for drawing. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em surface} & S\-D\-L surface \\
+\hline
+\end{DoxyParams}
+\mbox{[}C\-L\-E\-A\-R\mbox{]}
+
+\mbox{[}C\-L\-E\-A\-R\mbox{]}
+
+\mbox{[}U\-S\-E\-\_\-\-P\-R\-O\-G\-R\-A\-M\mbox{]}
+
+\mbox{[}U\-S\-E\-\_\-\-P\-R\-O\-G\-R\-A\-M\mbox{]} \mbox{[}B\-I\-N\-D\-\_\-\-P\-U\-L\-L\-E\-R\mbox{]}
+
+\mbox{[}B\-I\-N\-D\-\_\-\-P\-U\-L\-L\-E\-R\mbox{]} \mbox{[}S\-E\-T\-\_\-\-U\-N\-I\-F\-O\-R\-M\-S\mbox{]}
+
+\mbox{[}S\-E\-T\-\_\-\-U\-N\-I\-F\-O\-R\-M\-S\mbox{]}
+
+\mbox{[}D\-R\-A\-W\mbox{]}
+
+\mbox{[}D\-R\-A\-W\mbox{]}
+
+\mbox{[}S\-W\-A\-P\mbox{]}
+
+\mbox{[}S\-W\-A\-P\mbox{]} \hypertarget{triangleExample_8c_a35b10f59fe16423447777ba6bbba3b66}{\index{triangle\-Example.\-c@{triangle\-Example.\-c}!triangle\-Example\-\_\-on\-Exit@{triangle\-Example\-\_\-on\-Exit}}
+\index{triangle\-Example\-\_\-on\-Exit@{triangle\-Example\-\_\-on\-Exit}!triangleExample.c@{triangle\-Example.\-c}}
+\subsubsection[{triangle\-Example\-\_\-on\-Exit}]{\setlength{\rightskip}{0pt plus 5cm}void triangle\-Example\-\_\-on\-Exit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{triangleExample_8c_a35b10f59fe16423447777ba6bbba3b66}
+
+
+This function is called at end of application. 
+
+\mbox{[}F\-R\-E\-E\mbox{]}
+
+\mbox{[}F\-R\-E\-E\mbox{]} \hypertarget{triangleExample_8c_a73184b4ab6bb513ad9a9a4c36e92646b}{\index{triangle\-Example.\-c@{triangle\-Example.\-c}!triangle\-Example\-\_\-on\-Init@{triangle\-Example\-\_\-on\-Init}}
+\index{triangle\-Example\-\_\-on\-Init@{triangle\-Example\-\_\-on\-Init}!triangleExample.c@{triangle\-Example.\-c}}
+\subsubsection[{triangle\-Example\-\_\-on\-Init}]{\setlength{\rightskip}{0pt plus 5cm}void triangle\-Example\-\_\-on\-Init (
+\begin{DoxyParamCaption}
+\item[{int32\-\_\-t}]{width, }
+\item[{int32\-\_\-t}]{height}
+\end{DoxyParamCaption}
+)}}\label{triangleExample_8c_a73184b4ab6bb513ad9a9a4c36e92646b}
+
+
+This function is called at start of application. It contains initialization at C\-P\-U side. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em width} & width of window in pixels \\
+\hline
+{\em height} & height of window in pixels \\
+\hline
+\end{DoxyParams}
+\mbox{[}I\-N\-I\-T\-I\-A\-L\-I\-Z\-A\-T\-I\-O\-N\mbox{]}
+
+\mbox{[}I\-N\-I\-T\-I\-A\-L\-I\-Z\-A\-T\-I\-O\-N\mbox{]}
+
+\mbox{[}R\-E\-S\-E\-R\-V\-E\mbox{]}
+
+\mbox{[}R\-E\-S\-E\-R\-V\-E\mbox{]}
+
+\mbox{[}C\-R\-E\-A\-T\-E\-\_\-\-P\-R\-O\-G\-R\-A\-M\mbox{]}
+
+\mbox{[}C\-R\-E\-A\-T\-E\-\_\-\-P\-R\-O\-G\-R\-A\-M\mbox{]} \mbox{[}A\-T\-T\-A\-C\-H\mbox{]}
+
+\mbox{[}A\-T\-T\-A\-C\-H\mbox{]} \mbox{[}I\-N\-T\-E\-R\-P\-O\-L\-A\-T\-I\-O\-N\mbox{]}
+
+\mbox{[}I\-N\-T\-E\-R\-P\-O\-L\-A\-T\-I\-O\-N\mbox{]}
+
+\mbox{[}B\-U\-F\-F\-E\-R\mbox{]}
+
+\mbox{[}B\-U\-F\-F\-E\-R\mbox{]}
+
+\mbox{[}P\-U\-L\-L\-E\-R\mbox{]}
+
+\mbox{[}P\-U\-L\-L\-E\-R\mbox{]}
+
+\mbox{[}H\-E\-A\-D\mbox{]}
+
+\mbox{[}H\-E\-A\-D\mbox{]} \hypertarget{triangleExample_8c_ae87aa91cb96803929e3d70f2ee66794c}{\index{triangle\-Example.\-c@{triangle\-Example.\-c}!triangle\-Example\-\_\-vertex\-Shader@{triangle\-Example\-\_\-vertex\-Shader}}
+\index{triangle\-Example\-\_\-vertex\-Shader@{triangle\-Example\-\_\-vertex\-Shader}!triangleExample.c@{triangle\-Example.\-c}}
+\subsubsection[{triangle\-Example\-\_\-vertex\-Shader}]{\setlength{\rightskip}{0pt plus 5cm}void triangle\-Example\-\_\-vertex\-Shader (
+\begin{DoxyParamCaption}
+\item[{{\bf G\-P\-U\-Vertex\-Shader\-Output} $\ast$const}]{output, }
+\item[{{\bf G\-P\-U\-Vertex\-Shader\-Input} const $\ast$const}]{input, }
+\item[{{\bf G\-P\-U} const}]{gpu}
+\end{DoxyParamCaption}
+)}}\label{triangleExample_8c_ae87aa91cb96803929e3d70f2ee66794c}
+
+
+\mbox{[}G\-L\-O\-B\-A\-L\-S\mbox{]} 
+
+This function represents vertex shader for triangle example.
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & output vertex \\
+\hline
+{\em input} & input vertex \\
+\hline
+{\em gpu} & G\-P\-U handle \\
+\hline
+\end{DoxyParams}
+\mbox{[}I\-N\-T\-E\-R\-P\-R\-E\-T\-\_\-\-U\-N\-I\-F\-O\-R\-M\-S\mbox{]}
+
+\mbox{[}I\-N\-T\-E\-R\-P\-R\-E\-T\-\_\-\-U\-N\-I\-F\-O\-R\-M\-S\mbox{]}
+
+\mbox{[}I\-N\-P\-U\-T\-\_\-\-A\-T\-T\-R\-I\-B\-U\-T\-E\-S\mbox{]}
+
+\mbox{[}I\-N\-P\-U\-T\-\_\-\-A\-T\-T\-R\-I\-B\-U\-T\-E\-S\mbox{]}
+
+\mbox{[}P\-R\-O\-J\-E\-C\-T\mbox{]}
+
+\mbox{[}P\-R\-O\-J\-E\-C\-T\mbox{]}
+
+\mbox{[}V\-S\-\_\-\-A\-T\-T\-R\-I\-B\-U\-T\-E\mbox{]}
+
+\mbox{[}V\-S\-\_\-\-A\-T\-T\-R\-I\-B\-U\-T\-E\mbox{]} \mbox{[}V\-S\-\_\-\-C\-O\-L\-O\-R\mbox{]}
+
+\mbox{[}V\-S\-\_\-\-C\-O\-L\-O\-R\mbox{]} \begin{Desc}
+\item[Examples\-: ]\par
+\hyperlink{TriangleExample-example}{Triangle\-Example}.\end{Desc}

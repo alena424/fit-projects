@@ -1,0 +1,3 @@
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg1718/CMakeFiles/edit_cache.dir
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg1718/CMakeFiles/rebuild_cache.dir
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg1718/CMakeFiles/izgProjekt2017.dir

@@ -1,0 +1,106 @@
+\hypertarget{mouseCamera_8h}{\section{student/mouse\-Camera.h File Reference}
+\label{mouseCamera_8h}\index{student/mouse\-Camera.\-h@{student/mouse\-Camera.\-h}}
+}
+
+
+This file contains function declarations for mouse handling and camera manipulation.  
+
+
+{\ttfamily \#include $<$stdint.\-h$>$}\\*
+{\ttfamily \#include $<$student/linear\-Algebra.\-h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{mouseCamera_8h_a838dccafe5d2e845d75eac2e1b2725b9}{on\-Mouse\-Motion} (int x, int y, int xrel, int yrel)
+\begin{DoxyCompactList}\small\item\em This function is called when the mouse is moving. \end{DoxyCompactList}\item 
+void \hyperlink{mouseCamera_8h_a171d61de431f193f85002d8529bdd3cb}{on\-Mouse\-Button\-Down} (uint8\-\_\-t button)
+\begin{DoxyCompactList}\small\item\em This function is called when a mouse button is pressed. \end{DoxyCompactList}\item 
+void \hyperlink{mouseCamera_8h_a3194794d5eb4582454b63c10ca232b62}{on\-Mouse\-Button\-Up} (uint8\-\_\-t button)
+\begin{DoxyCompactList}\small\item\em This function is called when a mouse button is released. \end{DoxyCompactList}\item 
+void \hyperlink{mouseCamera_8h_a7e7e918a9328502b7c35cfbbdb068b7b}{cpu\-\_\-init\-Matrices} (int32\-\_\-t width, int32\-\_\-t height)
+\begin{DoxyCompactList}\small\item\em This function initializes view\-Matrix and projection\-Matrix. This function should be called once in init stage. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file contains function declarations for mouse handling and camera manipulation. \begin{DoxyAuthor}{Author}
+Tomáš Milet, \href{mailto:imilet@fit.vutbr.cz}{\tt imilet@fit.\-vutbr.\-cz} 
+\end{DoxyAuthor}
+
+
+\subsection{Function Documentation}
+\hypertarget{mouseCamera_8h_a7e7e918a9328502b7c35cfbbdb068b7b}{\index{mouse\-Camera.\-h@{mouse\-Camera.\-h}!cpu\-\_\-init\-Matrices@{cpu\-\_\-init\-Matrices}}
+\index{cpu\-\_\-init\-Matrices@{cpu\-\_\-init\-Matrices}!mouseCamera.h@{mouse\-Camera.\-h}}
+\subsubsection[{cpu\-\_\-init\-Matrices}]{\setlength{\rightskip}{0pt plus 5cm}void cpu\-\_\-init\-Matrices (
+\begin{DoxyParamCaption}
+\item[{int32\-\_\-t}]{width, }
+\item[{int32\-\_\-t}]{height}
+\end{DoxyParamCaption}
+)}}\label{mouseCamera_8h_a7e7e918a9328502b7c35cfbbdb068b7b}
+
+
+This function initializes view\-Matrix and projection\-Matrix. This function should be called once in init stage. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em width} & width of screen in pixels \\
+\hline
+{\em height} & height of screen in pixels \\
+\hline
+\end{DoxyParams}
+\hypertarget{mouseCamera_8h_a171d61de431f193f85002d8529bdd3cb}{\index{mouse\-Camera.\-h@{mouse\-Camera.\-h}!on\-Mouse\-Button\-Down@{on\-Mouse\-Button\-Down}}
+\index{on\-Mouse\-Button\-Down@{on\-Mouse\-Button\-Down}!mouseCamera.h@{mouse\-Camera.\-h}}
+\subsubsection[{on\-Mouse\-Button\-Down}]{\setlength{\rightskip}{0pt plus 5cm}void on\-Mouse\-Button\-Down (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{button}
+\end{DoxyParamCaption}
+)}}\label{mouseCamera_8h_a171d61de431f193f85002d8529bdd3cb}
+
+
+This function is called when a mouse button is pressed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em button} & id of pressed button, it can be S\-D\-L\-\_\-\-B\-U\-T\-T\-O\-N\-\_\-\-L\-E\-F\-T, S\-D\-L\-\_\-\-B\-U\-T\-T\-O\-N\-\_\-\-R\-I\-G\-H\-T or S\-D\-L\-\_\-\-B\-U\-T\-T\-O\-N\-\_\-\-M\-I\-D\-D\-L\-E. \\
+\hline
+\end{DoxyParams}
+\hypertarget{mouseCamera_8h_a3194794d5eb4582454b63c10ca232b62}{\index{mouse\-Camera.\-h@{mouse\-Camera.\-h}!on\-Mouse\-Button\-Up@{on\-Mouse\-Button\-Up}}
+\index{on\-Mouse\-Button\-Up@{on\-Mouse\-Button\-Up}!mouseCamera.h@{mouse\-Camera.\-h}}
+\subsubsection[{on\-Mouse\-Button\-Up}]{\setlength{\rightskip}{0pt plus 5cm}void on\-Mouse\-Button\-Up (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{button}
+\end{DoxyParamCaption}
+)}}\label{mouseCamera_8h_a3194794d5eb4582454b63c10ca232b62}
+
+
+This function is called when a mouse button is released. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em button} & id of released button, it can be S\-D\-L\-\_\-\-B\-U\-T\-T\-O\-N\-\_\-\-L\-E\-F\-T, S\-D\-L\-\_\-\-B\-U\-T\-T\-O\-N\-\_\-\-R\-I\-G\-H\-T or S\-D\-L\-\_\-\-B\-U\-T\-T\-O\-N\-\_\-\-M\-I\-D\-D\-L\-E. \\
+\hline
+\end{DoxyParams}
+\hypertarget{mouseCamera_8h_a838dccafe5d2e845d75eac2e1b2725b9}{\index{mouse\-Camera.\-h@{mouse\-Camera.\-h}!on\-Mouse\-Motion@{on\-Mouse\-Motion}}
+\index{on\-Mouse\-Motion@{on\-Mouse\-Motion}!mouseCamera.h@{mouse\-Camera.\-h}}
+\subsubsection[{on\-Mouse\-Motion}]{\setlength{\rightskip}{0pt plus 5cm}void on\-Mouse\-Motion (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{int}]{xrel, }
+\item[{int}]{yrel}
+\end{DoxyParamCaption}
+)}}\label{mouseCamera_8h_a838dccafe5d2e845d75eac2e1b2725b9}
+
+
+This function is called when the mouse is moving. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & x position of cursor \\
+\hline
+{\em y} & y position of cursor \\
+\hline
+{\em xrel} & relative x position to previous x position \\
+\hline
+{\em yrel} & relative y position to previous y position \\
+\hline
+\end{DoxyParams}
