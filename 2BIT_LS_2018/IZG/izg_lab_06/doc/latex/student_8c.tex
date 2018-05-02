@@ -1,0 +1,70 @@
+\hypertarget{student_8c}{\section{student/student.c File Reference}
+\label{student_8c}\index{student/student.\-c@{student/student.\-c}}
+}
+
+
+This file contains implementation of exercise.  
+
+
+{\ttfamily \#include $<$assert.\-h$>$}\\*
+{\ttfamily \#include $<$math.\-h$>$}\\*
+{\ttfamily \#include $<$student/student.\-h$>$}\\*
+{\ttfamily \#include $<$student/linear\-Algebra.\-h$>$}\\*
+{\ttfamily \#include $<$student/camera.\-h$>$}\\*
+{\ttfamily \#include $<$student/bunny.\-h$>$}\\*
+{\ttfamily \#include $<$student/mouse\-Camera.\-h$>$}\\*
+{\ttfamily \#include $<$opengl/opengl.\-h$>$}\\*
+{\ttfamily \#include $<$student/program.\-h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structPhongVariables}{Phong\-Variables}
+\begin{DoxyCompactList}\small\item\em This structure contains all global variables for this method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{student_8c_a88d2d9ef0fe63ab523c367c2a6f40245}{void \hyperlink{student_8c_a88d2d9ef0fe63ab523c367c2a6f40245}{phong\-\_\-on\-Exit} ()}\label{student_8c_a88d2d9ef0fe63ab523c367c2a6f40245}
+
+\begin{DoxyCompactList}\small\item\em This function is called at end of application. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structMat4}{Mat4} \hyperlink{student_8c_a1f344d924f733a22d7659db612a0efe8}{projection\-Matrix}
+\begin{DoxyCompactList}\small\item\em This variable contains projection matrix. \end{DoxyCompactList}\item 
+\hyperlink{structMat4}{Mat4} \hyperlink{student_8c_ae64ebe4c77936fc93d161b97bd8e96df}{view\-Matrix}
+\begin{DoxyCompactList}\small\item\em This variable contains view matrix. \end{DoxyCompactList}\item 
+\hypertarget{student_8c_a2ae2553412ead34e3a4e23019d4f052e}{\hyperlink{structVec3}{Vec3} \hyperlink{student_8c_a2ae2553412ead34e3a4e23019d4f052e}{camera\-Position}}\label{student_8c_a2ae2553412ead34e3a4e23019d4f052e}
+
+\begin{DoxyCompactList}\small\item\em This variable contains camera position in world-\/space. \end{DoxyCompactList}\item 
+\hypertarget{student_8c_a7306931d2ba161215ffc45645c8bfa7d}{struct \hyperlink{structPhongVariables}{Phong\-Variables} \hyperlink{student_8c_a7306931d2ba161215ffc45645c8bfa7d}{phong}}\label{student_8c_a7306931d2ba161215ffc45645c8bfa7d}
+
+\begin{DoxyCompactList}\small\item\em instance of all global variables for triangle example. \end{DoxyCompactList}\item 
+char const $\ast$ \hyperlink{group__vs_gad2d377f5d5db8945bf16b9e9ca1b71a5}{phong\-Vertex\-Shader\-Source}
+\begin{DoxyCompactList}\small\item\em This variable contains vertex shader source for phong shading/lighting. \end{DoxyCompactList}\item 
+\hypertarget{group__fs_ga1ad4f4cb5068a39b247fbd8bb4428a75}{char const $\ast$ \hyperlink{group__fs_ga1ad4f4cb5068a39b247fbd8bb4428a75}{phong\-Fragment\-Shader\-Source}}\label{group__fs_ga1ad4f4cb5068a39b247fbd8bb4428a75}
+
+\begin{DoxyCompactList}\small\item\em This variable contains fragment shader source for phong shading/linghting. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file contains implementation of exercise. \begin{DoxyAuthor}{Author}
+Tomáš Milet, \href{mailto:imilet@fit.vutbr.cz}{\tt imilet@fit.\-vutbr.\-cz} 
+\end{DoxyAuthor}
+
+
+\subsection{Variable Documentation}
+\hypertarget{student_8c_a1f344d924f733a22d7659db612a0efe8}{\index{student.\-c@{student.\-c}!projection\-Matrix@{projection\-Matrix}}
+\index{projection\-Matrix@{projection\-Matrix}!student.c@{student.\-c}}
+\subsubsection[{projection\-Matrix}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Mat4} projection\-Matrix}}\label{student_8c_a1f344d924f733a22d7659db612a0efe8}
+
+
+This variable contains projection matrix. 
+
+This variable contains projection matrix. \hypertarget{student_8c_ae64ebe4c77936fc93d161b97bd8e96df}{\index{student.\-c@{student.\-c}!view\-Matrix@{view\-Matrix}}
+\index{view\-Matrix@{view\-Matrix}!student.c@{student.\-c}}
+\subsubsection[{view\-Matrix}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Mat4} view\-Matrix}}\label{student_8c_ae64ebe4c77936fc93d161b97bd8e96df}
+
+
+This variable contains view matrix. 
+
+This variable contains view matrix. 

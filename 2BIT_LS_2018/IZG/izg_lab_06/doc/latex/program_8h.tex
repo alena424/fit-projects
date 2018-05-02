@@ -1,0 +1,75 @@
+\hypertarget{program_8h}{\section{student/program.h File Reference}
+\label{program_8h}\index{student/program.\-h@{student/program.\-h}}
+}
+
+
+This file contains function declarations for compiling and linking shader programs.  
+
+
+{\ttfamily \#include $<$opengl/opengl.\-h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+G\-Luint \hyperlink{program_8h_aeeb65abe90cc1be97e5788afe8ca57a7}{compile\-Shader} (G\-Lenum const type, char const $\ast$source)
+\begin{DoxyCompactList}\small\item\em This function creates shader. \end{DoxyCompactList}\item 
+G\-Luint \hyperlink{program_8h_af917a75fb9e573fb52d85ef90f32231e}{link\-Program} (G\-Luint const shader0, G\-Luint const shader1)
+\begin{DoxyCompactList}\small\item\em This function creates shader program. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file contains function declarations for compiling and linking shader programs. \begin{DoxyAuthor}{Author}
+Tomáš Milet, \href{mailto:imilet@fit.vutbr.cz}{\tt imilet@fit.\-vutbr.\-cz} 
+\end{DoxyAuthor}
+
+
+\subsection{Function Documentation}
+\hypertarget{program_8h_aeeb65abe90cc1be97e5788afe8ca57a7}{\index{program.\-h@{program.\-h}!compile\-Shader@{compile\-Shader}}
+\index{compile\-Shader@{compile\-Shader}!program.h@{program.\-h}}
+\subsubsection[{compile\-Shader}]{\setlength{\rightskip}{0pt plus 5cm}G\-Luint compile\-Shader (
+\begin{DoxyParamCaption}
+\item[{G\-Lenum const}]{type, }
+\item[{char const $\ast$}]{source}
+\end{DoxyParamCaption}
+)}}\label{program_8h_aeeb65abe90cc1be97e5788afe8ca57a7}
+
+
+This function creates shader. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & a type of shader \\
+\hline
+{\em source} & a source code of shader\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+It returns compiled shader id. 
+\end{DoxyReturn}
+\begin{Desc}
+\item[Examples\-: ]\par
+\hyperlink{quadExample-example}{quad\-Example}.\end{Desc}
+\hypertarget{program_8h_af917a75fb9e573fb52d85ef90f32231e}{\index{program.\-h@{program.\-h}!link\-Program@{link\-Program}}
+\index{link\-Program@{link\-Program}!program.h@{program.\-h}}
+\subsubsection[{link\-Program}]{\setlength{\rightskip}{0pt plus 5cm}G\-Luint link\-Program (
+\begin{DoxyParamCaption}
+\item[{G\-Luint const}]{shader0, }
+\item[{G\-Luint const}]{shader1}
+\end{DoxyParamCaption}
+)}}\label{program_8h_af917a75fb9e573fb52d85ef90f32231e}
+
+
+This function creates shader program. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em shader0} & an id of compiled shader \\
+\hline
+{\em shader1} & an id of compiled shader\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+It returns linked shader program id. 
+\end{DoxyReturn}
+\begin{Desc}
+\item[Examples\-: ]\par
+\hyperlink{quadExample-example}{quad\-Example}.\end{Desc}

@@ -1,0 +1,60 @@
+\hypertarget{group__task3}{\section{Třetí úkol}
+\label{group__task3}\index{Třetí úkol@{Třetí úkol}}
+}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000002}{Todo}]3.\-1.) Upravte vertex shader. Vašim úkolem je přidat druhý vertex atribut -\/ normálu vrcholu. Dále přidejte dvě výstupní proměnné typu vec3 a zapište do nich pozici a normálu vrcholu ve world-\/space. Tyto proměnné budete potřebovat pro výpočet osvětlení. Upravujte phong\-Vertex\-Shader\-Source proměnnou. \end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000003}{Todo}]3.\-2.) Upravte fragment shader (proměnná phong\-Fragment\-Shader\-Source). Vašim úkolem je implementovat phongův osvětlovací model. Přidejte dvě vstupní proměnné (typ vec3) stejného názvu, jako nově přidané výstupní proměnné ve vertex shaderu. V jedné obdržíte pozice fragmentu ve world-\/space. V druhé obdržíte normálu fragmentu ve world-\/space. Dále přidejte dvě uniformní proměnné (typ vec3) pro pozici kamery a pro pozici světla. Difuzní barvu materiálu nastave v základu na vec3(0.\-f,1.\-f,0.\-f) -\/ zelená.\par
+ V případě, že normála povrchu směřuje vzhůru bude difuzní barva vec3(1.\-f,1.\-f,1.\-f) -\/ bílá.\par
+ Zelenou a bílou difuzní barvu míchejte pomocí y komponenty normály umocněné na druhou.\par
+ Samozřejmě berte v potaz záporné hodnoty a nepřidávejte sníh (bílou barvu) ze spodu.\par
+ Spekulání barvu materiálu nastavte na vec3(1.\-f,1.\-f,1.\-f) -\/ bílá.\par
+ Shininess faktor nastavte na 40.\-f.\par
+ Předpokládejte, že světlo má bílou barvu.\par
+ Barva se vypočíta podle vzorce d\-F$\ast$d\-M$\ast$d\-L + s\-F$\ast$s\-M$\ast$s\-L.\par
+ d\-M,s\-M jsou difuzní/spekulární barvy materiálu -\/ vektory.\par
+ d\-L,s\-L jsou difuzní/spekulární barvy světla -\/ vektory.\par
+ d\-F,s\-F jsou difuzní/spekulární faktory -\/ skaláry.\par
+ d\-F lze vypočíst pomocí vztahu clamp(dot(\-N,\-L),0.\-f,1.\-f) -\/ skalární součin a ořez do rozsahu \mbox{[}0,1\mbox{]}.\par
+ N je normála fragmentu (nezapomeňte ji normalizovat).\par
+ L je normalizovaný vektor z pozice fragmentu směrem ke světlu.\par
+ s\-F lze vypočíst pomocí vztahu pow((clamp(dot(\-R,\-L),0.\-f,1.\-f)),s) -\/ skalární součin, ořez do rozsahu \mbox{[}0,1\mbox{]} a umocnění.\par
+ s je shininess faktor.\par
+ R je odražený pohledový vektor V; R = reflect(\-V,\-N).\par
+ V je normalizovaný pohledový vektor z pozice kamery do pozice fragmentu.\par
+ \par
+ Nezapomeňte, že programujete v jazyce G\-L\-S\-L, který zvládá vektorové operace.\par
+ {\bfseries Seznam užitečných funkcí\-:}
+\begin{DoxyItemize}
+\item dot(x,y) -\/ funkce vrací skalární součit dvou vektorů x,y stejné délky
+\item clamp(x,a,b) -\/ funkce vrací ořezanou hodnotu x do intervalu \mbox{[}a,b\mbox{]}
+\item normalize(x) -\/ funkce vrací normalizovaný vektor x
+\item reflect(\-I,\-N) -\/ funkce vrací odražený vektor I podle normály N
+\item pow(x,y) -\/ funkce vrací umocnění x na y -\/ x$^\wedge$y 
+\end{DoxyItemize}\end{DoxyRefDesc}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000006}{Todo}]3.\-3.) Ve funkci \hyperlink{student_8h_ac2adb2ba4e748239b9db4d037584d3cc}{phong\-\_\-on\-Init()} získejte lokace přidaných uniformních proměnných pro pozici světla a pro pozice kamery. Zapište lokace do příslušných položek ve struktuře \hyperlink{structPhongVariables}{Phong\-Variables}. Nezapomeňte, že lokace získáte pomocí jména proměnné v jazyce G\-L\-S\-L, které jste udělali v předcházejícím kroku.\par
+ {\bfseries Seznam funkcí, které jistě využijete\-:}
+\begin{DoxyItemize}
+\item gl\-Get\-Uniform\-Location 
+\end{DoxyItemize}\end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000007}{Todo}]3.\-4.) Ve funkci \hyperlink{student_8h_ac2adb2ba4e748239b9db4d037584d3cc}{phong\-\_\-on\-Init()} nastavte druhý vertex atribut pro normálu. Musíte získat lokaci vstupní proměnné ve vertex shaderu, kterou jste přidali v předcházejícím kroku. Musíte správně nastavit stride a offset -\/ normála nemá nulový offset.\par
+ {\bfseries Seznam funkcí, které jistě využijete\-:}
+\begin{DoxyItemize}
+\item gl\-Get\-Attrib\-Location
+\item gl\-Vertex\-Attrib\-Pointer
+\item gl\-Enable\-Vertex\-Attrib\-Array 
+\end{DoxyItemize}\end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000010}{Todo}]3.\-5.) Ve funkci \hyperlink{student_8h_a53ffbb1a271d285abdaf7a029192f47e}{phong\-\_\-on\-Draw()} nahrajte pozici světla a pozici kamery na G\-P\-U. Pozice světla a pozice kamery je v proměnných phong.\-light\-Position a camera\-Position.\par
+ {\bfseries Seznam funkcí, které jistě využijete\-:}
+\begin{DoxyItemize}
+\item gl\-Uniform3f nebo gl\-Uniform3fv 
+\end{DoxyItemize}\end{DoxyRefDesc}

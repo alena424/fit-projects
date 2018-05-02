@@ -1,0 +1,26 @@
+\hypertarget{group__task1}{\section{První úkol}
+\label{group__task1}\index{První úkol@{První úkol}}
+}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000004}{Todo}]1.\-1.) Doprogramujte inicializační funkci \hyperlink{student_8h_ac2adb2ba4e748239b9db4d037584d3cc}{phong\-\_\-on\-Init()}. Zde byste měli vytvořit buffery na G\-P\-U, nahrát data do bufferů, vytvořit vertex arrays object a správně jej nakonfigurovat. Do bufferů nahrajte vrcholy králička (pozice, normály) a indexy na vrcholy ze souboru \hyperlink{bunny_8h}{bunny.\-h}. V konfiguraci vertex arrays objektu zatím nastavte pouze jeden vertex atribut -\/ pro pozici. Využijte proměnné ve struktuře \hyperlink{structPhongVariables}{Phong\-Variables} (vbo, ebo, vao). Do proměnné phong.\-vbo zapište id bufferu obsahující vertex atributy. Do proměnné phong.\-ebo zapište id bufferu obsahující indexy na vrcholy. Do proměnné phong.\-vao zapište id vertex arrays objektu. Data vertexů naleznete v proměnné \hyperlink{bunny_8h}{bunny.\-h}/bunny\-Vertices -\/ ty překopírujte do bufferu phong.\-vbo. Data indexů naleznete v proměnné \hyperlink{bunny_8h}{bunny.\-h}/bunny\-Indices -\/ ty překopírujte do bufferu phong.\-ebo. Dejte si pozor, abyste správně nastavili stride a offset ve funkci gl\-Vertex\-Attrib\-Pointer. Vrchol králička je složen ze dvou vertex atributů\-: pozice a normála.\par
+ Buffer indexů nabindujte při nahrávání nastavení do V\-A\-O na G\-L\-\_\-\-E\-L\-E\-M\-E\-N\-T\-\_\-\-A\-R\-R\-A\-Y\-\_\-\-B\-U\-F\-F\-E\-R binding point.\par
+ {\bfseries Seznam funkcí, které jistě využijete\-:}
+\begin{DoxyItemize}
+\item gl\-Gen\-Buffers
+\item gl\-Bind\-Buffer
+\item gl\-Buffer\-Data
+\item gl\-Gen\-Vertex\-Arrays
+\item gl\-Get\-Attrib\-Location
+\item gl\-Bind\-Vertex\-Array
+\item gl\-Vertex\-Attrib\-Pointer
+\item gl\-Enable\-Vertex\-Attrib\-Array 
+\end{DoxyItemize}\end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000008}{Todo}]1.\-2.) Doprogramujte kreslící funkci \hyperlink{student_8h_a53ffbb1a271d285abdaf7a029192f47e}{phong\-\_\-on\-Draw()}. Zde byste měli aktivovat vao a spustit kreslení. Funcke gl\-Draw\-Elements kreslí indexovaně, vyžaduje 4 parametry\-: mode -\/ typ primitia, počet indexů, typ indexů (velikost indexu), a offset. Kreslíte trojúhelníky, počet vrcholů odpovídá počtu indexů viz proměnná \hyperlink{bunny_8h}{bunny.\-h}/bunny\-Indices.\par
+ {\bfseries Seznam funkcí, které jistě využijete\-:}
+\begin{DoxyItemize}
+\item gl\-Bind\-Vertex\-Array
+\item gl\-Draw\-Elements 
+\end{DoxyItemize}\end{DoxyRefDesc}

@@ -1,0 +1,42 @@
+\hypertarget{structGPUPrimitive}{\section{G\-P\-U\-Primitive Struct Reference}
+\label{structGPUPrimitive}\index{G\-P\-U\-Primitive@{G\-P\-U\-Primitive}}
+}
+
+
+This struct represents primitive -\/ output of primitive assembly unit. A primitive is composed of N vertices, interpolation type for each vertex attribute and type of each vertex attribute.  
+
+
+
+
+{\ttfamily \#include $<$student\-\_\-pipeline.\-h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{structGPUPrimitive_a18413cb45917a0f4a519d4807c06a1b6}{\hyperlink{structGPUVertexShaderOutput}{G\-P\-U\-Vertex\-Shader\-Output} \hyperlink{structGPUPrimitive_a18413cb45917a0f4a519d4807c06a1b6}{vertices} \mbox{[}\hyperlink{fwd_8h_a67df0e09b776eea53360bcc8f4a82ac9}{V\-E\-R\-T\-I\-C\-E\-S\-\_\-\-P\-E\-R\-\_\-\-T\-R\-I\-A\-N\-G\-L\-E}\mbox{]}}\label{structGPUPrimitive_a18413cb45917a0f4a519d4807c06a1b6}
+
+\begin{DoxyCompactList}\small\item\em vertices of the primitive \end{DoxyCompactList}\item 
+size\-\_\-t \hyperlink{structGPUPrimitive_aaeea5342673689813c4aff110677d403}{nof\-Used\-Vertices}
+\item 
+\hypertarget{structGPUPrimitive_abf05f0fa2a0b01eddf768d0f8daf0fb9}{\hyperlink{program_8h_a349a9cde14be8097df865ba0469c0ab2}{Attribute\-Type} \hyperlink{structGPUPrimitive_abf05f0fa2a0b01eddf768d0f8daf0fb9}{types} \mbox{[}\hyperlink{fwd_8h_a4d992a1f9192388588184753115f6c03}{M\-A\-X\-\_\-\-A\-T\-T\-R\-I\-B\-U\-T\-E\-S}\mbox{]}}\label{structGPUPrimitive_abf05f0fa2a0b01eddf768d0f8daf0fb9}
+
+\begin{DoxyCompactList}\small\item\em types of vertex attributes \end{DoxyCompactList}\item 
+\hyperlink{program_8h_a8472f01c511d77bbfb981a46618ea1ea}{Interpolation\-Type} \hyperlink{structGPUPrimitive_a52b0316277ee6ac63d4e898ea3bb1864}{interpolations} \mbox{[}\hyperlink{fwd_8h_a4d992a1f9192388588184753115f6c03}{M\-A\-X\-\_\-\-A\-T\-T\-R\-I\-B\-U\-T\-E\-S}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This struct represents primitive -\/ output of primitive assembly unit. A primitive is composed of N vertices, interpolation type for each vertex attribute and type of each vertex attribute. 
+
+\subsection{Field Documentation}
+\hypertarget{structGPUPrimitive_a52b0316277ee6ac63d4e898ea3bb1864}{\index{G\-P\-U\-Primitive@{G\-P\-U\-Primitive}!interpolations@{interpolations}}
+\index{interpolations@{interpolations}!GPUPrimitive@{G\-P\-U\-Primitive}}
+\subsubsection[{interpolations}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Interpolation\-Type} G\-P\-U\-Primitive\-::interpolations\mbox{[}{\bf M\-A\-X\-\_\-\-A\-T\-T\-R\-I\-B\-U\-T\-E\-S}\mbox{]}}}\label{structGPUPrimitive_a52b0316277ee6ac63d4e898ea3bb1864}
+interpolation types of vertex attributes \hypertarget{structGPUPrimitive_aaeea5342673689813c4aff110677d403}{\index{G\-P\-U\-Primitive@{G\-P\-U\-Primitive}!nof\-Used\-Vertices@{nof\-Used\-Vertices}}
+\index{nof\-Used\-Vertices@{nof\-Used\-Vertices}!GPUPrimitive@{G\-P\-U\-Primitive}}
+\subsubsection[{nof\-Used\-Vertices}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t G\-P\-U\-Primitive\-::nof\-Used\-Vertices}}\label{structGPUPrimitive_aaeea5342673689813c4aff110677d403}
+number of used vertices 1 -\/ point, 2 -\/ line segment, 3 -\/ triangle 
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+student/\hyperlink{student__pipeline_8h}{student\-\_\-pipeline.\-h}\end{DoxyCompactItemize}

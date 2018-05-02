@@ -1,0 +1,732 @@
+Performing C SOURCE FILE Test HAVE_ALTIVEC_H_HDR failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_8a326/fast"
+/usr/bin/make -f CMakeFiles/cmTC_8a326.dir/build.make CMakeFiles/cmTC_8a326.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_8a326.dir/src.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DHAVE_ALTIVEC_H_HDR -maltivec   -o CMakeFiles/cmTC_8a326.dir/src.c.o   -c /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/src.c
+cc: error: unrecognized command line option ‘-maltivec’
+CMakeFiles/cmTC_8a326.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_8a326.dir/src.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_8a326.dir/src.c.o] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_8a326/fast' failed
+make: *** [cmTC_8a326/fast] Error 2
+
+Source file was:
+
+          #include <altivec.h>
+          vector unsigned int vzero() {
+              return vec_splat_u32(0);
+          }
+          int main(int argc, char **argv) { }
+Performing C SOURCE FILE Test HAVE_ALTIVEC failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_6cfda/fast"
+/usr/bin/make -f CMakeFiles/cmTC_6cfda.dir/build.make CMakeFiles/cmTC_6cfda.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_6cfda.dir/src.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DHAVE_ALTIVEC -maltivec   -o CMakeFiles/cmTC_6cfda.dir/src.c.o   -c /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/src.c
+cc: error: unrecognized command line option ‘-maltivec’
+CMakeFiles/cmTC_6cfda.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_6cfda.dir/src.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_6cfda.dir/src.c.o] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_6cfda/fast' failed
+make: *** [cmTC_6cfda/fast] Error 2
+
+Source file was:
+
+          vector unsigned int vzero() {
+              return vec_splat_u32(0);
+          }
+          int main(int argc, char **argv) { }
+Determining if the include file libunwind.h exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_de41c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_de41c.dir/build.make CMakeFiles/cmTC_de41c.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_de41c.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos    -o CMakeFiles/cmTC_de41c.dir/CheckIncludeFile.c.o   -c /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:23: fatal error: libunwind.h: No such file or directory
+compilation terminated.
+CMakeFiles/cmTC_de41c.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_de41c.dir/CheckIncludeFile.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_de41c.dir/CheckIncludeFile.c.o] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_de41c/fast' failed
+make: *** [cmTC_de41c/fast] Error 2
+
+
+Determining if the function strlcpy exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_d1d62/fast"
+/usr/bin/make -f CMakeFiles/cmTC_d1d62.dir/build.make CMakeFiles/cmTC_d1d62.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_d1d62.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=strlcpy   -o CMakeFiles/cmTC_d1d62.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_d1d62
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d1d62.dir/link.txt --verbose=1
+/usr/bin/cc  -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=strlcpy    CMakeFiles/cmTC_d1d62.dir/CheckFunctionExists.c.o  -o cmTC_d1d62 -rdynamic 
+CMakeFiles/cmTC_d1d62.dir/CheckFunctionExists.c.o: In function `main':
+/usr/share/cmake-3.5/Modules/CheckFunctionExists.c:14: undefined reference to `strlcpy'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_d1d62.dir/build.make:97: recipe for target 'cmTC_d1d62' failed
+make[1]: *** [cmTC_d1d62] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_d1d62/fast' failed
+make: *** [cmTC_d1d62/fast] Error 2
+
+
+Determining if the function strlcat exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_7b5be/fast"
+/usr/bin/make -f CMakeFiles/cmTC_7b5be.dir/build.make CMakeFiles/cmTC_7b5be.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_7b5be.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=strlcat   -o CMakeFiles/cmTC_7b5be.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_7b5be
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7b5be.dir/link.txt --verbose=1
+/usr/bin/cc  -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=strlcat    CMakeFiles/cmTC_7b5be.dir/CheckFunctionExists.c.o  -o cmTC_7b5be -rdynamic 
+CMakeFiles/cmTC_7b5be.dir/CheckFunctionExists.c.o: In function `main':
+/usr/share/cmake-3.5/Modules/CheckFunctionExists.c:14: undefined reference to `strlcat'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_7b5be.dir/build.make:97: recipe for target 'cmTC_7b5be' failed
+make[1]: *** [cmTC_7b5be] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_7b5be/fast' failed
+make: *** [cmTC_7b5be/fast] Error 2
+
+
+Determining if the function _strrev exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_dec2b/fast"
+/usr/bin/make -f CMakeFiles/cmTC_dec2b.dir/build.make CMakeFiles/cmTC_dec2b.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_dec2b.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=_strrev   -o CMakeFiles/cmTC_dec2b.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_dec2b
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_dec2b.dir/link.txt --verbose=1
+/usr/bin/cc  -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=_strrev    CMakeFiles/cmTC_dec2b.dir/CheckFunctionExists.c.o  -o cmTC_dec2b -rdynamic 
+CMakeFiles/cmTC_dec2b.dir/CheckFunctionExists.c.o: In function `main':
+/usr/share/cmake-3.5/Modules/CheckFunctionExists.c:14: undefined reference to `_strrev'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_dec2b.dir/build.make:97: recipe for target 'cmTC_dec2b' failed
+make[1]: *** [cmTC_dec2b] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_dec2b/fast' failed
+make: *** [cmTC_dec2b/fast] Error 2
+
+
+Determining if the function _strupr exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_aa5b5/fast"
+/usr/bin/make -f CMakeFiles/cmTC_aa5b5.dir/build.make CMakeFiles/cmTC_aa5b5.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_aa5b5.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=_strupr   -o CMakeFiles/cmTC_aa5b5.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_aa5b5
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_aa5b5.dir/link.txt --verbose=1
+/usr/bin/cc  -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=_strupr    CMakeFiles/cmTC_aa5b5.dir/CheckFunctionExists.c.o  -o cmTC_aa5b5 -rdynamic 
+CMakeFiles/cmTC_aa5b5.dir/CheckFunctionExists.c.o: In function `main':
+/usr/share/cmake-3.5/Modules/CheckFunctionExists.c:14: undefined reference to `_strupr'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_aa5b5.dir/build.make:97: recipe for target 'cmTC_aa5b5' failed
+make[1]: *** [cmTC_aa5b5] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_aa5b5/fast' failed
+make: *** [cmTC_aa5b5/fast] Error 2
+
+
+Determining if the function _strlwr exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_299d8/fast"
+/usr/bin/make -f CMakeFiles/cmTC_299d8.dir/build.make CMakeFiles/cmTC_299d8.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_299d8.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=_strlwr   -o CMakeFiles/cmTC_299d8.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_299d8
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_299d8.dir/link.txt --verbose=1
+/usr/bin/cc  -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=_strlwr    CMakeFiles/cmTC_299d8.dir/CheckFunctionExists.c.o  -o cmTC_299d8 -rdynamic 
+CMakeFiles/cmTC_299d8.dir/CheckFunctionExists.c.o: In function `main':
+/usr/share/cmake-3.5/Modules/CheckFunctionExists.c:14: undefined reference to `_strlwr'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_299d8.dir/build.make:97: recipe for target 'cmTC_299d8' failed
+make[1]: *** [cmTC_299d8] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_299d8/fast' failed
+make: *** [cmTC_299d8/fast] Error 2
+
+
+Determining if the function itoa exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_f93d0/fast"
+/usr/bin/make -f CMakeFiles/cmTC_f93d0.dir/build.make CMakeFiles/cmTC_f93d0.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f93d0.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=itoa   -o CMakeFiles/cmTC_f93d0.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_f93d0
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f93d0.dir/link.txt --verbose=1
+/usr/bin/cc  -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=itoa    CMakeFiles/cmTC_f93d0.dir/CheckFunctionExists.c.o  -o cmTC_f93d0 -rdynamic 
+CMakeFiles/cmTC_f93d0.dir/CheckFunctionExists.c.o: In function `main':
+/usr/share/cmake-3.5/Modules/CheckFunctionExists.c:14: undefined reference to `itoa'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_f93d0.dir/build.make:97: recipe for target 'cmTC_f93d0' failed
+make[1]: *** [cmTC_f93d0] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_f93d0/fast' failed
+make: *** [cmTC_f93d0/fast] Error 2
+
+
+Determining if the function _ltoa exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_f1a65/fast"
+/usr/bin/make -f CMakeFiles/cmTC_f1a65.dir/build.make CMakeFiles/cmTC_f1a65.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f1a65.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=_ltoa   -o CMakeFiles/cmTC_f1a65.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_f1a65
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f1a65.dir/link.txt --verbose=1
+/usr/bin/cc  -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=_ltoa    CMakeFiles/cmTC_f1a65.dir/CheckFunctionExists.c.o  -o cmTC_f1a65 -rdynamic 
+CMakeFiles/cmTC_f1a65.dir/CheckFunctionExists.c.o: In function `main':
+/usr/share/cmake-3.5/Modules/CheckFunctionExists.c:14: undefined reference to `_ltoa'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_f1a65.dir/build.make:97: recipe for target 'cmTC_f1a65' failed
+make[1]: *** [cmTC_f1a65] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_f1a65/fast' failed
+make: *** [cmTC_f1a65/fast] Error 2
+
+
+Determining if the function _uitoa exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_6ab90/fast"
+/usr/bin/make -f CMakeFiles/cmTC_6ab90.dir/build.make CMakeFiles/cmTC_6ab90.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_6ab90.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=_uitoa   -o CMakeFiles/cmTC_6ab90.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_6ab90
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6ab90.dir/link.txt --verbose=1
+/usr/bin/cc  -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=_uitoa    CMakeFiles/cmTC_6ab90.dir/CheckFunctionExists.c.o  -o cmTC_6ab90 -rdynamic 
+CMakeFiles/cmTC_6ab90.dir/CheckFunctionExists.c.o: In function `main':
+/usr/share/cmake-3.5/Modules/CheckFunctionExists.c:14: undefined reference to `_uitoa'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_6ab90.dir/build.make:97: recipe for target 'cmTC_6ab90' failed
+make[1]: *** [cmTC_6ab90] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_6ab90/fast' failed
+make: *** [cmTC_6ab90/fast] Error 2
+
+
+Determining if the function _ultoa exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_b9788/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b9788.dir/build.make CMakeFiles/cmTC_b9788.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b9788.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=_ultoa   -o CMakeFiles/cmTC_b9788.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_b9788
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b9788.dir/link.txt --verbose=1
+/usr/bin/cc  -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=_ultoa    CMakeFiles/cmTC_b9788.dir/CheckFunctionExists.c.o  -o cmTC_b9788 -rdynamic 
+CMakeFiles/cmTC_b9788.dir/CheckFunctionExists.c.o: In function `main':
+/usr/share/cmake-3.5/Modules/CheckFunctionExists.c:14: undefined reference to `_ultoa'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_b9788.dir/build.make:97: recipe for target 'cmTC_b9788' failed
+make[1]: *** [cmTC_b9788] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_b9788/fast' failed
+make: *** [cmTC_b9788/fast] Error 2
+
+
+Determining if the function _i64toa exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_9ea1c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_9ea1c.dir/build.make CMakeFiles/cmTC_9ea1c.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_9ea1c.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=_i64toa   -o CMakeFiles/cmTC_9ea1c.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_9ea1c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9ea1c.dir/link.txt --verbose=1
+/usr/bin/cc  -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=_i64toa    CMakeFiles/cmTC_9ea1c.dir/CheckFunctionExists.c.o  -o cmTC_9ea1c -rdynamic 
+CMakeFiles/cmTC_9ea1c.dir/CheckFunctionExists.c.o: In function `main':
+/usr/share/cmake-3.5/Modules/CheckFunctionExists.c:14: undefined reference to `_i64toa'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_9ea1c.dir/build.make:97: recipe for target 'cmTC_9ea1c' failed
+make[1]: *** [cmTC_9ea1c] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_9ea1c/fast' failed
+make: *** [cmTC_9ea1c/fast] Error 2
+
+
+Determining if the function _ui64toa exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_401a0/fast"
+/usr/bin/make -f CMakeFiles/cmTC_401a0.dir/build.make CMakeFiles/cmTC_401a0.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_401a0.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=_ui64toa   -o CMakeFiles/cmTC_401a0.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_401a0
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_401a0.dir/link.txt --verbose=1
+/usr/bin/cc  -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=_ui64toa    CMakeFiles/cmTC_401a0.dir/CheckFunctionExists.c.o  -o cmTC_401a0 -rdynamic 
+CMakeFiles/cmTC_401a0.dir/CheckFunctionExists.c.o: In function `main':
+/usr/share/cmake-3.5/Modules/CheckFunctionExists.c:14: undefined reference to `_ui64toa'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_401a0.dir/build.make:97: recipe for target 'cmTC_401a0' failed
+make[1]: *** [cmTC_401a0] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_401a0/fast' failed
+make: *** [cmTC_401a0/fast] Error 2
+
+
+Determining if the function _stricmp exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_88873/fast"
+/usr/bin/make -f CMakeFiles/cmTC_88873.dir/build.make CMakeFiles/cmTC_88873.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_88873.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=_stricmp   -o CMakeFiles/cmTC_88873.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_88873
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_88873.dir/link.txt --verbose=1
+/usr/bin/cc  -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=_stricmp    CMakeFiles/cmTC_88873.dir/CheckFunctionExists.c.o  -o cmTC_88873 -rdynamic 
+CMakeFiles/cmTC_88873.dir/CheckFunctionExists.c.o: In function `main':
+/usr/share/cmake-3.5/Modules/CheckFunctionExists.c:14: undefined reference to `_stricmp'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_88873.dir/build.make:97: recipe for target 'cmTC_88873' failed
+make[1]: *** [cmTC_88873] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_88873/fast' failed
+make: *** [cmTC_88873/fast] Error 2
+
+
+Determining if the function _strnicmp exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_785c2/fast"
+/usr/bin/make -f CMakeFiles/cmTC_785c2.dir/build.make CMakeFiles/cmTC_785c2.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_785c2.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=_strnicmp   -o CMakeFiles/cmTC_785c2.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_785c2
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_785c2.dir/link.txt --verbose=1
+/usr/bin/cc  -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=_strnicmp    CMakeFiles/cmTC_785c2.dir/CheckFunctionExists.c.o  -o cmTC_785c2 -rdynamic 
+CMakeFiles/cmTC_785c2.dir/CheckFunctionExists.c.o: In function `main':
+/usr/share/cmake-3.5/Modules/CheckFunctionExists.c:14: undefined reference to `_strnicmp'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_785c2.dir/build.make:97: recipe for target 'cmTC_785c2' failed
+make[1]: *** [cmTC_785c2] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_785c2/fast' failed
+make: *** [cmTC_785c2/fast] Error 2
+
+
+Determining if the function sysctlbyname exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_24206/fast"
+/usr/bin/make -f CMakeFiles/cmTC_24206.dir/build.make CMakeFiles/cmTC_24206.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_24206.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=sysctlbyname   -o CMakeFiles/cmTC_24206.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_24206
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_24206.dir/link.txt --verbose=1
+/usr/bin/cc  -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=sysctlbyname    CMakeFiles/cmTC_24206.dir/CheckFunctionExists.c.o  -o cmTC_24206 -rdynamic 
+CMakeFiles/cmTC_24206.dir/CheckFunctionExists.c.o: In function `main':
+/usr/share/cmake-3.5/Modules/CheckFunctionExists.c:14: undefined reference to `sysctlbyname'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_24206.dir/build.make:97: recipe for target 'cmTC_24206' failed
+make[1]: *** [cmTC_24206] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_24206/fast' failed
+make: *** [cmTC_24206/fast] Error 2
+
+
+Determining if the function iconv_open exists in the iconv failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_48ddd/fast"
+/usr/bin/make -f CMakeFiles/cmTC_48ddd.dir/build.make CMakeFiles/cmTC_48ddd.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_48ddd.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=iconv_open   -o CMakeFiles/cmTC_48ddd.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_48ddd
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_48ddd.dir/link.txt --verbose=1
+/usr/bin/cc  -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=iconv_open    CMakeFiles/cmTC_48ddd.dir/CheckFunctionExists.c.o  -o cmTC_48ddd -rdynamic -liconv 
+/usr/bin/ld: cannot find -liconv
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_48ddd.dir/build.make:97: recipe for target 'cmTC_48ddd' failed
+make[1]: *** [cmTC_48ddd] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_48ddd/fast' failed
+make: *** [cmTC_48ddd/fast] Error 2
+
+
+Determining if the function alloca exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_1289c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_1289c.dir/build.make CMakeFiles/cmTC_1289c.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_1289c.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=alloca   -o CMakeFiles/cmTC_1289c.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+<command-line>:0:23: warning: conflicting types for built-in function ‘alloca’
+/usr/share/cmake-3.5/Modules/CheckFunctionExists.c:6:6: note: in expansion of macro ‘CHECK_FUNCTION_EXISTS’
+ char CHECK_FUNCTION_EXISTS();
+      ^
+Linking C executable cmTC_1289c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1289c.dir/link.txt --verbose=1
+/usr/bin/cc  -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=alloca    CMakeFiles/cmTC_1289c.dir/CheckFunctionExists.c.o  -o cmTC_1289c -rdynamic 
+CMakeFiles/cmTC_1289c.dir/CheckFunctionExists.c.o: In function `main':
+/usr/share/cmake-3.5/Modules/CheckFunctionExists.c:14: undefined reference to `alloca'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_1289c.dir/build.make:97: recipe for target 'cmTC_1289c' failed
+make[1]: *** [cmTC_1289c] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_1289c/fast' failed
+make: *** [cmTC_1289c/fast] Error 2
+
+
+Determining if the function dlopen exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_f25a4/fast"
+/usr/bin/make -f CMakeFiles/cmTC_f25a4.dir/build.make CMakeFiles/cmTC_f25a4.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f25a4.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=dlopen   -o CMakeFiles/cmTC_f25a4.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_f25a4
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f25a4.dir/link.txt --verbose=1
+/usr/bin/cc  -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=dlopen    CMakeFiles/cmTC_f25a4.dir/CheckFunctionExists.c.o  -o cmTC_f25a4 -rdynamic 
+CMakeFiles/cmTC_f25a4.dir/CheckFunctionExists.c.o: In function `main':
+/usr/share/cmake-3.5/Modules/CheckFunctionExists.c:14: undefined reference to `dlopen'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_f25a4.dir/build.make:97: recipe for target 'cmTC_f25a4' failed
+make[1]: *** [cmTC_f25a4] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_f25a4/fast' failed
+make: *** [cmTC_f25a4/fast] Error 2
+
+
+Determining if the include file audio/audiolib.h exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_dcc4c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_dcc4c.dir/build.make CMakeFiles/cmTC_dcc4c.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_dcc4c.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos    -o CMakeFiles/cmTC_dcc4c.dir/CheckIncludeFile.c.o   -c /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:28: fatal error: audio/audiolib.h: No such file or directory
+compilation terminated.
+CMakeFiles/cmTC_dcc4c.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_dcc4c.dir/CheckIncludeFile.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_dcc4c.dir/CheckIncludeFile.c.o] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_dcc4c/fast' failed
+make: *** [cmTC_dcc4c/fast] Error 2
+
+
+Determining if the include file samplerate.h exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_9a46a/fast"
+/usr/bin/make -f CMakeFiles/cmTC_9a46a.dir/build.make CMakeFiles/cmTC_9a46a.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_9a46a.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos    -o CMakeFiles/cmTC_9a46a.dir/CheckIncludeFile.c.o   -c /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:24: fatal error: samplerate.h: No such file or directory
+compilation terminated.
+CMakeFiles/cmTC_9a46a.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_9a46a.dir/CheckIncludeFile.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_9a46a.dir/CheckIncludeFile.c.o] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_9a46a/fast' failed
+make: *** [cmTC_9a46a/fast] Error 2
+
+
+Performing C SOURCE FILE Test HAVE_VIDEO_RPI failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_0bbf2/fast"
+/usr/bin/make -f CMakeFiles/cmTC_0bbf2.dir/build.make CMakeFiles/cmTC_0bbf2.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_0bbf2.dir/src.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DHAVE_VIDEO_RPI  -I/opt/vc/include/interface/vmcs_host/linux/ -I/opt/vc/include/interface/vcos/pthreads -I/opt/vc/include  -L/opt/vc/lib   -o CMakeFiles/cmTC_0bbf2.dir/src.c.o   -c /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/src.c
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/src.c:2:30: fatal error: bcm_host.h: No such file or directory
+compilation terminated.
+CMakeFiles/cmTC_0bbf2.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_0bbf2.dir/src.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_0bbf2.dir/src.c.o] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_0bbf2/fast' failed
+make: *** [cmTC_0bbf2/fast] Error 2
+
+Source file was:
+
+        #include <bcm_host.h>
+        int main(int argc, char **argv) {}
+Performing C SOURCE FILE Test HAVE_VIDEO_OPENGLES_V1 failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_b1b56/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b1b56.dir/build.make CMakeFiles/cmTC_b1b56.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b1b56.dir/src.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DHAVE_VIDEO_OPENGLES_V1   -o CMakeFiles/cmTC_b1b56.dir/src.c.o   -c /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/src.c
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/src.c:2:27: fatal error: GLES/gl.h: No such file or directory
+compilation terminated.
+CMakeFiles/cmTC_b1b56.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_b1b56.dir/src.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_b1b56.dir/src.c.o] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_b1b56/fast' failed
+make: *** [cmTC_b1b56/fast] Error 2
+
+Source file was:
+
+      #include <GLES/gl.h>
+      #include <GLES/glext.h>
+      int main (int argc, char** argv) {}
+Performing C SOURCE FILE Test HAVE_VIDEO_VIVANTE_VDK failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_98fc3/fast"
+/usr/bin/make -f CMakeFiles/cmTC_98fc3.dir/build.make CMakeFiles/cmTC_98fc3.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_98fc3.dir/src.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DHAVE_VIDEO_VIVANTE_VDK   -o CMakeFiles/cmTC_98fc3.dir/src.c.o   -c /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/src.c
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/src.c:2:28: fatal error: gc_vdk.h: No such file or directory
+compilation terminated.
+CMakeFiles/cmTC_98fc3.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_98fc3.dir/src.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_98fc3.dir/src.c.o] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_98fc3/fast' failed
+make: *** [cmTC_98fc3/fast] Error 2
+
+Source file was:
+
+        #include <gc_vdk.h>
+        int main(int argc, char** argv) {}
+Performing C SOURCE FILE Test HAVE_VIDEO_VIVANTE_EGL_FB failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_7cd0e/fast"
+/usr/bin/make -f CMakeFiles/cmTC_7cd0e.dir/build.make CMakeFiles/cmTC_7cd0e.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_7cd0e.dir/src.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DHAVE_VIDEO_VIVANTE_EGL_FB   -o CMakeFiles/cmTC_7cd0e.dir/src.c.o   -c /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/src.c
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/src.c:4:36: fatal error: EGL/eglvivante.h: No such file or directory
+compilation terminated.
+CMakeFiles/cmTC_7cd0e.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_7cd0e.dir/src.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_7cd0e.dir/src.c.o] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_7cd0e/fast' failed
+make: *** [cmTC_7cd0e/fast] Error 2
+
+Source file was:
+
+        #define LINUX
+        #define EGL_API_FB
+        #include <EGL/eglvivante.h>
+        int main(int argc, char** argv) {}
+Determining if the include file fcitx/frontend.h exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_02900/fast"
+/usr/bin/make -f CMakeFiles/cmTC_02900.dir/build.make CMakeFiles/cmTC_02900.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_02900.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos    -o CMakeFiles/cmTC_02900.dir/CheckIncludeFile.c.o   -c /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:28: fatal error: fcitx/frontend.h: No such file or directory
+compilation terminated.
+CMakeFiles/cmTC_02900.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_02900.dir/CheckIncludeFile.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_02900.dir/CheckIncludeFile.c.o] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_02900/fast' failed
+make: *** [cmTC_02900/fast] Error 2
+
+
+Performing C SOURCE FILE Test HAVE_INPUT_TSLIB failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_14fbd/fast"
+/usr/bin/make -f CMakeFiles/cmTC_14fbd.dir/build.make CMakeFiles/cmTC_14fbd.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_14fbd.dir/src.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DHAVE_INPUT_TSLIB   -o CMakeFiles/cmTC_14fbd.dir/src.c.o   -c /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/src.c
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/src.c:2:27: fatal error: tslib.h: No such file or directory
+compilation terminated.
+CMakeFiles/cmTC_14fbd.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_14fbd.dir/src.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_14fbd.dir/src.c.o] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_14fbd/fast' failed
+make: *** [cmTC_14fbd/fast] Error 2
+
+Source file was:
+
+        #include "tslib.h"
+        int main(int argc, char** argv) { }
+Determining if the function hid_init exists in the usbhid failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_01664/fast"
+/usr/bin/make -f CMakeFiles/cmTC_01664.dir/build.make CMakeFiles/cmTC_01664.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_01664.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=hid_init   -o CMakeFiles/cmTC_01664.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_01664
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_01664.dir/link.txt --verbose=1
+/usr/bin/cc  -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=hid_init    CMakeFiles/cmTC_01664.dir/CheckFunctionExists.c.o  -o cmTC_01664 -rdynamic -lusbhid 
+/usr/bin/ld: cannot find -lusbhid
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_01664.dir/build.make:97: recipe for target 'cmTC_01664' failed
+make[1]: *** [cmTC_01664] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_01664/fast' failed
+make: *** [cmTC_01664/fast] Error 2
+
+
+Determining if the include file usb.h exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_7c184/fast"
+/usr/bin/make -f CMakeFiles/cmTC_7c184.dir/build.make CMakeFiles/cmTC_7c184.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_7c184.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos    -o CMakeFiles/cmTC_7c184.dir/CheckIncludeFile.c.o   -c /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:17: fatal error: usb.h: No such file or directory
+compilation terminated.
+CMakeFiles/cmTC_7c184.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_7c184.dir/CheckIncludeFile.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_7c184.dir/CheckIncludeFile.c.o] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_7c184/fast' failed
+make: *** [cmTC_7c184/fast] Error 2
+
+
+Determining if the include file libusb.h exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_a8d74/fast"
+/usr/bin/make -f CMakeFiles/cmTC_a8d74.dir/build.make CMakeFiles/cmTC_a8d74.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_a8d74.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos    -o CMakeFiles/cmTC_a8d74.dir/CheckIncludeFile.c.o   -c /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:20: fatal error: libusb.h: No such file or directory
+compilation terminated.
+CMakeFiles/cmTC_a8d74.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_a8d74.dir/CheckIncludeFile.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_a8d74.dir/CheckIncludeFile.c.o] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_a8d74/fast' failed
+make: *** [cmTC_a8d74/fast] Error 2
+
+
+Determining if the function hid_init exists in the usb failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_3d7e9/fast"
+/usr/bin/make -f CMakeFiles/cmTC_3d7e9.dir/build.make CMakeFiles/cmTC_3d7e9.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_3d7e9.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=hid_init   -o CMakeFiles/cmTC_3d7e9.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_3d7e9
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3d7e9.dir/link.txt --verbose=1
+/usr/bin/cc  -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=hid_init    CMakeFiles/cmTC_3d7e9.dir/CheckFunctionExists.c.o  -o cmTC_3d7e9 -rdynamic -lusb 
+/usr/bin/ld: cannot find -lusb
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_3d7e9.dir/build.make:97: recipe for target 'cmTC_3d7e9' failed
+make[1]: *** [cmTC_3d7e9] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_3d7e9/fast' failed
+make: *** [cmTC_3d7e9/fast] Error 2
+
+
+Performing C SOURCE FILE Test HAVE_USBHID failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_14891/fast"
+/usr/bin/make -f CMakeFiles/cmTC_14891.dir/build.make CMakeFiles/cmTC_14891.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_14891.dir/src.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DHAVE_USBHID   -o CMakeFiles/cmTC_14891.dir/src.c.o   -c /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/src.c
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/src.c:10:34: fatal error: dev/usb/usb.h: No such file or directory
+compilation terminated.
+CMakeFiles/cmTC_14891.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_14891.dir/src.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_14891.dir/src.c.o] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_14891/fast' failed
+make: *** [cmTC_14891/fast] Error 2
+
+Source file was:
+
+       #include <sys/types.h>
+        #if defined(HAVE_USB_H)
+        #include <usb.h>
+        #endif
+        #ifdef __DragonFly__
+        # include <bus/usb/usb.h>
+        # include <bus/usb/usbhid.h>
+        #else
+        # include <dev/usb/usb.h>
+        # include <dev/usb/usbhid.h>
+        #endif
+        #if defined(HAVE_USBHID_H)
+        #include <usbhid.h>
+        #elif defined(HAVE_LIBUSB_H)
+        #include <libusb.h>
+        #elif defined(HAVE_LIBUSBHID_H)
+        #include <libusbhid.h>
+        #endif
+        int main(int argc, char **argv) {
+          struct report_desc *repdesc;
+          struct usb_ctl_report *repbuf;
+          hid_kind_t hidkind;
+          return 0;
+        }
+Performing C SOURCE FILE Test HAVE_PTHREAD_NP_H failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_b6bd7/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b6bd7.dir/build.make CMakeFiles/cmTC_b6bd7.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b6bd7.dir/src.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DHAVE_PTHREAD_NP_H   -D_REENTRANT -pthread   -o CMakeFiles/cmTC_b6bd7.dir/src.c.o   -c /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/src.c
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp/src.c:3:34: fatal error: pthread_np.h: No such file or directory
+compilation terminated.
+CMakeFiles/cmTC_b6bd7.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_b6bd7.dir/src.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_b6bd7.dir/src.c.o] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_b6bd7/fast' failed
+make: *** [cmTC_b6bd7/fast] Error 2
+
+Source file was:
+
+          #include <pthread.h>
+          #include <pthread_np.h>
+          int main(int argc, char** argv) { return 0; }
+Determining if the function pthread_set_name_np exists failed with the following output:
+Change Dir: /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_4b003/fast"
+/usr/bin/make -f CMakeFiles/cmTC_4b003.dir/build.make CMakeFiles/cmTC_4b003.dir/build
+make[1]: Entering directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_4b003.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=pthread_set_name_np   -D_REENTRANT -pthread   -o CMakeFiles/cmTC_4b003.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_4b003
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4b003.dir/link.txt --verbose=1
+/usr/bin/cc  -g -O3 -idirafter /home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/src/video/khronos -DCHECK_FUNCTION_EXISTS=pthread_set_name_np   -D_REENTRANT -pthread    CMakeFiles/cmTC_4b003.dir/CheckFunctionExists.c.o  -o cmTC_4b003 -rdynamic 
+CMakeFiles/cmTC_4b003.dir/CheckFunctionExists.c.o: In function `main':
+/usr/share/cmake-3.5/Modules/CheckFunctionExists.c:14: undefined reference to `pthread_set_name_np'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_4b003.dir/build.make:97: recipe for target 'cmTC_4b003' failed
+make[1]: *** [cmTC_4b003] Error 1
+make[1]: Leaving directory '/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_4b003/fast' failed
+make: *** [cmTC_4b003/fast] Error 2
+
+

@@ -1,0 +1,276 @@
+\hypertarget{quadExample-example}{\section{quad\-Example}
+}
+\hyperlink{quadExample_8c}{quad\-Example.\-c}  Tento příklad vykreslí jeden barevný čtverec s použitím indexování. \hypertarget{quadExample.c_Globals}{}\subsection{Globální proměnné}\label{quadExample.c_Globals}
+Globální proměnné jsou uloženy ve struktuře\-: 
+\begin{DoxyCodeInclude}
+
+\textcolor{keyword}{struct }\hyperlink{structQuadExampleVariables}{QuadExampleVariables}\{
+  GLuint \hyperlink{structQuadExampleVariables_a63971781ff860bd201886926f943ba78}{program}                ;\textcolor{comment}{//a program id}
+\textcolor{comment}{}  GLint  \hyperlink{structQuadExampleVariables_a38a1023cb8ee3692e195ea574e43c51a}{projectionMatrixUniform};\textcolor{comment}{//a uniform location}
+\textcolor{comment}{}  GLint  \hyperlink{structQuadExampleVariables_a9c505e0a089ecd495b18550309ebab77}{viewMatrixUniform}      ;\textcolor{comment}{//a uniform location}
+\textcolor{comment}{}  GLuint \hyperlink{structQuadExampleVariables_a294c388653d62435d7eeb7994f45c4fc}{vao}                    ;\textcolor{comment}{//a vertex array id}
+\textcolor{comment}{}  GLuint \hyperlink{structQuadExampleVariables_a69515fd546272c117e14f784221f6412}{vbo}                    ;\textcolor{comment}{//vertex buffer object id}
+\textcolor{comment}{}  GLuint \hyperlink{structQuadExampleVariables_a3b1abdb0f18593a0ebec8dd9a222164b}{ebo}                    ;\textcolor{comment}{//vertex indices}
+\}\hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample};
+\end{DoxyCodeInclude}
+Projekční a view matice jsou uloženy v externích proměnných\-: 
+\begin{DoxyCodeInclude}
+\textcolor{keyword}{extern} \hyperlink{structMat4}{Mat4} \hyperlink{mouseCamera_8c_a1f344d924f733a22d7659db612a0efe8}{projectionMatrix};\textcolor{comment}{//projection matrix}
+\textcolor{comment}{}\textcolor{keyword}{extern} \hyperlink{structMat4}{Mat4} \hyperlink{mouseCamera_8c_ae64ebe4c77936fc93d161b97bd8e96df}{viewMatrix}      ;\textcolor{comment}{//view matrix}
+\end{DoxyCodeInclude}
+Pokud se hýbe s myší, jsou tyto matice přepočítávány.\par
+ Zdrojáky vertex a fragment shaderu jsou uloženy v proměnných\-: 
+\begin{DoxyCodeInclude}
+\textcolor{keywordtype}{char} \textcolor{keyword}{const}* \hyperlink{quadExample_8c_a237a7e498550119b6ce620c687d56f2e}{quadExampleVertexShaderSource} = 
+\textcolor{stringliteral}{"#version 330                                                   \(\backslash\)n"} \textcolor{comment}{//a version of GLSL}
+\textcolor{comment}{}\textcolor{stringliteral}{"uniform mat4 projectionMatrix;                                 \(\backslash\)n"} \textcolor{comment}{//a uniform variable}
+\textcolor{stringliteral}{"uniform mat4 viewMatrix;                                       \(\backslash\)n"} \textcolor{comment}{//a uniform variable}
+\textcolor{comment}{}\textcolor{stringliteral}{"layout(location=0)in vec3 position;                            \(\backslash\)n"} \textcolor{comment}{//an input vertex attribute (it is read
+       from buffer)}
+\textcolor{comment}{}\textcolor{stringliteral}{"out vec3 vColor;                                               \(\backslash\)n"} \textcolor{comment}{//an output vertex attribute (it is
+       interpolated in rasterization)}
+\textcolor{comment}{}\textcolor{stringliteral}{"void main()\{                                                   \(\backslash\)n"} \textcolor{comment}{//a main function}
+\textcolor{comment}{}\textcolor{stringliteral}{"  gl\_Position = projectionMatrix*viewMatrix*vec4(position,1.f);\(\backslash\)n"} \textcolor{comment}{//a projection of a position from
+       world-space into clip-space}
+\textcolor{comment}{}\textcolor{stringliteral}{"  if(gl\_VertexID == 0)vColor = vec3(1.f,0.f,0.f);              \(\backslash\)n"} \textcolor{comment}{//a computation of color}
+\textcolor{stringliteral}{"  if(gl\_VertexID == 1)vColor = vec3(0.f,1.f,0.f);              \(\backslash\)n"}
+\textcolor{stringliteral}{"  if(gl\_VertexID == 2)vColor = vec3(0.f,0.f,1.f);              \(\backslash\)n"}
+\textcolor{stringliteral}{"  if(gl\_VertexID == 3)vColor = vec3(0.f,1.f,1.f);              \(\backslash\)n"}
+\textcolor{stringliteral}{"\}                                                              \(\backslash\)n"};
+\end{DoxyCodeInclude}
+
+\begin{DoxyCodeInclude}
+\textcolor{keywordtype}{char} \textcolor{keyword}{const}* \hyperlink{quadExample_8c_a0ac50d89d2665b7f77595f36071c8ffc}{quadExampleFragmentShaderSource} = 
+\textcolor{stringliteral}{"#version 330                      \(\backslash\)n"} \textcolor{comment}{//a version of GLSL}
+\textcolor{comment}{}\textcolor{stringliteral}{"in vec3 vColor;                   \(\backslash\)n"} \textcolor{comment}{//an input fragment attribute (it was interpolated using vertex
+       attributes)}
+\textcolor{comment}{}\textcolor{stringliteral}{"layout(location=0)out vec4 fColor;\(\backslash\)n"} \textcolor{comment}{//an output fragment attribute (it is sent to framebuffer)}
+\textcolor{comment}{}\textcolor{stringliteral}{"void main()\{                      \(\backslash\)n"}
+\textcolor{stringliteral}{"  fColor = vec4(vColor,1.f);      \(\backslash\)n"}
+\textcolor{stringliteral}{"\}                                 \(\backslash\)n"};
+\end{DoxyCodeInclude}
+\hypertarget{quadExample.c_Initialization}{}\subsection{Inicializace}\label{quadExample.c_Initialization}
+Když je příklad spuštěn, je zavolána funkce \hyperlink{quadExample_8c_ae9e7b1446d0269014f3f3d33df3f0da0}{quad\-Example\-\_\-on\-Init()}. Tato funkce vytvoří opengl objekty (buffer, vertex arrays, shader programy). První funkční volání inicializuje matice\-: 
+\begin{DoxyCodeInclude}
+  \hyperlink{mouseCamera_8c_a7e7e918a9328502b7c35cfbbdb068b7b}{cpu\_initMatrices}(width,height);
+\end{DoxyCodeInclude}
+\hypertarget{quadExample.c_ShaderProgram}{}\subsubsection{Inicializace shader programu}\label{quadExample.c_ShaderProgram}
+Dále následuje kopilace shaderů a linkování shader programu\-: 
+\begin{DoxyCodeInclude}
+  GLuint \textcolor{keyword}{const} vertexId = \hyperlink{program_8h_aeeb65abe90cc1be97e5788afe8ca57a7}{compileShader}(
+      GL\_VERTEX\_SHADER             , \textcolor{comment}{//a type of shader}
+      quadExampleVertexShaderSource);\textcolor{comment}{//a glsl source}
+
+  GLuint \textcolor{keyword}{const} fragmentId = \hyperlink{program_8h_aeeb65abe90cc1be97e5788afe8ca57a7}{compileShader}(
+      GL\_FRAGMENT\_SHADER             , \textcolor{comment}{//a type of shader}
+      quadExampleFragmentShaderSource);\textcolor{comment}{//a glsl source}
+
+  \hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a63971781ff860bd201886926f943ba78}{program} = \hyperlink{program_8h_af917a75fb9e573fb52d85ef90f32231e}{linkProgram}(vertexId,fragmentId);
+\end{DoxyCodeInclude}
+Shader program je program, který běží na G\-P\-U a je psán v jazyce G\-L\-S\-L.\par
+ Následuje získaní lokací (id) uniformních proměnných v shader programu pro matice\-: 
+\begin{DoxyCodeInclude}
+  \hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a38a1023cb8ee3692e195ea574e43c51a}{projectionMatrixUniform} = glGetUniformLocation(
+      \hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a63971781ff860bd201886926f943ba78}{program}, \textcolor{comment}{//a program id}
+      \textcolor{stringliteral}{"projectionMatrix"} );\textcolor{comment}{//a uniform variable name}
+
+  \hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a9c505e0a089ecd495b18550309ebab77}{viewMatrixUniform} = glGetUniformLocation(
+      \hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a63971781ff860bd201886926f943ba78}{program}, \textcolor{comment}{//a program id}
+      \textcolor{stringliteral}{"viewMatrix"}       );\textcolor{comment}{//a uniform variable name}
+\end{DoxyCodeInclude}
+Lokace uniformní proměnné je celé číslo, které je dostupné na straně C\-P\-U a slouží jako handle pro náhrání dat do dané proměnné. Lokaci uniformní proměnné lze získat pomocí jejího jména. \hypertarget{quadExample.c_Buffers}{}\subsubsection{Inicializace bufferů (lineární pole na G\-P\-U)}\label{quadExample.c_Buffers}
+Následuje inicializace bufferu pro vrcholy. Vrcholy jsou uloženy ve statickém poli\-: 
+\begin{DoxyCodeInclude}
+  \textcolor{keywordtype}{float} \textcolor{keyword}{const} positions[12] = \{\textcolor{comment}{//vertex positions}
+    -1.f,-1.f,+0.f,\textcolor{comment}{//a quad vertex A}
+    +1.f,-1.f,+0.f,\textcolor{comment}{//a quad vertex B}
+    -1.f,+1.f,+0.f,\textcolor{comment}{//a quad vertex C}
+    +1.f,+1.f,+0.f,\textcolor{comment}{//a quad vertex D}
+  \};
+\end{DoxyCodeInclude}
+Nejprve je nutné zarezervovat jmeno(id) bufferu\-: 
+\begin{DoxyCodeInclude}
+  glGenBuffers(
+      1               , \textcolor{comment}{//a number of buffer ids that will be reserved}
+      &\hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a69515fd546272c117e14f784221f6412}{vbo});\textcolor{comment}{//a pointer to buffer id variable}
+\end{DoxyCodeInclude}
+Poté je nutné id bufferu navázat na vhodný binding point opengl\-: 
+\begin{DoxyCodeInclude}
+  glBindBuffer(
+      GL\_ARRAY\_BUFFER, \textcolor{comment}{//a binding point}
+      \hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a69515fd546272c117e14f784221f6412}{vbo});\textcolor{comment}{//a buffer id}
+\end{DoxyCodeInclude}
+G\-L\-\_\-\-A\-R\-R\-A\-Y\-\_\-\-B\-U\-F\-F\-E\-R binding point slouží pro vertex attributy. Následuje nahrání dat na G\-P\-U\-: 
+\begin{DoxyCodeInclude}
+  glBufferData(
+      GL\_ARRAY\_BUFFER , \textcolor{comment}{//a binding point}
+      \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{float})*12, \textcolor{comment}{//a size of buffer}
+      positions       , \textcolor{comment}{//a pointer to data}
+      GL\_STATIC\_DRAW  );\textcolor{comment}{//a hint}
+\end{DoxyCodeInclude}
+Následuje vytvoření bufferu pro indexy. Postup je obdobný jako pro vertex atributy, jen binding point je jiný\-: 
+\begin{DoxyCodeInclude}
+  uint32\_t \textcolor{keyword}{const} indices[6] = \{
+    0,1,2,
+    2,1,3,
+  \};
+  glGenBuffers(1,&\hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a3b1abdb0f18593a0ebec8dd9a222164b}{ebo});
+  glBindBuffer(GL\_ELEMENT\_ARRAY\_BUFFER,\hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a3b1abdb0f18593a0ebec8dd9a222164b}{ebo});
+  glBufferData(GL\_ELEMENT\_ARRAY\_BUFFER,\textcolor{keyword}{sizeof}(uint32\_t)*6,indices,GL\_STATIC\_DRAW);
+\end{DoxyCodeInclude}
+Tím je inicializace bufferů hotová. \hypertarget{quadExample.c_VAO}{}\subsubsection{Inicializace vertex arrays object (nastavení vertex pulleru)}\label{quadExample.c_VAO}
+Následuje vytvoření a nastavení objektu Vertex Arrays. Tento objekt obsahuje nastavení vertex puller -\/ ten sestavuje vertexy, které přícházení do vertex shaderu. Vertex je složen z několik vertex attributů, (v tomto příkladě pouze z jednoho) Nejprve je nutné získát lokaci vstupní proměnné ve vertex shaderu, pro kterou sa nastavuje čtecí hlava\-: 
+\begin{DoxyCodeInclude}
+  GLint \textcolor{keyword}{const} positionAttribute = glGetAttribLocation(
+      \hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a63971781ff860bd201886926f943ba78}{program}, \textcolor{comment}{//a program id}
+      \textcolor{stringliteral}{"position"}         );\textcolor{comment}{//a name of vertex attribute}
+\end{DoxyCodeInclude}
+První krok spočívá v rezervování jména (id) vertex arrays objektu (vao)\-: 
+\begin{DoxyCodeInclude}
+  glGenVertexArrays(
+      1               , \textcolor{comment}{//a number of vertex arrays}
+      &\hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a294c388653d62435d7eeb7994f45c4fc}{vao});\textcolor{comment}{//a pointer to first }
+\end{DoxyCodeInclude}
+Nastavení vao se provádí mezi příkazy pro aktivaci a dekativaci, další krok je proto aktivace\-: 
+\begin{DoxyCodeInclude}
+  glBindVertexArray(\hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a294c388653d62435d7eeb7994f45c4fc}{vao});
+\end{DoxyCodeInclude}
+Pro nastavení indexování je nutné navázat element buffer\-: 
+\begin{DoxyCodeInclude}
+  glBindBuffer(GL\_ELEMENT\_ARRAY\_BUFFER,\hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a3b1abdb0f18593a0ebec8dd9a222164b}{ebo});
+\end{DoxyCodeInclude}
+Pro nastavení vertex attributů je pořeba specifikovat, ze kterého bufferu bude daný atribut čten\-: 
+\begin{DoxyCodeInclude}
+  glBindBuffer(
+      GL\_ARRAY\_BUFFER,
+      \hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a69515fd546272c117e14f784221f6412}{vbo});
+\end{DoxyCodeInclude}
+Dále je nutné specifikovat, kde se vertex attribut v bufferu nachází (konfigurace čtecí hlavy)\-: 
+\begin{DoxyCodeInclude}
+  glVertexAttribPointer(
+      (GLuint)positionAttribute, \textcolor{comment}{//an attribute index}
+      3                        , \textcolor{comment}{//a number of components}
+      GL\_FLOAT                 , \textcolor{comment}{//a type of attribute}
+      GL\_FALSE                 , \textcolor{comment}{//a normalization}
+      \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{float})*3          , \textcolor{comment}{//a stride in bytes}
+      (GLvoid \textcolor{keyword}{const}*)0         );\textcolor{comment}{//an offset in bytes}
+\end{DoxyCodeInclude}
+Vertex attribut (pozice) je složen ze 3 komponent, typu float, je uložen těsně za sebou a začíná na začátku bufferu (nulový offset).\par
+ Poté je nutné vertex attribut povolit\-: 
+\begin{DoxyCodeInclude}
+  glEnableVertexAttribArray((GLuint)positionAttribute);
+\end{DoxyCodeInclude}
+Nakonec je nutné deaktivovat vao\-: 
+\begin{DoxyCodeInclude}
+  glBindVertexArray(0);
+\end{DoxyCodeInclude}
+Tím je inicializace hotová. \hypertarget{quadExample.c_Deinit}{}\subsection{Deinicializace}\label{quadExample.c_Deinit}
+Deinicializace/uvolnění zdrojů probíhá ve funkci \hyperlink{quadExample_8c_a19bc4ebaa15f60078724033bde27d8b9}{quad\-Example\-\_\-on\-Exit()}. V této funkci je nutné uvolnit program, buffery a vertex arrays object\-: 
+\begin{DoxyCodeInclude}
+  glDeleteProgram(\hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a63971781ff860bd201886926f943ba78}{program});
+  glDeleteBuffers(1,&\hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a69515fd546272c117e14f784221f6412}{vbo});
+  glDeleteBuffers(1,&\hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a3b1abdb0f18593a0ebec8dd9a222164b}{ebo});
+  glDeleteVertexArrays(1,&\hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a294c388653d62435d7eeb7994f45c4fc}{vao});
+\end{DoxyCodeInclude}
+\hypertarget{quadExample.c_Shaders}{}\subsection{Shadery}\label{quadExample.c_Shaders}
+Shadery jsou uloženy ve statických řetězcích. Shadery jsou psány v jazyce G\-L\-S\-L.\par
+ Každý shader musí mít na prvním řádku uvedenou verzi. 
+\begin{DoxyCodeInclude}
+\textcolor{stringliteral}{"#version 330                                                   \(\backslash\)n"} \textcolor{comment}{//a version of GLSL}
+\end{DoxyCodeInclude}
+\hypertarget{quadExample.c_VertexShader}{}\subsubsection{Vertex Shader}\label{quadExample.c_VertexShader}
+Vertex shader v tomto příkladě promítá vrcholy pomocí matic do clip-\/space a počítá barvu vrcholu z jeho pořadového čísla. Vertex shader začíná deklarací interface.\par
+ Interface je složen z uniformních proměnných\-: 
+\begin{DoxyCodeInclude}
+\textcolor{stringliteral}{"uniform mat4 projectionMatrix;                                 \(\backslash\)n"} \textcolor{comment}{//a uniform variable}
+\textcolor{stringliteral}{"uniform mat4 viewMatrix;                                       \(\backslash\)n"} \textcolor{comment}{//a uniform variable}
+\end{DoxyCodeInclude}
+Interface dále obsahuje vertex atribut pro pozici vrcholu\-: 
+\begin{DoxyCodeInclude}
+\textcolor{stringliteral}{"layout(location=0)in vec3 position;                            \(\backslash\)n"} \textcolor{comment}{//an input vertex attribute (it is read
+       from buffer)}
+\end{DoxyCodeInclude}
+Poslední položka interface je výstupní vertex atribut pro barvu vrcholu\-: 
+\begin{DoxyCodeInclude}
+\textcolor{stringliteral}{"out vec3 vColor;                                               \(\backslash\)n"} \textcolor{comment}{//an output vertex attribute (it is
+       interpolated in rasterization)}
+\end{DoxyCodeInclude}
+Pokud před deklarací proměnné leží klíčoví slovo in, out nebo uniform je proměnná součástí interface. Z proměnných \char`\"{}in\char`\"{} a \char`\"{}uniform\char`\"{} lze pouze číst. Do proměnných \char`\"{}out\char`\"{} lze pouze zapisovat. Proměnné \char`\"{}in\char`\"{} a \char`\"{}out\char`\"{} mohou obsahovat pro každý vrchol jinou hodnotu. Proměnné \char`\"{}uniform\char`\"{} slouží pro uložení konstant, které zůstávají stejné po dobu jednoho vykreslujícího příkazu. \char`\"{}layout(location=n)\char`\"{} explicitně specifikuje lokaci dané proměnné."\par
+ Tělo shaderu tvoří funkce main\-: 
+\begin{DoxyCodeInclude}
+\textcolor{stringliteral}{"void main()\{                                                   \(\backslash\)n"} \textcolor{comment}{//a main function}
+\end{DoxyCodeInclude}
+Ve funkci main se nejprve spočítá pozice v clip-\/space\-: 
+\begin{DoxyCodeInclude}
+\textcolor{stringliteral}{"  gl\_Position = projectionMatrix*viewMatrix*vec4(position,1.f);\(\backslash\)n"} \textcolor{comment}{//a projection of a position from
+       world-space into clip-space}
+\end{DoxyCodeInclude}
+Jazyk G\-L\-S\-L umožňuje násobení vektorů a matic a rozšíření trojsložkového vektoru na čtyřsložkový.\par
+ Následně se spočíta brava z čísla vrcholu\-: 
+\begin{DoxyCodeInclude}
+\textcolor{stringliteral}{"  if(gl\_VertexID == 0)vColor = vec3(1.f,0.f,0.f);              \(\backslash\)n"} \textcolor{comment}{//a computation of color}
+\textcolor{stringliteral}{"  if(gl\_VertexID == 1)vColor = vec3(0.f,1.f,0.f);              \(\backslash\)n"}
+\textcolor{stringliteral}{"  if(gl\_VertexID == 2)vColor = vec3(0.f,0.f,1.f);              \(\backslash\)n"}
+\textcolor{stringliteral}{"  if(gl\_VertexID == 3)vColor = vec3(0.f,1.f,1.f);              \(\backslash\)n"}
+\end{DoxyCodeInclude}
+\hypertarget{quadExample.c_FragmentShader}{}\subsubsection{Fragment Shader}\label{quadExample.c_FragmentShader}
+Stejně jako vertex shader, fragment shader také začíná deklarací interface.\par
+ Interface je složen ze vstupního fragment atributu barvy\-: 
+\begin{DoxyCodeInclude}
+\textcolor{stringliteral}{"in vec3 vColor;                   \(\backslash\)n"} \textcolor{comment}{//an input fragment attribute (it was interpolated using vertex
+       attributes)}
+\end{DoxyCodeInclude}
+Název proměnné musí odpovídat názvu příslušné proměnné ve vertex shaderu, liší se pouze v kvalifikátoru \char`\"{}in/out\char`\"{}. Proměnná bude obsahovat interpolovanou barvu.\par
+ Následuje specifikace výstupního fragment atributu\-: 
+\begin{DoxyCodeInclude}
+\textcolor{stringliteral}{"layout(location=0)out vec4 fColor;\(\backslash\)n"} \textcolor{comment}{//an output fragment attribute (it is sent to framebuffer)}
+\end{DoxyCodeInclude}
+Výstupní atribut na pozici 0 je automaticky zapsán přes per-\/fragment operace do framebufferu.\par
+ Ve funkci main je barva pouze přeposlána ze vstupní proměnné do výstupní proměnné\-: 
+\begin{DoxyCodeInclude}
+\textcolor{stringliteral}{"  fColor = vec4(vColor,1.f);      \(\backslash\)n"}
+\end{DoxyCodeInclude}
+\hypertarget{quadExample.c_Draw}{}\subsection{Kreslení}\label{quadExample.c_Draw}
+Kreslení je zajištěno funkci \hyperlink{quadExample_8c_a357ede357c44b3a5a41681591a1108c8}{quad\-Example\-\_\-on\-Draw()}. Funkce nejprve vyčistí framebuffer\-: 
+\begin{DoxyCodeInclude}
+  glClear(
+      GL\_COLOR\_BUFFER\_BIT| \textcolor{comment}{//clear color buffer}
+      GL\_DEPTH\_BUFFER\_BIT);\textcolor{comment}{//clear depth buffer}
+\end{DoxyCodeInclude}
+Následně aktivuje shader program\-: 
+\begin{DoxyCodeInclude}
+  glUseProgram(\hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a63971781ff860bd201886926f943ba78}{program});
+\end{DoxyCodeInclude}
+Aktivuje vertex arrays object (vao)\-: 
+\begin{DoxyCodeInclude}
+  glBindVertexArray(\hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a294c388653d62435d7eeb7994f45c4fc}{vao});
+\end{DoxyCodeInclude}
+Nahraje aktuální matice na G\-P\-U\-: 
+\begin{DoxyCodeInclude}
+  glUniformMatrix4fv(
+      \hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a38a1023cb8ee3692e195ea574e43c51a}{projectionMatrixUniform}, \textcolor{comment}{//location of uniform variable}
+      1                                  , \textcolor{comment}{//number of matrices}
+      GL\_FALSE                           , \textcolor{comment}{//transpose}
+      (\textcolor{keywordtype}{float}*)&projectionMatrix          );\textcolor{comment}{//pointer to data}
+  glUniformMatrix4fv(
+      \hyperlink{quadExample_8c_ad961415145a9c30bd9846d4a278cc63a}{quadExample}.\hyperlink{structQuadExampleVariables_a9c505e0a089ecd495b18550309ebab77}{viewMatrixUniform}, \textcolor{comment}{//location of uniform variable}
+      1                            , \textcolor{comment}{//number of matrices}
+      GL\_FALSE                     , \textcolor{comment}{//transpose}
+      (\textcolor{keywordtype}{float}*)&viewMatrix          );\textcolor{comment}{//pointer to data}
+\end{DoxyCodeInclude}
+Spustí kreslení\-: 
+\begin{DoxyCodeInclude}
+  glDrawElements(
+      GL\_TRIANGLES    , \textcolor{comment}{//primitive type}
+      6               , \textcolor{comment}{//number of indices}
+      GL\_UNSIGNED\_INT , \textcolor{comment}{//type of indices}
+      (GLvoid \textcolor{keyword}{const}*)0);\textcolor{comment}{//offset}
+\end{DoxyCodeInclude}
+A nakonec deaktivuje vao\-: 
+\begin{DoxyCodeInclude}
+  glBindVertexArray(0);
+\end{DoxyCodeInclude}
+ 
+\begin{DoxyCodeInclude}
+\end{DoxyCodeInclude}
+ 

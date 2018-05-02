@@ -1,0 +1,3 @@
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/build/CMakeFiles/rebuild_cache.dir
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/build/CMakeFiles/edit_cache.dir
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/build/CMakeFiles/izg2017Lab6.dir

@@ -1,0 +1,10 @@
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/install/local.dir
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/rebuild_cache.dir
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/install/strip.dir
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/edit_cache.dir
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/SDL2main.dir
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/install.dir
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/SDL2.dir
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/list_install_components.dir
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/uninstall.dir
+/home/alena424/Documents/FIT/2BIT_LS_2018/IZG/izg_lab_06/sdl2/linux/SDL2-2.0.8/build/CMakeFiles/SDL2-static.dir

@@ -1,0 +1,50 @@
+\hypertarget{student__cpu_8c}{\section{student/student\-\_\-cpu.c File Reference}
+\label{student__cpu_8c}\index{student/student\-\_\-cpu.\-c@{student/student\-\_\-cpu.\-c}}
+}
+
+
+This file contains implementation of cpu side for phong shading.  
+
+
+{\ttfamily \#include $<$assert.\-h$>$}\\*
+{\ttfamily \#include $<$math.\-h$>$}\\*
+{\ttfamily \#include $<$student/buffer.\-h$>$}\\*
+{\ttfamily \#include $<$student/bunny.\-h$>$}\\*
+{\ttfamily \#include $<$student/camera.\-h$>$}\\*
+{\ttfamily \#include $<$student/gpu.\-h$>$}\\*
+{\ttfamily \#include $<$student/linear\-Algebra.\-h$>$}\\*
+{\ttfamily \#include $<$student/mouse\-Camera.\-h$>$}\\*
+{\ttfamily \#include $<$student/student\-\_\-cpu.\-h$>$}\\*
+{\ttfamily \#include $<$student/student\-\_\-pipeline.\-h$>$}\\*
+{\ttfamily \#include $<$student/student\-\_\-shader.\-h$>$}\\*
+{\ttfamily \#include $<$student/swap\-Buffers.\-h$>$}\\*
+{\ttfamily \#include $<$student/uniforms.\-h$>$}\\*
+{\ttfamily \#include $<$student/vertex\-Puller.\-h$>$}\\*
+{\ttfamily \#include $<$student/globals.\-h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structPhongVariables}{Phong\-Variables}
+\begin{DoxyCompactList}\small\item\em This structure contains all global variables for this method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{group__cpu__side_gac2adb2ba4e748239b9db4d037584d3cc}{phong\-\_\-on\-Init} (int32\-\_\-t width, int32\-\_\-t height)
+\begin{DoxyCompactList}\small\item\em This function is called at start of application. It should contain initialization of C\-P\-U side. \end{DoxyCompactList}\item 
+\hypertarget{student__cpu_8c_a88d2d9ef0fe63ab523c367c2a6f40245}{void \hyperlink{student__cpu_8c_a88d2d9ef0fe63ab523c367c2a6f40245}{phong\-\_\-on\-Exit} ()}\label{student__cpu_8c_a88d2d9ef0fe63ab523c367c2a6f40245}
+
+\begin{DoxyCompactList}\small\item\em This function is called at end of application. \end{DoxyCompactList}\item 
+void \hyperlink{group__cpu__side_gafea3b0614db94d611ae817685375c39c}{phong\-\_\-on\-Draw} (S\-D\-L\-\_\-\-Surface $\ast$surface)
+\begin{DoxyCompactList}\small\item\em This function is called every frame and is responsible for drawing. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{student__cpu_8c_aec487348ab3a70072ef210d6febe17c5}{struct \hyperlink{structPhongVariables}{Phong\-Variables} \hyperlink{student__cpu_8c_aec487348ab3a70072ef210d6febe17c5}{phong}}\label{student__cpu_8c_aec487348ab3a70072ef210d6febe17c5}
+
+\begin{DoxyCompactList}\small\item\em instance of all global variables for triangle example. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file contains implementation of cpu side for phong shading. \begin{DoxyAuthor}{Author}
+Tomáš Milet, \href{mailto:imilet@fit.vutbr.cz}{\tt imilet@fit.\-vutbr.\-cz} 
+\end{DoxyAuthor}
