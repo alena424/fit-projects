@@ -202,19 +202,22 @@ void phong_onInit(int32_t width,int32_t height){
 	glGenBuffers(1, &phong.ebo); // indexy
 
 	glBindBuffer(GL_ARRAY_BUFFER, phong.vbo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, phong.ebo);
-
 	glBufferData(GL_ARRAY_BUFFER, sizeof(bunnyVertices), bunnyVertices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, phong.ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(VertexIndex) * 3 * 2092, bunnyIndices, GL_STATIC_DRAW);
 
 	// nastavime jeden atribut
 	glGenVertexArrays(1, &phong.vao);
 	glBindVertexArray(phong.vao);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, phong.ebo);
+	glBindBuffer(GL_ARRAY_BUFFER, phong.vbo);
 //	glBindBuffer(GL_ARRAY_BUFFER, phong.vbo);
 
 	GLint const posAttr  = glGetAttribLocation(phong.program, "position");
 
-	glVertexAttribPointer(posAttr, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, NULL);
+	glVertexAttribPointer((GLuint)posAttr, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, NULL);
 
 	glEnableVertexAttribArray((GLuint) posAttr);
 
@@ -237,8 +240,8 @@ void phong_onInit(int32_t width,int32_t height){
   /// <b>Seznam funkcí, které jistě využijete:</b>
   ///  - glGetUniformLocation
   /// @}
-	phong.projectionMatrixUniform = glGetUniformLocation(phong.program, "lightPos");
-	phong.viewMatrixUniform = glGetUniformLocation(phong.program, "cameraPos");
+	phong.lightPositionUniform = glGetUniformLocation(phong.program, "lightPos");
+	phong.cameraPositionUniform = glGetUniformLocation(phong.program, "cameraPos");
 
 
   /// \addtogroup task3 Třetí úkol
@@ -252,8 +255,8 @@ void phong_onInit(int32_t width,int32_t height){
   ///  - glEnableVertexAttribArray
   /// @}
 
-	GLint const normalAttr  = glGetAttribLocation(phong.program, "normal");
-	glVertexAttribPointer(normalAttr, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6,(void*) sizeof(float)*3);
+	GLuint const normalAttr  = glGetAttribLocation(phong.program, "normal");
+	glVertexAttribPointer(normalAttr, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, sizeof(GLfloat)*3);
 	glEnableVertexAttribArray((GLuint) normalAttr);
 
 
