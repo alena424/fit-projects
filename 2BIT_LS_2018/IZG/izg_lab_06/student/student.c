@@ -79,6 +79,7 @@ char const*phongVertexShaderSource =
 "layout(location=1)in vec3 normal;\n"
 "uniform mat4 projectionMatrix;\n"
 "uniform mat4 viewMatrix;\n"
+
 "out vec3 vPos;\n"
 "out vec3 vNormal;\n"
 "void main(){\n"
@@ -138,18 +139,37 @@ char const*phongFragmentShaderSource =
 "vec3 dM, sM, dL, sL, N, R, V, L, color;\n"
 "float s, dF, sF;\n"
 "void main(){\n"
+//Difuzní barvu materiálu nastave v základu
 "  dM = vec3(0.f, 1.f, 0.f);\n"
+//Spekulání barvu materiálu nastavte na vec3(1.f,1.f,1.f) - bílá.<br/>
 "  sM = vec3(1.f, 1.f, 1.f);\n"
-"  fColor = vec4(1.f);\n"
+//V případě, že normála povrchu směřuje vzhůru bude difuzní barva vec3(1.f,1.f,1.f) - bílá
+"    if ( vNormal.y == 1){\n"
+ //   "  dM = vec3(1.f, 1.f, 1.f);\n"
+"   }\n"
+
 "  s = 40.0;\n"
+// Předpokládejte, že světlo má bílou barvu.<br/>
 "  dL = vec3(1.f, 1.f, 1.f);\n"
-"  sL = vec3(1.f, 1.f, 1.f);\n"
+"  sL = vec3(1.f, 1.f, 1.f);\n"//// Zelenou a bílou difuzní barvu míchejte pomocí y komponenty normály umocněné na druhou.<br/> ???
+//// Zelenou a bílou difuzní barvu míchejte pomocí y komponenty normály umocněné na druhou.<br/> ???
+ "  vec3 pom = mix( dM, dL,pow(vNormal.y,2 ));"
+    "dM = pom;\n"
+
+/// N je normála fragmentu (nezapomeňte ji normalizovat).<br/>
 "  N = normalize(vNormal);\n"
+/// L je normalizovaný vektor z pozice fragmentu směrem ke světlu.<br/>
 "  L = normalize(lightPos - vPos);\n" // z pozie fragmentu smerem ke svetlu
+/// R je odražený pohledový vektor V; R = reflect(V,N).<br/>
+/// V je normalizovaný pohledový vektor z pozice kamery do pozice fragmentu.<br/>
+"  V = normalize( vPos - cameraPos);\n"
 "  R = reflect(V, N);\n"
-"  V = normalize(cameraPos - vPos);\n"
+
+// dF lze vypočíst pomocí vztahu clamp(dot(N,L),0.f,1.f) - skalární součin a ořez do rozsahu [0,1].<br/>
 "  dF = clamp(dot(N,L), 0.f, 1.f);\n"
+/// sF lze vypočíst pomocí vztahu pow((clamp(dot(R,L),0.f,1.f)),s) - skalární součin, ořez do rozsahu [0,1] a umocnění.<br/>
 "  sF = pow( clamp(dot(R,L), 0.f, 1.f), s);\n"
+///// Barva se vypočíta podle vzorce dF*dM*dL + sF*sM*sL.<br/>
 "  color = dF*dM*dL + sF*sM*sL;\n"
 "  fColor = vec4(color, 1.f);\n"
 "}\n";
@@ -205,22 +225,27 @@ void phong_onInit(int32_t width,int32_t height){
 	glBufferData(GL_ARRAY_BUFFER, sizeof(bunnyVertices), bunnyVertices, GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, phong.ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(VertexIndex) * 3 * 2092, bunnyIndices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(bunnyIndices), bunnyIndices, GL_STATIC_DRAW);
 
-	// nastavime jeden atribut
+
+	// inicialializace vertex arrays object
+	GLint const posAttr  = glGetAttribLocation(phong.program, "position");
+	GLint const normalAttr  = glGetAttribLocation(phong.program, "normal");
+
 	glGenVertexArrays(1, &phong.vao);
 	glBindVertexArray(phong.vao);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, phong.ebo);
 	glBindBuffer(GL_ARRAY_BUFFER, phong.vbo);
-//	glBindBuffer(GL_ARRAY_BUFFER, phong.vbo);
 
-	GLint const posAttr  = glGetAttribLocation(phong.program, "position");
-
-	glVertexAttribPointer((GLuint)posAttr, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, NULL);
+    // kde se vertex atribut nachazi, konfigurace cteci hlavy
+	glVertexAttribPointer((GLuint)posAttr, 3, GL_FLOAT, GL_FALSE, sizeof(BunnyVertex), NULL);
+	glVertexAttribPointer(normalAttr, 3, GL_FLOAT, GL_FALSE, sizeof(BunnyVertex), sizeof(float)*3);
 
 	glEnableVertexAttribArray((GLuint) posAttr);
+	glEnableVertexAttribArray((GLuint) normalAttr);
 
+	glBindVertexArray(0);
 
 
   /// \addtogroup task2 Druhý úkol
@@ -254,12 +279,6 @@ void phong_onInit(int32_t width,int32_t height){
   ///  - glVertexAttribPointer
   ///  - glEnableVertexAttribArray
   /// @}
-
-	GLuint const normalAttr  = glGetAttribLocation(phong.program, "normal");
-	glVertexAttribPointer(normalAttr, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*6, sizeof(GLfloat)*3);
-	glEnableVertexAttribArray((GLuint) normalAttr);
-
-
 
   glClearColor(.1f,.1f,.1f,1.f);
   glEnable(GL_DEPTH_TEST);
@@ -295,7 +314,8 @@ void phong_onDraw(){
   ///  - glDrawElements
   /// @}
 	glBindVertexArray(phong.vao);
-	glDrawElements(GL_TRIANGLES, 2092 * 3 * sizeof(VertexIndex), GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, sizeof (bunnyIndices) /  sizeof(VertexIndex), GL_UNSIGNED_INT, NULL);
+	glBindVertexArray(0);
 
 
   /// \addtogroup task2 Druhý úkol
@@ -306,8 +326,8 @@ void phong_onDraw(){
   /// <b>Seznam funkcí, které jistě využijete:</b>
   ///  - glUniformMatrix4fv
   /// @}
-	glUniformMatrix4fv(phong.projectionMatrixUniform, 1, GL_FALSE, &projectionMatrix);
-	glUniformMatrix4fv(phong.viewMatrixUniform, 1, GL_FALSE, &viewMatrix);
+	glUniformMatrix4fv(phong.projectionMatrixUniform, 1, GL_FALSE, (float*)&projectionMatrix);
+	glUniformMatrix4fv(phong.viewMatrixUniform, 1, GL_FALSE, (float*)&viewMatrix);
 
   /// \addtogroup task3 Třetí úkol
   /// @{
@@ -318,7 +338,6 @@ void phong_onDraw(){
   /// @}
 	glUniform3fv(phong.cameraPositionUniform, 1, &cameraPosition);
 	glUniform3fv(phong.lightPositionUniform, 1, &phong.lightPosition);
-
 
 
 }
