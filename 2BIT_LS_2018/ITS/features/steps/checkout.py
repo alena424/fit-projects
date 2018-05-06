@@ -46,7 +46,8 @@ def step_impl(context):
         WebDriverWait(context.browser, 5).until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, 'h1'),
                                                                                  'Your Account Has Been Created!'))
     except(Exception):
-        ...
+        pass
+		#print("error")
         #traceback.print_exc()
 
 @step("Login page")

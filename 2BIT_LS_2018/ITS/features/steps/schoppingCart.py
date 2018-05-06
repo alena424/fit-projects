@@ -59,7 +59,8 @@ def step_impl(context):
 
 @given("one available Nikon D300 in shopping cart")
 def step_impl(context):
-    ...
+		pass
+  
 
 @then("the user sees Nikon D300 in shopping cart")
 def step_impl(context):
@@ -165,7 +166,7 @@ def step_impl(context):
 @given("certificate '1234' is valid")
 def step_impl(context):
     # musime zkontrolovat, jestli je invalid a kdyztak ho smazat
-    ...
+    pass
 
 @when("the user fills reqiredData in estimate shopping")
 def step_impl(context):

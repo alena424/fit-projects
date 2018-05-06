@@ -41,7 +41,7 @@ def step_impl(context):
 @then('the user sees Nikon D300')
 def step_impl(context):
         text = context.browser.find_element_by_xpath("//a[contains(text(),'Nikon D300')]")
-        print(text.get_attribute)
+        #print(text.get_attribute)
 
 
 @when("the user clicks on Laptops & Notebooks")
