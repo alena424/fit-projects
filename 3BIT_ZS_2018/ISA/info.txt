@@ -2,6 +2,11 @@ Zajímavé odkazy:
 
 https://github.com/gazdik/rip-ripng-packet-sniffer
 
+Info k vypracovani:
+promiskuitni mod - zachytava vsechna prenosy po drate, i ty ktere nejdou k nam
+pozor na link-leywer header, ktera muze mit nejakolik typy napr. i typ, ktery nepodporuje moje zarizeni
+
+callback funkce - napr. pokud cekam az uzivatel stiskne tlacitko, chci bykonat tuto funkci, tyto callback funkce se pouzivaji u sniffovani akorat se jedna o akci, ze prijde paket
 Zadání projektu
 --------------------------------------------------
 
