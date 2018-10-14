@@ -1,73 +1,17 @@
+/**
+* @author Alena Tesarova (xtesar36@stud.fit.vutbr.cz)
+* @date 21.10.2018
+* projekt ISA 2018
+*
+*/
+
 #include <iostream>
 #include <unistd.h>
 #include <stdio.h>
-#include <pcap.h>
 
-#include <netinet/ip.h>
+#include "headers.h"
+#include "sniffer_h.h"
 
-/* ethernet headers are always exactly 14 bytes */
-#define SIZE_ETHERNET 14
-
-using namespace std;
-int counter = 0; // packet counter
-
-struct sniff_ip {
-		u_char ip_vhl;		/* version << 4 | header length >> 2 */
-		u_char ip_tos;		/* type of service */
-		u_short ip_len;		/* total length */
-		u_short ip_id;		/* identification */
-		u_short ip_off;		/* fragment offset field */
-	#define IP_RF 0x8000		/* reserved fragment flag */
-	#define IP_DF 0x4000		/* dont fragment flag */
-	#define IP_MF 0x2000		/* more fragments flag */
-	#define IP_OFFMASK 0x1fff	/* mask for fragmenting bits */
-		u_char ip_ttl;		/* time to live */
-		u_char ip_p;		/* protocol */
-		u_short ip_sum;		/* checksum */
-		struct in_addr ip_src,ip_dst; /* source and dest address */
-};
-
-/**
-* @brief Gets version of protocol
-* @param IPv4 header
-* @return version of protocol
-*/
-u_char getVersion(sniff_ip *header){
-	return header->ip_vhl >> 4;
-}
-
-/**
-* @brief Gets version of protocol
-* @param IPv4 header
-* @return version of protocol
-*/
-u_char getLengthHeader(sniff_ip *header){
-	return header->ip_vhl >> 2;
-}
-
-/**
-* @brief Gets length header from ip_vhl
-* @param header IPv4 header
-* @return lengthof header
-*/
-int getLength(sniff_ip *header){
-	return (header->ip_vhl & 0x0f) * 4;
-}
-
-// callback function
-void print_packet(
-	u_char *args, 
-	const struct pcap_pkthdr *header,
-	const u_char *packet
-){
-	counter++;
-	printf( "%d. Header length is: %d and cap len is %d\n", counter,header->len, header->caplen);
-	sniff_ip* ip_hdr;
-	
-	ip_hdr = (sniff_ip *)(packet + SIZE_ETHERNET);
- 	printf("Version is: %d, length is: %d\n", getVersion(ip_hdr), getLengthHeader(ip_hdr));	
-	//const struct sniff_ip* ip = (struct sniff_ip*)(packet + SIZE_ETHERNET)	
-}
 
 void errorMessage(){
     cerr << "./myripsniffer -i <interface>";
@@ -86,11 +30,10 @@ int main(int argc, char *argv[])
 	pcap_t *handle; // handler
 	char  errbuf[PCAP_ERRBUF_SIZE]; //errors
 
-	char filter_exp[] = ""; // filter
-    int option = getopt(argc, argv, "i:");
+	char filter_exp[] = " (udp port 520 || udp port 521)"; // filter udp port 520 || udp port 521 RIPng
+    	int option = getopt(argc, argv, "i:");
     
 if ( option == 'i' ){
-	//	printf("%s", optarg);
         interface = optarg;
     } else {
         errorMessage();
