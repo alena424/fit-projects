@@ -1,21 +1,30 @@
+/**
+* headers.h
+* @brief contains RIP packets headers
+* @author Alena Tesarova, xtesar36@stud.fit.vutbr.cz
+* @date 20.11.2018
+* project ISA 2018
+*/
+
 
 #include <pcap.h>
 #include <netinet/ip.h>
 
 using namespace std;
 
+// RIP constant
 /* ethernet headers are always exactly 14 bytes */
-
 #define SIZE_ETHERNET 14
 #define ETHER_ADDR_LEN 6
+#define UDP_LENGTH_HEADER 8
+#define LENGTH_IPV6_HEADER 40
 
 #define LENGTH_RIP_ENTRY 20
 #define LENGTH_RIP_HEADER 4
+
 #define REQUEST 1
 #define RESPONSE 2
 
-#define UDP_LENGTH_HEADER 8
-#define LENGTH_IPV6_HEADER 40
 #define SIMPLE_PASS 2
 
 typedef struct rip_h
@@ -75,9 +84,10 @@ typedef struct ripv2_auth
 
 typedef struct ripng_entry{
 
-    //struct in6addr_any prefix;
     struct in6_addr prefix;
     uint16_t route_tag; // if set number of the autonomous system from whucg the router were learned
     uint8_t prefixLength;
     uint8_t metric;
 }ripng_entry;
+
+/********************** end of headers.h ***************************/
