@@ -15,6 +15,7 @@ using namespace std;
 #define RESPONSE 2
 
 #define UDP_LENGTH_HEADER 8
+#define LENGTH_IPV6_HEADER 40
 #define SIMPLE_PASS 2
 
 typedef struct rip_h
@@ -75,6 +76,7 @@ typedef struct ripv2_auth
 typedef struct ripng_entry{
 
     //struct in6addr_any prefix;
+    struct in6_addr prefix;
     uint16_t route_tag; // if set number of the autonomous system from whucg the router were learned
     uint8_t prefixLength;
     uint8_t metric;

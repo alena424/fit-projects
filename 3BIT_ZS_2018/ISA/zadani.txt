@@ -1,0 +1,69 @@
+Zajímavé odkazy:
+
+https://github.com/gazdik/rip-ripng-packet-sniffer
+
+Info k vypracovani:
+promiskuitni mod - zachytava vsechna prenosy po drate, i ty ktere nejdou k nam
+pozor na link-leywer header, ktera muze mit nejakolik typy napr. i typ, ktery nepodporuje moje zarizeni
+
+callback funkce - napr. pokud cekam az uzivatel stiskne tlacitko, chci bykonat tuto funkci, tyto callback funkce se pouzivaji u sniffovani akorat se jedna o akci, ze prijde paket
+Zadání projektu
+--------------------------------------------------
+
+Popis varianty:
+ZADÁNÍ:
+Vašim úkolem je:
+1) nastudovat si směrovací protokoly RIP a RIPng;
+2) naprogramovat sniffer RIPv1, RIPv2 a RIPng zpráv;
+3) naprogramovat podvrhávač falešných RIPng Response zpráv;
+4) za použití obou nástrojů, které jste si předpřipravili v předchozím bodě pak provést úspěšný útok;
+Bonus: 5) naprogramovat podvrhávač falešných RIPng Request zpráv.
+
+TESTOVÁNÍ:
+Pro případné testování a plnění bodu 4) zadání je pro Vás připraven image virtuálního FreeBSD počítače, který je spustitelný např. pomocí aplikace VMWare Player nebo VirtualBox. Na tomto virtuálním počítači pak běží SW směrovač Quagga s rozchozenými instancemi RIPv2, RIPng a ND Router Advertisment. Tento router pak šíří směrovací informace na své rozhraní em0 (s fixní IPv4 adresou).
+Po nastartování virtuálního počítače se přihlašte pomocí loginu student s heslem student. Ve svém domovském adresáři pak spusťte příkaz:
+sudo /usr/sbin/genconf.py <xlogin00>, kde jediným vstupním parametrem je váš VUT/FIT login, který vám vygeneruje pro Vás jedinečnou konfiguraci a restartuje démona Quaggy. POZOR, testovací image je pro Vás přirpaven jen pro potřeby generování relevantního provozu a provázání unikátního zadání s Vašim loginem, v žádném případě se na něm (v něm) nepokoušejte projekt implementovat!!!
+ 
+UPŘESNĚNÍ ZADÁNÍ:
+
+Ad 1)
+V dobré dokumentaci se OČEKÁVÁ následující: titulní strana, obsah, logické strukturování textu, výcuc relevantních informací z nastudované literatury, popis zajímavějších pasáží implementace, sekce o testování, bibliografie, popisy k řešení bonusových zadání.
+
+Ad 2)
+V rámci implementace je dovoleno použít knihovny libpcap a všech jejich vymožeností. očekáva se použití promiskuitního módu síťové karty a prezentace odchycených paketů pro uživatele nějakou smysluplnou formou.
+Závazný formát výstupní binárky:
+./myripsniffer -i <rozhraní>, kde význam parametru je následující:
+* -i: <rozhraní> udává rozhraní, na kterém má být odchyt paketů prováděn.
+
+Ad 3)
+V rámci implementace je ZAKÁZÁNO použít jekékoli nestandardní knihovny a knihovních funkcí pro kraftování RIP zpráv, držte se jen čistě BSD soketů! Lze použít knihovny netdb.h a ifaddrs.h. Implementovaný podvrhávač používá strukturu zprávy RIPng.
+Závazný formát výstupní binárky:
+./myripresponse {-i <rozhraní>} -r <IPv6>/[16-128] {-n <IPv6>} {-m [0-16]} {-t [0-65535]} {-p <heslo>}, kde význam parametrů je následující: 
+* -i: <rozhraní> udává rozhraní, ze kterého má být útočný paket odeslán;
+* -r: v <IPv6> je IP adresa podvrhávané sítě a za lomítkem číselná délka masky sítě;
+* -m: následující číslo udává RIP Metriku, tedy počet hopů, implicitně 1;
+* -n: <IPv6> za tímto parametrem je adresa next-hopu pro podvrhávanou routu, implicitně ::;
+* -t: číslo udává hodnotu Router Tagu, implicitně 0.
+
+Ad 4)
+Vašim cílem je odchytit RIP Response zprávy SW směrovače pomocí Vaší aplikace z bodu 2). Do dokumentace pak povinně uveďte, které všechny routy se Vám podařilo odchytit! Další inspekcí zpráv zjistěte autentizační heslo, kterým jsou zprávy zabezpečeny. Pomocí aplikace z bodu 3) podvrhněte SW směrovači zprávou RIP Response routu 2001:db8:0:abcd/64. Úspěch podvrhnutí si můžete ověřit tím, že se ve virtuálním počítači připojíte k routovacímu démonu pomocí příkazu telnet 127.0.0.1 2601, zadáte přístupové heslo do konzole c (písmenko malé cé) a v shellu routovacího démona zadáte příkaz show ip route, který Vám zobrazí aktuální směrovací tabulku.  
+
+Ad 5)
+Vypracování je DOBROVOLNÉ a bonifikováno až +4 body, které však nepřesáhnou maximální počet bodů z celého projektu! Lze jimi však záplatovat bodové ztráty z předchozích povinných částí.
+Závazný formát výstupní binárky:
+./myriprequest, a protože se jedná o bonus k zadání, tak jakékoli další případné parametry jsou čistě ve Vaší režii, uveďte však případné správné použití v souboru README.
+
+DOPORUČENÍ/OMEZENÍ:
+
+    Všechny implementované programy by měly být použitelné a řádně komentované. Pokud už přejímáte zdrojové kódy z různých tutoriálů či příkladů z Internetu (ne mezi sebou pod hrozbou ortelu disciplinární komise), tak je POVINNÉ správně vyznačit tyto sekce a jejich autory dle licenčních podmínek, kterými se distribuce daných zdrojových kódů řídí. V případě nedodržení bude na projekt nahlíženo jako na plagiát!
+    U syntaxe vstupních voleb jednotlivým programům složené závorky {} znamenají, že volba je nepovinná, (pokud není přítomna, tak se použíje implicitní hodnota), přičemž pořadí jednotlivých voleb a jejich parametrů může být libovolné. Pro jejich snadné parsování se doporučuje použít funkci getopt().
+    Když je v sekci o testování napsáno, že virtuální router plive veškerou svou komunikaci na rozhraní em0, tak vhodně využijte propojení tohoto rozhraní s virtuálním síťovým adaptérem hostitelského (např. Host-only adapter) počítače s OS, na kterém samotný projekt implementujete!
+    Výsledky vaší implementace by měly být co možná nejvíce multiplatformní mezi OS založenými na unixu, ovšem samotné přeložení projektu a funkčnost vaší aplikace budou testovány na referenčním Linux image pro předmět ISA, kterýžto bude sloužit jako virtuální mašinka s pravděpodobně jedním síťovým rozhraním.
+
+LITERATURA:
+* RFC1058 - RIP version 1 (http://tools.ietf.org/html/rfc1058)
+* RFC2453 - RIP version 2 (http://tools.ietf.org/html/rfc2453)
+* RFC2080 - RIPng for IPv6 (http://tools.ietf.org/html/rfc2080)
+* stránky knihovny libpcap (http://www.tcpdump.org/)
+
+

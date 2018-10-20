@@ -48,9 +48,10 @@ void print_command(int command, char *version_string)
         return;
 
     }
-    printf("\t--- RIP info ---\n");
-    printf("\tVersion: %s\n",version_string );
+    printf("\n\t==Routing information protocol==\n");
     printf("\tCommand: %s\n", command_string);
+    printf("\tVersion: %s\n",version_string );
+
 }
 
 void print_header_ripng6(rip_h *rip_header)
@@ -82,16 +83,24 @@ void print_header_rip(rip_h *rip_header)
 }
 
 
-void print_ether_type(u_short ether_type, const u_char *packet)
+void print_ether_type( const u_char *packet)
 {
     struct ip *my_ip;
+    struct ipv6_header *my_ipv6;
     //const struct tcphdr *my_tcp;    // pointer to the beginning of TCP header
     const struct udphdr *my_udp;    // pointer to the beginning of UDP header
     u_int size_ip;
+
+struct ether_header *eptr;
+eptr = (struct ether_header *) packet;
+u_short ether_type = ntohs(eptr->ether_type);
+
     //u_int size_udp;
+
 
     rip_h *rip_header;
     rip_entry *rip_entr;
+
 
     switch (ether_type)
     {
@@ -111,7 +120,6 @@ void print_ether_type(u_short ether_type, const u_char *packet)
         printf("\tSrc port = %d, dst port = %d, length %d\n",ntohs(my_udp->uh_sport), ntohs(my_udp->uh_dport), ntohs(my_udp->uh_ulen));
 
         rip_header = (rip_h *) (packet + SIZE_ETHERNET + size_ip + UDP_LENGTH_HEADER);
-        //printf("\tCommand: %d, RIP version: %d\n", rip_header->command, rip_header->version);
 
 
         print_header_rip(rip_header);
@@ -137,15 +145,16 @@ void print_ether_type(u_short ether_type, const u_char *packet)
                 char password[] = {0};
                 //remainder of the entry contains the autentication RFC 4.1
                 // - max 24 rip entries
-                printf("\tAuthentication\n");
+                //printf("\tAuthentication\n");
 
 
-                if ( ntohs( rip_entr->route_tag) != SIMPLE_PASS ){
+                if ( ntohs( rip_entr->route_tag) != SIMPLE_PASS )
+                {
                     fprintf(stderr, "Invalid password\n");
                     return;
                 }
                 memcpy(password,rip_entr->data.rip_auth, PASSWORD );
-                printf("\tType: %s\n", password_type);
+                printf("\tAuthentication type: %s\n", password_type);
                 printf("\tPassword: %s\n", password);
 
             }
@@ -159,6 +168,7 @@ void print_ether_type(u_short ether_type, const u_char *packet)
                 strcpy(rip_ip,inet_ntoa(rip_entr->data.table.rip_ip4));
                 strcpy(rip_mask,inet_ntoa(rip_entr->data.table.rip_mask));
                 strcpy(rip_next_hop,inet_ntoa(rip_entr->data.table.rip_next_hop));
+
                 char family[20];
 
                 if (  ntohs(rip_entr->family_identif) == AF_INET)
@@ -166,32 +176,74 @@ void print_ether_type(u_short ether_type, const u_char *packet)
                     strcpy(family, "IP");
                 }
 
-                printf("\tRouting Tag: %d\n \tAddress family identif: %s(%d)\n", rip_entr->route_tag, family,ntohs(rip_entr->family_identif) );
-
                 if ( strcmp(family, "IP") == 0 )
                 {
-                    printf("\tID address is: %s\n", rip_ip );
+                    printf("\tIP address: %s, Metric: %d\n", rip_ip, ntohl(rip_entr->data.table.rip_metric) );
                 }
+
+                printf("\tAddress family identif: %s (%d), Route Tag: %d\n", family,ntohs(rip_entr->family_identif), rip_entr->route_tag );
+
 
                 if ( rip_header->version == 2 )
                 {
-                    printf("\tNetmask: %s\n\tNext hop: %s\n", rip_mask, rip_next_hop);
+                    printf("\tNetmask: %s\n\tNext hop: %s\n\n", rip_mask, rip_next_hop);
                 }
-
-                printf("\tMetric: %d\n\n", ntohl(rip_entr->data.table.rip_metric) );
-
 
             }
             rip_entr = (rip_entry *)((u_char *)rip_entr + LENGTH_RIP_ENTRY);
+
         }
         break;
     }
 
 
     case ETHERTYPE_IPV6:  // IPv6
-        printf("\tEthernet type is 0x%x, i.e., IPv6 packet\n",ether_type);
-        break;
+    {
 
+        printf("\tEthernet type is 0x%x, i.e., IPv6 packet\n",ether_type);
+	 my_udp = (struct udphdr *) (packet+SIZE_ETHERNET+LENGTH_IPV6_HEADER); 
+	printf("\tSrc port = %d, dst port = %d, length %d\n",ntohs(my_udp->uh_sport), ntohs(my_udp->uh_dport), ntohs(my_udp->uh_ulen));
+
+	//my_udp = (struct udphdr *)(packet + SIZE_ETHERNET + LENGTH_IPV6_HEADER );
+        rip_header = (rip_h *)(packet + SIZE_ETHERNET + LENGTH_IPV6_HEADER + UDP_LENGTH_HEADER);
+	
+
+        if ( rip_header->version != 1 )
+        {
+            // just version 1 exists so far
+            fprintf( stderr, "Invalid RIPng version\n" );
+            return;
+        }
+        char version_string[] = "1";
+
+        print_command(rip_header->command, version_string);
+
+        ripng_entry *ripng_entr = (ripng_entry *)((u_char *) rip_header + LENGTH_RIP_HEADER);
+
+        int rip_length = ntohs(my_udp->uh_ulen) - UDP_LENGTH_HEADER;
+	printf("\tRip length: %d\n", rip_length);
+
+        for(int rip_bytes = LENGTH_RIP_ENTRY; rip_bytes < rip_length; rip_bytes = rip_bytes+LENGTH_RIP_ENTRY )
+        {
+            //authentication
+            char ip_addr[INET6_ADDRSTRLEN];
+            inet_ntop(AF_INET6, &ripng_entr->prefix, ip_addr, sizeof(ip_addr));
+            if ( ripng_entr->metric == 0xFF )
+            {
+
+                printf( "\tNext hop: %s\n\n", ip_addr );
+
+            }
+            else
+            {
+                printf( "\tRoute Tag: %d\n\tIPv6 address: %s\n\tPrefix Length: %d\n\tMetric: %d\n\n", ntohs(ripng_entr->route_tag), ip_addr, ripng_entr->prefixLength, ripng_entr->metric );
+            }
+
+            ripng_entr = (ripng_entry *)((u_char *)ripng_entr + LENGTH_RIP_ENTRY);
+        }
+
+        break;
+    }
     default:
         printf("\tEthernet type 0x%x, not IPv4\n", ether_type);
         return;
@@ -206,9 +258,9 @@ void print_ether(const u_char *packet)
     struct ether_header *eptr;
 
     eptr = (struct ether_header *) packet;
-    printf("\tSource MAC: %s\n",ether_ntoa((const struct ether_addr *)&eptr->ether_shost)) ;
-    printf("\tDestination MAC: %s\n",ether_ntoa((const struct ether_addr *)&eptr->ether_dhost)) ;
-    print_ether_type( ntohs(eptr->ether_type), packet);
+    printf("\tSource MAC: %s, Destination MAC: %s\n",ether_ntoa((const struct ether_addr *)&eptr->ether_shost), ether_ntoa((const struct ether_addr *)&eptr->ether_dhost) ) ;
+    //printf("\tDestination MAC: %s\n",ether_ntoa((const struct ether_addr *)&eptr->ether_dhost)) ;
+    
 }
 
 // callback function
@@ -220,6 +272,7 @@ void print_packet(
 {
     print_header(header);
     print_ether(packet);
+print_ether_type( packet);
 
 }
 
