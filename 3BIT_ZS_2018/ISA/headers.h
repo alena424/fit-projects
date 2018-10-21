@@ -5,7 +5,12 @@
 * @date 20.11.2018
 * project ISA 2018
 */
+#include <iostream>
+#include <unistd.h>
+#include <stdio.h>
 
+#include <arpa/inet.h>
+#include <string.h>
 
 #include <pcap.h>
 #include <netinet/ip.h>
@@ -26,6 +31,8 @@ using namespace std;
 #define RESPONSE 2
 
 #define SIMPLE_PASS 2
+
+
 
 typedef struct rip_h
 {
@@ -89,5 +96,7 @@ typedef struct ripng_entry{
     uint8_t prefixLength;
     uint8_t metric;
 }ripng_entry;
+
+
 
 /********************** end of headers.h ***************************/

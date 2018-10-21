@@ -14,8 +14,8 @@
 #include "sniffer_h.h"
 
 // libraries from example.tar /ISA/examples
-#include <string.h> //strcpy
-#include <pcap.h>
+
+//#include <pcap.h>
 #include <errno.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -226,7 +226,8 @@ int ipv6_process(const u_char *packet){
         }
         else
         {
-            printf( "\tRoute Tag: %d\n\tIPv6 address: %s\n\tPrefix Length: %d\n\tMetric: %d\n\n", ntohs(ripng_entr->route_tag), ip_addr, ripng_entr->prefixLength, ripng_entr->metric );
+            printf( "\tRoute Tag: %d\n\tIPv6 address: %s\n\tPrefix Length: %d\n\tMetric: %d\n\n",
+            ntohs(ripng_entr->route_tag), ip_addr, ripng_entr->prefixLength, ripng_entr->metric );
         }
 
         ripng_entr = (ripng_entry *)((u_char *)ripng_entr + LENGTH_RIP_ENTRY);

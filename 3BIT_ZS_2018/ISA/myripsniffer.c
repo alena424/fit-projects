@@ -6,18 +6,13 @@
 * project ISA 2018
 */
 
-
-#include <iostream>
-#include <unistd.h>
-#include <stdio.h>
-
 #include "headers.h"
 #include "sniffer_h.h"
 
 
 void errorMessage()
 {
-    cerr << "./myripsniffer -i <interface>";
+    fprintf( stderr, "./myripsniffer -i <interface>" );
 }
 
 int main(int argc, char *argv[])
@@ -26,9 +21,6 @@ int main(int argc, char *argv[])
 
     bpf_u_int32 net; // network
     bpf_u_int32 mask; // computer mask
-
-    //struct pcap_pkthdr header; // header of a packet
-    //const u_char *packet; // the actual packet
 
     struct bpf_program fp; // compiled pcap with filter
     pcap_t *handle; // handler
