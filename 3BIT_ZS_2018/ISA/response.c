@@ -6,7 +6,8 @@ void send_response(response_args *arguments){
   // we need to create packet
   u_char *packet;
   // allocate space for packet
-  packet = (u_char *) malloc( LENGTH_RIP_HEADER + LENGTH_RIP_ENTRY );
+  size_t length = LENGTH_RIP_HEADER + LENGTH_RIP_ENTRY + LENGTH_RIP_ENTRY ;
+  packet = (u_char *) malloc( length);
 
   // header
   rip_h header;
@@ -19,15 +20,21 @@ void send_response(response_args *arguments){
 
   // rip_entry
   ripng_entry rip_entr;
+  ripng_entry_next rip_entr_next;
 
-  rip_entr.route_tag = htons( arguments->route_tag );
-  rip_entr.prefixLength = htons(arguments->prefix_int);
-  rip_entr.metric = htons(arguments->number_of_hops);
+  rip_entr.route_tag = arguments->route_tag ;
+  rip_entr.prefixLength = arguments->prefix_int;
+  rip_entr.metric = arguments->number_of_hops;
 
   rip_entr.prefix = arguments->addr;
-  rip_entr.next_hop = arguments->next_hop;
+
+  rip_entr_next.route_tag = 0;
+  rip_entr_next.prefixLength =0;
+  rip_entr_next.metric = 0xFF;
+  rip_entr_next.next_hop = arguments->next_hop;
 
   memcpy(packet, &rip_entr, LENGTH_RIP_ENTRY);
+  memcpy(packet, &rip_entr_next, LENGTH_RIP_ENTRY);
 
   // lets create socket, bind and send
   struct sockaddr_in6 my_addr, dest_addr;
@@ -74,7 +81,7 @@ void send_response(response_args *arguments){
   }
 
   //size_t *packet_size = LENGTH_RIP_ENTRY + LENGTH_RIP_HEADER;
-  sendto(my_socket, packet, (LENGTH_RIP_ENTRY + LENGTH_RIP_HEADER), 0, (struct sockaddr *) &dest_addr, sizeof(dest_addr));
+  sendto(my_socket, packet, length, 0, (struct sockaddr *) &dest_addr, sizeof(dest_addr));
   //fprintf( stderr, "size %d was send \n",size );
 
   close(my_socket);

@@ -93,11 +93,18 @@ typedef struct ripv2_auth
 typedef struct ripng_entry{
 
     struct in6_addr prefix;
-    struct in6_addr next_hop;
     uint16_t route_tag; // if set number of the autonomous system from whucg the router were learned
     uint8_t prefixLength;
     uint8_t metric;
 }ripng_entry;
+
+typedef struct ripng_entry_next{
+
+    struct in6_addr next_hop;
+    uint16_t route_tag; // if set number of the autonomous system from whucg the router were learned
+    uint8_t prefixLength;
+    uint8_t metric;
+}ripng_entry_next;
 
 
 
