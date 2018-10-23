@@ -3,7 +3,6 @@
 #define PORT_RIP6 521
 
 void send_response(response_args *arguments){
-  printf("kukuku\n" );
   // we need to create packet
   u_char *packet;
   // allocate space for packet
@@ -21,58 +20,63 @@ void send_response(response_args *arguments){
   // rip_entry
   ripng_entry rip_entr;
 
-  rip_entr.route_tag = arguments->route_tag;
-  rip_entr.prefixLength = arguments->prefix_int;
-  rip_entr.metric = arguments->number_of_hops;
+  rip_entr.route_tag = htons( arguments->route_tag );
+  rip_entr.prefixLength = htons(arguments->prefix_int);
+  rip_entr.metric = htons(arguments->number_of_hops);
+
   rip_entr.prefix = arguments->addr;
+  rip_entr.next_hop = arguments->next_hop;
 
   memcpy(packet, &rip_entr, LENGTH_RIP_ENTRY);
 
   // lets create socket, bind and send
   struct sockaddr_in6 my_addr, dest_addr;
 
-
   bzero(&my_addr, sizeof(my_addr));
   bzero(&dest_addr, sizeof(dest_addr));
 
-  int my_socket = socket(AF_INET6, SOCK_DGRAM, 0);
+  int my_socket = socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP);
 
-  if ( (setsockopt(my_socket, SOL_SOCKET, SO_BINDTODEVICE, arguments->interface, strlen(arguments->interface) ))< 0 ){
-    perror("Setsockopt failed\n");
-  }
-  int flag = 1;
- setsockopt(my_socket, SOL_SOCKET, SO_REUSEADDR, &flag, sizeof(int));
- setsockopt(my_socket, SOL_SOCKET, SO_REUSEPORT, &flag, sizeof(int));
-
+  int ifindex;
+  ifindex =if_nametoindex( arguments->interface);
+  printf("ifinedx %d\n", ifindex);
+  my_addr.sin6_scope_id=ifindex;
   my_addr.sin6_family = AF_INET6;
-  //socket_struct.sin6_addr=in6addr_any;
-//  struct in6_addr my_addr_pom = in6addr_any;
-
-  char ip_addr[INET6_ADDRSTRLEN];
-  inet_ntop(AF_INET6, &in6addr_any, ip_addr, sizeof(ip_addr) );;
-  printf("My address is: %s\n", ip_addr);
-
-  my_addr.sin6_addr = in6addr_any;
   my_addr.sin6_port =htons(PORT_RIP6);
-  //my_addr.sin6_scope_id = 0;
+
+// random address from my interface
+  /*char pom[] =  "fe80::a00:27ff:fe00:99";
+  inet_ntop(AF_INET6, &my_addr.sin6_addr, pom, sizeof(pom) );*/
+  my_addr.sin6_addr = in6addr_any;
+
+  // socket options
+  if ( setsockopt(my_socket, IPPROTO_IPV6, IPV6_MULTICAST_IF,&ifindex,sizeof(ifindex) ) < 0){
+      perror("Setsockopt interface failed\n");
+      return;
+  }
+  int hop = 255;
+  if ( setsockopt(my_socket, IPPROTO_IPV6, IPV6_MULTICAST_HOPS,&hop,sizeof(hop) ) < 0){
+      perror("Setsockopthop  failed\n");
+      return;
+  }
 
   if ( (bind(my_socket, (struct sockaddr*) &my_addr, sizeof( my_addr )) ) < 0){
-
     perror("ERROR: socket failed");
   }
 
-  dest_addr.sin6_family = AF_INET;
+  // destination address
+  dest_addr.sin6_family = AF_INET6;
   dest_addr.sin6_port = htons(PORT_RIP6);
 
   char multicast_addr[] = "ff02::9";
-
   if ( ( inet_ntop(AF_INET6, &dest_addr.sin6_addr, multicast_addr, sizeof(multicast_addr) )) == 0 ){
     fprintf(stderr,  "inet top failed\n" );
   }
 
   //size_t *packet_size = LENGTH_RIP_ENTRY + LENGTH_RIP_HEADER;
-  ssize_t size = sendto(my_socket, packet, LENGTH_RIP_ENTRY + LENGTH_RIP_HEADER, 0, (struct sockaddr *) &dest_addr, sizeof(dest_addr));
-  fprintf( stderr, "size %d was send \n",size );
+  sendto(my_socket, packet, (LENGTH_RIP_ENTRY + LENGTH_RIP_HEADER), 0, (struct sockaddr *) &dest_addr, sizeof(dest_addr));
+  //fprintf( stderr, "size %d was send \n",size );
+
   close(my_socket);
 
 }

@@ -1,4 +1,5 @@
 #include "headers.h"
+#include <net/if.h> // if_nametoindex
 
 //-- RIP RESPONSE ---//
 #define SIZE 20

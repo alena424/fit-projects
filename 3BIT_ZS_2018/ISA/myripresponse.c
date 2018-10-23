@@ -39,6 +39,11 @@ int main(int argc, char *argv[])
     char *pEnd = NULL;
     response_args arguments;
 
+    // inicializace next hop
+    char ip_addr_next_hop[INET6_ADDRSTRLEN] ;
+    char hops_default[] = "::";
+    inet_ntop(AF_INET6, &next_hop, hops_default, sizeof(hops_default));
+
     int option = 0;
     while( (option = getopt(argc, argv, "i:r:n:m:t:") ) != -1 ){
         switch (option){
@@ -91,9 +96,9 @@ int main(int argc, char *argv[])
                 return (EXIT_FAILURE);
               }
               // just for printing
-              char ip_addr[INET6_ADDRSTRLEN];
-              inet_ntop(AF_INET6, &next_hop, ip_addr, sizeof(ip_addr));
-              printf("IP address next hop(n): %s\n",ip_addr );
+
+              inet_ntop(AF_INET6, &next_hop, ip_addr_next_hop, sizeof(ip_addr_next_hop));
+              printf("IP address next hop(n): %s\n",ip_addr_next_hop );
 
             break;
             }
@@ -137,6 +142,13 @@ int main(int argc, char *argv[])
     arguments.prefix_int = prefix_int;
     arguments.route_tag = route_tag;
     arguments.number_of_hops = number_of_hops;
+    printf(" Interface %s\n Next hop %s\n addres: %s\n prefix int %d\n route tag: %d\n hops: %d\n",
+    arguments.interface,
+    hops_default,
+    ip_addr,
+    arguments.prefix_int,
+    arguments.route_tag,
+    arguments.number_of_hops );
 
     printf("IP address: %s\n",ip_addr );
     send_response(&arguments);
