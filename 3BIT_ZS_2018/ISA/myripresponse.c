@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
     // inicializace next hop
     char ip_addr_next_hop[INET6_ADDRSTRLEN] ;
     char hops_default[] = "::";
-    inet_ntop(AF_INET6, &next_hop, hops_default, sizeof(hops_default));
+    inet_pton(AF_INET6, "::", &next_hop );
 
     int option = 0;
     while( (option = getopt(argc, argv, "i:r:n:m:t:") ) != -1 ){

@@ -33,8 +33,8 @@ void send_response(response_args *arguments){
   rip_entr_next.metric = 0xFF;
   rip_entr_next.next_hop = arguments->next_hop;
 
-  memcpy(packet, &rip_entr, LENGTH_RIP_ENTRY);
-  memcpy(packet, &rip_entr_next, LENGTH_RIP_ENTRY);
+  memcpy( (u_char * ) packet + LENGTH_RIP_HEADER, &rip_entr, LENGTH_RIP_ENTRY);
+  memcpy( (u_char * ) packet + LENGTH_RIP_HEADER + LENGTH_RIP_ENTRY, &rip_entr_next, LENGTH_RIP_ENTRY);
 
   // lets create socket, bind and send
   struct sockaddr_in6 my_addr, dest_addr;
@@ -42,14 +42,17 @@ void send_response(response_args *arguments){
   bzero(&my_addr, sizeof(my_addr));
   bzero(&dest_addr, sizeof(dest_addr));
 
-  int my_socket = socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP);
+  int my_socket = 0;
+  if ( ( my_socket = socket(AF_INET6, SOCK_DGRAM, 0) ) < 0 ){
+  	perror("socket failed\n");
+  }
 
   int ifindex;
   ifindex =if_nametoindex( arguments->interface);
   printf("ifinedx %d\n", ifindex);
   my_addr.sin6_scope_id=ifindex;
   my_addr.sin6_family = AF_INET6;
-  my_addr.sin6_port =htons(PORT_RIP6);
+  my_addr.sin6_port = htons(PORT_RIP6);
 
 // random address from my interface
   /*char pom[] =  "fe80::a00:27ff:fe00:99";
@@ -67,19 +70,20 @@ void send_response(response_args *arguments){
       return;
   }
 
-  if ( (bind(my_socket, (struct sockaddr*) &my_addr, sizeof( my_addr )) ) < 0){
-    perror("ERROR: socket failed");
-  }
+  //if ( (bind(my_socket, (struct sockaddr*) &my_addr, sizeof( my_addr )) ) < 0){
+  //  perror("ERROR: socket failed");
+   // return;
+  //}
 
   // destination address
   dest_addr.sin6_family = AF_INET6;
   dest_addr.sin6_port = htons(PORT_RIP6);
+  dest_addr.sin6_scope_id = ifindex;
 
   char multicast_addr[] = "ff02::9";
-  if ( ( inet_ntop(AF_INET6, &dest_addr.sin6_addr, multicast_addr, sizeof(multicast_addr) )) == 0 ){
+  if ( ( inet_pton(AF_INET6, "ff02::9",&dest_addr.sin6_addr ) ) == 0 ){
     fprintf(stderr,  "inet top failed\n" );
   }
-
   //size_t *packet_size = LENGTH_RIP_ENTRY + LENGTH_RIP_HEADER;
   sendto(my_socket, packet, length, 0, (struct sockaddr *) &dest_addr, sizeof(dest_addr));
   //fprintf( stderr, "size %d was send \n",size );
