@@ -14,9 +14,6 @@
 #include "sniffer_h.h"
 
 // libraries from example.tar /ISA/examples
-
-//#include <pcap.h>
-#include <errno.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netinet/ip.h>
@@ -24,7 +21,6 @@
 #include <netinet/udp.h>
 #include <arpa/inet.h>
 #include <netinet/if_ether.h>
-#include <err.h>
 
 // for Linux
 #include <netinet/ether.h>
@@ -59,9 +55,9 @@ void print_command(int command, char *version_string)
         return;
 
     }
-    printf("\n\t==Routing information protocol==\n");
-    printf("\tCommand: %s\n", command_string);
-    printf("\tVersion: %s\n",version_string );
+    printf("\n\t== Routing information protocol ==\n");
+    printf("\tCommand: %s, ", command_string);
+    printf("Version: %s\n",version_string );
 
 }
 
@@ -94,24 +90,25 @@ void print_header_rip(rip_h *rip_header)
 }
 int ipv4_process( const u_char *packet){
     struct ip *my_ip;
-    const struct udphdr *my_udp;    // pointer to the beginning of UDP header
+    const struct udphdr *my_udp;  // pointer to UDP header
 
     u_int size_ip;
     rip_h *rip_header;
     rip_entry *rip_entr;
 
-    my_ip = (struct ip*) (packet+SIZE_ETHERNET);        // skip Ethernet header
-    size_ip = my_ip->ip_hl*4;                           // length of IP header
+    my_ip = (struct ip*) (packet+SIZE_ETHERNET);
+    size_ip = my_ip->ip_hl*4;   //ip header
 
-    printf("\tIP: id 0x%x, hlen %d bytes, version %d, total length %d bytes, TTL %d\n",ntohs(my_ip->ip_id),size_ip,my_ip->ip_v,ntohs(my_ip->ip_len),my_ip->ip_ttl);
+    //printf("\tIP: id 0x%x, hlen %d bytes, version %d, total length %d bytes, TTL %d\n",ntohs(my_ip->ip_id),size_ip,my_ip->ip_v,ntohs(my_ip->ip_len),my_ip->ip_ttl);
+    printf("\tIP: version %d, total length %d bytes, TTL %d\n",my_ip->ip_v,ntohs(my_ip->ip_len),my_ip->ip_ttl);
     printf("\tIP src = %s, ",inet_ntoa(my_ip->ip_src));
     printf("IP dst = %s",inet_ntoa(my_ip->ip_dst));
 
     printf(", protocol UDP (%d)\n",my_ip->ip_p);
 
-    my_udp = (struct udphdr *) (packet+SIZE_ETHERNET+size_ip); // pointer to the UDP header
+    my_udp = (struct udphdr *) (packet+SIZE_ETHERNET+size_ip);
 
-    printf("\tSrc port = %d, dst port = %d, length %d\n",ntohs(my_udp->uh_sport), ntohs(my_udp->uh_dport), ntohs(my_udp->uh_ulen));
+    //printf("\tSrc port = %d, dst port = %d, length %d\n",ntohs(my_udp->uh_sport), ntohs(my_udp->uh_dport), ntohs(my_udp->uh_ulen));
 
     rip_header = (rip_h *) (packet + SIZE_ETHERNET + size_ip + UDP_LENGTH_HEADER);
 
@@ -124,7 +121,6 @@ int ipv4_process( const u_char *packet){
     printf("\tRip length: %d\n", rip_length);
 
     // get all entries
-
     for(int rip_bytes = LENGTH_RIP_ENTRY; rip_bytes < rip_length; rip_bytes = rip_bytes+LENGTH_RIP_ENTRY )
     {
         if ( rip_entr->family_identif == 0XFFFF )
@@ -193,7 +189,7 @@ int ipv6_process(const u_char *packet){
     ripng_entry *ripng_entr;
 
     my_udp = (struct udphdr *) (packet+SIZE_ETHERNET+LENGTH_IPV6_HEADER);
-    printf("\tSrc port = %d, dst port = %d, length %d\n",ntohs(my_udp->uh_sport), ntohs(my_udp->uh_dport), ntohs(my_udp->uh_ulen));
+    //printf("\tSrc port = %d, dst port = %d, length %d\n",ntohs(my_udp->uh_sport), ntohs(my_udp->uh_dport), ntohs(my_udp->uh_ulen));
 
     rip_header = (rip_h *)(packet + SIZE_ETHERNET + LENGTH_IPV6_HEADER + UDP_LENGTH_HEADER);
 

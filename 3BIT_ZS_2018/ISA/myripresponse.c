@@ -1,14 +1,14 @@
 /**
 * myripresponse.c
-* @brief
+* @brief main file for rip response, process all arguments
 * @author Alena Tesarova, xtesar36@stud.fit.vutbr.cz
 * @date 20.11.2018
 * project ISA 2018
 */
 
-
 #include "response.h"
 
+// maximum route tag
 #define MAX_ROUTE_TAG 65535
 
 void errorMessage()
@@ -24,24 +24,22 @@ void errorMessage()
 int main(int argc, char *argv[])
 {
     char *interface = NULL; //-i
-  //  char *addr_pom = NULL;
 
     struct in6_addr addr; //-r
     int prefix_int = 0;
 
     struct in6_addr next_hop; //-n
-    //next_hop.s6_addr = { 0 };
 
     int route_tag = 0; //-t
     int number_of_hops = 1; //-m
 
     // end of string in conversion to integer
     char *pEnd = NULL;
+
+    // structure to save all arguments
     response_args arguments;
 
     // inicializace next hop
-    char ip_addr_next_hop[INET6_ADDRSTRLEN] ;
-    char hops_default[] = "::";
     inet_pton(AF_INET6, "::", &next_hop );
 
     int option = 0;
@@ -50,7 +48,6 @@ int main(int argc, char *argv[])
           case 'i':
           {
             interface = optarg;
-            printf("Interface is: %s\n",interface );
             break;
           }
           case 'r':
@@ -62,30 +59,25 @@ int main(int argc, char *argv[])
               fprintf(stderr, "Invalid IP address");
               return (EXIT_FAILURE);
             }
+
             if (! inet_pton( AF_INET6, addr_pom, &addr) ){
               fprintf(stderr, "Invalid IP address");
               return (EXIT_FAILURE);
             }
 
-
-
+            // address prefix
             char * prefix = strtok(NULL, "/");
-
 
             if (prefix == NULL  ){
               fprintf(stderr, "Invalid mask");
               return (EXIT_FAILURE);
             }
-
+            // get int from char
             prefix_int = strtol(prefix, NULL, 0);
             if ( prefix_int == 0 || prefix_int < 16 || prefix_int > 128 ){
               fprintf(stderr, "Invalid mask");
               return (EXIT_FAILURE);
             }
-            printf("Prefix is: %d\n", prefix_int);
-
-            // need to convert prefix to address
-            printf("r: %s\n",optarg );
             break;
           }
           case 'n':
@@ -95,23 +87,19 @@ int main(int argc, char *argv[])
                 fprintf(stderr, "Invalid next hop address");
                 return (EXIT_FAILURE);
               }
-              // just for printing
-
-              inet_ntop(AF_INET6, &next_hop, ip_addr_next_hop, sizeof(ip_addr_next_hop));
-              printf("IP address next hop(n): %s\n",ip_addr_next_hop );
 
             break;
             }
           case 'm':
             {
-
+              // get int from char
               number_of_hops = strtol(optarg, &pEnd, 0);
-
+              //controls
               if ( *pEnd != '\0' || number_of_hops < 0 || number_of_hops > 16 ){
                 fprintf(stderr, "Invalid parametr -m, must be a number from 0-16\n");
                 return (EXIT_FAILURE);
               }
-              printf("m: %d\n",number_of_hops );
+
               break;
           }
           case 't':
@@ -127,30 +115,15 @@ int main(int argc, char *argv[])
           }
         }
     }
-
-    // just for printing, will be deleted
-    char ip_addr[INET6_ADDRSTRLEN];
-    if ( interface == NULL || prefix_int == 0 || ( inet_ntop(AF_INET6, &addr, ip_addr, sizeof(ip_addr) ) == NULL ) )
-    {
-        errorMessage();
-        exit(EXIT_FAILURE);
-    }
+    // save to structure
     strcpy( arguments.interface, interface );
     arguments.next_hop = next_hop;
     arguments.addr = addr;
-
     arguments.prefix_int = prefix_int;
     arguments.route_tag = route_tag;
     arguments.number_of_hops = number_of_hops;
-    printf(" Interface %s\n Next hop %s\n addres: %s\n prefix int %d\n route tag: %d\n hops: %d\n",
-    arguments.interface,
-    hops_default,
-    ip_addr,
-    arguments.prefix_int,
-    arguments.route_tag,
-    arguments.number_of_hops );
 
-    printf("IP address: %s\n",ip_addr );
+    // send packet
     send_response(&arguments);
 
 }

@@ -18,8 +18,8 @@
 
 using namespace std;
 
-// RIP constant
-/* ethernet headers are always exactly 14 bytes */
+// RIP constants
+/* ethernet headers 14 bytes */
 #define SIZE_ETHERNET 14
 #define ETHER_ADDR_LEN 6
 #define UDP_LENGTH_HEADER 8
@@ -90,10 +90,11 @@ typedef struct ripv2_auth
     rip_entry auth;
 } ripv2_auth;
 
+/*************************** response headers ************************************/
 typedef struct ripng_entry{
 
     struct in6_addr prefix;
-    uint16_t route_tag; // if set number of the autonomous system from whucg the router were learned
+    uint16_t route_tag; // if set number of the autonomous system from which the router were learned
     uint8_t prefixLength;
     uint8_t metric;
 }ripng_entry;
@@ -101,7 +102,7 @@ typedef struct ripng_entry{
 typedef struct ripng_entry_next{
 
     struct in6_addr next_hop;
-    uint16_t route_tag; // if set number of the autonomous system from whucg the router were learned
+    uint16_t route_tag;
     uint8_t prefixLength;
     uint8_t metric;
 }ripng_entry_next;

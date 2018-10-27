@@ -2,8 +2,8 @@
 #include <net/if.h> // if_nametoindex
 
 //-- RIP RESPONSE ---//
-#define SIZE 20
 
+#define SIZE 20 // interface size
 
 typedef struct response_args{
   char interface[SIZE]; //-i
