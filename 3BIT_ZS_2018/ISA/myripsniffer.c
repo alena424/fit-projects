@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
     handle = pcap_open_live(interface, BUFSIZ, 1, 1000, errbuf);
     if (handle == NULL)
     {
-        fprintf(stderr, "Couldn't open interfaceice %s: %s\n", interface, errbuf);
+        fprintf(stderr, "Couldn't open interface %s: %s\n", interface, errbuf);
         return(EXIT_FAILURE);
     }
 
@@ -71,11 +71,9 @@ int main(int argc, char *argv[])
         return(EXIT_FAILURE);
     }
 
-    /* Grab a packet */
     // 0 - immense loop
     pcap_loop(handle, 0, print_packet, NULL);
 
-    /* And close the session */
     pcap_close(handle);
     return 0;
 }

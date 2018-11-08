@@ -69,6 +69,7 @@ void send_response(response_args *arguments){
       return;
   }
   int hop = 255;
+  // allows the hop limit for subsequent multicast datagrams to be set to any value from 0 to 255 -> we want maximum
   if ( setsockopt(my_socket, IPPROTO_IPV6, IPV6_MULTICAST_HOPS,&hop,sizeof(hop) ) < 0){
       perror("Setsockopthop  failed\n");
       return;
@@ -84,6 +85,7 @@ void send_response(response_args *arguments){
   dest_addr.sin6_port = htons(PORT_RIP6);
   dest_addr.sin6_scope_id = ifindex;
 
+    // link local scope f02::9
   if ( ( inet_pton(AF_INET6, "ff02::9",&dest_addr.sin6_addr ) ) == 0 ){
     fprintf(stderr,  "inet top failed\n" );
   }
