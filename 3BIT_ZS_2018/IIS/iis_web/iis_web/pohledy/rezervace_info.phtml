@@ -1,0 +1,56 @@
+<?php
+include 'functions/formular.php';
+include 'functions/datum.php';
+?>
+<div class="container-fluid zobraz_table cerny_box">
+
+    <h2>Rezervace číslo <?= $identifikator ?></h2>
+    <br>
+    <form>
+        <?php
+         
+            if (isset($id)) {
+                $formular['jmeno'] = array('name' => 'Jméno', 'type' => 'text', 'force' => 1, 'value' => $jmeno);
+                $formular['telefon'] = array('name' => 'Kontakt', 'type' => 'tel', 'force' => 1, 'value' => $telefon);
+                $formular['datum'] = array('name' => 'Datum', 'type' => 'date', 'force' => 1, 'value' => vratDatum($datum, 0));
+                $formular['cas'] = array('name' => 'Čas', 'type' => 'time', 'force' => 1, 'value' => $cas);
+                $formular['doba'] = array('name' => 'Doba', 'type' => 'number', 'force' => 1, 'value' => $doba );
+                if ($stoly) {
+                    $formular['stoly'] = array('name' => 'Stoly', 'type' => 'text', 'multiple' => 1, 'delimiter' => ', ', 'force' => 1, 'value' => $stoly);
+                }
+               // print_r($vysledek);
+                $jidlo = array();
+                $piti2 = array();
+                $poc = 0;
+                foreach ($objednavky as $value) {
+                    $jidlo[$poc][ nazev] = $value['nazev'];
+                    $jidlo[$poc][ cena] = $value['cena'] . ' Kč';
+                   // $jidlo[$poc][ porci] = $value['porci'] . ' porce';
+                    $poc++;
+                }
+                $poc = 0;
+                foreach ($piti as $value) {
+                    $piti2[$poc][ nazev] = $value['nazev'];
+                    $piti2[$poc][ cena] = $value['cena'] . ' Kč';
+                    //$piti2[$poc][ porci] = $value['porci'] . ' porce';
+                    $poc++;
+                }
+                if ($objednavky) {
+                    $formular['objednavky'] = array('name' => 'Objednávky', 'multiple' => 2, 'delimiter' => '<br>', 'type' => 'text', 'force' => 1, 'value' => $jidlo);
+                }
+                if ($piti) {
+                    $formular['piti'] = array('name' => 'Pití', 'multiple' => 2, 'delimiter' => '<br>', 'type' => 'text', 'force' => 1, 'value' => $piti2);
+                }
+
+                zobrazFormular($formular);
+            }
+         
+        ?>
+    </form>
+    <hr>
+    Výsledná cena: <label class='vysledek_th'><?= $celkova_cena .' Kč'?></label>
+    <div class="upozorneni">
+        Pro zrušení rezervace, zavolejte personál na čísle +420 235 604 502
+    </div>
+
+</div>

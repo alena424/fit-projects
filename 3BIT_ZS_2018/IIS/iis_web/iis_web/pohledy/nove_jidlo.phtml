@@ -1,0 +1,40 @@
+<div class="cerny_box">
+    <h2>Nové jídlo</h2>
+    <?php
+// budou tuky, bilkovy povinne?? TODO
+// musi tam byt nejaka surovina?
+    // a co expirace?
+
+    include 'functions/formular.php';
+    $formular['nazev'] = array('name' => 'Název', 'type' => 'text', 'force' => 1, 'value' => $nazev);
+    $formular['cena'] = array('name' => 'Cena', 'type' => 'number', 'force' => 1, 'value' => $cena, 'addition' => '[Kč]');
+    $formular['pocet_porci'] = array('name' => 'Počet porcí', 'type' => 'number', 'force' => 1, 'value' => $pocet_porci, 'addition' => '[Kus]');
+    $formular['energie'] = array('name' => 'Energie', 'type' => 'number', 'force' => 1, 'value' => $energie, 'addition' => '[Kal]');
+    $formular['tuky'] = array('name' => 'Tuky', 'type' => 'number', 'force' => 1, 'value' => $tuky, 'addition' => '[g]');
+    $formular['mnozstvi_sacharidu'] = array('name' => 'Sacharidy', 'type' => 'number', 'force' => 1, 'value' => $mnozstvi_sacharidu, 'addition' => '[g]');
+    $formular['bilkoviny'] = array('name' => 'Bílkoviny', 'type' => 'number', 'force' => 1, 'value' => $bilkoviny, 'addition' => '[g]' );
+    $formular['pribor'] = array('name' => 'Příbor', 'type' => 'text', 'force' => 1, 'value' => $pribor);
+
+    #$formular['suroviny'] = array('name' => 'Suroviny', 'type' => 'popup', 'multiple' => 1, 'popup' => $surovina_pop, 'force' => 1, 'value' => array(1, 1, 2) );
+    $formular['surovina'] = array( 'addition' => ' g', 'name' => 'Surovina', 'type' => 'popup', 'multiple' => 1, 'force' => 0, 'value' => $value['surovina_mnozstvi'], 'popup' => $surovina_pop, 'amount' => 1);
+
+       
+    //$formular['typ_sklenice'] = array('name' => 'Příbor', 'type' => 'text', 'force' => 1, 'value' => $typ_sklenice);
+    $formular['expirace'] = array('name' => 'Expirace', 'type' => 'date', 'force' => 1, 'value' => $expirace );
+
+    $info['buttons'] = array(
+        // array(value => "Zrušit rezervaci", name => 'zrus_rezervaci'),
+        array(value => "Uložit jídlo", name => 'uloz_jidlo')
+    );
+    $info['hiddens'] = array(
+        array(value => $_GET['nove_jidlo'], name => 'nove_jidlo'),
+    );
+
+    $info['cols'] = 1;
+    addFormular($formular, $info);
+    ?>
+    <br>
+    <a href="jidelni-listek">Zpět na jídelní lístek</a>
+
+</div>
+

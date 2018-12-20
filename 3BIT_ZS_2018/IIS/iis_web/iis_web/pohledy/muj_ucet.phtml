@@ -1,0 +1,44 @@
+<?php
+include 'functions/formular.php';
+?>
+<div class="container-fluid zobraz_table cerny_box">
+
+    <h2>Můj účet</h2>
+    <br>
+    <form method="POST">
+        <?php
+        $formular['jmeno'] = array('name' => 'Jméno', 'type' => 'text', 'force' => 1, 'value' => $jmeno );
+        $formular['rodne_cislo'] = array('name' => 'Rodné číslo', 'type' => 'text', 'force' => 1, 'value' => $rodne_cislo );
+        $formular['adresa'] = array('name' => 'Adresa', 'type' => 'text', 'force' => 1, 'value' => $adresa );
+        $formular['pozice'] = array('name' => 'Pozice', 'type' => 'text', 'force' => 1, 'value' => $pozice );
+       
+        zobrazFormular($formular);
+        ?>
+    </form>
+    <hr>
+    <h2>Změna hesla</h2>
+    <br>
+    
+    <?php
+    
+        $formularHeslo['stare_heslo'] = array('name' => 'Staré heslo', 'type' => 'password', 'force' => 1, 'value' => $stare_heslo );
+        $formularHeslo['nove_heslo'] = array('name' => 'Nové heslo', 'type' => 'password', 'force' => 1, 'value' => $nove_heslo );
+        $formularHeslo['kontrolni_heslo'] = array('name' => 'Zopakujte nové heslo', 'type' => 'password', 'force' => 1, 'value' => $kontrolni_heslo );
+
+        $info['buttons'] = array(
+            // array(value => "Zrušit rezervaci", name => 'zrus_rezervaci'),
+            array(value => "Uložit nové heslo", name => 'uloz_heslo')
+        );
+
+        $info['cols'] = 1;
+        $info['method'] = "POST";
+        addFormular($formularHeslo, $info);
+    ?>
+
+    <hr>
+    <div class="upozorneni">
+       <a href="signout">odhlásit se</a>
+    </div>
+
+</div>
+

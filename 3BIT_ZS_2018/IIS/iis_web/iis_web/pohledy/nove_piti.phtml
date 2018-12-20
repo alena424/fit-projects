@@ -1,0 +1,33 @@
+<div class="cerny_box">
+    <h2>Nový nápoj</h2>
+    <?php
+// budou tuky, bilkovy povinne?? TODO
+
+    include 'functions/formular.php';
+    $formular['nazev'] = array('name' => 'Název', 'type' => 'text', 'force' => 1, 'value' => $nazev);
+    $formular['cena'] = array('name' => 'Cena', 'type' => 'number', 'force' => 1, 'value' => $cena, 'addition' => ' Kč');
+    $formular['pocet_porci'] = array('name' => 'Počet porcí', 'type' => 'number', 'force' => 1, 'value' => $pocet_porci, 'addition' => ' Ks');
+    $formular['tuky'] = array('name' => 'Tuky', 'type' => 'number', 'force' => 1, 'value' => $tuky, 'addition' => ' g');
+    $formular['mnozstvi_sacharidu'] = array('name' => 'Sacharidy', 'type' => 'number', 'force' => 1, 'value' => $mnozstvi_sacharidu, 'addition' => ' g');
+    $formular['bilkoviny'] = array('name' => 'Bílkoviny', 'type' => 'number', 'force' => 1, 'value' => $bilkoviny, 'addition' => ' g');
+    //$formular['pribor'] = array('name' => 'Příbor', 'type' => 'text', 'force' => 1, 'value' => $pribor);
+    $formular['energie'] = array( 'name' => 'Energie', 'addition' => ' Kal', 'type' => 'number', 'force' => 1, 'value' => $energie);
+    $formular['typ_sklenice'] = array('name' => 'Typ sklenice', 'type' => 'text', 'force' => 1, 'value' => $typ_sklenice);
+    $formular['expirace'] = array('name' => 'Expirace', 'type' => 'date', 'force' => 1, 'value' => $expirace);
+
+    $info['buttons'] = array(
+        // array(value => "Zrušit rezervaci", name => 'zrus_rezervaci'),
+        array(value => "Uložit pití", name => 'uloz_piti')
+    );
+    $info['hiddens'] = array(
+        array(value => $_GET['nove_piti'], name => 'nove_piti'),
+    );
+
+    $info['cols'] = 1;
+    addFormular($formular, $info);
+    ?>
+     <br>
+    <a href="jidelni-listek">Zpět na jídelní lístek</a>
+
+</div>
+

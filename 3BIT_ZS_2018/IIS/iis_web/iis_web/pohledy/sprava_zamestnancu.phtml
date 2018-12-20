@@ -1,0 +1,77 @@
+<?php
+include 'functions/formular.php';
+?>
+
+<div class="container-fluid cerny_box">
+    <form method="GET">
+        <h2>Správa zaměstnanců&emsp;
+
+            <button name="novy_zamestnanec" value="1" class = "red_but"> NOVÝ</button>
+        </h2>
+    </form>
+
+    <?php
+    $data['prijmeni'] = array('name' => 'Přijmení', 'type' => 'text','value' => $params['prijmeni'][0]);
+    $data['pozice'] = array('name' => 'Pozice', 'type' => 'popup', 'force' => 0, 'popup' => $pozice_pop, 'value' => $params['pozice'][0]);
+    $info['buttons'] = array(
+        array(value => "Hledej", name => 'hledej'),
+        array(value => "Hledej vše", name => 'hledej_vse')
+    );
+    addFormular($data, $info);
+    ?>
+
+    <br>
+    <hr>
+    <?php
+    if (isset($vysledek) && !empty($vysledek)) {
+        ?>
+        <h3>Nalezené výsledky:</h3>
+        <div class="nalezene_vysledky">
+            <?php
+            foreach ($vysledek as $value) {
+                //print_r($value);
+                $formular['jmeno'] = array('name' => 'Jméno', 'type' => 'text', 'force' => 1, 'value' => $value['jmeno']);
+                $formular['adresa'] = array('name' => 'Adresa', 'type' => 'text', 'force' => 1, 'value' => $value['adresa']);
+
+                $formular['login'] = array('name' => 'Login', 'type' => 'text', 'force' => 1, 'value' => $value['login']);
+
+                $formular['pozice_uziv'] = array('name' => 'Pozice', 'type' => 'popup', 'force' => 1, 'value' => $value['pozice_uziv'], 'popup' => $pozice_pop);
+
+                $formular['prijmeni_uziv'] = array('name' => 'Přijmení', 'type' => 'text', 'force' => 1, 'value' => $value['prijmeni_uziv']);
+                $formular['rodne_cislo'] = array('name' => 'Rodné číslo', 'type' => 'text', 'force' => 1, 'value' => $value['rodne_cislo']);
+                
+                $formular['zmenit_heslo'] = array('name' => 'Změnit heslo', 'type' => 'password', 'force' => 0, 'value' => '');
+
+
+                $info['buttons'] = array(
+                    array(value => "Zrušit uživatele", name => 'zrus_uziv'),
+                    array(value => "Uložit uživatele", name => 'uloz_uziv')
+                );
+                $info['hiddens'] = array(
+                    array(value => $_GET['hledej_vse'], name => 'hledej_vse'),
+                    array(value => $_GET['hledej'], name => 'hledej'),
+                    array(value => $_GET['prijmeni'], name => 'prijmeni'),
+                    array(value => $_GET['pozice'], name => 'pozice'),
+                    array(value => $value['id_uziv'], name => 'id'),
+                );
+                $info['cols'] = 2;
+                ?>
+
+                <?= addFormular($formular, $info); ?>
+                <div class="col-lg-12">
+                    <hr><br>
+                </div>
+                <?php
+                $hidden_params = array('hledej_vse', 'hledej', 'datum', 'prijmeni');
+                foreach ($hidden_params as $value) {
+                    if (isset($_GET[$value])) {
+                        echo "<input type='hidden' name='hledej_vse' value=" . $_GET[$value] . " />";
+                    }
+                }
+            }
+        }
+        ?>
+    </div>
+
+    &emsp;
+</div>

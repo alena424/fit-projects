@@ -1,0 +1,40 @@
+<?php include 'functions/formular.php';
+?>
+
+
+<div class="py-5 text-center" >
+    <div class="container">
+        <div class="row">
+            <div class="mx-auto col-md-6 col-10 bg-white p-5">
+                <h1 class="mb-4">Přihlásit se</h1>
+                <form method="POST">
+                    <div class="form-group"> <input required type="text" class="form-control" placeholder="Login" id="lgin" name="login"> </div>
+                    <div class="form-group mb-3"> <input required type="password" class="form-control" placeholder="Heslo" id="heslo" name="heslo"> <small class="form-text text-muted text-right">
+                            <a href="login">Zapoměli jste heslo?</a>
+                        </small> </div> <button type="submit" class="btn btn-primary">Přihlásit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--
+<div class="container-fluid cerny_box">
+    <h2>Přihlásit se</h2>
+
+
+    <?php
+    echo htmlspecialchars_decode($zpravy);
+
+    //print_r($zpravy);
+    $data['login'] = array('name' => 'Login', 'type' => 'text', 'force' => 1);
+    $data['heslo'] = array('name' => 'Heslo', 'type' => 'password', 'force' => 1);
+    $info['buttons'] = array(
+        array(value => "Přihlásit se", name => 'prihlasit se'),
+    );
+    $info['method'] = 'POST';
+    //addFormular($data, $info);
+    ?>
+
+    &nbsp;
+</div>
+-->

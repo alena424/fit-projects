@@ -1,0 +1,325 @@
+body {
+
+    background: url( img/foto.jpg) no-repeat center center fixed;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)) no-repeat center center fixed, url( img/foto.jpg) no-repeat center center fixed;;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+
+    background-size: cover;
+    margin: 0px auto;
+
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 17px
+}
+
+.menu{
+    height: 65px; 
+    background: rgba(255, 245, 157, 0.6);
+}
+.menu li a{
+    color: white;
+}
+.logo{
+    padding-right: 30px;
+}
+.img_logo{
+    height: 40px;
+    margin-left: 10px;
+}
+.navbar-right{
+    margin-right: 0px;
+
+}
+.my_input_form{
+    background: rgba(0, 0, 0, 0.1) !important;
+    border: 0;
+    margin-left: 5px;
+    width: 245px;
+    border-bottom: 1px solid white;
+    color: white;
+    border-radius: 0px;
+
+}
+.form-control{
+    display: inline-block;
+}
+.input_small{
+    width: 45px;
+}
+.checkbox2{
+    background: linear-gradient(180deg, #661919 0%, #EF0808 29.83%, #010101 100%) ! important;
+
+    box-shadow: 4px 0px 0px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 15px;
+    border: 0px;
+    color: white;
+    max-width: 150px; 
+}
+.checkbox_custom{
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+/* Hide the browser's default checkbox */
+.checkbox_custom input{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0; 
+}
+.modal-body, .modal-title {
+    color: black;
+}
+
+.modal-title{
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox_custom:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox_custom input:checked ~ .checkmark {
+    background-color: #30C5FF;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+.neni_videt{
+    display: none;
+}
+.neni_videt_ale_je{
+    visibility: hidden;
+}
+
+/* Show the checkmark when checked */
+.checkbox_custom input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox_custom .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.checkbox input[type="checkbox"]{
+    margin-left: -5px;
+    width: 40px;
+}
+
+.nezauctovane_obj{
+    max-width: 750px;
+    padding-top: 40px;
+}
+.stoly_vyber{
+    min-width: 500px;
+}
+.force{
+    border-bottom: 1px solid red;
+
+}
+input, #id_rezervace{
+    color: white;
+}
+
+.plusBtn, .removeBtn{
+    margin-left: 10px;
+}
+
+
+.first_info{
+    background: rgba(224, 224, 224, 0.2);
+    margin: 20px;
+    padding: 20px;
+}
+.text_info{
+    color: white;
+    text-align: center;
+    width: 600px;
+    margin: 0px auto;
+}
+.vetsi_pismo{
+    font-size: 24px;
+}
+.stredni_pismo{
+    font-size: 18px;
+}
+.butt_padding{
+    padding: 5px;
+}
+.nalezene_vysledky{
+    margin-left: 30px;
+}
+.uisbox_radky_tabulka{
+    color: #CF4D6F;
+}
+.uisbox_radky_tabulka input{
+     color: black;
+}
+.red_but_small{
+    background: linear-gradient(180deg, #661919 0%, #661919 0.01%, #EF0808 100%);
+    background: #B31D1D;
+    background: #CF4D6F;
+    box-shadow: 4px 0px 0px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+    padding: 10px 20px;
+    font-size: 15px;
+    border: 0px;
+    color: white;
+}
+.red_but{
+    background: linear-gradient(180deg, #661919 0%, #661919 0.01%, #EF0808 100%);
+    background: #B31D1D;
+    background: #CF4D6F;
+    box-shadow: 4px 0px 0px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+    padding: 10px 20px;
+    font-size: 20px;
+    border: 0px;
+    color: white;
+
+}
+.navbar{
+    margin: 0px;
+    padding: 0px;
+}
+.cerny_box{
+    background: rgba(0, 0, 0, 0.8);
+    padding: 50px;
+    padding-bottom: 150px;
+
+    margin-top: 0px;
+    color: white;
+    margin-bottom: 0;
+}
+.info-pod{
+    font-size: 20px;
+    color: #FCECDA;
+    text-align: center;
+    padding-top: 8px;
+}
+
+.vypis_ko_div{
+    background-color: #AA2828;
+
+}
+
+.vypis_ok_div{
+    background-color: #17954C;
+}
+.zobraz_table th{
+    color: white;
+    margin: 10px;
+    margin-top: 0;
+}
+
+.vysledek_th {
+    color: #F2C94C !important; 
+
+}
+.popup{
+    max-width: 300px;
+    color: black;
+}
+.nav > li > a{
+    height: 65px;
+    padding-top: 20px;
+    /*background-color: rgba(255, 245, 157, 0.6);*/
+}
+
+.upozorneni{
+    margin-top: 50px;
+    color: #2D9CDB;
+}
+.zprava_ok{
+    margin-top: 50px;
+    color: #27AE60;
+}
+.zprava_ko{
+
+    color: #EB5757;
+    padding: 5px;
+}
+.nav > li > a:focus, .nav > li > a:hover, .nav > li > a:focus, .active {
+    background-color: #661919;
+}
+table{
+    width: 100%;
+}
+th{
+    padding-left: 25px; 
+    padding-bottom: 20px;
+    text-align: left;
+
+}
+.headers th{
+    padding-left: 0; 
+    padding-bottom: 0; 
+    vertical-align: middle;
+    color: #56CCF2;
+}
+
+.no_limits{
+    margin: 0;
+    padding: 0;
+}
+
+tr:nth-child(even) {color: #30C5FF;}
+tr:nth-child(odd) {color: white}
+tr.body_table:hover{
+    background: rgba(102, 25, 25, 0.5);
+}
+
+
+
+.stred{
+    text-align: center;
+}
+.obracene{
+    color: rgba(242, 242, 242, 0.3);
+
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transform: matrix(1, 0, 0, -1, 0, 0);
+}
+@media only screen and (min-width: 401px) and (max-width: 750px) {
+    .nav > li > a{
+        background-color: black;
+    }
+}

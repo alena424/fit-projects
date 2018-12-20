@@ -1,0 +1,243 @@
+<?php
+// formular uz v sobe ma iis.php !!!
+include 'functions/formular.php';
+
+include 'functions/objednavka.php';
+include 'functions/datum.php';
+?>
+
+<div class="container-fluid cerny_box">
+    <form method="GET">
+        <h2>Správa objednávek &emsp;
+            <button name="nova_objednavka" value="1" class = "red_but" data-toggle="tooltip" data-placement="top" title="Založit novou objednávku"> NOVÁ</button>
+        </h2>
+        <h3 >Nezaúčtované objednávky</h3>
+
+        <br>
+
+        <div class="stoly_vyber col-lg-12">
+
+
+
+
+            <?php
+            $pocet_stolu = count($stoly_pop);
+            foreach ($stoly_pop as $id => $stul) {
+                // todo pridat do checked hodnotu z parametru
+                if (isset($params['stoly']) && in_array($id, $params['stoly'])) {
+                    $checked = 1;
+                } else {
+                    $checked = 0;
+                }
+                echo "<div class='col-lg-3'>";
+                //echo "<button name='stoly' value=$id class='red_but_small'>" . checkbox(array('name' => 'stoly', 'value' => $id, 'label' => $stul, 'checked' => $checked)) . "</button>";
+                add_checkbox(array('name' => 'stoly', 'value' => $id, 'label' => $stul, 'checked' => $checked));
+
+                echo "&emsp;";
+                echo "</div>";
+            }
+
+
+            echo "<button class='red_but_small' name='ok', value='1' data-toggle='tooltip' data-placement='top' title='Zobrazit objednávky'>OK</button>";
+            echo "</form>";
+
+
+            echo '</div>';
+
+            if ($params['ok']) {
+
+                echo "<div class='nezauctovane_obj'>";
+
+                $data['data'] = array();
+                //print_r($vysledek);
+                $data['delete'] = 1;
+                $data['save'] = 1;
+                //$data['delete_upresneni'] = 'jidlo'; // chceme pridat podminku na mazani, kde budeme brat i jidlo
+
+                $data['class_tr'] = 'tr_small';
+                $data['url'] = 'objednavky';
+
+                $saved_key = $vysledek[0]['id'];
+                //print_r('saved ' . $saved_key . ' ');
+                foreach ($vysledek as $j) {
+                    if ($saved_key != $j['id']) {
+
+                        print_r('<br>------ Objednávka číslo ' . $saved_key . $j['stul'] . ' ---------');
+                        upravTabulka($data);
+                        echo "<br>";
+                        novaPotravina($saved_key, $piti_pop, $jidlo_pop, $stoly_pop, $j['id_stul'], 1);
+                        echo "<br>";
+                        echo "<br>";
+
+
+                        $data['data'] = array();
+                    }
+                    //print_r($j);
+
+                    array_push($data['data'], array(
+                        //array('name' => 'jidlo', 'id' => $j['id_obsahuje'], 'align' => 'center', 'type' => 'checkbox'),
+                        array('name' => $j['jidlo'], 'id' => $j['id_obsahuje'], 'align' => 'left'),
+                        array('name' => vratDatum($j['vlozeno']), 'id' => $j['id_obsahuje'], 'align' => 'left'),
+                       
+                        array('name' => $j['cena'] . ' Kč', 'id' => $j['id_obsahuje'], 'align' => 'center'),
+                        array('name' => $j['mnozstvi'],  'id' => $j['id_obsahuje'], 'align' => 'center', 'type' => 'number', 'name_identif' => 'pocet_porci', 'class' => 'input_small', 'addition' => 'Ks'),
+                        //$j['pribor'] ? ( array('checked' => $j['detska_porce'], 'name' => 1, 'addition' => ' dětská', 'id' => $j['id_obsahuje'], 'align' => 'center', 'type' => 'checkbox', 'name_identif' => 'detska') ) : array(),
+                    ));
+                    $saved_key = $j['id'];
+                }
+                print_r('<br><br>------ Objednávka číslo ' . $saved_key . $j['stul'] . ' ---------');
+                upravTabulka($data);
+                echo "<br>";
+
+                novaPotravina($saved_key, $piti_pop, $jidlo_pop, $stoly_pop);
+
+
+
+                echo "</div>";
+            }
+            ?>
+
+
+            <br>
+            <br>
+            <?php
+                if ( $zobraz_historii ) {
+            ?>
+            <h3 style="clear: both">Historie zaúčtovaných objednávek</h3>
+            <form method="GET" class='form-horizontal'>
+                <?php
+                $dnes = date("Y-m-d");
+                //print_r($params);
+                $data2['datum_od'] = array('name' => 'Odkdy', 'type' => 'date', 'value' => $params['datum_od'] ? $params['datum_od'][0] : $dnes);
+                $data2['datum_do'] = array('name' => 'Dokdy', 'type' => 'date', 'value' => $params['datum_do'] ? $params['datum_do'][0] : $dnes);
+
+                $info['buttons'] = array(
+                    array(value => "Hledej", name => 'hledej'),
+                    array(value => "Hledej vše", name => 'hledej_vse')
+                );
+                $info['no_form'] = 1;
+                addFormular($data2, $info);
+                ?>
+
+
+
+            </form>
+            <br>
+            <hr>
+            <?php
+            if (isset($vysledek_historie) && !empty($vysledek_historie)) {
+                ?>
+                <h3>Nalezené výsledky:</h3>
+                <div class="nalezene_vysledky">
+                    <?php
+                    $data['data'] = array();
+                    //print_r($vysledek_historie);
+                    $data['delete'] = 1;
+                    $data['save'] = 1;
+                    //$data['delete_upresneni'] = 'jidlo'; // chceme pridat podminku na mazani, kde budeme brat i jidlo
+
+                    $data['class_tr'] = 'tr_small';
+                    $data['url'] = 'objednavky';
+
+                    $saved_key = $vysledek_historie[0]['id_objednavka'];
+
+                    $cena_celkem = 0;
+                    foreach ($vysledek_historie as $j) {
+                        //if ($saved_key != $j['id_objednavka']) {
+
+                            // print_r('<br>------ Objednávka číslo ' . $saved_key . $j['id_stul'] . ' ---------');
+                            //upravTabulka($data);
+                            //$data['data'] = array();
+                        //}
+                       // pozn: tohle ID jeste neni opravene za id_obsahuje
+                        //
+                       // print_r($j);
+                        $cena_celkem += $j['cena'] * $j['mnozstvi'];
+                        array_push($data['data'], array(
+                            // array('name' => 'jidlo', 'id' => $j['id_objednavka'], 'jidlo' => $j['id_jidlo'], 'align' => 'center', 'type' => 'checkbox'),
+                            array('name' => $j['nazev'] . ' (účet č. ' . $j['id_ucet'] . ')', 'id' => $j['id_obsahuje_potravina'], 'jidlo' => $j['id_jidlo'], 'align' => 'left'),
+                            array('name' => vratDatum($j['vlozeno']), 'id' => $j['id_obsahuje_potravina'], 'jidlo' => $j['id_jidlo'], 'align' => 'left'),
+                            //array('name' => $j['patri_rezervace'], 'jidlo' => $j['id_jidlo'], 'id' => $j['id_objednavka'], 'align' => 'left'),
+                            array('name' => $j['cena'] . ' Kč', 'jidlo' => $j['id_jidlo'], 'id' => $j['id_obsahuje_potravina'], 'align' => 'center'),
+                            array('name' => $j['mnozstvi'], 'jidlo' => $j['id_jidlo'], 'id' => $j['id_obsahuje_potravina'], 'align' => 'center', 'type' => 'number', 'name_identif' => 'pocet_porci', 'class' => 'input_small', 'addition' => 'Ks'),
+                        ));
+                        //$saved_key = $j['id'];
+                    }
+
+                    upravTabulka($data);
+                    
+                    echo "</div>";
+                    ?>
+
+                    <?php //addFormular($formular, $info); 
+                    ?>
+
+                    <div class="col-lg-12">
+                        <hr><br>
+                        <?php echo "Celkem: <label id='cena_celkem'>$cena_celkem</label> Kč" ?>
+                    </div>
+
+                    <?php
+                }
+                }
+                ?>
+
+                &emsp;
+
+            </div>
+
+            <script >
+                function saveForm(element, id) {
+                    var row = $(element).closest("tr").children('td').find('input');
+                    var data = {};
+                    $(row).each(function () {
+                        var value = $(this).val();
+                        console.log($(this));
+                        var checked = $(this).is(":checked");
+                        if ( checked == true){
+                            data['checked'] = 1;
+                            console.log('chcek');
+                        }
+
+                        var name = $(this).attr("name");
+
+                        data[name] = value;
+                        console.log(value + ' ' + name);
+
+                    });
+
+                    var id = data['id'];
+
+                    //var json_data = JSON.stringify(data);
+
+                    console.log( data);
+                    $.ajax({
+                        type: 'GET',
+                        url: "objednavky/saveOnClick",
+                        data: data,
+                        contentType: "application/json; charset=utf-8",
+                        success: function (result) {
+                            var vysl = JSON.parse(result);
+                            console.log(vysl);
+
+                            if (vysl.success) {
+                                //document.getElementById("vysledek").innerHTML = vysl.success;
+                                var value = parseInt($('#cena_celkem').text(), 10);
+                                value = value + vysl.ztracena_cena;
+                                $('#cena_celkem').text(value);
+                                $('#' + id).attr("src", "img/yes.png");
+
+                            } else {
+                                //document.getElementById("vysledek").innerHTML = vysl.fail;
+                                $('#' + id).attr("src", "img/no.png");
+
+                            }
+                            $('#' + id).fadeIn();
+                            $('#' + id).delay(2000).fadeOut('slow');
+                            console.log(result);
+                        }});
+                    
+                }
+                ;
+            </script>
+

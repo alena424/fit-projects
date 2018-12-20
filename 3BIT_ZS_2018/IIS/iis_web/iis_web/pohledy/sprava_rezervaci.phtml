@@ -1,0 +1,102 @@
+<?php
+include 'functions/formular.php';
+?>
+
+<div class="container-fluid cerny_box">
+    <form method="GET">
+        <h2>Správa rezervací &emsp;
+
+            <button name="nova_rezervace" value="1" class = "red_but"> NOVÁ</button>
+        </h2>
+    </form>
+
+
+    <?php
+    $data['datum_od'] = array('name' => 'Odkdy', 'type' => 'date', 'value' => $params['datum_od'] ? $datum_od : $dnes);
+    $data['datum_do'] = array('name' => 'Dokdy', 'type' => 'date', 'value' => $params['datum_do'] ? $datum_do : $dnes);
+    $data['prijmeni'] = array('name' => 'Příjmení', 'type' => 'text', 'value' => $prijmeni);
+    //$info['button_text'] = 'Hledej';
+    //print_r($vysledek);
+    $info['buttons'] = array(
+        array(value => "Hledej", name => 'hledej'),
+        array(value => "Hledej vše", name => 'hledej_vse')
+    );
+    //$info[ 'hledej_vse' ] = array( values => "Hledej vše", name => 'hledej_vse' );
+
+    addFormular($data, $info);
+    ?>
+
+    <br>
+    <hr>
+    <?php
+    if (isset($vysledek) && !empty($vysledek)) {
+        
+        ?>
+        <h3>Nalezené výsledky:</h3>
+        
+        <div class="nalezene_vysledky">
+            <?php
+            foreach ($vysledek as $value) {
+                //print_r($value['jidlo_mnozstvi']);
+                
+                $formular['jmeno'] = array('name' => 'Jméno', 'type' => 'text', 'force' => 1, 'value' => $value['jmeno']);
+                $formular['stoly'] = array('name' => 'Stoly', 'type' => 'popup', 'multiple' => 1, 'force' => 1, 'value' => $value['stul'], 'popup' => $stoly_pop);
+
+                $formular['prijmeni'] = array('name' => 'Přijmení', 'type' => 'text', 'force' => 1, 'value' => $value['prijmeni']);
+                $formular['jidlo'] = array( 'name' => 'Jídlo', 'type' => 'popup', 'multiple' => 1, 'force' => 0, 'value' => $value['jidlo_mnozstvi'] , 'popup' => $jidlo_pop, 'amount' => 1);
+
+                // tady by to chtelo format toho datetime local
+                
+                $formular['telefon'] = array('name' => 'Kontakt', 'type' => 'tel', 'force' => 1, 'value' => $value['telefon']);
+                
+                //print_r($value['jidlo_mnozstvi']);
+                //print_r("<br>");
+                $formular['piti'] = array('selected' => $value['piti_mnozstvi'], 'name' => 'Pití', 'type' => 'popup', 'multiple' => 1, 'force' => 0, 'value' => $value['piti_mnozstvi'], 'popup' => $piti_pop, 'amount' => 1);
+                
+                $formular['datum'] = array('name' => 'Datum', 'type' => 'date', 'force' => 1, 'value' => $value['datum']);
+                $formular['cas'] = array('name' => 'Čas', 'type' => 'time', 'force' => 1, 'value' => $value['cas']);
+                
+                $formular['doba'] = array('name' => 'Doba', 'type' => 'number', 'force' => 1, 'value' => $value['doba'], 'addition' => 'min');
+
+                // $formular['id_rezervace'] = array('name' => 'ID rezervace', 'type' => 'number', 'value' => $value['id_rezervace'], );
+                $formular['identifikator'] = array('name' => 'ID rezervace', 'type' => 'text', 'value' => $value['identifikator'], 'readonly' => 1);
+                $formular['id_rezervace'] = array('name' => '', 'type' => 'text', 'value' => $value['id_rezervace'], 'hidden' => 1, 'dvojtecka' => 2);
+                //$formular['cena'] = array('name' => 'Celková cena', 'type' => 'text', 'value' => $value['cena'], 'readonly' => 1);
+
+                $info['buttons'] = array(
+                    array(value => "Zrušit rezervaci", name => 'zrus_rezervaci'),
+                    array(value => "Uložit rezervaci", name => 'uloz_rezervaci')
+                );
+                $info['hiddens'] = array(
+                    array(value => $_GET['hledej_vse'], name => 'hledej_vse'),
+                    array(value => $_GET['hledej'], name => 'hledej'),
+                    array(value => $datum_od, name => 'datum_od'),
+                    array(value => $datum_do, name => 'datum_do'),
+                    array(value => $_GET['prijmeni'], name => 'prijmeni'),
+                    array(value => $value['id_rezervace'], name => 'id'),
+                );
+                $info['cols'] = 2;
+                ?>
+
+                <?= addFormular($formular, $info); ?>
+                <div class="col-lg-12">
+                    <hr><br>
+                </div>
+                <?php
+                $hidden_params = array('hledej_vse', 'hledej', 'datum_od', 'datum_do', 'prijmeni');
+                foreach ($hidden_params as $value) {
+                    if (isset($_GET[$value])) {
+                        echo "<input type='hidden' name='" . $value . "' value=" . $_GET[$value] . " />";
+                    }
+                }
+                ?>
+
+
+                <?php
+            }
+        }
+        ?>
+    </div>
+
+    &emsp;
+</div>

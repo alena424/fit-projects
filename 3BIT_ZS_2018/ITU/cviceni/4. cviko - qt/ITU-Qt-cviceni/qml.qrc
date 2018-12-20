@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/MyButton.qml</file>
+        <file>qml/MyClickButton.qml</file>
+        <file>qml/MySlider.qml</file>
+        <file>js/Theme.js</file>
+    </qresource>
+</RCC>

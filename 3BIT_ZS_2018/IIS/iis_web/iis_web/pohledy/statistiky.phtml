@@ -1,0 +1,85 @@
+<?php
+
+include 'functions/datum.php';
+include 'functions/formular.php';
+?>
+<div class="cerny_box">
+
+
+
+    <h2 class="stred no_limits">Statistiky</h2>
+    <h2 class="stred obracene no_limits">Statistiky</h2>
+
+<form method="GET" class='form-horizontal'>
+    <?php
+    $dnes = date("Y-m-d");
+    //print_r($params);
+    $data2['datum_od'] = array('name' => 'Odkdy', 'type' => 'date', 'value' => $params['datum_od'] ? $params['datum_od'][0] : $dnes);
+    $data2['datum_do'] = array('name' => 'Dokdy', 'type' => 'date', 'value' => $params['datum_do'] ? $params['datum_do'][0] : $dnes);
+    $data2['druh'] = array('name' => 'Druh statistiky', 'type' => 'popup', 'force' => 1, 'popup' => $druh_pop, 'value' => $params['druh'][0]);
+
+    $info['buttons'] = array(
+        array(value => "Hledej", name => 'hledej'),
+        array(value => "Hledej vše", name => 'hledej_vse')
+    );
+    $info['no_form'] = 1;
+    addFormular($data2, $info);
+    ?>
+
+
+
+</form>
+<br>
+<hr>
+<?php
+    if (isset($vystup) && !empty($vystup)) {
+?>
+    <h3>Nalezené výsledky:</h3>
+    <div class="nalezene_vysledky">
+        <?php
+        $data['data'] = array();
+
+        $data['class_tr'] = 'tr_small';
+        
+        foreach ( $vystup as $radek ) {
+            $radekTab = array();
+            foreach ( $radek as $bunka ) {
+                array_push( $radekTab, array( 'name' => $bunka ) );
+            }
+            array_push( $data[ 'data' ], $radekTab );
+        }
+
+     /*   foreach ($vysledek as $j) {
+            //if ($saved_key != $j['id_objednavka']) {
+
+                // print_r('<br>------ Objednávka číslo ' . $saved_key . $j['id_stul'] . ' ---------');
+                //upravTabulka($data);
+                //$data['data'] = array();
+            //}
+           // pozn: tohle ID jeste neni opravene za id_obsahuje
+            //
+           // print_r($j);
+            //$cena_celkem += $j['cena'] * $j['mnozstvi'];
+            array_push( $data['data'], array(
+                // array('name' => 'jidlo', 'id' => $j['id_objednavka'], 'jidlo' => $j['id_jidlo'], 'align' => 'center', 'type' => 'checkbox'),
+                array('name' => $v['sloupec1'] . ' (účet č. ' . $j['id_ucet'] . ')', 'id' => $j['id_obsahuje_potravina'], 'jidlo' => $j['id_jidlo'], 'align' => 'left'),
+                array('name' => vratDatum($j['vlozeno']), 'id' => $j['id_obsahuje_potravina'], 'jidlo' => $j['id_jidlo'], 'align' => 'left'),
+                //array('name' => $j['patri_rezervace'], 'jidlo' => $j['id_jidlo'], 'id' => $j['id_objednavka'], 'align' => 'left'),
+                array('name' => $j['cena'] . ' Kč', 'jidlo' => $j['id_jidlo'], 'id' => $j['id_obsahuje_potravina'], 'align' => 'center'),
+                array('name' => $j['mnozstvi'], 'jidlo' => $j['id_jidlo'], 'id' => $j['id_obsahuje_potravina'], 'align' => 'center', 'type' => 'number', 'name_identif' => 'pocet_porci', 'class' => 'input_small', 'addition' => 'Ks'),
+            ));
+            //$saved_key = $j['id'];
+        }*/
+
+        upravTabulka($data);
+
+        echo "</div>";
+        ?>
+
+        <?php //addFormular($formular, $info); 
+        ?>
+
+<?php
+    }
+?>
+</script>

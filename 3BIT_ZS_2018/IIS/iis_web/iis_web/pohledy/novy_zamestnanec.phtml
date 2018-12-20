@@ -1,0 +1,28 @@
+<div class="cerny_box">
+    <h2>Nový zaměstnanec</h2>
+<?php
+
+include 'functions/formular.php';
+$formular['jmeno'] = array('name' => 'Jméno', 'type' => 'text', 'force' => 1, 'value' => $jmeno );
+$formular['prijmeni'] = array('name' => 'Příjmení', 'type' => 'text', 'force' => 1, 'value' => $prijmeni );
+$formular['rodne_cislo'] = array('name' => 'Rodné číslo', 'type' => 'text', 'force' => 1, 'value' => $rodne_cislo );
+$formular['adresa'] = array('name' => 'Adresa', 'type' => 'text', 'force' => 1, 'value' => $adresa );
+$formular['pozice'] = array('name' => 'Pozice', 'type' => 'popup', 'multiple' => 0, 'force' => 1, 'value' => $pozice, 'popup' => $pozice_pop );
+ $formular['login'] = array('name' => 'Login', 'type' => 'text', 'force' => 1, 'value' => $login );
+$formular['heslo'] = array('name' => 'Heslo', 'type' => 'password', 'force' => 1, 'value' => $heslo );  
+
+$info['buttons'] = array(
+   // array(value => "Zrušit rezervaci", name => 'zrus_rezervaci'),
+    array(value => "Uložit zaměstnance", name => 'uloz_zamestnance')
+);
+$info['hiddens'] = array(
+    array(value => $_GET['novy_zamestnanec'], name => 'novy_zamestnanec'),
+);
+$info['cols'] = 1;
+addFormular($formular, $info);
+
+
+?>
+ <br>
+    <a href="zamestnanci">Zpět na správu zaměstnanců</a>
+</div>

@@ -1,0 +1,341 @@
+<?php
+include 'functions/datum.php';
+?>
+<div class="cerny_box">
+
+
+
+    <h2 class="stred no_limits">Denní menu</h2>
+    <h2 class="stred obracene no_limits">Denní menu</h2>
+
+    <h3>JÍDLO</h3>
+    <div class="col-lg-12">
+
+        <?php
+        include 'functions/formular.php';
+        $data['data'] = array();
+
+
+        $jidlo_uisbox = array();
+
+
+        $formular['surovina'] = array('addition' => ' g', 'name' => 'Surovina', 'type' => 'popup', 'multiple' => 1, 'force' => 0, 'value' => $value['surovina_mnozstvi'], 'popup' => $surovina_pop, 'amount' => 1);
+
+        $info['buttons'] = array(
+            array(value => "Přidat k potravině", name => 'pridat_surovinu_potravina')
+        );
+
+        $info['cols'] = 1;
+        $info['vrat_kod'] = 1;
+        $info['in_uisbox'] = 1;
+
+
+
+        $data_pom['data'] = array();
+        $data_pom['headers'] = array(
+            array('name' => 'Název', 'align' => 'left'),
+            array('name' => 'Množství', 'align' => 'left'),
+        );
+
+        $data_pom['delete'] = 1;
+        $data_pom['save'] = 1;
+        $data_pom['vrat_kod'] = 1;
+        $data_pom['url'] = "jidelni-listek";
+        $data_pom['in_uisbox'] = 1; # at vime, ze jsme v uisboxu
+        $data_pom['identif_id'] = 'surovina';
+
+        $jidlo_id = $suroviny_jidlo[0]['id_jidlo'];
+
+        foreach ($suroviny_jidlo as $j) {
+            if ($jidlo_id != $j['id_jidlo']) {
+                $info['hiddens'] = array(
+                    array(value => $jidlo_id, name => 'id_jidlo'),
+                );
+
+                // chceme jako hidden id jidla do kazde polozky
+                //$formular['id_jidlo'] = array('name' => '', 'type' => 'text', 'value' => $jidlo_id, 'hidden' => 1, 'dvojtecka' => 2);
+                // formular na pridavani
+                $jidlo_uisbox[$jidlo_id] = addFormular($formular, $info);
+                $jidlo_uisbox[$jidlo_id] .= "<br><br><br>";
+
+                // formular na zobrazeni tabulky
+                $jidlo_uisbox[$jidlo_id] .= upravTabulka($data_pom);
+
+                // vymazeme data pro dalsi formular
+                $data_pom['data'] = array();
+            }
+            array_push($data_pom['data'], array(
+                array('name' => $j['surovina'], 'id' => $j['id_jidlo'], 'id_surovina' => $j['id_surovina'], 'align' => 'left'),
+                array('name' => $j['mnozstvi'], 'id' => $j['id_jidlo'], 'id_surovina' => $j['id_surovina'], 'align' => 'left',
+                    'class' => 'input_small', 'name_identif' => 'mnozstvi_surovina', 'type' => 'number', 'addition' => ' g'),
+            ));
+            $jidlo_id = $j['id_jidlo'];
+        }
+
+        foreach ($jidlo as $j) {
+            // neni nic v uisboxu
+            if (!$jidlo_uisbox[$j['id_jidlo']]) {
+                // chceme jako hidden id jidla do kazde polozky
+                $formular = array();
+                $formular['surovina'] = array('addition' => '  g', 'name' => 'Surovina', 'type' => 'popup', 'multiple' => 1, 'force' => 0, 'value' => $value['surovina_mnozstvi'], 'popup' => $surovina_pop, 'amount' => 1);
+
+                $info['hiddens'] = array(
+                    array(value => $j['id_jidlo'], name => 'id_jidlo'),
+                );
+
+                $jidlo_uisbox[$j['id_jidlo']] = addFormular($formular, $info);
+
+                # mame nejakou surovinu
+                if (!empty($data_pom['data'])) {
+                    $jidlo_uisbox[$jidlo_id] .= "<br><br><br>";
+
+                    // formular na zobrazeni tabulky
+                    $jidlo_uisbox[$jidlo_id] .= upravTabulka($data_pom);
+                }
+            }
+
+
+            array_push($data['data'], array(
+                array('name' => $j['nazev'], 'id' => $j['id_jidlo'], 'align' => 'left', 'name_identif' => 'nazev', 'type' => 'text'),
+                array('name' => $j['cena'], 'id' => $p['id_jidlo'], 'align' => 'center', 'type' => 'number', 'addition' => ' Kč', 'class' => 'input_small', 'name_identif' => 'cena'),
+                array('name' => $j['pocet_porci'], 'id' => $p['id_jidlo'], 'align' => 'center', 'type' => 'number', 'addition' => ' Ks', 'class' => 'input_small', 'name_identif' => 'pocet_porci'),
+                array('name' => $j['tuky'], 'id' => $p['id_jidlo'], 'align' => 'center', 'type' => 'number', 'addition' => ' g', 'class' => 'input_small', 'name_identif' => 'tuky', 'name_identif' => 'tuky'),
+                array('name' => $j['mnozstvi_sacharidu'], 'id' => $p['id_jidlo'], 'align' => 'center', 'type' => 'number', 'addition' => ' g', 'class' => 'input_small', 'name_identif' => 'mnozstvi_sacharidu'),
+                array('name' => $j['bilkoviny'], 'id' => $p['id_jidlo'], 'align' => 'center', 'type' => 'number', 'addition' => ' g', 'class' => 'input_small', 'name_identif' => 'bilkoviny'),
+                array('name' => $j['energie_hodnota'], 'id' => $p['id_jidlo'], 'align' => 'center', 'type' => 'number', 'addition' => ' Kal', 'class' => 'input_small', 'name_identif' => 'energie'),
+                array('name' => $j['pribor'], 'id' => $j['id_jidlo'], 'align' => 'center'),
+                array('name' => vratDatum($j['expirace']), 'id' => $j['id_jidlo'], 'align' => 'center'),
+                //array('name' => 'potravina', 'id' => $p['id_jidlo'], 'tooltip' => 'Zobraz potraviny', 'align' => 'center', 'type' => 'ikona', 'src' => '/img/food.png', 'href' => '/jidelni-listek/obsahuje_potravina'),
+                array('name' => 'potravina', 'id' => $p['id_jidlo'], 'tooltip' => 'Zobraz potraviny', 'align' => 'center', 'type' => 'ikona', 'src' => '/img/food.png',
+                    'href' => '/jidelni-listek/obsahuje_potravina', 'uisbox' => 1, 'body' => $jidlo_uisbox[$j['id_jidlo']], 'title' => 'Přidat surovinu k potravině'),
+            ));
+        }
+
+        //$data['headers'] = array('Název', 'Cena', 'Počet', 'Tuky', 'Sacharidy', 'Bílkoviny', 'Energie', 'Příbor', 'Expirace');
+        $data['headers'] = array(
+            array('name' => 'Název', 'align' => 'left'),
+            array('name' => 'Cena', 'align' => 'center'),
+            array('name' => 'Počet', 'align' => 'center'),
+            array('name' => 'Tuky', 'align' => 'center'),
+            array('name' => 'Sacharidy', 'align' => 'center'),
+            array('name' => 'Bílkoviny', 'align' => 'center'),
+            array('name' => 'Energie', 'align' => 'center'),
+            array('name' => 'Příbor', 'align' => 'center'),
+            array('name' => 'Expirace', 'align' => 'center'),
+            array('name' => 'Potraviny', 'align' => 'center')
+        );
+        $data['delete'] = 1;
+        $data['save'] = 1;
+        $data['url'] = "jidelni-listek";
+        $data['identif_id'] = 'jidlo';
+
+
+        upravTabulka($data);
+        ?>
+        <br>
+        <form method='GET'>
+            <button class="red_but_small" name="nove_jidlo" value=1>NOVÉ JÍDLO</button>
+        </form>
+
+
+    </div>
+    <br>
+    <div class="col-lg-12">
+        <h3 >PITÍ</h3>
+        <?php
+        $data2['data'] = array();
+
+        $jidlo_uisbox = array();
+        $formular = array();
+        $info = array();
+        $data_pom = array();
+
+
+        $formular['surovina'] = array('addition' => '  g', 'name' => 'Surovina', 'type' => 'popup', 'multiple' => 1, 'force' => 0, 'value' => $value['surovina_mnozstvi'], 'popup' => $surovina_pop, 'amount' => 1);
+
+        $info['buttons'] = array(
+            array(value => "Přidat k potravině", name => 'pridat_surovinu_potravina')
+        );
+
+        $info['cols'] = 1;
+        $info['vrat_kod'] = 1;
+
+        $info['in_uisbox'] = 1;
+
+
+
+        $data_pom['data'] = array();
+        $data_pom['headers'] = array(
+            array('name' => 'Název', 'align' => 'left'),
+            array('name' => 'Množství', 'align' => 'left'),
+        );
+
+        $data_pom['delete'] = 1;
+        $data_pom['save'] = 1;
+        $data_pom['vrat_kod'] = 1;
+        $data_pom['url'] = "jidelni-listek";
+        $data_pom['in_uisbox'] = 1;
+        $data_pom['identif_id'] = 'surovina';
+
+
+        $jidlo_id = $suroviny_jidlo[0]['id_jidlo'];
+
+        foreach ($suroviny_jidlo as $j) {
+
+
+            if ($jidlo_id != $j['id_jidlo']) {
+
+                // chceme jako hidden id jidla do kazde polozky
+                $formular['id_jidlo'] = array('name' => '', 'type' => 'text', 'value' => $jidlo_id, 'hidden' => 1, 'dvojtecka' => 2);
+
+                // formular na pridavani
+                $jidlo_uisbox[$jidlo_id] = addFormular($formular, $info);
+                $jidlo_uisbox[$jidlo_id] .= "<br><br><br>";
+
+                // formular na zobrazeni tabulky
+                $jidlo_uisbox[$jidlo_id] .= upravTabulka($data_pom);
+
+                // vymazeme data pro dalsi formular
+                $data_pom['data'] = array();
+            }
+            //print_r($j);
+            array_push($data_pom['data'], array(
+                array('name' => $j['surovina'], 'id' => $j['id_jidlo'], 'id_surovina' => $j['id_surovina'], 'align' => 'left'),
+                array('name' => $j['mnozstvi'], 'id' => $j['id_jidlo'], 'id_surovina' => $j['id_surovina'], 'align' => 'left',
+                    'class' => 'input_small', 'name_identif' => 'mnozstvi_surovina', 'type' => 'number', 'addition' => ' g'),
+            ));
+            $jidlo_id = $j['id_jidlo'];
+        }
+
+
+
+
+        foreach ($piti as $p) {
+            if (!$jidlo_uisbox[$p['id_jidlo']]) {
+                // chceme jako hidden id jidla do kazde polozky
+                $formular = array();
+                $formular['surovina'] = array('addition' => '  g', 'name' => 'Surovina', 'type' => 'popup', 'multiple' => 1, 'force' => 0, 'value' => $value['surovina_mnozstvi'], 'popup' => $surovina_pop, 'amount' => 1);
+
+                $info['hiddens'] = array(
+                    array(value => $p['id_jidlo'], name => 'id_jidlo'),
+                );
+
+                $jidlo_uisbox[$p['id_jidlo']] = addFormular($formular, $info);
+
+                # mame nejakou surovinu
+                if (!empty($data_pom['data'])) {
+                    $jidlo_uisbox[$jidlo_id] .= "<br><br><br>";
+
+                    // formular na zobrazeni tabulky
+                    $jidlo_uisbox[$jidlo_id] .= upravTabulka($data_pom);
+                }
+            }
+
+            array_push($data2['data'], array(
+                array('name' => $p['nazev'], 'id' => $p['id_jidlo'], 'align' => 'left', 'type' => 'text'),
+                array('name' => $p['cena'], 'id' => $p['id_jidlo'], 'align' => 'center', 'type' => 'number', 'addition' => ' Kč', 'class' => 'input_small'),
+                array('name' => $p['pocet_porci'], 'id' => $p['id_jidlo'], 'align' => 'center', 'type' => 'number', 'addition' => ' Ks', 'class' => 'input_small'),
+                array('name' => $p['tuky'], 'id' => $p['id_jidlo'], 'align' => 'center', 'type' => 'number', 'addition' => ' g', 'class' => 'input_small'),
+                array('name' => $p['mnozstvi_sacharidu'], 'id' => $p['id_jidlo'], 'align' => 'center', 'type' => 'number', 'addition' => ' g', 'class' => 'input_small'),
+                array('name' => $p['bilkoviny'], 'id' => $p['id_jidlo'], 'align' => 'center', 'type' => 'number', 'addition' => ' g', 'class' => 'input_small'),
+                array('name' => $p['energie_hodnota'], 'id' => $p['id_jidlo'], 'align' => 'center', 'type' => 'number', 'addition' => ' Kal', 'class' => 'input_small'),
+                array('name' => $p['typ_sklenice'], 'id' => $p['id_jidlo'], 'align' => 'center'),
+                array('name' => vratDatum($p['expirace']), 'id' => $p['id_jidlo'], 'align' => 'center'),
+                //array('name' => 'potravina', 'tooltip' => 'Zobraz potraviny', 'id' => $p['id_jidlo'], 'align' => 'center', 'type' => 'ikona', 'src' => '/img/food.png', 'href' => '/jidelni-listek/obsahuje_potravina'),
+                array('name' => 'potravina', 'id' => $p['id_jidlo'], 'tooltip' => 'Zobraz potraviny', 'align' => 'center', 'type' => 'ikona', 'src' => '/img/food.png',
+                    'href' => '/jidelni-listek/obsahuje_potravina', 'uisbox' => 1, 'body' => $jidlo_uisbox[$p['id_jidlo']], 'title' => 'Přidat surovinu k potravině'),
+            ));
+        }
+
+        $data2['headers'] = array(
+            array('name' => 'Název', 'align' => 'left'),
+            array('name' => 'Cena', 'align' => 'center'),
+            array('name' => 'Počet', 'align' => 'center'),
+            array('name' => 'Tuky', 'align' => 'center'),
+            array('name' => 'Sacharidy', 'align' => 'center'),
+            array('name' => 'Bílkoviny', 'align' => 'center'),
+            array('name' => 'Energie', 'align' => 'center'),
+            array('name' => 'Typsklenice', 'align' => 'center'),
+            array('name' => 'Expirace', 'align' => 'center'),
+            array('name' => 'Potraviny', 'align' => 'center')
+        );
+        $data2['delete'] = 1;
+        $data2['save'] = 1;
+        $data2['identif_id'] = 'jidlo';
+
+
+        $data2['url'] = "jidelni-listek";
+
+        upravTabulka($data2);
+        ?>
+        <br>
+        <form method='GET'><br>
+            <button class="red_but_small" name="nove_piti" value=1>NOVÉ PITÍ</button>  
+        </form>
+
+
+    </div>
+</div>
+
+<script >
+    function saveForm(element, id) {
+        var row = $(element).closest("tr").children('td').find('input');
+        var data = {};
+        $(row).each(function () {
+            var value = $(this).val();
+            var name = $(this).attr("name");
+            data[name] = value;
+            console.log(value + ' ' + name);
+
+        });
+        var id = data['id'];
+
+        var surovina = data['id_surovina'];
+        var url = 'jidelni-listek';
+        var url_finalni = url + "/saveOnClick/" + id;
+        if (surovina) {
+            url_finalni += '/surovina/' + surovina;
+        }
+        console.log(data);
+        console.log(url);
+        console.log(url_finalni);
+
+        //var json_data = JSON.stringify(data);
+
+        //console.log( json_data);
+        $.ajax({
+            type: 'GET',
+            url: url_finalni,
+            data: data,
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                var vysl = JSON.parse(result);
+                console.log(vysl);
+                if (vysl.success) {
+                    //document.getElementById("vysledek").innerHTML = vysl.success;
+                    console.log(id);
+                    $('#' + id + '-jidlo').attr("src", "img/yes.png");
+                    $('#' + surovina + '-surovina').attr("src", "img/yes.png");
+
+                } else {
+                    $('#' + id + '-jidlo').attr("src", "img/no.png");
+                    $('#' + surovina + '-surovina').attr("src", "img/no.png");
+
+                }
+                //$('#1').show();
+                if (surovina) {
+
+                    $('#' + surovina + '-surovina').fadeIn();
+                    $('#' + surovina + '-surovina').delay(2000).fadeOut('slow');
+                } else {
+
+                    $('#' + id + '-jidlo').fadeIn();
+                    $('#' + id + '-jidlo').delay(2000).fadeOut('slow');
+                }
+
+                
+                console.log(result);
+            }});
+    }
+    ;
+</script>

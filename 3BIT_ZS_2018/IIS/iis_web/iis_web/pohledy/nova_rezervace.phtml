@@ -1,0 +1,82 @@
+<div class="cerny_box">
+    <h2>Nová rezervace</h2>
+    <?php
+    if ($_GET['pokracovat'] && !empty($zpravy)) {
+        foreach ($zpravy as $zprava) {
+            echo "<p class=" . $zprava['typ'] . " >" . $zprava['obsah'] . "</p>";
+        }
+    }
+
+    include 'functions/formular.php';
+
+    echo "<form method='GET' class='form-horizontal' >";
+
+    $formular['jmeno'] = array('name' => 'Jméno', 'type' => 'text', 'force' => 1, 'value' => $params['jmeno'][0]);
+    $formular['prijmeni'] = array('name' => 'Příjmení', 'type' => 'text', 'force' => 1, 'value' => $params['prijmeni'][0]);
+
+    $formular['telefon'] = array('name' => 'Kontakt', 'type' => 'text', 'force' => 1, 'value' => $value['telefon'], 'value' => $params['telefon'][0]);
+//$formular['jidlo'] = array('name' => 'Jídlo', 'type' => 'popup', 'multiple' => 1, 'force' => 0, 'popup' => $jidlo_pop);
+
+    $formular['datum'] = array('name' => 'Datum', 'type' => 'date', 'force' => 1, 'value' => $params['datum'][0] ? $params['datum'][0] : $dnes);
+
+    $formular['cas'] = array('name' => 'Čas', 'type' => 'time', 'force' => 1, 'value' => $params['cas'][0]);
+    $formular['doba'] = array('name' => 'Doba', 'type' => 'number', 'force' => 1, 'value' => $params['doba'][0] ? $params['doba'][0] : 60, 'addition' => 'min');
+    $info['buttons'] = array(
+        // array(value => "Zrušit rezervaci", name => 'zrus_rezervaci'),
+        array(value => "Najít stoly", name => 'najit_stoly'),
+    );
+
+    $info['hiddens'] = array(
+        array(value => $_GET['nova_rezervace'], name => 'nova_rezervace'),
+    );
+    $info['no_form'] = 1;
+    addFormular($formular, $info);
+
+    if ($_GET['najit_stoly']) {
+
+        echo "<br><br>";
+        $formular3['stoly'] = array('name' => 'Stoly', 'type' => 'popup', 'multiple' => 1, 'force' => 1, 'popup' => $stoly_pop_spravce, 'value' => $params['stoly']);
+
+        $info3['buttons'] = array(
+            array(value => "Pokračovat na objednávku", name => 'pokracovat'),
+            array(value => "Uložit rezervaci a přejít na správu rezervací", name => 'uloz_rezervaci')
+        );
+        $info3['hiddens'] = array(
+            array(value => $_GET['najit_stoly'], name => 'najit_stoly'),
+        );
+        $info3['no_form'] = 1;
+
+
+        addFormular($formular3, $info3);
+
+        if ($_GET['pokracovat']) {
+            //$formular2['jidlo'] = array('name' => 'Jídlo', 'type' => 'popup', 'multiple' => 1, 'force' => 0, 'popup' => $jidlo_pop, 'value' => $params['jidlo']);
+            //$formular2['piti'] = array('name' => 'Pití', 'type' => 'popup', 'multiple' => 1, 'force' => 0, 'popup' => $piti_pop, 'value' => $params['piti']);
+
+            $formular2['jidlo'] = array('name' => 'Jídlo', 'type' => 'popup', 'multiple' => 1, 'force' => 0, 'value' => $params['jidlo'], 'popup' => $jidlo_pop, 'amount' => 1);
+            $formular2['piti'] = array('name' => 'Pití', 'type' => 'popup', 'multiple' => 1, 'force' => 0, 'value' => $params['piti'], 'popup' => $piti_pop, 'amount' => 1);
+
+
+//$formular['cena'] = array('name' => 'Celková cena', 'type' => 'text', 'readonly' => 1);
+
+
+            $info2['buttons'] = array(
+                array(value => "Uložit rezervaci a přejít na správu rezervací", name => 'uloz_rezervaci')
+            );
+            $info2['hiddens'] = array(
+                array(value => $_GET['pokracovat'], name => 'pokracovat'),
+            );
+
+            $info2['cols'] = 1;
+            $info2['no_form'] = 1;
+            echo "<br>";
+            echo "<h3>Objednávka k rezervaci</h3>";
+            addFormular($formular2, $info2);
+        }
+    }
+    echo "</form>";
+    ?>
+    <br>
+    <a href="rezervace">Zpět na správu rezervací</a>
+
+</div>

@@ -1,0 +1,51 @@
+
+
+<div class="cerny_box">
+    <h3>Správa stolů</h3>
+    <?php
+    include 'functions/formular.php';
+    print_r($piti);
+    $formular['cislo'] = array('name' => 'Číslo stolu', 'type' => 'number', 'force' => 1, 'value' => '', 'force' => 1);
+    $formular['umisteni'] = array('name' => 'Označení', 'type' => 'text', 'force' => 1, 'value' => '', 'force' => 1);
+    $formular['pocet_osob'] = array('name' => 'Počet osob', 'type' => 'number', 'force' => 1, 'value' => '', 'force' => 1);
+
+    $info['buttons'] = array(
+        array(value => "Přidat stůl", name => 'pridat_stul')
+    );
+
+    $info['cols'] = 1;
+    addFormular($formular, $info);
+    ?>
+
+    
+
+    <div class="nezauctovane_obj">
+        <?php
+        /*$jidlo = array(array(nazev => 'Knedlik', id => 5),
+            array(nazev => 'Knedlik', id => 5),
+            array(nazev => 'Knedlik', id => 5),
+            array(nazev => 'Knedlik', id => 5)
+        );*/
+
+        $data['data'] = array();
+        foreach ($stoly as $s) {
+            array_push($data['data'], array(
+                array('name' => $s['cislo'], 'id' => $s['id'], 'align' => 'left'),
+                array('name' => $s['umisteni'], 'id' => $s['id'], 'align' => 'left'),
+                array('name' => $s['pocet_osob'], 'id' => $s['id'], 'align' => 'left'),
+            ));
+        }
+
+        //$data['headers'] = array('Název', 'Cena', 'Počet', 'Tuky', 'Sacharidy', 'Bílkoviny', 'Energie', 'Příbor', 'Expirace');
+        $data['headers'] = array(
+            array('name' => 'Číslo stolu', 'align' => 'left'),
+            array('name' => 'Označení', 'align' => 'left'),
+            array('name' => 'Počet osob', 'align' => 'left'),
+        );
+        $data['delete'] = 1;
+        $data['url'] = "stoly";
+        upravTabulka($data);
+        ?>
+
+    </div>
+</div>

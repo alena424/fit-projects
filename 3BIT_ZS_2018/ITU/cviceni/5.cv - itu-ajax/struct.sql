@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS `itu-ajax` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(8) NOT NULL,
+  `cnt` varchar(1024) NOT NULL,
+  `dts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;

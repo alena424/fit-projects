@@ -1,0 +1,45 @@
+
+
+<div class="cerny_box">
+    <h3>Správa potravin</h3>
+    <?php
+    include 'functions/formular.php';
+    print_r($piti);
+    $formular['nazev'] = array('name' => 'Název', 'type' => 'text', 'force' => 1, 'value' => '', 'force' => 1);
+
+    $info['buttons'] = array(
+        array(value => "Přidat potravinu", name => 'pridat_potravinu')
+    );
+
+    $info['cols'] = 1;
+    addFormular($formular, $info);
+    ?>
+
+    
+
+    <div class="nezauctovane_obj">
+        <?php
+        /*$jidlo = array(array(nazev => 'Knedlik', id => 5),
+            array(nazev => 'Knedlik', id => 5),
+            array(nazev => 'Knedlik', id => 5),
+            array(nazev => 'Knedlik', id => 5)
+        );*/
+
+        $data['data'] = array();
+        foreach ($jidlo as $j) {
+            array_push($data['data'], array(
+                array('name' => $j['nazev'], 'id' => $j['id'], 'align' => 'left'),
+            ));
+        }
+
+        //$data['headers'] = array('Název', 'Cena', 'Počet', 'Tuky', 'Sacharidy', 'Bílkoviny', 'Energie', 'Příbor', 'Expirace');
+        $data['headers'] = array(
+            array('name' => 'Název', 'align' => 'left'),
+        );
+        $data['delete'] = 1;
+        $data['url'] = "potraviny";
+        upravTabulka($data);
+        ?>
+
+    </div>
+</div>

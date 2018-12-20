@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf8"/>
+    <title>Projekt IIS</title>
+    <style type="text/css">
+    	table { border-collapse: collapse; }
+    	td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+    	dt { font-weight: bold; margin-top: 0.5em; }
+    	.obraz{
+    		width: 550px;
+    		float: left;
+    		height: 300px;
+    		margin: 10px;
+    	}
+    	img{
+    		max-width: 550px;
+    		
+    	}
+    	figcaption{
+    		text-align: center;
+    	}
+    </style>
+</head>
+<body>
+
+<!-- Zkontrolujte prosím nastavení kódování v hlavičce dokumentu 
+     podle použitého editoru -->
+
+<h1>Restaurace</h1> <!-- Nahradte názvem svého zadání -->
+
+<dl>
+	<dt>Autoři</dt>
+	<dd>Alena Tesařová<!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xtesar36@stud.fit.vutbr.cz">xtesar36@stud.fit.vutbr.cz</a> -
+		správa uživatelů a uživatelské rozhraní
+	</dd>
+	<dd>Jan Šorm <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xsormj00@stud.fit.vutbr.cz">xsormj00@stud.fit.vutbr.cz</a> - 
+		databázový subsystém
+	</dd>
+	<dt>URL aplikace</dt>
+	<dd><a href="http://www.latanesa.cz">http://www.latanesa.cz</a></dd>
+</dl>
+
+<h2>Uživatelé systému pro testování</h2>
+<table>
+<tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
+<tr><td>admin</td><td>admin</td><td>Spolumajitel</td></tr>
+<tr><td>matej</td><td>sefkuchar</td><td>Šéfkuchař</td></tr>
+<tr><td>zdenka</td><td>kuchar</td><td>Kuchař</td></tr>
+<tr><td>radek</td><td>servirka</td><td>Servírka</td></tr>
+</table>
+
+<h2>Implementace</h2>
+Projekt jsme implementovali v jazyku PHP, nepoužívali jsme žádny PHP framework, pouze CSS kniovny jako je bootstrap a google font Roboto. Jedná se o klasickou MVC architekturu, kde máme scripty rozdělené do 3 hlavních složek: kontrolery, pohledy a modely. Model vždy pracuje s databází a vrací kontrolerovi data, který je zpracuje a posílá je do pohledu. Pohled pak obsahuje šablony jednotlivých stránek aplikace.
+
+<h3>Naimplementované funkce</h3>
+<ul>
+<li><b>Správa rezervací </b>- servírka, spolumajitel
+<ul>
+	<li>Kompletně vyřešena správa rezervací do restaurace na daný stůl či více stolů společně s přidáním objednávky</li>
+	<li>Nabídka stolů podle vybraného času rezervace a orientační doby návštěvy restaurace</li>
+	<li>Javascriptové řešení přidávání jídel a pití (plusem vedle jídla)</li>
+</ul>
+</li>
+<li><b>Správa objednávek</b> - servírka, spolumajitel</li>
+<ul>
+	<li>Pro servírky, které vkládají objednávky k danému stolu</li>
+	<li>Nezaúčtované objednávky - jedná se o objednávky, u kterých zatím neexistuje účtenka, po vystavení účtenky se objednávka zařadí mezi vyúčtované a spolumajitel si je může prohlídnout v historii objednávek</li>
+	<li>Javascriptové řešení odstraňování, zvyšování a snižování množství jídel a pití (ajaxové)</li>
+	<li>Přidání jídla a pití k objednávce - nelze zde přidat jídlo a pití, které je již evidované u objednávky, jelikož je zde evidované množství</li>
+</ul>
+<li><b>Správa jídla, potravin a stolů</b> - šéfkuchař, kuchař, spolumajitel (podrobně práva na Obrázku 1)
+<ul>
+	<li>Přidávání surovin k jídlu přes modální box u daného jídla (po kliknutí na ikonu s hamburgerem), nelze přidat stejnou surovinu vícekrát, lze ajaxově přidávat a snižovat množství v gramech, anebo odstraňovat surovinu z daného jídla</li>
+	<li>Editace jídla a pití v záložce Jídelní lístek přes ikonu s uložením na daném řádku (ajaxově)</li>
+	<li>Editace surovin v záložce Suroviny</li>
+	<li>Editace stolů v záložce Stoly</li>
+</ul>
+</li>
+<li><b>Statistiky</b> - spolumajitel
+<ul>
+	<li>Umožňuje majiteli vyjet si vybrané statistiky za zvolené období</li>
+	<li>Statistika Tržby dle servírek bere servírku podle té, která založila objednávku (ne která vytiskla účtenku)</li>
+</ul>
+</li>
+
+<li><b>Správa zaměstnanců</b> - spolumajitel
+<ul>
+	<li>Přidávání nového uživatele</li>
+	<li>Editace osobních údajů zaměstnanců (i hesel)</li>
+</ul>
+</li>
+
+</ul>
+
+<h3>Technické detaily</h3>
+<ul>
+	<li>připojování k databázi pomocí ovladače PDO</li>
+	<li>heslo se ukladá šifrovaně</li>
+	<li>ochrana proti XSS útokem</li>
+	<li>žádné SQL injection</li>
+	<li>přes 4000 řádků kódu</li>
+	<li>naimplementované komplet funkce pro práci s formulářem</li>
+	<li>žádný PHP framework</li>
+	<li>responzivní web</li>
+</ul>
+
+<figure class="obraz">
+<a href="doc_img/hlavni_strana.jpg"><img src="doc_img/hlavni_strana.jpg" alt="Strana po přihlášení"></a>
+<figcaption>Obrázek 1: Zobrazena práva na záložky pro jednotlivé role
+</figcaption>
+</figure>
+</figure>
+<figure class="obraz">
+<a href="doc_img/rezervace.jpg"><img src="doc_img/rezervace.jpg" alt="Správa rezervací"></a>
+<figcaption>Obrázek 2: Správa rezervací
+</figcaption>
+</figure>
+<figure class="obraz">
+<a href="doc_img/objednavky.jpg"><img src="doc_img/objednavky.jpg" alt="Správa objednávek"></a>
+<figcaption>Obrázek 3: Správa objednávek
+</figcaption>
+</figure>
+<figure class="obraz">
+<a href="doc_img/jidelni-listek.jpg"><img src="doc_img/jidelni-listek.jpg" alt="Správa jídel"></a>
+<figcaption>Obrázek 4: Správa jídel 
+</figcaption>
+</figure>
+<figure class="obraz">
+<a href="doc_img/zauctovane.jpg"><img src="doc_img/zauctovane.jpg" alt="Zaúčtované objednávky"></a>
+<figcaption>Obrázek 5: Zaúčtované objednávky - vidí a může změnit pouze spolumajitel 
+</figcaption>
+</figure>
+<figure class="obraz">
+<a href="doc_img/statistiky.jpg"><img src="doc_img/statistiky.jpg" alt="Statistiky"></a>
+<figcaption>Obrázek 6: Statistiky 
+</figcaption>
+</figure>
+<div style="clear:both;"></div>
+
+<h2>Databáze</h2>
+Oproti návrhu databáze z IDS jsme museli pozměnili:
+<ul>
+	<li>přidali jsme id_obsajuje_potravina do obsahuje_potravina - důvodem byla snazší identifikace záznamu pro úpravu množství k potravině ve správě objednvek</li>
+	<li>odstranili jsme tabulku uživatelé - teď jsou naši uživatelé zaměstnanci</li>
+	<li>odstranili jsme sloupec suma z objednavka - suma se dá počítat dynamicky z jídel patřící dané objednávce</li>
+	<li>přidali jsme další sloupce k rezervaci a k zaměstnanci (např. login, heslo, kontakt_zakaznika, identifikator)</li>
+	<li>vytvořili jsme novou tabulku pozice - podle daných pozic určujeme práva vstupu do záložek </li>
+	<li>přidali jsme nový sloupec cislo to tabulky stul</li>
+
+</ul>
+<figure class="">
+<a href="doc_img/IIS.png"><img height="600px" src="doc_img/IIS.png" alt="Schéma databáze"></a>
+<figcaption style="text-align: left">Obrázek 7: Finální schéma databáze 
+</figcaption>
+</figure>
+
+<div style="clear:both;"></div>
+<h2>Instalace</h2>
+<ul>
+<li>rozbalit archiv se zdrojovými soubory</li>
+<li>na daném serveru musíte mít právo upravovat soubor .htaccess</li>
+<li>otevřít index.php</li>
+<li>není potřeba žádná dodatečná instalace (fonty, bootstrap se natahují z webu - soubor pohledy/headers.php)</li>
+</ul>
+
+<h2>Známé problémy</h2>
+<p>Vzhledem k rozsahu projektu jsme se rozhodli neimplementovat dětské porce, ale nebylo by složité toto rozšíření přidat.</p>
+
+</body>
+</html>

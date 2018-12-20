@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="cs-cz">
+    <head>
+        <base href="/localhost" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <?php require 'pohledy/headers.php'; ?>
+
+
+        <title><?= $titulek ?></title>
+
+        <meta name="description" content="<?= $popis ?>" />
+        <meta name="keywords" content="<?= $klicova_slova ?>" />
+        <link rel="stylesheet" href="style.css" type="text/css"/>
+    </head>
+
+    <body>
+
+        <?php require 'pohledy/navbar.php'; ?>
+
+        <?php
+        // div ktery si nachystame, abychom ho pak mohli nekde vypsat
+        $zprava_div = '';
+        if (!empty($zpravy)) {
+            if ($zpravy[0]['typ'] == 'zprava_ok') {
+                //bude div alert zeleny
+                $zprava_div .= "<div class='info-pod vypis_ok_div'>";
+            } else {
+                $zprava_div .= "<div class='info-pod vypis_ko_div'>";
+            }
+            foreach ($zpravy as $zprava) :
+                $zprava_div .= "<i class='fa fa-exclamation'></i> " . $zprava['obsah'] . ' <br>';
+            endforeach;
+            $zprava_div .= "</div>";
+        }
+        ?>
+
+        <div>
+
+            <?php
+            // posleme si zpravy do pohledu
+            echo $zprava_div;
+            //$this->kontroler->data[ 'zpravy' ] = $zprava_div;
+            $this->kontroler->vypisPohled();
+            ?>
+        </div>
+
+        <!--<div class="py-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p class="mb-0">© 2018 Alca &amp; Honza (projekt IIS, FIT VUT BRNO)</p>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+
+    </body>
+</html>

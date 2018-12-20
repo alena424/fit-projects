@@ -1,0 +1,49 @@
+<div class="cerny_box">
+    <h2>Nová objednávka</h2>
+    <?php
+    include 'functions/formular.php';
+
+    $default_vals = array();
+    $params_amount = array('piti', 'jidlo');
+   
+    foreach ($params_amount as $attr) {
+        if (isset($params[$attr]) && !empty($params[$attr]) &&  $params[$attr][0]) {
+            $default_vals[$attr] = array();
+             $poc = 0;
+            // budeme potrebovat pridat i mnozstvi
+            foreach ($params[$attr] as $value) {
+                $pom_array = array();     
+                // jake obsahuje mnozstvi?
+                  $pom_array['item'] = $value;
+
+                if (isset($params['mnozstvi_' . $attr]) && $params['mnozstvi_' . $attr][$poc]) {
+                   //echo 'param' .$params['mnozstvi_' . $attr][$poc] .' ' .$poc .'<br>';
+                    $pom_array['amount'] = $params['mnozstvi_' . $attr][$poc];
+                   
+                } else {
+                    $pom_array['amount'] = 1;
+                }
+             
+                $default_vals[$attr][$poc] = $pom_array;
+                $poc++;
+            }
+        }
+    }
+    
+    $formular['piti'] = array('name' => 'Pití', 'type' => 'popup', 'force' => 0, 'value' => $default_vals['piti'], 'multiple' => 1, 'popup' => $piti_pop, 'amount' => 1);
+    $formular['jidlo'] = array('name' => 'Jídlo', 'type' => 'popup', 'force' => 0, 'value' => $default_vals['jidlo'], 'multiple' => 1, 'popup' => $jidlo_pop, 'amount' => 1, 'child_active' => 0);
+    $formular['stul'] = array('name' => 'Stůl', 'type' => 'popup', 'force' => 1, 'value' => $params['stul'][0], 'multiple' => 0, 'popup' => $stoly_pop);
+
+    $info['buttons'] = array(
+        array(value => "Uložit objednávku", name => 'uloz_objednavku')
+    );
+    $info['hiddens'] = array(
+        array(value => $_GET['nova_objednavka'], name => 'nova_objednavka'),
+    );
+
+    $info['cols'] = 1;
+    addFormular($formular, $info);
+    ?>
+    <br>
+    <a href="objednavky">Zpět na správu objednávek</a>
+</div>
