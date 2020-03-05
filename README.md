@@ -52,5 +52,14 @@
 - IBK Bakalářská práce
 - JS1 (86b - 2B) Španělština: začátečníci 2/2
 
+#### 1MIT 2019/2020 zimní semestr
+- AVS Architektury výpočetních systémů (90b - 1A)
+- MOG Molekulární genetika (95b - 1A)
+- MSP Statistika a pravděpodobnost (84b - 2B)
+- SUI Umělá inteligence a strojové učení (75b - 2C)
+- TIN Teoretická informatika (62b - 3D)
+- UPA Ukládání a příprava dat (64 - 3D)
+- TAMa Tvorba aplikací pro mobilní zařízení (v angličtině) (95 - 1A)
 
-
+#### 1MIT 2019/2020 letní semestr FEUP Porto
+- ZPX Zahraniční odborná praxe
