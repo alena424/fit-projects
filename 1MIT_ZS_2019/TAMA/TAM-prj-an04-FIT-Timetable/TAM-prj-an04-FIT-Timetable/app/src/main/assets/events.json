@@ -1,0 +1,1172 @@
+[
+    {
+        "name": "AVS 1",
+        "dayOfMonth": 3,
+        "startTime": "01:00",
+        "endTime": "02:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 2",
+        "dayOfMonth": 3,
+        "startTime": "04:00",
+        "endTime": "05:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 3",
+        "dayOfMonth": 3,
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 4",
+        "dayOfMonth": 3,
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 5",
+        "dayOfMonth": 4,
+        "startTime": "04:00",
+        "endTime": "05:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 6",
+        "dayOfMonth": 4,
+        "startTime": "07:00",
+        "endTime": "08:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 7",
+        "dayOfMonth": 4,
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 8",
+        "dayOfMonth": 5,
+        "startTime": "06:00",
+        "endTime": "07:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 9",
+        "dayOfMonth": 5,
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 10",
+        "dayOfMonth": 5,
+        "startTime": "16:00",
+        "endTime": "17:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 11",
+        "dayOfMonth": 4,
+        "startTime": "07:00",
+        "endTime": "09:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 12",
+        "dayOfMonth": 4,
+        "startTime": "04:00",
+        "endTime": "05:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 13",
+        "dayOfMonth": 3,
+        "startTime": "01:00",
+        "endTime": "02:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 14",
+        "dayOfMonth": 3,
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 15",
+        "dayOfMonth": 4,
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 16",
+        "dayOfMonth": 3,
+        "startTime": "20:00",
+        "endTime": "21:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 17",
+        "dayOfMonth": 4,
+        "startTime": "19:00",
+        "endTime": "20:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 18",
+        "dayOfMonth": 5,
+        "startTime": "22:00",
+        "endTime": "23:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 19",
+        "dayOfMonth": 5,
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 20",
+        "dayOfMonth": 6,
+        "startTime": "06:00",
+        "endTime": "07:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 21",
+        "dayOfMonth": 6,
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 22",
+        "dayOfMonth": 6,
+        "startTime": "12:00",
+        "endTime": "13:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 23",
+        "dayOfMonth": 6,
+        "startTime": "16:00",
+        "endTime": "17:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 24",
+        "dayOfMonth": 7,
+        "startTime": "07:00",
+        "endTime": "08:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 25",
+        "dayOfMonth": 7,
+        "startTime": "14:00",
+        "endTime": "16:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 26",
+        "dayOfMonth": 7,
+        "startTime": "21:00",
+        "endTime": "22:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 27",
+        "dayOfMonth": 8,
+        "startTime": "06:00",
+        "endTime": "07:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 28",
+        "dayOfMonth": 8,
+        "startTime": "12:00",
+        "endTime": "13:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 29",
+        "dayOfMonth": 8,
+        "startTime": "16:00",
+        "endTime": "17:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 30",
+        "dayOfMonth": 6,
+        "startTime": "06:00",
+        "endTime": "08:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 31",
+        "dayOfMonth": 6,
+        "startTime": "12:00",
+        "endTime": "13:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 32",
+        "dayOfMonth": 6,
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 33",
+        "dayOfMonth": 7,
+        "startTime": "21:00",
+        "endTime": "22:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 34",
+        "dayOfMonth": 7,
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 35",
+        "dayOfMonth": 6,
+        "startTime": "01:00",
+        "endTime": "03:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 36",
+        "dayOfMonth": 7,
+        "startTime": "02:00",
+        "endTime": "04:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 37",
+        "dayOfMonth": 7,
+        "startTime": "02:00",
+        "endTime": "03:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 38",
+        "dayOfMonth": 6,
+        "startTime": "20:00",
+        "endTime": "21:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 39",
+        "dayOfMonth": 9,
+        "startTime": "01:00",
+        "endTime": "02:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 40",
+        "dayOfMonth": 9,
+        "startTime": "07:00",
+        "endTime": "08:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 41",
+        "dayOfMonth": 9,
+        "startTime": "13:00",
+        "endTime": "15:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 42",
+        "dayOfMonth": 9,
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 43",
+        "dayOfMonth": 10,
+        "startTime": "04:00",
+        "endTime": "06:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 44",
+        "dayOfMonth": 10,
+        "startTime": "01:00",
+        "endTime": "03:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 45",
+        "dayOfMonth": 11,
+        "startTime": "11:00",
+        "endTime": "13:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 46",
+        "dayOfMonth": 10,
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 47",
+        "dayOfMonth": 11,
+        "startTime": "05:00",
+        "endTime": "06:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 48",
+        "dayOfMonth": 10,
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 49",
+        "dayOfMonth": 10,
+        "startTime": "04:00",
+        "endTime": "06:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 50",
+        "dayOfMonth": 10,
+        "startTime": "04:00",
+        "endTime": "05:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 51",
+        "dayOfMonth": 10,
+        "startTime": "01:00",
+        "endTime": "02:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 52",
+        "dayOfMonth": 9,
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 53",
+        "dayOfMonth": 9,
+        "startTime": "13:00",
+        "endTime": "15:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 54",
+        "dayOfMonth": 12,
+        "startTime": "02:00",
+        "endTime": "03:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 55",
+        "dayOfMonth": 12,
+        "startTime": "05:00",
+        "endTime": "06:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 56",
+        "dayOfMonth": 12,
+        "startTime": "10:00",
+        "endTime": "12:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 57",
+        "dayOfMonth": 12,
+        "startTime": "15:00",
+        "endTime": "17:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 58",
+        "dayOfMonth": 12,
+        "startTime": "18:00",
+        "endTime": "20:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 59",
+        "dayOfMonth": 13,
+        "startTime": "08:00",
+        "endTime": "09:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 60",
+        "dayOfMonth": 13,
+        "startTime": "12:00",
+        "endTime": "13:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 61",
+        "dayOfMonth": 13,
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 62",
+        "dayOfMonth": 13,
+        "startTime": "21:00",
+        "endTime": "22:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 63",
+        "dayOfMonth": 13,
+        "startTime": "05:00",
+        "endTime": "06:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 64",
+        "dayOfMonth": 11,
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 65",
+        "dayOfMonth": 11,
+        "startTime": "05:00",
+        "endTime": "06:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 66",
+        "dayOfMonth": 14,
+        "startTime": "01:00",
+        "endTime": "02:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 67",
+        "dayOfMonth": 14,
+        "startTime": "05:00",
+        "endTime": "07:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 68",
+        "dayOfMonth": 14,
+        "startTime": "10:00",
+        "endTime": "12:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 69",
+        "dayOfMonth": 14,
+        "startTime": "16:00",
+        "endTime": "18:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 70",
+        "dayOfMonth": 15,
+        "startTime": "06:00",
+        "endTime": "07:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 71",
+        "dayOfMonth": 15,
+        "startTime": "10:00",
+        "endTime": "12:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 72",
+        "dayOfMonth": 15,
+        "startTime": "12:00",
+        "endTime": "13:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 73",
+        "dayOfMonth": 15,
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 74",
+        "dayOfMonth": 15,
+        "startTime": "02:00",
+        "endTime": "03:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 75",
+        "dayOfMonth": 16,
+        "startTime": "08:00",
+        "endTime": "09:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 76",
+        "dayOfMonth": 16,
+        "startTime": "03:00",
+        "endTime": "04:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 77",
+        "dayOfMonth": 16,
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 78",
+        "dayOfMonth": 15,
+        "startTime": "20:00",
+        "endTime": "21:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 79",
+        "dayOfMonth": 14,
+        "startTime": "16:00",
+        "endTime": "17:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 80",
+        "dayOfMonth": 15,
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 81",
+        "dayOfMonth": 17,
+        "startTime": "01:00",
+        "endTime": "02:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 82",
+        "dayOfMonth": 17,
+        "startTime": "05:00",
+        "endTime": "07:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 83",
+        "dayOfMonth": 17,
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 84",
+        "dayOfMonth": 17,
+        "startTime": "14:00",
+        "endTime": "16:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 85",
+        "dayOfMonth": 17,
+        "startTime": "20:00",
+        "endTime": "21:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 86",
+        "dayOfMonth": 18,
+        "startTime": "01:00",
+        "endTime": "03:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 87",
+        "dayOfMonth": 18,
+        "startTime": "05:00",
+        "endTime": "07:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 88",
+        "dayOfMonth": 18,
+        "startTime": "11:00",
+        "endTime": "13:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 89",
+        "dayOfMonth": 18,
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 90",
+        "dayOfMonth": 18,
+        "startTime": "18:00",
+        "endTime": "20:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 91",
+        "dayOfMonth": 19,
+        "startTime": "05:00",
+        "endTime": "06:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 92",
+        "dayOfMonth": 19,
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 93",
+        "dayOfMonth": 19,
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 94",
+        "dayOfMonth": 19,
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 95",
+        "dayOfMonth": 18,
+        "startTime": "18:00",
+        "endTime": "20:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 96",
+        "dayOfMonth": 18,
+        "startTime": "11:00",
+        "endTime": "13:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 97",
+        "dayOfMonth": 18,
+        "startTime": "05:00",
+        "endTime": "06:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 98",
+        "dayOfMonth": 19,
+        "startTime": "07:00",
+        "endTime": "08:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 99",
+        "dayOfMonth": 20, 
+"location" : "D105",
+        "startTime": "02:00",
+        "endTime": "03:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 100",
+        "dayOfMonth": 20, 
+"location" : "D105",
+        "startTime": "05:00",
+        "endTime": "06:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 101",
+        "dayOfMonth": 20, 
+"location" : "D105",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 102",
+        "dayOfMonth": 20, 
+"location" : "D105",
+        "startTime": "15:00",
+        "endTime": "17:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 103",
+        "dayOfMonth": 20, 
+"location" : "D105",
+        "startTime": "19:00",
+        "endTime": "21:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 104",
+        "dayOfMonth": 20, 
+"location" : "D105",
+        "startTime": "13:00",
+        "endTime": "14:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 105",
+        "dayOfMonth": 19,
+        "startTime": "01:00",
+        "endTime": "02:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 106",
+        "dayOfMonth": 21,
+        "startTime": "01:00",
+        "endTime": "02:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 107",
+        "dayOfMonth": 21,
+        "startTime": "06:00",
+        "endTime": "08:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 108",
+        "dayOfMonth": 21,
+        "startTime": "10:00",
+        "endTime": "12:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 109",
+        "dayOfMonth": 21,
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 110",
+        "dayOfMonth": 20, 
+"location" : "D105",
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 111",
+        "dayOfMonth": 20, 
+"location" : "D105",
+        "startTime": "03:00",
+        "endTime": "04:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 112",
+        "dayOfMonth": 22,
+        "startTime": "01:00",
+        "endTime": "03:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 113",
+        "dayOfMonth": 22,
+        "startTime": "05:00",
+        "endTime": "06:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 114",
+        "dayOfMonth": 22,
+        "startTime": "08:00",
+        "endTime": "09:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 115",
+        "dayOfMonth": 22,
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 116",
+        "dayOfMonth": 22,
+        "startTime": "18:00",
+        "endTime": "20:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 117",
+        "dayOfMonth": 23,
+        "startTime": "02:00",
+        "endTime": "04:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 118",
+        "dayOfMonth": 23,
+        "startTime": "06:00",
+        "endTime": "07:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 119",
+        "dayOfMonth": 23,
+        "startTime": "10:00",
+        "endTime": "12:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 120",
+        "dayOfMonth": 23,
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 121",
+        "dayOfMonth": 23,
+        "startTime": "17:00",
+        "endTime": "19:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 122",
+        "dayOfMonth": 21,
+        "startTime": "20:00",
+        "endTime": "21:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 123",
+        "dayOfMonth": 21,
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 124",
+        "dayOfMonth": 21,
+        "startTime": "06:00",
+        "endTime": "08:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 125",
+        "dayOfMonth": 24,
+        "startTime": "02:00",
+        "endTime": "03:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 126",
+        "dayOfMonth": 24,
+        "startTime": "04:00",
+        "endTime": "05:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 127",
+        "dayOfMonth": 24,
+        "startTime": "08:00",
+        "endTime": "09:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 128",
+        "dayOfMonth": 24,
+        "startTime": "13:00",
+        "endTime": "15:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 129",
+        "dayOfMonth": 24,
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 130",
+        "dayOfMonth": 25,
+        "startTime": "05:00",
+        "endTime": "07:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 131",
+        "dayOfMonth": 25,
+        "startTime": "09:00",
+        "endTime": "11:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 132",
+        "dayOfMonth": 25,
+        "startTime": "12:00",
+        "endTime": "14:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 133",
+        "dayOfMonth": 25,
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 134",
+        "dayOfMonth": 26,
+        "startTime": "21:00",
+        "endTime": "22:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 135",
+        "dayOfMonth": 26,
+        "startTime": "11:00",
+        "endTime": "13:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 136",
+        "dayOfMonth": 26,
+        "startTime": "08:00",
+        "endTime": "09:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 137",
+        "dayOfMonth": 26,
+        "startTime": "03:00",
+        "endTime": "04:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 138",
+        "dayOfMonth": 27,
+        "startTime": "00:00",
+        "endTime": "02:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 139",
+        "dayOfMonth": 27,
+        "startTime": "06:00",
+        "endTime": "08:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 140",
+        "dayOfMonth": 27,
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 141",
+        "dayOfMonth": 27,
+        "startTime": "16:00",
+        "endTime": "17:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 142",
+        "dayOfMonth": 27,
+        "startTime": "20:00",
+        "endTime": "21:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 143",
+        "dayOfMonth": 28,
+        "startTime": "22:00",
+        "endTime": "00:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 144",
+        "dayOfMonth": 28,
+        "startTime": "18:00",
+        "endTime": "19:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 145",
+        "dayOfMonth": 28,
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 146",
+        "dayOfMonth": 28,
+        "startTime": "09:00",
+        "endTime": "11:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 147",
+        "dayOfMonth": 28,
+        "startTime": "06:00",
+        "endTime": "07:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 148",
+        "dayOfMonth": 28,
+        "startTime": "02:00",
+        "endTime": "04:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 149",
+        "dayOfMonth": 26,
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 150",
+        "dayOfMonth": 27,
+        "startTime": "06:00",
+        "endTime": "07:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 151",
+        "dayOfMonth": 26,
+        "startTime": "21:00",
+        "endTime": "22:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 152",
+        "dayOfMonth": 26,
+        "startTime": "03:00",
+        "endTime": "05:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 169",
+        "dayOfMonth": 1,
+        "startTime": "05:00",
+        "endTime": "07:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 170",
+        "dayOfMonth": 1,
+        "startTime": "02:00",
+        "endTime": "03:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 171",
+        "dayOfMonth": 1,
+        "startTime": "11:00",
+        "endTime": "12:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 172",
+        "dayOfMonth": 1,
+        "startTime": "15:00",
+        "endTime": "16:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 175",
+        "dayOfMonth": 2,
+        "startTime": "01:00",
+        "endTime": "03:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 176",
+        "dayOfMonth": 2,
+        "startTime": "05:00",
+        "endTime": "06:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 177",
+        "dayOfMonth": 2,
+        "startTime": "10:00",
+        "endTime": "11:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 178",
+        "dayOfMonth": 2,
+        "startTime": "14:00",
+        "endTime": "16:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 179",
+        "dayOfMonth": 2,
+        "startTime": "18:00",
+        "endTime": "20:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 180",
+        "dayOfMonth": 1,
+        "startTime": "20:00",
+        "endTime": "22:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 181",
+        "dayOfMonth": 3,
+        "startTime": "21:00",
+        "endTime": "23:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 182",
+        "dayOfMonth": 3,
+        "startTime": "17:00",
+        "endTime": "18:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 183",
+        "dayOfMonth": 3,
+        "startTime": "14:00",
+        "endTime": "15:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 184",
+        "dayOfMonth": 3,
+        "startTime": "05:00",
+        "endTime": "06:00",
+        "color": "#59DBE0"
+    }
+]

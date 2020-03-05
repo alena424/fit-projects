@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FIT Timetable</string>
+    <string name="action_day_view">Daily view</string>
+    <string name="action_five_day_view">Five-day view</string>
+    <string name="action_three_day_view">Three-day view</string>
+    <string name="action_today">Today</string>
+    <string name="action_week_view">Weekly view</string>
+    <string name="date_infos">From %1$s to %2$s</string>
+    <string name="export">Export to .ics file</string>
+    <string name="action_logout">Log out</string>
+    <string name="message_exporting">Exporting courses…</string>
+    <string name="organisation_name">VUT FIT TAMa</string>
+    <string name="message_export_failed">Exporting of courses failed.</string>
+    <string name="message_export_success">Courses have been successfully exported to file %1$s.\n\nYou can import the file, e.g., to the Google Calendar (using web interface: Settings -> Import &amp; export)\nSome Android applications support importing ICS files directly, e.g., Simple Calendar.</string>
+    <string name="link_to_course_page">Link to the course page</string>
+    <string name="link_to_room">Link to the room</string>
+    <string name="link_to_map">Link to the map of a building</string>
+    <string name="message_login_failed">Login failed.</string>
+    <string name="message_login_successfull">You have been successfully logged in.</string>
+    <string name="message_error_network_connection">Network connection is not available.</string>
+    <string name="login">Log in</string>
+    <string name="aktualizovat_z_wisu">Update from WIS</string>
+    <string name="trying_to_login">Trying to log in…</string>
+    <string name="uncorrect_login">Invalid credentials!</string>
+    <string name="loading_courses">Loading courses…</string>
+    <string name="downloading_courses_from_wis">Downloading courses from your private timetable…</string>
+    <string name="message_fail_synchronize">Synchronize failed, try to log in again.</string>
+    <string name="succesfully_loaded">Data have been successfully loaded from WIS.</string>
+    <string name="message_delete_course">Do you really want to remove the course?</string>
+    <string name="message_course_deleted">Course was successfully removed.</string>
+    <string name="message_course_non_deleted">Course could not be removed.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="room">Room</string>
+    <string name="appwidget_text">Application widget</string>
+    <string name="mess_id">ID</string>
+    <string name="message_logout">You have been successfully logged out.</string>
+</resources>

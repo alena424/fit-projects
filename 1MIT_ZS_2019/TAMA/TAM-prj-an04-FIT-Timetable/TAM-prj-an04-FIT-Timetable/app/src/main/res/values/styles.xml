@@ -1,0 +1,39 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="LoginTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorForeground">@color/foreground_material_light</item>
+    </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorForeground">@color/foreground_material_light</item>
+
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:textColorPrimary">@color/toolbar_text</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="android:actionMenuTextColor">@android:color/white</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="colorControlActivated">@color/accent</item>
+        <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>
+
+
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+
+    <style name="myCustomMenuTextAppearance" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    <style name="MyActionButtonOverflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
+        <!--Here you need to put name of drawable you will create during the next step-->
+
+        <item name="android:tint">@android:color/white</item>
+    </style>
+
+</resources>

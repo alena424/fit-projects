@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#e8f1f2">
+
+        <ImageView
+            android:id="@+id/previousWeekButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:srcCompat="@drawable/ic_chevron_left_black_24dp"/>
+
+        <TextView
+        android:id="@+id/dateRangeTextView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        tools:text="01/01/2018"/>
+
+
+        <ImageView
+            android:id="@+id/nextWeekButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:srcCompat="@drawable/ic_chevron_right_black_24dp"/>
+
+    </LinearLayout>
+
+    <com.alamkanak.weekview.WeekView
+        android:id="@+id/weekView"
+        app:maxHour="20"
+        app:minHour="7"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:columnGap="1dp"
+        app:eventCornerRadius="3dp"
+        app:eventTextColor="@android:color/black"
+        app:headerRowBottomLineColor="@color/header_bottom_line"
+        app:headerRowBottomLineWidth="1dp"
+        app:headerRowPadding="9dp"
+        app:horizontalScrollingEnabled="true"
+        app:hourHeight="25dp"
+        app:nowLineColor="@color/accent"
+        app:nowLineDotColor="@color/accent"
+        app:nowLineDotRadius="5dp"
+        app:nowLineStrokeWidth="1dp"
+        app:firstDayOfWeek="monday"
+        app:numberOfVisibleDays="5"
+        app:overlappingEventGap="1dp"
+        app:showFirstDayOfWeekFirst="true"
+        app:showHeaderRowBottomLine="true"
+        app:showNowLine="true"
+        app:showNowLineDot="true"
+        app:showTimeColumnSeparator="true"
+        app:singleDayHorizontalMargin="8dp"
+        app:timeColumnBackgroundColor="#ffffffff"
+        app:timeColumnPadding="8dp"
+        app:timeColumnSeparatorColor="@color/header_bottom_line"
+        app:timeColumnSeparatorStrokeWidth="1dp"
+        app:timeColumnTextColor="@color/toolbar_text"
+        app:timeColumnTextSize="12sp"
+        app:todayHeaderTextColor="@color/accent" />
+
+</LinearLayout>

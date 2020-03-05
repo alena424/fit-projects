@@ -1,0 +1,54 @@
+Architektury Výpočetních Systémů (AVS 2019)
+Projekt č. 2 (PMC)
+Login: xtesar36
+
+Úloha 1: Paralelizace původního řešení
+===============================================================================
+
+1) Kterou ze smyček (viz zadání) je vhodnější paralelizovat a co způsobuje
+   neefektivitu paralelizaci té druhé?
+
+Obecně je lepší dělat paralelizaci na vnějších smyčkách. Navíc u té druhé je neefektivita způsobena velkou režií spojenou s vytvářením vláken (přepínání a hlídání paměti).
+
+2) Jaké plánování (rozdělení práce mezi vlákna) jste zvolili a proč?
+Zvolila jsem plánování dynamic s chunk size 8, jelikož jak static, tak dynamic vyhazovali podobné výsledky při vyzkoušení chunk size 8, 16, 32 i 64. Při vyzkoušení plánování guided řešení vykazovalo znatelně nejhorší výsledky.
+=> dynamic(8)
+
+Jaký vliv má velikost "chunk" při dynamickém plánování (8, 16, 32, 64)?
+Na základě měření jsem zjistila, že velikost chunk nemá vliv při dynamickém plánování.
+
+3) Jakým způsobem zajišťujete ukládání trojúhelníků z několika vláken současně?
+Přístupem do kritické sekce.
+ #pragma omp critical
+
+1) Stručně popište použití OpenMP tasků ve vašem řešení.
+Nový task se vytvoří pro každé rekurzivní volání marchCubesRecursive (pro každou kostku). Každý task ukládá si ukládá výsledek do své proměnné (proměnná je shared, aby byla přístupná při sčítání). Přidáním taskwait na konci funkce se zaručí, že se čeká na dokončení všech tasků v aktuálním tasku.
+
+2) Jakým způsobem jste realizovali sesbírání celkového počtu trojúhelníků?
+
+Voláním rekurzivní funkce marchCubesRecursive, která se na počátku zavolá se souřadnicemi počátku souřadného systému s délkou hrany gridSize.
+Funkce marchCubesRecursive rekurzivně rozdělí krychli na 8 menších krychlí v případě, že od prostředního bodu krychle existuje nějaký bod do dané vzdálenosti. Procházení těchto směrů se děje parelaleně. Rozdělování na menší krychle pokračuje až do chvíle, kdy už je zbytečné snižovat délku hrany (kdy délka hrany je 1) - zavolá se buildCube, která generuje polygony a vrací počet trojúhelníků.
+
+3) Jaký vliv má na vaše řešení tzv. "cut-off"? Je vhodné vytvářet nový
+   task pro každou krychli na nejnižší úrovni?
+
+   Obecně je vhodné vytvářet tasky pouze do určité úrovně a pak procházet kód sekvenčně - důvodem je zmenšení režie na vytváření tasků. Já jsem zkoušela cutt-off 2 a 4. Při testování cuff-off 4 na bun_zipper_res1.pts byl čas průměrně pomalejší o 1000 ms než při hloubce 2 (tam to bylo kolem 5 000 ms). Při porovnání časů se sekvenční částí a bez sekvenční části jsou výsledky hodně podobné, ale ve většině případů vyjde lepší čas bez sekvenční části (šlo i vidět z grafu, proto jsem řešení se sekvenční částí zakomentovala), proto závěrem bych řekla, že je vhodné vytvářet nový task pro každou krychli v tomto případě. 
+
+4) Jakým způsobem zajišťujete ukládání trojúhelníků z několika vláken současně?
+Přístupem do kritické sekce.
+ #pragma omp critical
+
+Úloha 2: Grafy škálování obou řešení
+===============================================================================
+
+1) Stručně zhodnoťte efektivitu vytvořených řešení (na základě grafů škálování).
+Při porovnání časů algoritmu Octree a OpenMP Loop je ve většině okamžiku rychlejší použití algortimu Octree, což lze vyčíst ze všech tří grafů. Pouze v případě, kdy je gridSize^3 menší než 2^12, lze vidět, že rychlejší řešení je s použitím OpenMP Loop.
+
+2) V jakém případě (v závislosti na počtu bodů ve vstupním souboru a velikosti
+   mřížky) bude vaše řešení 1. úlohy neefektivní? (pokud takový případ existuje)
+Řešení začne být neefektivní v momentě, kdy je na vstupu velká mřížka a malý počet vstupních bodů (kvůli cyklu).
+
+
+3) Je (nebo není) stromový algoritmus efektivnější z pohledu slabého škálování
+   vzhledem ke vstupu?
+Ano, je.

@@ -1,0 +1,54 @@
+[
+
+    {
+        "name": "AVS 99",
+        "dayOfMonth": 20, 
+"location" : "D105",
+        "startTime": "02:00",
+        "endTime": "03:00",
+        "color": "#F8B552"
+    },
+    {
+        "name": "AVS 100",
+        "dayOfMonth": 20, 
+"location" : "D105",
+        "startTime": "05:00",
+        "endTime": "06:00",
+        "color": "#59DBE0"
+    },
+    {
+        "name": "AVS 101",
+        "dayOfMonth": 20, 
+"location" : "D105",
+        "startTime": "09:00",
+        "endTime": "10:00",
+        "color": "#F57F68"
+    },
+    {
+        "name": "AVS 102",
+        "dayOfMonth": 20, 
+"location" : "D105",
+        "startTime": "15:00",
+        "endTime": "17:00",
+        "color": "#87D288"
+    },
+    {
+        "name": "AVS 103",
+        "dayOfMonth": 20, 
+        "location" : "D105",
+        "startTime": "19:00",
+        "endTime": "21:00",
+        "color": "#F8B552",
+       "month" : 1,
+      "year" : 2019
+    },
+    {
+        "name": "AVS 104",
+        "dayOfMonth": 20, 
+"location" : "D105",
+        "startTime": "13:00",
+        "endTime": "14:00",
+        "color": "#59DBE0"
+    }
+
+]

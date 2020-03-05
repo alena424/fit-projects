@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FIT Timetable</string>
+    <string name="action_day_view">Denní pohled</string>
+    <string name="action_five_day_view">Pětidenní pohled</string>
+    <string name="action_three_day_view">Třídenní pohled</string>
+    <string name="action_today">Dnes</string>
+    <string name="action_week_view">Týdenní pohled</string>
+    <string name="date_infos">Od %1$s do %2$s</string>
+    <string name="export">Export do souboru .ics</string>
+    <string name="action_logout">Odhlásit se</string>
+    <string name="message_exporting">Exportuji předměty…</string>
+    <string name="organisation_name">VUT FIT TAMa</string>
+    <string name="message_export_failed">Při exportování předmětů nastala chyba.</string>
+    <string name="message_export_success">Předměty byly úspěšně exportovány do souboru %1$s.\n\nSoubor můžete importovat například do Google kalendáře (přes webové rozhraní: Nastavení -> Import &amp; export).\nNěkteré Android aplikace umožňují import ICS souborů přímo, například Simple Calendar.</string>
+    <string name="link_to_course_page">Odkaz na kartu předmětu</string>
+    <string name="link_to_room">Odkaz na místnost</string>
+    <string name="link_to_map">Odkaz na mapu areálu</string>
+    <string name="message_login_successfull">Byli jste úspěšně přihlášeni.</string>
+    <string name="message_login_failed">Při přihlášení nastala chyba.</string>
+    <string name="message_error_network_connection">Síťové připojení není k dispozici.</string>
+    <string name="login">Přihlásit se</string>
+    <string name="aktualizovat_z_wisu">Aktualizovat z WISu</string>
+    <string name="trying_to_login">Přihlašování…</string>
+    <string name="uncorrect_login">Nesprávné přihlašovací údaje.</string>
+    <string name="loading_courses">Načítám předměty…</string>
+    <string name="downloading_courses_from_wis">Stahování předmětů z osobního rozvrhu…</string>
+    <string name="message_fail_synchronize">Nepovedlo se synchronizovat data z WISu. Zkuste se prosím přihlásit.</string>
+    <string name="succesfully_loaded">Data úspěšně načtena z WISu.</string>
+    <string name="message_delete_course">Opravdu si přejete odstranit předmět?</string>
+    <string name="message_course_deleted">Předmět byl smazán.</string>
+    <string name="message_course_non_deleted">Předmět nemohl být smazán.</string>
+    <string name="yes">Ano</string>
+    <string name="no">Ne</string>
+    <string name="room">Místnost</string>
+    <string name="appwidget_text">Widget aplikace</string>
+    <string name="mess_id">ID</string>
+    <string name="message_logout">Byli jste úspěšně odhlášeni.</string>
+</resources>

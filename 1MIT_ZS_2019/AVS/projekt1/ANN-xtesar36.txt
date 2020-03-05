@@ -1,0 +1,104 @@
+Architektura výpočetních systému (AVS 2019)
+Projekt č. 1 (ANN)
+Login: xtesar36
+
+U každého kroku proveďte měření vypočtu pro dataset dostupný na https://www.fit.vutbr.cz/~ibordovsky/avs/datasets/bigDataset.h5
+Správnost výpočtu můžete porovnat pomocí python 3 skriptu "Scripts/compareOutputs.py" s referenčním řešením.
+Pro bigDataset je dostupný na https://www.fit.vutbr.cz/~ibordovsky/avs/datasets/bigRefOutput.h5
+
+Krok 0: základní implementace
+=============================
+Celkový čas [s]: 198.233 s
+Výkon skalárních operací [MFLOPS]:      63,54
+Výkon vektorových operací [MFLOPS]:     1068,8
+L1 miss [%]:                            99,46
+L2 miss [%]:                            99,94
+L3 miss [%]:                            0,0073
+
+Které PAPI_EVENTS jste použili pro získání počtu výpadků v paměti?
+HW countery L1: PAPI_L1_DCM|PAPI_LD_INS|PAPI_SR_INS
+HW countery L2: PAPI_L2_DCM|PAPI_L2_DCA
+HW countery L3: PAPI_L3_TCM|PAPI_L3_TCA
+
+
+Krok 1: vektorizace funkcí
+===================================
+Celkový čas [s]: 40,91
+Výkon skalárních operací [MFLOPS]:      0,0159
+Výkon vektorových operací [MFLOPS]:     5235,114
+L1 miss [%]:                            49,7
+L2 miss [%]:                            99,72
+L3 miss [%]:                            0,0384
+
+Jaké pragmy bylo potřeba přidat?
+- pragma omp declare simd, pragma omp simd
+
+Které dovětky k pragmám jste použili a jaky měly vliv na kompilátorem generované funkce? (main.cpp.optrpt/neuron.cpp.optrpt)
+- simdlen(8), uniform(inputSize, neuronCount,input,weight), linear(neuronId)
+- podařilo se dosáhnout potencionálního zrychlení (efficient speedup): 6,12
+- podařilo se zefektivnit provádění cyklu
+
+Krok 2: přístupy do paměti
+=============================
+a) S dovětky
+(Sepište všechyn použité dovětky):  simdlen(8), uniform(inputSize, input), linear(weight:31366)
+
+Celkový čas [s]: 23,93
+Výkon skalárních operací [MFLOPS]:      289,095
+Výkon vektorových operací [MFLOPS]:     12297,62
+L1 miss [%]:                            14,85
+L2 miss [%]:                            45,03
+L3 miss [%]:                            0,066
+
+b) Bez dovětků (bez kroku 31366 u weight)
+Některé dovětky maji negativní dopad na výkon, přestože kompilátor tvrdí opak. Které? 
+Výkon negativně ovlivnil dovětek linear(weight:31366), který doporučil kompilátor. 
+
+Celkový čas [s]: 23,9244
+Výkon skalárních operací [MFLOPS]:      290,37
+Výkon vektorových operací [MFLOPS]:     12297,61646
+L1 miss [%]:                            14,85
+L2 miss [%]:                            45,09
+L3 miss [%]:                            0,0682
+
+Proč mají dovětky negativní efekt na výkon?
+(neklasifikovana odpověď, můžete vynechat, ale může vynést přiklonění k bodu u věcí které jsou na hraně :-) )
+- lineární krok není konstantní
+
+
+Krok 3.1: přesun #pragma omp simd
+===================================
+Celkový čas [s]: 23,84
+Výkon skalárních operací [MFLOPS]:      295,56
+Výkon vektorových operací [MFLOPS]:     12362,762
+L1 miss [%]:                            14,92
+L2 miss [%]:                            45,34
+L3 miss [%]:                            0,0749
+
+Jaký dovětek je potřeba přidat?
+- reduction(+:suma)
+
+Krok 3.2: vykonání po vrstvách místo po obrázcích
+===================================
+Celkový čas [s]: 22,6
+Výkon skalárních operací [MFLOPS]:      299,749
+Výkon vektorových operací [MFLOPS]:     12536,293
+L1 miss [%]:                            15,427
+L2 miss [%]:                            51,965
+L3 miss [%]:                            0,2001
+
+Popište, jaký dopad na výkon mají výpadky v cache.
+- Vyšší počet výpadků z cache způsobuje snížení výkonu a delší čas (kvůli režii, která souvisí s přístupem do pomalejších pamětí při výpadcích).
+
+Krok 4: režie funkcí, zarovnání paměti
+===================================
+Celkový čas [s]: 21,38
+Výkon skalárních operací [MFLOPS]:      15,502
+Výkon vektorových operací [MFLOPS]:     14253,315
+L1 miss [%]:                            16,469
+L2 miss [%]:                            53,888
+L3 miss [%]:                            0,183
+
+Proč není zrychlení již výrazné? Na jaké typy problémů cílí tyto optimalizace?
+- Data jsou již celkem zarovnána, výraznější změna by mohla nastat například, pokud bychom používali sktrukturu.
+- Cílí na problémy s výkonem (moderní architektury procesorů pracují efektivněji pokud jsou data zarovnána na násobky 64 bajtů).

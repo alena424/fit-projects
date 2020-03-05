@@ -1,0 +1,57 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MyActivity">
+
+    <item
+        android:id="@+id/actualizeTimetable"
+        android:icon="@drawable/ic_sync_black_24dp"
+        app:showAsAction="ifRoom"
+        android:title="@string/aktualizovat_z_wisu"
+        />
+
+    <item
+        android:id="@+id/action_today"
+        android:orderInCategory="50"
+        android:title="@string/action_today"
+        app:showAsAction="ifRoom" />
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_day_view"
+            android:orderInCategory="100"
+            android:title="@string/action_day_view"
+            android:checked="false"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_five_day_view"
+            android:checked="true"
+            android:orderInCategory="150"
+            android:title="@string/action_five_day_view"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_three_day_view"
+            android:checked="false"
+            android:orderInCategory="200"
+            android:title="@string/action_three_day_view"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_week_view"
+            android:orderInCategory="300"
+            android:checked="false"
+            android:title="@string/action_week_view"
+            app:showAsAction="never" />
+    </group>
+
+    <item
+        android:id="@+id/action_export"
+        android:orderInCategory="400"
+        android:title="@string/export" />
+
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="500"
+        android:title="@string/action_logout" />
+</menu>
