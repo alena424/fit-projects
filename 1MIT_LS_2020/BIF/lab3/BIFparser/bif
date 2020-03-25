@@ -1,0 +1,25 @@
+<?php
+
+
+$filebat = file("outputfile");
+// To check the number of lines
+
+echo count($filebat).'<br>';
+$counter = 0;
+$myfile = fopen("track.bb", "w") ;
+foreach($filebat as $row) {
+    //echo $row;
+    $pieces_array = preg_split('/[\t]/', $row);
+    // var_dump($pieces_array[1]);
+
+    $start = $pieces_array[1] + 0;
+    $end = $pieces_array[2] + 0;
+    if (($end - $start) > 10000) {
+        //echo $row;
+        fwrite($myfile, $row);
+        $counter++;
+    }
+
+}
+echo $counter;
+?>
