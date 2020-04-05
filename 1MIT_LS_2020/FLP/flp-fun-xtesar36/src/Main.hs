@@ -32,6 +32,20 @@ processArguments[x,y]
    |otherwise= error "Input is in incorrect format, run like: ./rka-2-dka (-i|-t) [file]."
 processArguments _ = error "Input is in incorrect format, run like: ./rka-2-dka (-i|-t) [file]."
 
+{--
+@function splitOn 
+@describe to split a string delimite by comma
+@return 
+[String] - separated string
+--}
+splitOn :: String -> [String]
+splitOn [] = []
+splitOn s = x : splitOn (drop 1 y) where (x,y) = span (/= ',') s
+
+----- processing alphabets ---------------------------------------------------
+processAlphabet' :: String -> [String]
+processAlphabet' [] = []
+processAlphabet' (x:xs) = [x] : processAlphabet' xs
 
 {--
 @function parserFile 
@@ -40,36 +54,27 @@ processArguments _ = error "Input is in incorrect format, run like: ./rka-2-dka 
 	FiniteMachine 
 --}
 parserFile :: [String] -> FiniteMachine
-parserFile(states:alphabet:initState:finitStates:rules) 
-    = FiniteMachine processStates processAlphabet initState processFinitStates processRules
-    where 
-      processStates = splitOn states -- split by commas
-      processFinitStates = splitOn finitStates -- split by commas
-      ----- processing alphabets ---------------------------------------------------
-      processAlphabet = processAlphabet' alphabet
-
-      processAlphabet' :: String -> [String]
-      processAlphabet' [] = []
-      processAlphabet' (x:xs) = [x] : processAlphabet' xs
-
-      ----- processing rules and saving them to a structure ------------------------
-      processRules =  (map getTransitions rules) -- map applies a function processRule to evry item in the list
-      getTransitions rule = processRules' (splitOn rule) -- here we can work with a single line of rule
-
-      processRules' :: [String] -> Rule
-      processRules' [s, a, f] = Rule s a f
-      processRules' _ = error "Rules must come in this format: state, alphabet, nextState separated by newline"
-
-      {--
-      @function splitOn 
-      @describe to split a string delimite by comma
-      @return 
-	      [String] - separated string
-      --}
-      splitOn :: String -> [String]
-      splitOn [] = []
-      splitOn s = x : splitOn (drop 1 y) where (x,y) = span (/= ',') s
-
+parserFile [] = error "Nothing on input"
+parserFile(states:alphabet:initState:finitStates:rules)
+    | states == [] = error "There are no states."
+    | alphabet == [] = error "There are no symbols."
+    | initState == [] = error "There is no initial state."
+    | otherwise = FiniteMachine processStates (processAlphabet' alphabet) initState processFinitStates processRules
+        where
+          processStates = splitOn states -- split by commas
+          processFinitStates = splitOn finitStates -- split by commas
+          
+          ----- processing rules and saving them to a structure ------------------------
+          processRules =  if rules == [] then [] else (map getTransitions rules) -- map applies a function processRule to evry item in the list
+          
+          getTransitions rule = processRules' (splitOn rule) -- here we can work with a single line of rule
+    
+          processRules' :: [String] -> Rule
+          processRules' [s, a, f] = Rule s a f
+          processRules' _ = error "Rules must come in this format: state, alphabet, nextState separated by newline."
+          
+parserFile(states:alphabet:initState:[]) = FiniteMachine (splitOn states) (processAlphabet' alphabet) initState [] []
+parserFile _ = error "Error in input file. Please put: \n<states>\n<alfabet>\n<initialState>\n<finalStates>\n<rule_1>\n<rule_n>"
 
 printerFSM :: FiniteMachine -> IO ()
 printerFSM (FiniteMachine states alphabet initState finitStates rules) =
@@ -117,6 +122,7 @@ removeDupArray (x:xs) = x : (removeDupArray (removeDupArray' x xs))
 --------------------- RENAMING RULES ----------------------------------------------------------
 -- rules must be names with a digit number - this digit feres to index in all rules array
 renameRulesToSingleNumber :: [[String]] -> [RuleNew] -> [RuleNew]
+renameRulesToSingleNumber [] _ = []
 renameRulesToSingleNumber allStatesStringArray [] = []
 renameRulesToSingleNumber allStatesStringArray (x:xs) = renameRulesToSingleNumber' x allStatesStringArray : renameRulesToSingleNumber allStatesStringArray xs
    where
@@ -140,6 +146,8 @@ getStatesNew ((Rule q a n):xs) = q : n : getStatesNew xs
 
 -- all new states -> finalState -> allStatesArray intersection TODO
 getFinalStatesIntersection :: [String] -> [String] -> [[String]] -> [String]
+getFinalStatesIntersection _ _ [] = []
+getFinalStatesIntersection _ [] _ = []
 getFinalStatesIntersection [] _ _ = []
 getFinalStatesIntersection ([]:xs) finalStates allStatesIndex = getFinalStatesIntersection xs finalStates allStatesIndex
 getFinalStatesIntersection (x:xs) finalStates allStatesIndex
@@ -185,7 +193,7 @@ determineFSM (FiniteMachine states alphabet initState finitStates rules) = do
               powerSet (x:xs) = [x:ps | ps <- powerSet xs ]++ powerSet xs
 
    let newRules =  ( makingTableForDetermineIterateSymbols updatedRulesCleanedFromEpsilon alphabet powerSetAllStates ) -- making table with all possible rules 2^Q x Sigma -> 2^Q 
-   let initStates = findEpsilonWithoutDuplicities initState rules                                                      -- Qinit' = e-closure(Qunit)
+   let initStates = findEpsilonClosure [] [initState] rules                                                            -- Qinit' = e-closure(Qunit)
    let removeUnReachable = eliminateUnreachable newRules [initStates] newRules                                         --  2^Q rules minus unreachable rules
    let findAllStatesVar = removeDupArray( findAllStates removeUnReachable)                                             -- array of all state that are in new rules ([NewRule])
    let renamedRules = renameRulesToSingleNumber findAllStatesVar removeUnReachable                                     -- renamed rules by single number [0..n]

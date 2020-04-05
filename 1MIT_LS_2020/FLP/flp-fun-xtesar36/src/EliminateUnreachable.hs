@@ -5,7 +5,7 @@
 module EliminateUnreachable where
 
 import Types (FiniteMachine(..), Rule(..), RuleNew(..))
-import GeneralFunctions(compareListAll)
+import GeneralFunctions(compareListAll,member)
 
 ------------------------------------- REMOVAL OF UNREACHABLE STATES -----------------------------
 {--
@@ -47,13 +47,6 @@ eliminateUnreachable ((RuleNew q a n):xs) initState rules = do
               | compareListAll start q = n : findStatesWithStartState'' start xs
               | otherwise = findStatesWithStartState'' start xs
 
--- @function member
--- @describe finds out if element is inside an array
--- @return True|False if this element is in Array
-member :: [String] -> [[String]] -> Bool
-member elem [] = False
-member elem (x:xs)
-   | compareListAll elem x = True -- no need of order
-   | otherwise = member elem xs
+
    
 ------------------------------------ REMOVAL OF UNREACHABLE STATES END --------------------------

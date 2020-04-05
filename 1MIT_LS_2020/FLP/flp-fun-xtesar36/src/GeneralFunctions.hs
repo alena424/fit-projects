@@ -59,3 +59,21 @@ printerList (x:xs) = x ++ printerList xs
 printerList2 :: [[String]] -> String
 printerList2 [] = []
 printerList2 (x:xs) = "|" ++ printindEpsilon(x) ++ "|" ++ printerList2 xs
+
+-- @function member
+-- @describe finds out if element is inside an array
+-- @return True|False if this element is in Array
+member :: [String] -> [[String]] -> Bool
+member elem [] = False
+member elem (x:xs)
+   | compareListAll elem x = True -- no need of order
+   | otherwise = member elem xs
+   
+-- @function member
+-- @describe finds out if element is inside an array
+-- @return True|False if this element is in Array
+member2 :: String -> [String] -> Bool
+member2 elem [] = False
+member2 elem (x:xs)
+   | elem == x = True -- no need of order
+   | otherwise = member2 elem xs

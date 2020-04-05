@@ -6,6 +6,7 @@ module EpsilonRemoval where
 import Data.List
 import System.IO
 import Types (FiniteMachine(..), Rule(..), RuleNew(..))
+import GeneralFunctions(member2,member)
 
 ------------------------- EPSILON REMOVAL ----------------------------------------------------------------
 {--
@@ -30,7 +31,7 @@ removalEpsilonTransitionMain (x:xs) oldRulesCopy = removalEpsilonTransition oldR
 	[Rule] - the rules generated while removing epsilon transitions from ONE rule
 --}
 removalEpsilonTransition :: [Rule] -> Rule -> [Rule]
-removalEpsilonTransition rulesAll (Rule q a n) = removalEpsilonTransition' (findEpsilonWithoutDuplicities n rulesAll) (Rule q a n)
+removalEpsilonTransition rulesAll (Rule q a n) = removalEpsilonTransition' (findEpsilonClosure [] [n] rulesAll) (Rule q a n)
 
 {--
 @function removalEpsilonTransition 
@@ -67,10 +68,23 @@ findEpsilonWithoutDuplicities q rule = deleteEmptyItemsFromList (findEpsilon q r
       deleteEmptyItemsFromList ("":xs) = deleteEmptyItemsFromList xs
       deleteEmptyItemsFromList (x:xs) = x : deleteEmptyItemsFromList xs
 
+
+findEpsilonClosure :: [String] -> [String] -> [Rule] -> [String]
+findEpsilonClosure _ [] rules = []
+findEpsilonClosure epsilonClosure state rules = do
+    let newEpsilonClosure = findEpsilonMoreStates state rules
+    if epsilonClosure == newEpsilonClosure 
+      then epsilonClosure
+      else findEpsilonClosure newEpsilonClosure newEpsilonClosure rules
+  
+findEpsilonMoreStates :: [String] -> [Rule] -> [String]
+findEpsilonMoreStates q [] = []
+findEpsilonMoreStates [] _ = []
+findEpsilonMoreStates (q:qs) rules = unionArrayMembers (findEpsilon q rules) (findEpsilonMoreStates qs rules )
+
 findEpsilon :: String -> [Rule] -> [String]
-findEpsilon q [] = []
-findEpsilon q (x:[]) = [q]
-findEpsilon q (x:xs) = findEpsilon' q x : findEpsilon q xs 
+findEpsilon q [] = [q]
+findEpsilon q (x:xs) = unionArrayMember (findEpsilon' q x) (findEpsilon q xs )
    where
     -- { eps(p) = q | p ->* q }
     -- this function finds the q from p
@@ -78,5 +92,17 @@ findEpsilon q (x:xs) = findEpsilon' q x : findEpsilon q xs
     findEpsilon' qdif (Rule q "" n) = if qdif == q then n else []
     findEpsilon' _ _ = []
 
-
+unionArrayMember :: String -> [String] -> [String]
+unionArrayMember "" list2 = list2
+unionArrayMember list [] = [list]
+unionArrayMember x list
+  | member2 x list = list
+  | otherwise = list ++ [x]
+  
+unionArrayMembers :: [String] -> [String] -> [String]
+unionArrayMembers [] list2 = list2
+unionArrayMembers list [] = list
+unionArrayMembers (x:xs) list
+   | member2 x list = unionArrayMembers xs list
+   | otherwise = x : unionArrayMembers xs list
 ------------------------------------- END EPSILON REMOVAL ---------------------------------
