@@ -1,0 +1,25 @@
+#!/bin/bash
+# PRL - 2. projekt
+# Tesarova Alena
+
+#pocet cisel bud zadam nebo nechame 10
+
+if [ $# -lt 1 ];then 
+    numbers=10;
+else
+    numbers=$1;
+fi;
+
+#preklad
+mpic++ --prefix /usr/local/share/OpenMPI -o oets ots.cpp
+
+
+#vyrobeni souboru s random cisly - pocet zadan nebo default
+dd if=/dev/random bs=1 count=$numbers of=numbers 2>/dev/null
+
+#run
+mpirun --prefix /usr/local/share/OpenMPI -np $numbers oets
+
+#clean
+rm -f oets numbers
+

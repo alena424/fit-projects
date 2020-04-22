@@ -1,0 +1,45 @@
+#!/bin/bash
+# PRL - 3. projekt
+# Tesarova Alena
+
+
+if [ $# -lt 1 ]
+then 
+    echo "The first parameter should be a string representing altitudes of the terrain."
+    exit
+else
+    altitudes=$1;
+fi;
+
+altitudes_orig=$altitudes;
+
+# deliminer
+IFS=',' read -a array <<< "$altitudes"
+
+## get length of $array array
+len=${#array[@]}
+
+numprocess=2
+
+# we will get power of 2
+while [ $numprocess -lt $len ]
+do
+    numprocess=$(( $numprocess * 2 ))
+done
+
+numprocess=$(( $numprocess / 2 ))
+
+#numprocess=$(((len + 1) / 2)) #round up
+
+#echo $numprocess
+#echo $altitudes
+
+#preklad
+mpic++ --prefix /usr/local/share/OpenMPI -o vid vid.cpp
+
+#run
+mpirun --prefix /usr/local/share/OpenMPI -np $numprocess vid $altitudes
+
+#clean
+rm -f vid
+
