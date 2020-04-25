@@ -4,8 +4,12 @@
 * @date: 04/2020
 */
 
+:- dynamic prechod/3.
+:- discontiguous createPredicates/1.
+:- discontiguous createPredicatesAssert/1.
+
 % function from /Samples/cat.pl in FLP folder
-%Reads line from stdin, terminates on LF or EOF.
+% Reads line from stdin, terminates on LF or EOF.
 readLine(L, C) :-
 	get_char(C),
 	(isEOFEOL(C), L = [], !;
@@ -14,7 +18,6 @@ readLine(L, C) :-
 
 %Tests if character is EOF or LF.
 isEOFEOL(C) :-
-	%C == end_of_file, halt; 
 	C == end_of_file; 
 	(char_code(C,Code), Code==10).
 
@@ -23,17 +26,15 @@ print(C) :- write(C), write('\n').
 % Function makes a list from input
 makeListFromLine(List) :- 
 	readLine(Head, C),
-	writef("Reading: \n"),
 	(
 		C == end_of_file,
-		writef("End of line: \n"),
 		List = [], !
 	;
-		writef("Calling: \n"),
 		makeListFromLine(ListTale), 
 		List = [Head|ListTale]
 	).
 
+/*************************** PROCESSING INPUT ****************************************/
 % Finds last item in the List
 lastItemInTheList([LastItem], LastItem).
 lastItemInTheList([_|T], LastItem) :- lastItemInTheList(T,LastItem).
@@ -41,21 +42,35 @@ lastItemInTheList([_|T], LastItem) :- lastItemInTheList(T,LastItem).
 deleteLastItemInTheList([_], []).
 deleteLastItemInTheList([H|T], [H|NewList]) :- deleteLastItemInTheList(T,NewList).
 
+detectionFinalState([]) :- false, !.
+detectionFinalState([Head|Tale]) :- detectFinal(Head); detectionFinalState(Tale).
+detectFinal([_,_,State,_]) :- State == 'F', true, !.
 
+% Deletes space from all the rules
 %deleteSpacesFromRules(Rules, NewRules)
 deleteSpacesFromRules([],[]).
 deleteSpacesFromRules([Head|Tale], [NewHead|NewTale]) :- 
 	deleteSpacesFromList(Head, NewHead),
 	deleteSpacesFromRules(Tale, NewTale).
 
+% Deletes space from  one rule
 %deleteSpacesFromList(List,NewListWithoutSpaces) 
 deleteSpacesFromList([],[]).
 deleteSpacesFromList([Head|Tale],[Head|NewTale]) :- Head \= ' ', deleteSpacesFromList(Tale,NewTale).
 deleteSpacesFromList([_|Tale],NewListWithoutSpaces) :- deleteSpacesFromList(Tale,NewListWithoutSpaces).
 
+% Adds initial state S to initial configuration
 addInitialStateToInput(InputList, NewInputList) :- 
 	NewInputList = ['S'|InputList].
 
+separate([Head|[SymbolAfter|Tale]], BeforeList, Head, SymbolAfter, After) :- 
+		char_type(Head, upper),
+		After = Tale,
+		BeforeList = [],
+		!.
+separate([Head|[Symbol|Tale]], [Head|BeforeList], State, SymbolOnTape, After) :- separate([Symbol|Tale], BeforeList,  State, SymbolOnTape, After).
+
+/*************************** PRINTING *******************************/
 %Function formats a list and prints it to output
 printList(L) :- 
 	writef("Printing list:"),
@@ -67,135 +82,69 @@ printConfig([H|T]) :-
 	write(H),
 	printConfig(T).
 
+% Prints tape
+printTape([]) :- !.
+printTape([Head|Tape]) :-
+	printConfig(Head),
+	printTape(Tape).
 
-%changeState(RulesOfMachine,ActualState,SymbolOnTape,FoundRule)
-%findRuleFromList([],_,_,_,[],_,_,_) :- writef("error\n"), fail. 
-findRuleFromList([Head|Tale],ActualState,SymbolOnTape,ConfigurationString,FoundRule,NewConfiguration,ConfigList,NewState) :-
-		(
-			findRule(Head, ActualState, SymbolOnTape),
-			FoundRule = Head,
-			FoundRule = [_|[_|[NewState|NewSymbolOnTapeList]]],
-			getFirst(NewSymbolOnTapeList,NewSymbolOnTape),
+join([],[]).
+join([[Before,State,Symbol, After]|Tale], [HeadNew|ConfigNew]) :- joinConfig([Before,State,Symbol, After], HeadNew2), append(HeadNew2, [State|[Symbol|After]], HeadNew), join(Tale,ConfigNew).
+joinConfig([[], _, _, _],[]). 
+joinConfig([[Head|Before], State, Symbol, After], HeadNew) :- joinConfig([Before,State, Symbol, After],HeadNew2), append(HeadNew2,[Head],HeadNew).
+/*************************************************************************/
 
-			applyRule(ConfigurationString,ActualState, SymbolOnTape, NewConfiguration,NewState,NewSymbolOnTape)
-			/*(
-				isAlreadyInList(ConfigList,NewConfiguration), % loop detected
-				findRuleFromList(Tale,ActualState,SymbolOnTape,ConfigurationString,FoundRule,NewConfiguration,ConfigList,NewState) % we will try to find a different one 
-			;
-				!
-			)*/
-		;
-			findRuleFromList(Tale,ActualState,SymbolOnTape,ConfigurationString,FoundRule,NewConfiguration,ConfigList,NewState)
-		).
+/********************* ADDING DYNAMIC PREDICATES **************************/
+%prechod('left',[[], _, _, _], [_]) :-write("ERROR, out of tape"), halt.
 
-%findRule(Rule,ActualState,SymbolOnTape)
-findRule(Rule,ActualState,SymbolOnTape) :-
-	Rule = [StateFrom,SymbolOn,_,_],
-	StateFrom == ActualState,
-	SymbolOnTape == SymbolOn.
+%addItemToListInTheEnd(List, NewItem, NewList)
+addItemToListInTheEnd([],NewItem,[NewItem]) :- !.
+addItemToListInTheEnd([Head|Tale], NewItem, [Head|NewListTale]) :- addItemToListInTheEnd(Tale,NewItem,NewListTale).
 
+createPredicates([]) :- !.
+createPredicates([Head|Tale]) :- createPredicatesAssert(Head), createPredicates(Tale).
+createPredicatesAssert([StateFrom, SymbolAfter, StateNext, 'R']) :- 
+	assert(
+		prechod('right',[BeforeList, StateFrom, SymbolAfter, [Head|Tail]], [ [SymbolAfter|BeforeList], StateNext, Head, Tail]) ), 
+	assert(
+		prechod('right',[BeforeList, StateFrom, SymbolAfter, [Head]], [ [SymbolAfter|BeforeList], StateNext, Head, []]) ),
+	assert(
+		prechod('right',[BeforeList, StateFrom, SymbolAfter, []], [ [SymbolAfter|BeforeList], StateNext, '', []]) ),!.
 
-%changeConfig(ConfigurationString,ActualState, SymbolOnTape,NewState,NewSymbolOnTape,NewConfigString)
-changeConfig([],_,_,_,_,[]).
-changeConfig([Head|[_|Tale]],Head, SymbolOnTape,NewState,NewSymbolOnTape,[NewState|[NewSymbolOnTape|TaleNew]]) :-
-	changeConfig(Tale,Head,SymbolOnTape,NewState,NewSymbolOnTape,TaleNew).
+createPredicatesAssert([StateFrom, SymbolAfter, StateNext, 'L']) :- 
+	assert( 
+		prechod('left', [ [Head|BeforeList], StateFrom, SymbolAfter, EndList], [BeforeList, StateNext, Head, [SymbolAfter|EndList] ] ) ), 
+	assert( 
+		prechod('left', [ [Head], StateFrom, SymbolAfter, EndList], [[], StateNext, Head, [SymbolAfter|EndList] ] ) ), !.
 
-changeConfig([Head|Tale],ActualState, SymbolOnTape,NewState,NewSymbolOnTape,[Head|TaleNew]) :-
-	changeConfig(Tale,ActualState,SymbolOnTape,NewState,NewSymbolOnTape,TaleNew).
+createPredicatesAssert([StateFrom, SymbolAfter, StateNext, TapeNext]) :- 
+	assert( prechod('normal',[BeforeList, StateFrom, SymbolAfter, EndList], [BeforeList, StateNext, TapeNext, EndList])), !.
 
-%switchToRight(ConfigurationString,ActualState,NewConfigString)
-moveRightOnTape([],_,[]).
+% createPredicates([['S',a,'B',a],['B',a,'B','R'], ['B',b,'B','R'],['B',c,'B','a'],['B',c,'F','c'],['B',c,'B','a']]).
 
-% last symbol
-moveRightOnTape([Head],Head,[' '|[Head|TaleNew]]) :-
-	moveRightOnTape(_,Head,TaleNew).
+/************** MAIN FUNCTION MOVE *****************************************************/
+move([_,'F',_,_],[],_).
+move(Config, [NewConfig|Next],Iterate) :- \+ Iterate == 10000, Inc is Iterate + 1, move(NewConfig,Next,Inc), prechod(_,Config, NewConfig).	
+move(_,_,10000) :- writef("ERROR: NTS reached operation limit\n").
 
-moveRightOnTape([Head|[Symbol|Tale]],Head,[Symbol|[Head|TaleNew]]) :-
-	moveRightOnTape(Tale,Head,TaleNew).
-
-moveRightOnTape([Head|Tale],ActualState,[Head|TaleNew]) :- 
-	moveRightOnTape(Tale,ActualState,TaleNew).
-
-
-checkHeadWhileMovingLeft([Head|_],Head) :-
-	writef("We got out of tape on left side"),
-	fail.
-
-moveLeftOnTape([],_,[]).
-moveLeftOnTape([Symbol|[Head|Tale]],Head,[Head|[Symbol|TaleNew]]) :-
-	moveLeftOnTape(Tale,Head,TaleNew).
-
-moveLeftOnTape([Head|Tale],ActualState,[Head|TaleNew]) :- 
-	moveLeftOnTape(Tale,ActualState,TaleNew).
-
-
-moveOnTape().
-
-%applyRule(ConfigurationString,ActualState, SymbolOnTape,FoundRule, NewConfiguration,NewState,NewSymbolOnTape)
-applyRule(ConfigurationString,ActualState, SymbolOnTape, NewConfiguration,NewState,NewSymbolOnTape) :-
-(
-	NewSymbolOnTape == 'R',
-	moveRightOnTape(ConfigurationString,ActualState,NewConfiguration)
-;
-	NewSymbolOnTape == 'L',
-	checkHeadWhileMovingLeft(ConfigurationString,ActualState),
-	moveLeftOnTape(ConfigurationString,ActualState,NewConfiguration)
-;
-	changeConfig(ConfigurationString,ActualState, SymbolOnTape,NewState,NewSymbolOnTape,NewConfiguration)
-
-).
-
-%findSymbolOnTape(ConfigurationString, ActualState,SymbolOnTape) :-
-findSymbolOnTape([],_,' '). % if we dont find, we will but blank
-findSymbolOnTape([Head|[Symbol|_]],Head,Symbol).
-findSymbolOnTape([_|Tale],ActualState,SymbolOnTape) :- findSymbolOnTape(Tale,ActualState,SymbolOnTape).
-
-emptyList([]) :- true.
-emptyList(_) :- false.
-
-getFirst([H],H).
-
-%isAlreadyInList(List, Element)
-isAlreadyInList([],_) :- false.
-isAlreadyInList([Head|_], Head) :- true.
-isAlreadyInList([_|Tale], Element) :- isAlreadyInList(Tale,Element).
-
-simulateTuring(ConfigurationString,RulesOfMachine,ActualState,ConfigList) :-
-	%writef("start SIM\n"),
-	findSymbolOnTape(ConfigurationString, ActualState,SymbolOnTape),
-
-	findRuleFromList(RulesOfMachine,ActualState,SymbolOnTape,ConfigurationString,FoundRule,NewConfiguration,NewTape,NewState),
-	(
-		emptyList(FoundRule),
-		false
-	;
-		printConfig(NewConfiguration),
-		(
-			NewState == 'F',	 % we got to the final state so we can finish simulation
-			print([NewConfiguration|ConfigList]),
-			true
-		;
-			simulateTuring(NewConfiguration,RulesOfMachine,NewState,NewConfig),
-			ConfigList = [NewConfiguration|NewConfig]
-		)
-	).
-	
-
-%entry point
+/*************** ENTRY POINT ************************************************************/
 prolog :-
 	prompt(_, ''),
 	makeListFromLine(InputList),
-	printList(InputList),
 	lastItemInTheList(InputList,InputString),			 % last row indetifies the input of turingmachine
 	deleteLastItemInTheList(InputList,RulesOfMachine),	 % without the input we will get just rules that we need
 	addInitialStateToInput(InputString, InputStringWithInitial),
 	deleteSpacesFromRules(RulesOfMachine,RulesOfMachineWithoutSpace),
-	
-	printList(InputStringWithInitial),
-	printList(RulesOfMachineWithoutSpace),
-	printConfig(InputStringWithInitial),
+	printConfig(InputStringWithInitial), 				% printing initial configuration
+	createPredicates(RulesOfMachineWithoutSpace),
+	!, detectionFinalState(RulesOfMachineWithoutSpace),
+	separate(InputStringWithInitial,  Pred, State, Symbol, After),
+	Config2 = [Pred, State, Symbol, After],
 	!,
-	simulateTuring(InputStringWithInitial,RulesOfMachineWithoutSpace,'S',[InputStringWithInitial]).
+	move(Config2,ConfigFinal, 0),
+	%printList(ConfigFinal),
+	join(ConfigFinal, ConfigFinalTogether),
+	printTape(ConfigFinalTogether).
 
 
 	
