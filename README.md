@@ -62,4 +62,13 @@
 - TAMa Tvorba aplikací pro mobilní zařízení (v angličtině) (95 - 1A)
 
 #### 1MIT 2019/2020 letní semestr FEUP Porto
-- ZPX Zahraniční odborná praxe
+- SMUL
+- PGRE
+- MSSI
+- SEMB
+
+#### 1MIT 2019/2020 letní semestr FIT
+- BIF Bioinformatika
+- FLP Funkcionální a logické programování
+- MTIa Moderní trendy informatiky (v angličtině)
+- PRL Paralelní a distribuované algoritmy
