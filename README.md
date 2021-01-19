@@ -68,7 +68,7 @@ MIT
 - TAMa Tvorba aplikací pro mobilní zařízení (v angličtině) (95 - 1A)
 
 #### 1MIT 2019/2020 letní semestr FEUP Porto
-- SMUL 	Systems Modelling and Simulation (2C)
+- SMUL Systems Modelling and Simulation (2C)
 - PGRE Network Planning and Management (1B)
 - MSSI Multimedia Systems (1A)
 - SEMB Embedded systems (1B)
@@ -79,12 +79,16 @@ MIT
 - FLP Funkcionální a logické programování (60 - 3D)
 - MTIa Moderní trendy informatiky (v angličtině) (100 - 1A)
 - PRL Paralelní a distribuované algoritmy (88 - 2B)
+- Zahraniční odborná praxe
 
 #### 2MIT 2020/2021 zimní semestr
-- Pokročilá bioinformatika
-- Semestrální projekt
-- Získávání znalostí z databází
-- Biometrické systémy
-- Grafická uživatelská rozhraní v Javě
+- PBI Pokročilá bioinformatika (91 - 1A)
+- SEP Semestrální projekt
+- ZZN Získávání znalostí z databází (91 - 1A)
+- BIO Biometrické systémy
+- GJA Grafická uživatelská rozhraní v Javě
 
 #### 2MIT 2020/2021 letní semestr
+- BIN Biologií inspirované počítače
+- KNN Konvoluční neuronové sítě
+- PPP Praktické paralelní programování
