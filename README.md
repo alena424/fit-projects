@@ -4,6 +4,9 @@
 ##### Alena Tesarova
 ===================
 
+BIT
+------------------------------------
+
 #### 1BIT 2016/2017 zimní semestr
 
 - IDA Diskrétní matematika (100b - 1A)
@@ -52,6 +55,9 @@
 - IBK Bakalářská práce
 - JS1 (86b - 2B) Španělština: začátečníci 2/2
 
+MIT
+-------------------------------------------------------------
+
 #### 1MIT 2019/2020 zimní semestr
 - AVS Architektury výpočetních systémů (90b - 1A)
 - MOG Molekulární genetika (95b - 1A)
@@ -62,13 +68,23 @@
 - TAMa Tvorba aplikací pro mobilní zařízení (v angličtině) (95 - 1A)
 
 #### 1MIT 2019/2020 letní semestr FEUP Porto
-- SMUL
-- PGRE
-- MSSI
-- SEMB
+- SMUL 	Systems Modelling and Simulation (2C)
+- PGRE Network Planning and Management (1B)
+- MSSI Multimedia Systems (1A)
+- SEMB Embedded systems (1B)
+- Intensive Course of Portuguese for Forigners A1.2	(1A)
 
 #### 1MIT 2019/2020 letní semestr FIT
-- BIF Bioinformatika
-- FLP Funkcionální a logické programování
-- MTIa Moderní trendy informatiky (v angličtině)
-- PRL Paralelní a distribuované algoritmy
+- BIF Bioinformatika (91 - 1A)
+- FLP Funkcionální a logické programování (60 - 3D)
+- MTIa Moderní trendy informatiky (v angličtině) (100 - 1A)
+- PRL Paralelní a distribuované algoritmy (88 - 2B)
+
+#### 2MIT 2020/2021 zimní semestr
+- Pokročilá bioinformatika
+- Semestrální projekt
+- Získávání znalostí z databází
+- Biometrické systémy
+- Grafická uživatelská rozhraní v Javě
+
+#### 2MIT 2020/2021 letní semestr
