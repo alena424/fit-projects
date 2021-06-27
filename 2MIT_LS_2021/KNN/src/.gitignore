@@ -1,0 +1,7 @@
+.idea
+__pycache__
+unet/model
+unet/data
+unet/result
+*.xml
+*.img

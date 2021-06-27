@@ -85,10 +85,19 @@ MIT
 - PBI Pokročilá bioinformatika (91 - 1A)
 - SEP Semestrální projekt
 - ZZN Získávání znalostí z databází (91 - 1A)
-- BIO Biometrické systémy
-- GJA Grafická uživatelská rozhraní v Javě
+- BIO Biometrické systémy (80 - 2B)
+- GJA Grafická uživatelská rozhraní v Javě (100 - 1A)
 
 #### 2MIT 2020/2021 letní semestr
-- BIN Biologií inspirované počítače
-- KNN Konvoluční neuronové sítě
-- PPP Praktické paralelní programování
+- BIN Biologií inspirované počítače (80 - 2B)
+-- Projekt: Vizualizace návrhu celulárního automatu (V. Mrázek)
+- KNN Konvoluční neuronové sítě (86 - 2B)
+-- Projekt: Sémantická segmentace leteckých snímků
+- PPP Praktické paralelní programování (82 - 2B)
+-- Projekt: Simlace ohřevu chladiče procesoru
+- DIP Diplomová práce (A)
+- SZZ Státní závěrečná zkouška (A)
+
+Průměr
+----------------------------------------------------------
+1.46

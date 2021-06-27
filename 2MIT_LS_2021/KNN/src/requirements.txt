@@ -1,0 +1,14 @@
+hexutil
+numpy~=1.19.5
+matplotlib
+torch~=1.7.1
+
+scikit-image~=0.17.2
+tqdm~=4.60.0
+sklearn~=0.0
+scikit-learn~=0.24.1
+torch
+opencv-python
+scikit-image
+imutils
+requests
