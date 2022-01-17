@@ -21,7 +21,6 @@ BIT
 - IOS Operační systémy (84b - 2B)
 - ISU Programování na strojové úrovni (86b - 2B)
 - IJC Jazyk C (72b)
-- ITY Typografie a publikování (0b)
 - IVS Praktické aspekty vývoje software (90b - 1A)
 
 #### 2BIT 2017/2018 zimní semestr
