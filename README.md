@@ -4,6 +4,8 @@
 ##### Alena Tesarova
 ===================
 
+## Pozor na plagiátorství, zveřejněno pouze pro studijní účely!
+
 BIT
 ------------------------------------
 
